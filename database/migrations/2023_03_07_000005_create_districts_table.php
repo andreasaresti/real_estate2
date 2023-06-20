@@ -12,10 +12,7 @@ return new class extends Migration {
     {
         Schema::create('districts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table
-                ->string('ext_code')
-                ->nullable()
-                ->unique();
+            $table->string('ext_code')->nullable();
             $table->string('country');
             $table->json('name');
 

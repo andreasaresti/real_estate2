@@ -21,35 +21,11 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name' => 'update agents']);
         Permission::create(['name' => 'delete agents']);
 
-        Permission::create(['name' => 'list agentagreements']);
-        Permission::create(['name' => 'view agentagreements']);
-        Permission::create(['name' => 'create agentagreements']);
-        Permission::create(['name' => 'update agentagreements']);
-        Permission::create(['name' => 'delete agentagreements']);
-
-        Permission::create(['name' => 'list banners']);
-        Permission::create(['name' => 'view banners']);
-        Permission::create(['name' => 'create banners']);
-        Permission::create(['name' => 'update banners']);
-        Permission::create(['name' => 'delete banners']);
-
-        Permission::create(['name' => 'list bannerimages']);
-        Permission::create(['name' => 'view bannerimages']);
-        Permission::create(['name' => 'create bannerimages']);
-        Permission::create(['name' => 'update bannerimages']);
-        Permission::create(['name' => 'delete bannerimages']);
-
         Permission::create(['name' => 'list customers']);
         Permission::create(['name' => 'view customers']);
         Permission::create(['name' => 'create customers']);
         Permission::create(['name' => 'update customers']);
         Permission::create(['name' => 'delete customers']);
-
-        Permission::create(['name' => 'list customeragreements']);
-        Permission::create(['name' => 'view customeragreements']);
-        Permission::create(['name' => 'create customeragreements']);
-        Permission::create(['name' => 'update customeragreements']);
-        Permission::create(['name' => 'delete customeragreements']);
 
         Permission::create(['name' => 'list customerroles']);
         Permission::create(['name' => 'view customerroles']);
@@ -69,23 +45,11 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name' => 'update districts']);
         Permission::create(['name' => 'delete districts']);
 
-        Permission::create(['name' => 'list favoriteproperties']);
-        Permission::create(['name' => 'view favoriteproperties']);
-        Permission::create(['name' => 'create favoriteproperties']);
-        Permission::create(['name' => 'update favoriteproperties']);
-        Permission::create(['name' => 'delete favoriteproperties']);
-
         Permission::create(['name' => 'list features']);
         Permission::create(['name' => 'view features']);
         Permission::create(['name' => 'create features']);
         Permission::create(['name' => 'update features']);
         Permission::create(['name' => 'delete features']);
-
-        Permission::create(['name' => 'list floorplans']);
-        Permission::create(['name' => 'view floorplans']);
-        Permission::create(['name' => 'create floorplans']);
-        Permission::create(['name' => 'update floorplans']);
-        Permission::create(['name' => 'delete floorplans']);
 
         Permission::create(['name' => 'list internalstatuses']);
         Permission::create(['name' => 'view internalstatuses']);
@@ -117,11 +81,11 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name' => 'update listingattachments']);
         Permission::create(['name' => 'delete listingattachments']);
 
-        Permission::create(['name' => 'list listingtypes']);
-        Permission::create(['name' => 'view listingtypes']);
-        Permission::create(['name' => 'create listingtypes']);
-        Permission::create(['name' => 'update listingtypes']);
-        Permission::create(['name' => 'delete listingtypes']);
+        Permission::create(['name' => 'list listingrequests']);
+        Permission::create(['name' => 'view listingrequests']);
+        Permission::create(['name' => 'create listingrequests']);
+        Permission::create(['name' => 'update listingrequests']);
+        Permission::create(['name' => 'delete listingrequests']);
 
         Permission::create(['name' => 'list locations']);
         Permission::create(['name' => 'view locations']);
@@ -129,17 +93,17 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name' => 'update locations']);
         Permission::create(['name' => 'delete locations']);
 
-        Permission::create(['name' => 'list marketplaces']);
-        Permission::create(['name' => 'view marketplaces']);
-        Permission::create(['name' => 'create marketplaces']);
-        Permission::create(['name' => 'update marketplaces']);
-        Permission::create(['name' => 'delete marketplaces']);
-
         Permission::create(['name' => 'list municipalities']);
         Permission::create(['name' => 'view municipalities']);
         Permission::create(['name' => 'create municipalities']);
         Permission::create(['name' => 'update municipalities']);
         Permission::create(['name' => 'delete municipalities']);
+
+        Permission::create(['name' => 'list pages']);
+        Permission::create(['name' => 'view pages']);
+        Permission::create(['name' => 'create pages']);
+        Permission::create(['name' => 'update pages']);
+        Permission::create(['name' => 'delete pages']);
 
         Permission::create(['name' => 'list propertytypes']);
         Permission::create(['name' => 'view propertytypes']);
@@ -147,65 +111,17 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name' => 'update propertytypes']);
         Permission::create(['name' => 'delete propertytypes']);
 
-        Permission::create(['name' => 'list saleslostreasons']);
-        Permission::create(['name' => 'view saleslostreasons']);
-        Permission::create(['name' => 'create saleslostreasons']);
-        Permission::create(['name' => 'update saleslostreasons']);
-        Permission::create(['name' => 'delete saleslostreasons']);
+        Permission::create(['name' => 'list requestappointments']);
+        Permission::create(['name' => 'view requestappointments']);
+        Permission::create(['name' => 'create requestappointments']);
+        Permission::create(['name' => 'update requestappointments']);
+        Permission::create(['name' => 'delete requestappointments']);
 
         Permission::create(['name' => 'list allsalespeople']);
         Permission::create(['name' => 'view allsalespeople']);
         Permission::create(['name' => 'create allsalespeople']);
         Permission::create(['name' => 'update allsalespeople']);
         Permission::create(['name' => 'delete allsalespeople']);
-
-        Permission::create(['name' => 'list salespeopleagreements']);
-        Permission::create(['name' => 'view salespeopleagreements']);
-        Permission::create(['name' => 'create salespeopleagreements']);
-        Permission::create(['name' => 'update salespeopleagreements']);
-        Permission::create(['name' => 'delete salespeopleagreements']);
-
-        Permission::create(['name' => 'list salesrequests']);
-        Permission::create(['name' => 'view salesrequests']);
-        Permission::create(['name' => 'create salesrequests']);
-        Permission::create(['name' => 'update salesrequests']);
-        Permission::create(['name' => 'delete salesrequests']);
-
-        Permission::create(['name' => 'list salesrequestappointments']);
-        Permission::create(['name' => 'view salesrequestappointments']);
-        Permission::create(['name' => 'create salesrequestappointments']);
-        Permission::create(['name' => 'update salesrequestappointments']);
-        Permission::create(['name' => 'delete salesrequestappointments']);
-
-        Permission::create(['name' => 'list salesrequestdistricts']);
-        Permission::create(['name' => 'view salesrequestdistricts']);
-        Permission::create(['name' => 'create salesrequestdistricts']);
-        Permission::create(['name' => 'update salesrequestdistricts']);
-        Permission::create(['name' => 'delete salesrequestdistricts']);
-
-        Permission::create(['name' => 'list salesrequestlistings']);
-        Permission::create(['name' => 'view salesrequestlistings']);
-        Permission::create(['name' => 'create salesrequestlistings']);
-        Permission::create(['name' => 'update salesrequestlistings']);
-        Permission::create(['name' => 'delete salesrequestlistings']);
-
-        Permission::create(['name' => 'list salesrequestlistingtypes']);
-        Permission::create(['name' => 'view salesrequestlistingtypes']);
-        Permission::create(['name' => 'create salesrequestlistingtypes']);
-        Permission::create(['name' => 'update salesrequestlistingtypes']);
-        Permission::create(['name' => 'delete salesrequestlistingtypes']);
-
-        Permission::create(['name' => 'list salesrequestlocations']);
-        Permission::create(['name' => 'view salesrequestlocations']);
-        Permission::create(['name' => 'create salesrequestlocations']);
-        Permission::create(['name' => 'update salesrequestlocations']);
-        Permission::create(['name' => 'delete salesrequestlocations']);
-
-        Permission::create(['name' => 'list salesrequestmunicipalities']);
-        Permission::create(['name' => 'view salesrequestmunicipalities']);
-        Permission::create(['name' => 'create salesrequestmunicipalities']);
-        Permission::create(['name' => 'update salesrequestmunicipalities']);
-        Permission::create(['name' => 'delete salesrequestmunicipalities']);
 
         Permission::create(['name' => 'list sources']);
         Permission::create(['name' => 'view sources']);

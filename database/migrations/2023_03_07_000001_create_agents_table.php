@@ -20,15 +20,15 @@ return new class extends Migration {
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->string('image')->nullable();
+            $table->unsignedBigInteger('district_id')->nullable();
             $table->string('address')->nullable();
             $table->string('postal_code')->nullable();
             $table->string('city')->nullable();
-            $table->string('country')->nullable();
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
+            $table->string('country');
             $table->longText('comments')->nullable();
             $table->boolean('active')->default(1);
-            $table->float('longitude')->nullable();
-            $table->float('laditude')->nullable();
-            $table->unsignedBigInteger('district_id');
 
             $table->timestamps();
         });
