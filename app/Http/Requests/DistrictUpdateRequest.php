@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class DistrictUpdateRequest extends FormRequest
@@ -21,12 +20,7 @@ class DistrictUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'ext_code' => [
-                'nullable',
-                Rule::unique('districts', 'ext_code')->ignore($this->district),
-                'max:255',
-                'string',
-            ],
+            'ext_code' => ['nullable', 'max:255', 'string'],
             'country' => ['required', 'max:255', 'string'],
             'name' => ['required', 'max:255', 'json'],
         ];

@@ -2,6 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\Theme;
+use App\Observers\ThemeObserver;
+use App\Models\FavoriteProperty;
+use App\Observers\FavoritePropertyObserver;
+use App\Models\SalesRequestAppointment;
+use App\Observers\SalesRequestAppointmentObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -27,7 +33,9 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Theme::observe(ThemeObserver::class);
+        FavoriteProperty::observe(FavoritePropertyObserver::class);
+        SalesRequestAppointment::observe(SalesRequestAppointmentObserver::class);
     }
 
     /**

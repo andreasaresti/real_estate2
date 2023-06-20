@@ -62,10 +62,11 @@ class InternalStatusListingsController extends Controller
             'taxes' => ['nullable', 'max:255', 'string'],
             'dues' => ['nullable', 'max:255', 'string'],
             'notes' => ['nullable', 'max:255', 'string'],
-            'location_id' => ['nullable', 'exists:locations,id'],
-            'status_id' => ['nullable', 'exists:statuses,id'],
-            'delivery_time_id' => ['nullable', 'exists:delivery_times,id'],
-            'owner_id' => ['nullable', 'exists:customers,id'],
+            'location_id' => ['required', 'exists:locations,id'],
+            'property_type_id' => ['required', 'exists:property_types,id'],
+            'status_id' => ['required', 'exists:statuses,id'],
+            'delivery_time_id' => ['required', 'exists:delivery_times,id'],
+            'owner_id' => ['required', 'exists:customers,id'],
         ]);
 
         if ($request->hasFile('image')) {

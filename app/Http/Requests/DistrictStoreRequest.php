@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class DistrictStoreRequest extends FormRequest
@@ -21,12 +20,7 @@ class DistrictStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'ext_code' => [
-                'nullable',
-                'unique:districts,ext_code',
-                'max:255',
-                'string',
-            ],
+            'ext_code' => ['nullable', 'max:255', 'string'],
             'country' => ['required', 'max:255', 'string'],
             'name' => ['required', 'max:255', 'json'],
         ];

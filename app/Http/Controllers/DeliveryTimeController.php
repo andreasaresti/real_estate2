@@ -2,131 +2,85 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\View\View;
 use App\Models\DeliveryTime;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Storage;
-use App\Http\Requests\DeliveryTimeStoreRequest;
-use App\Http\Requests\DeliveryTimeUpdateRequest;
 
 class DeliveryTimeController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function index(Request $request): View
+    public function index()
     {
-        $this->authorize('view-any', DeliveryTime::class);
-
-        $search = $request->get('search', '');
-
-        $deliveryTimes = DeliveryTime::search($search)
-            ->latest()
-            ->paginate(5)
-            ->withQueryString();
-
-        return view(
-            'app.delivery_times.index',
-            compact('deliveryTimes', 'search')
-        );
+        //
     }
 
     /**
      * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function create(Request $request): View
+    public function create()
     {
-        $this->authorize('create', DeliveryTime::class);
-
-        return view('app.delivery_times.create');
+        //
     }
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
-    public function store(DeliveryTimeStoreRequest $request): RedirectResponse
+    public function store(Request $request)
     {
-        $this->authorize('create', DeliveryTime::class);
-
-        $validated = $request->validated();
-        if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('public');
-        }
-
-        $validated['name'] = json_decode($validated['name'], true);
-
-        $deliveryTime = DeliveryTime::create($validated);
-
-        return redirect()
-            ->route('delivery-times.edit', $deliveryTime)
-            ->withSuccess(__('crud.common.created'));
+        //
     }
 
     /**
      * Display the specified resource.
+     *
+     * @param  \App\Models\DeliveryTime  $deliveryTime
+     * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, DeliveryTime $deliveryTime): View
+    public function show(DeliveryTime $deliveryTime)
     {
-        $this->authorize('view', $deliveryTime);
-
-        return view('app.delivery_times.show', compact('deliveryTime'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\DeliveryTime  $deliveryTime
+     * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, DeliveryTime $deliveryTime): View
+    public function edit(DeliveryTime $deliveryTime)
     {
-        $this->authorize('update', $deliveryTime);
-
-        return view('app.delivery_times.edit', compact('deliveryTime'));
+        //
     }
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\DeliveryTime  $deliveryTime
+     * @return \Illuminate\Http\Response
      */
-    public function update(
-        DeliveryTimeUpdateRequest $request,
-        DeliveryTime $deliveryTime
-    ): RedirectResponse {
-        $this->authorize('update', $deliveryTime);
-
-        $validated = $request->validated();
-        if ($request->hasFile('image')) {
-            if ($deliveryTime->image) {
-                Storage::delete($deliveryTime->image);
-            }
-
-            $validated['image'] = $request->file('image')->store('public');
-        }
-
-        $validated['name'] = json_decode($validated['name'], true);
-
-        $deliveryTime->update($validated);
-
-        return redirect()
-            ->route('delivery-times.edit', $deliveryTime)
-            ->withSuccess(__('crud.common.saved'));
+    public function update(Request $request, DeliveryTime $deliveryTime)
+    {
+        //
     }
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\DeliveryTime  $deliveryTime
+     * @return \Illuminate\Http\Response
      */
-    public function destroy(
-        Request $request,
-        DeliveryTime $deliveryTime
-    ): RedirectResponse {
-        $this->authorize('delete', $deliveryTime);
-
-        if ($deliveryTime->image) {
-            Storage::delete($deliveryTime->image);
-        }
-
-        $deliveryTime->delete();
-
-        return redirect()
-            ->route('delivery-times.index')
-            ->withSuccess(__('crud.common.removed'));
+    public function destroy(DeliveryTime $deliveryTime)
+    {
+        //
     }
 }

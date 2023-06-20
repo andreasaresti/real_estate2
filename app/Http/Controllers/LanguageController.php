@@ -3,108 +3,84 @@
 namespace App\Http\Controllers;
 
 use App\Models\Language;
-use Illuminate\View\View;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
-use App\Http\Requests\LanguageStoreRequest;
-use App\Http\Requests\LanguageUpdateRequest;
 
 class LanguageController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function index(Request $request): View
+    public function index()
     {
-        $this->authorize('view-any', Language::class);
-
-        $search = $request->get('search', '');
-
-        $languages = Language::search($search)
-            ->latest()
-            ->paginate(5)
-            ->withQueryString();
-
-        return view('app.languages.index', compact('languages', 'search'));
+        //
     }
 
     /**
      * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function create(Request $request): View
+    public function create()
     {
-        $this->authorize('create', Language::class);
-
-        return view('app.languages.create');
+        //
     }
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
-    public function store(LanguageStoreRequest $request): RedirectResponse
+    public function store(Request $request)
     {
-        $this->authorize('create', Language::class);
-
-        $validated = $request->validated();
-
-        $language = Language::create($validated);
-
-        return redirect()
-            ->route('languages.edit', $language)
-            ->withSuccess(__('crud.common.created'));
+        //
     }
 
     /**
      * Display the specified resource.
+     *
+     * @param  \App\Models\Language  $language
+     * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Language $language): View
+    public function show(Language $language)
     {
-        $this->authorize('view', $language);
-
-        return view('app.languages.show', compact('language'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Language  $language
+     * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, Language $language): View
+    public function edit(Language $language)
     {
-        $this->authorize('update', $language);
-
-        return view('app.languages.edit', compact('language'));
+        //
     }
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Language  $language
+     * @return \Illuminate\Http\Response
      */
-    public function update(
-        LanguageUpdateRequest $request,
-        Language $language
-    ): RedirectResponse {
-        $this->authorize('update', $language);
-
-        $validated = $request->validated();
-
-        $language->update($validated);
-
-        return redirect()
-            ->route('languages.edit', $language)
-            ->withSuccess(__('crud.common.saved'));
+    public function update(Request $request, Language $language)
+    {
+        //
     }
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Language  $language
+     * @return \Illuminate\Http\Response
      */
-    public function destroy(
-        Request $request,
-        Language $language
-    ): RedirectResponse {
-        $this->authorize('delete', $language);
-
-        $language->delete();
-
-        return redirect()
-            ->route('languages.index')
-            ->withSuccess(__('crud.common.removed'));
+    public function destroy(Language $language)
+    {
+        //
     }
 }

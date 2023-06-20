@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\View\View;
+use Illuminate\Support\Facades\DB;
 use App\Models\ListingType;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
@@ -54,8 +55,6 @@ class ListingTypeController extends Controller
             $validated['image'] = $request->file('image')->store('public');
         }
 
-        $validated['name'] = json_decode($validated['name'], true);
-
         $listingType = ListingType::create($validated);
 
         return redirect()
@@ -100,8 +99,6 @@ class ListingTypeController extends Controller
 
             $validated['image'] = $request->file('image')->store('public');
         }
-
-        $validated['name'] = json_decode($validated['name'], true);
 
         $listingType->update($validated);
 

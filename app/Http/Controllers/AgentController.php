@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Agent;
-use App\Models\District;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
@@ -37,9 +36,7 @@ class AgentController extends Controller
     {
         $this->authorize('create', Agent::class);
 
-        $districts = District::pluck('name', 'id');
-
-        return view('app.agents.create', compact('districts'));
+        return view('app.agents.create');
     }
 
     /**
@@ -78,9 +75,7 @@ class AgentController extends Controller
     {
         $this->authorize('update', $agent);
 
-        $districts = District::pluck('name', 'id');
-
-        return view('app.agents.edit', compact('agent', 'districts'));
+        return view('app.agents.edit', compact('agent'));
     }
 
     /**

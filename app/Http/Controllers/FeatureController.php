@@ -2,128 +2,98 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Feature;
-use Illuminate\View\View;
+use App\Models\NovaMenuMenus;
+use App\Models\NovaMenuMenuItems;
 use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Storage;
-use App\Http\Requests\FeatureStoreRequest;
-use App\Http\Requests\FeatureUpdateRequest;
+
+
 
 class FeatureController extends Controller
 {
+
     /**
      * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function index(Request $request): View
+
+
+    public function index()//: JsonResponse
     {
-        $this->authorize('view-any', Feature::class);
-
-        $search = $request->get('search', '');
-
-        $features = Feature::search($search)
-            ->latest()
-            ->paginate(5)
-            ->withQueryString();
-
-        return view('app.features.index', compact('features', 'search'));
+		//$menu = json_encode(NovaMenuMenus::orderBy('id', 'desc')->get());
+		//$menu = json_encode(NovaMenuMenuItems::orderBy('id', 'desc')->get());
+		$list = \DB::select('SELECT * from features');
+		$result = array();
+		for($i=0;$i<count($list);$i++){
+			array_push($result,["id"=> $list[$i]->id,"name"=> $list[$i]->name]);
+		}
+		return response()->json($result);
     }
-
+	
     /**
      * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function create(Request $request): View
+    public function create()
     {
-        $this->authorize('create', Feature::class);
-
-        return view('app.features.create');
+        //
     }
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
-    public function store(FeatureStoreRequest $request): RedirectResponse
+    public function store(Request $request)
     {
-        $this->authorize('create', Feature::class);
-
-        $validated = $request->validated();
-        if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('public');
-        }
-
-        $validated['name'] = json_decode($validated['name'], true);
-
-        $feature = Feature::create($validated);
-
-        return redirect()
-            ->route('features.edit', $feature)
-            ->withSuccess(__('crud.common.created'));
+        //
     }
 
     /**
      * Display the specified resource.
+     *
+     * @param  \App\Models\Menu  $Menu
+     * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Feature $feature): View
+    public function show(Menu $Menu)
     {
-        $this->authorize('view', $feature);
-
-        return view('app.features.show', compact('feature'));
+        //return view('Menu.view', ['Menu' => $Menu]);
+        // return $Menu;
     }
 
     /**
      * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Menu  $Menu
+     * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, Feature $feature): View
+    public function edit(Menu $Menu)
     {
-        $this->authorize('update', $feature);
-
-        return view('app.features.edit', compact('feature'));
+        //
     }
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Menu  $Menu
+     * @return \Illuminate\Http\Response
      */
-    public function update(
-        FeatureUpdateRequest $request,
-        Feature $feature
-    ): RedirectResponse {
-        $this->authorize('update', $feature);
-
-        $validated = $request->validated();
-        if ($request->hasFile('image')) {
-            if ($feature->image) {
-                Storage::delete($feature->image);
-            }
-
-            $validated['image'] = $request->file('image')->store('public');
-        }
-
-        $validated['name'] = json_decode($validated['name'], true);
-
-        $feature->update($validated);
-
-        return redirect()
-            ->route('features.edit', $feature)
-            ->withSuccess(__('crud.common.saved'));
+    public function update(Request $request, Menu $Menu)
+    {
+        //
     }
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Menu  $Menu
+     * @return \Illuminate\Http\Response
      */
-    public function destroy(
-        Request $request,
-        Feature $feature
-    ): RedirectResponse {
-        $this->authorize('delete', $feature);
-
-        if ($feature->image) {
-            Storage::delete($feature->image);
-        }
-
-        $feature->delete();
-
-        return redirect()
-            ->route('features.index')
-            ->withSuccess(__('crud.common.removed'));
+    public function destroy(Menu $Menu)
+    {
+        //
     }
 }

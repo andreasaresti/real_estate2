@@ -2,127 +2,85 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\View\View;
-use Illuminate\Http\Request;
 use App\Models\InternalStatus;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Storage;
-use App\Http\Requests\InternalStatusStoreRequest;
-use App\Http\Requests\InternalStatusUpdateRequest;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class InternalStatusController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function index(Request $request): View
+    public function index()
     {
-        $this->authorize('view-any', InternalStatus::class);
-
-        $search = $request->get('search', '');
-
-        $internalStatuses = InternalStatus::search($search)
-            ->latest()
-            ->paginate(5)
-            ->withQueryString();
-
-        return view(
-            'app.internal_statuses.index',
-            compact('internalStatuses', 'search')
-        );
+        //
     }
 
     /**
      * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function create(Request $request): View
+    public function create()
     {
-        $this->authorize('create', InternalStatus::class);
-
-        return view('app.internal_statuses.create');
+        //
     }
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
-    public function store(InternalStatusStoreRequest $request): RedirectResponse
+    public function store(Request $request)
     {
-        $this->authorize('create', InternalStatus::class);
-
-        $validated = $request->validated();
-        if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('public');
-        }
-
-        $internalStatus = InternalStatus::create($validated);
-
-        return redirect()
-            ->route('internal-statuses.edit', $internalStatus)
-            ->withSuccess(__('crud.common.created'));
+        //
     }
 
     /**
      * Display the specified resource.
+     *
+     * @param  \App\Models\InternalStatus  $internalStatus
+     * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, InternalStatus $internalStatus): View
+    public function show(InternalStatus $internalStatus)
     {
-        $this->authorize('view', $internalStatus);
-
-        return view('app.internal_statuses.show', compact('internalStatus'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\InternalStatus  $internalStatus
+     * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, InternalStatus $internalStatus): View
+    public function edit(InternalStatus $internalStatus)
     {
-        $this->authorize('update', $internalStatus);
-
-        return view('app.internal_statuses.edit', compact('internalStatus'));
+        //
     }
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\InternalStatus  $internalStatus
+     * @return \Illuminate\Http\Response
      */
-    public function update(
-        InternalStatusUpdateRequest $request,
-        InternalStatus $internalStatus
-    ): RedirectResponse {
-        $this->authorize('update', $internalStatus);
-
-        $validated = $request->validated();
-        if ($request->hasFile('image')) {
-            if ($internalStatus->image) {
-                Storage::delete($internalStatus->image);
-            }
-
-            $validated['image'] = $request->file('image')->store('public');
-        }
-
-        $internalStatus->update($validated);
-
-        return redirect()
-            ->route('internal-statuses.edit', $internalStatus)
-            ->withSuccess(__('crud.common.saved'));
+    public function update(Request $request, InternalStatus $internalStatus)
+    {
+        //
     }
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\InternalStatus  $internalStatus
+     * @return \Illuminate\Http\Response
      */
-    public function destroy(
-        Request $request,
-        InternalStatus $internalStatus
-    ): RedirectResponse {
-        $this->authorize('delete', $internalStatus);
-
-        if ($internalStatus->image) {
-            Storage::delete($internalStatus->image);
-        }
-
-        $internalStatus->delete();
-
-        return redirect()
-            ->route('internal-statuses.index')
-            ->withSuccess(__('crud.common.removed'));
+    public function destroy(InternalStatus $internalStatus)
+    {
+        //
     }
 }
