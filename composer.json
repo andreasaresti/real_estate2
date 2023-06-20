@@ -36,7 +36,9 @@
         "spatie/laravel-translatable": "^6.3",
         "spatie/nova-tags-field": "^4.0",
         "titasgailius/search-relations": "^2.0",
-        "ziffmedia/nova-select-plus": "^2.0"
+        "ziffmedia/nova-select-plus": "^2.0",
+        "fosetico/phpagebuilder": "*",
+        "fosetico/laravel-pagebuilder": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
