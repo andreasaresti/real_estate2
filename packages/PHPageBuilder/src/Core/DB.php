@@ -25,13 +25,13 @@ class DB
      */
     public function __construct(array $config)
     {
-        // $this->pdo = new PDO(
-        //     $config['driver'] . ':host=' . $config['host'] . ';dbname=' . $config['database'] . ";options='--client_encoding=" . $config['charset'] . "'",
-        //     $config['username'],
-        //     $config['password'],
-        //     [PDO::ATTR_ERRMODE => PDO::ERRMODE_SILENT]
-        // );
-        // $this->pdo->exec("set names " . $config['charset']);
+        $this->pdo = new PDO(
+            $config['driver'] . ':host=' . $config['host'] . ';dbname=' . $config['database'] . ";options='--client_encoding=" . $config['charset'] . "'",
+            $config['username'],
+            $config['password'],
+            [PDO::ATTR_ERRMODE => PDO::ERRMODE_SILENT]
+        );
+        $this->pdo->exec("set names " . $config['charset']);
     }
 
     /**
