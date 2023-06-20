@@ -3,16 +3,24 @@
 namespace App\Models;
 
 use App\Models\Scopes\Searchable;
+use App\Nova\FloorPlan;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Translatable\HasTranslations;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Listing extends Model
+class Listing extends Model implements HasMedia
 {
     use HasFactory;
     use Searchable;
+	use HasTranslations;
+    use InteractsWithMedia;
+	
+	public $translatable = ['name','description'];
 
     protected $fillable = [
-        'ext_code',
         'name',
         'image',
         'parent_id',
@@ -26,7 +34,7 @@ class Listing extends Model
         'area_size_postfix',
         'number_of_bedrooms',
         'number_of_bathrooms',
-        'number_of_garages_or_parkingpaces',
+        'number_of_garages-or_parkingpaces',
         'year_built',
         'featured',
         'published',
@@ -42,13 +50,13 @@ class Listing extends Model
         'dues',
         'notes',
         'location_id',
+        'property_type_id',
         'status_id',
         'delivery_time_id',
         'internal_status_id',
         'owner_id',
-        'agent_id',
-        'map',
-        'export_all_marketplaces',
+        'listingRequest_id',
+        'request_appointment_id',
     ];
 
     protected $searchableFields = ['*'];
@@ -58,9 +66,22 @@ class Listing extends Model
         'description' => 'array',
         'featured' => 'boolean',
         'published' => 'boolean',
-        'export_all_marketplaces' => 'boolean',
     ];
 
+    public function Featured(){
+        return $this->belongsToMany(Feature::class,'feature_listing','listing_id','feature_id');
+    }
+
+    public function Marketplaces(){
+        return $this->belongsToMany(Marketplace::class,'listing_marketplace','listing_id','marketplace_id');
+    }
+
+    
+
+    public function ListingType(){
+        return $this->belongsToMany(ListingType::class,'listing_listing_type','listing_id','listing_type_id');
+    }
+    
     public function listing()
     {
         return $this->belongsTo(Listing::class, 'parent_id');
@@ -74,6 +95,11 @@ class Listing extends Model
     public function location()
     {
         return $this->belongsTo(Location::class);
+    }
+
+    public function propertyType()
+    {
+        return $this->belongsTo(PropertyType::class);
     }
 
     public function status()
@@ -96,58 +122,48 @@ class Listing extends Model
         return $this->belongsTo(Customer::class, 'owner_id');
     }
 
-    public function listingAttachments()
+    public function listingAttachment()
     {
         return $this->hasMany(ListingAttachment::class);
     }
 
-    public function listingAdditionalDetails()
-    {
-        return $this->hasMany(ListingAdditionalDetail::class);
-    }
-
-    public function floorPlans()
+    public function floorPlan()
     {
         return $this->hasMany(FloorPlan::class);
     }
 
-    public function agent()
+    public function listingAdditionalDetail()
     {
-        return $this->belongsTo(Agent::class);
+        return $this->hasMany(ListingAdditionalDetail::class);
     }
 
-    public function salesRequestAppointments()
+    public function requestAppointment()
     {
-        return $this->hasMany(SalesRequestAppointment::class);
+        return $this->belongsTo(RequestAppointment::class);
     }
 
-    public function salesRequestListings()
+    public function listingRequest()
     {
-        return $this->hasMany(SalesRequestListing::class);
+        return $this->belongsTo(ListingRequest::class, 'listingRequest_id');
+    }
+    
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('images')->useDisk('public');
     }
 
-    public function salesRequests()
+    public function registerMediaConversions(Media $media = null): void
     {
-        return $this->hasMany(SalesRequest::class);
-    }
+        $this->addMediaConversion('large-size')
+        ->width(1024)
+        ->height(768);
+        
+        $this->addMediaConversion('medium-size')
+        ->width(768)
+        ->height(576);
 
-    public function favoriteProperties()
-    {
-        return $this->hasMany(FavoriteProperty::class);
-    }
-
-    public function marketplaces()
-    {
-        return $this->belongsToMany(Marketplace::class);
-    }
-
-    public function features()
-    {
-        return $this->belongsToMany(Feature::class);
-    }
-
-    public function listingTypes()
-    {
-        return $this->belongsToMany(ListingType::class);
+        $this->addMediaConversion('thumb')
+        ->width(368)
+        ->height(232);
     }
 }

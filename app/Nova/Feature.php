@@ -1,13 +1,12 @@
 <?php
 
 namespace App\Nova;
-
+use Illuminate\Support\Facades\DB;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Feature extends Resource
@@ -57,16 +56,17 @@ class Feature extends Resource
                     'max:255',
                     'string'
                 )
-                ->placeholder('Ext Code'),
+                ->placeholder('Ext Code')
+                ->hideFromIndex(),
 
             Text::make('Name')
-                ->rules('required', 'max:255', 'json')
+				->translatable(DB::table('languages')->select('encoding','name')->orderBy('sequence')->pluck('name', 'encoding')->toArray())
+                ->rules('required', 'max:255')
                 ->placeholder('Name'),
 
             Image::make('Image')
                 ->rules('nullable', 'image', 'max:1024')
-                ->placeholder('Image')
-                ->hideFromIndex(),
+                ->placeholder('Image'),
 
             Number::make('Sequence')
                 ->rules('required', 'numeric')

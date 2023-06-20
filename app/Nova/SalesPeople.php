@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Boolean;
+use ZiffMedia\NovaSelectPlus\SelectPlus;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class SalesPeople extends Resource
@@ -35,6 +35,11 @@ class SalesPeople extends Resource
      */
     public static $search = ['name'];
 
+    public static $searchRelations = [
+        'Agent' => ['name'],        
+        'Customer' => ['name'],        
+   ];
+   
     /**
      * Get the fields displayed by the resource.
      *
@@ -50,24 +55,23 @@ class SalesPeople extends Resource
                 ->rules('required', 'max:255', 'string')
                 ->placeholder('Name'),
 
+            SelectPlus::make('Property Type', 'PropertyType', PropertyType::class)->hideFromIndex(),
+
+            SelectPlus::make('Department', 'ListingType', ListingType::class)->hideFromIndex(),
+
+            SelectPlus::make('District', 'District', District::class)->hideFromIndex(),
+            
+            BelongsTo::make('Customer', 'customer')->showCreateRelationButton(),
+
+            BelongsTo::make('Agent', 'agent')->showCreateRelationButton(),
+
             Boolean::make('Active')
                 ->rules('required', 'boolean')
                 ->placeholder('Active')
                 ->default('1'),
-
-            BelongsTo::make('Customer', 'customer'),
-
-            BelongsTo::make('Agent', 'agent'),
-
-            HasMany::make('SalesRequests', 'salesRequests'),
-
-            HasMany::make('SalesPeopleAgreements', 'salesPeopleAgreements'),
-
-            BelongsToMany::make('ListingTypes', 'listingTypes'),
-
-            BelongsToMany::make('Districts', 'districts'),
-
-            BelongsToMany::make('PropertyTypes', 'propertyTypes'),
+            
+            HasMany::make('Sales People Agreement', 'SalesPeopleAgreement'),
+            
         ];
     }
 

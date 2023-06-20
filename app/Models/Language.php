@@ -14,9 +14,4 @@ class Language extends Model
     protected $fillable = ['encoding', 'name', 'sequence'];
 
     protected $searchableFields = ['*'];
-
-    public function bannerImages()
-    {
-        return $this->hasMany(BannerImage::class);
-    }
 }

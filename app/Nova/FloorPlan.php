@@ -1,12 +1,11 @@
 <?php
 
 namespace App\Nova;
-
+use Illuminate\Support\Facades\DB;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Fields\Select;
-use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -33,7 +32,9 @@ class FloorPlan extends Resource
      * @var array
      */
     public static $search = ['name'];
-
+    public static $searchRelations = [
+        'Listing' => ['name'],
+    ];
     /**
      * Get the fields displayed by the resource.
      *
@@ -45,26 +46,19 @@ class FloorPlan extends Resource
         return [
             ID::make('id')->sortable(),
 
-            Textarea::make('Name')
-                ->rules('required', 'max:255', 'json')
-                ->placeholder('Name'),
-
             Image::make('Image')
                 ->rules('nullable', 'image', 'max:1024')
                 ->placeholder('Image'),
 
-            Textarea::make('Description')
-                ->rules('required', 'max:255', 'json')
-                ->placeholder('Description'),
+            Text::make('Name')
+				->translatable(DB::table('languages')->select('encoding','name')->orderBy('sequence')->pluck('name', 'encoding')->toArray())
+                ->rules('nullable', 'max:255')
+                ->placeholder('Name'),
 
-            Number::make('Sequence')
-                ->rules('required', 'numeric')
-                ->placeholder('Sequence')
-                ->default('0')
-                ->hideFromIndex()
-                ->hideFromDetail()
-                ->hideWhenCreating()
-                ->hideWhenUpdating(),
+            Textarea::make('Description')
+				->translatable(DB::table('languages')->select('encoding','name')->orderBy('sequence')->pluck('name', 'encoding')->toArray())
+                ->rules('required', 'max:255')
+                ->placeholder('Description'),
 
             BelongsTo::make('Listing', 'listing'),
         ];

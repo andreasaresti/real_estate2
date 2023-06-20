@@ -15,8 +15,13 @@ class Source extends Model
 
     protected $searchableFields = ['*'];
 
-    public function salesRequests()
+    public function listingRequests()
     {
-        return $this->hasMany(SalesRequest::class);
+        return $this->hasMany(ListingRequest::class);
+    }
+
+    public function source()
+    {
+        return $this->hasMany(Source::class);
     }
 }

@@ -1,14 +1,12 @@
 <?php
 
 namespace App\Nova;
-
+use Illuminate\Support\Facades\DB;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class ListingType extends Resource
@@ -16,7 +14,7 @@ class ListingType extends Resource
     /**
      * The model the resource corresponds to.
      *
-     * @var string
+     * @var class-string<\App\Models\ListingType>
      */
     public static $model = \App\Models\ListingType::class;
 
@@ -32,22 +30,41 @@ class ListingType extends Resource
      *
      * @var array
      */
-    public static $search = ['name'];
+    public static $search = [
+        'id',
+    ];
 
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
-    public function fields(Request $request)
+    public function fields(NovaRequest $request)
     {
         return [
             ID::make('id')->sortable(),
 
             Text::make('Name')
-                ->rules('required', 'max:255', 'json')
+				->translatable()
+                ->rules('required', 'max:255')
                 ->placeholder('Name'),
+
+            Text::make('Ext Code')
+                ->creationRules(
+                    'nullable',
+                    'unique:features,ext_code',
+                    'max:255',
+                    'string'
+                )
+                ->updateRules(
+                    'nullable',
+                    'unique:features,ext_code,{{resourceId}}',
+                    'max:255',
+                    'string'
+                )
+                ->placeholder('Ext Code')
+                ->hideFromIndex(),
 
             Image::make('Image')
                 ->rules('nullable', 'image', 'max:1024')
@@ -56,17 +73,21 @@ class ListingType extends Resource
             Number::make('Sequence')
                 ->rules('required', 'numeric')
                 ->placeholder('Sequence')
-                ->default('0'),
+                ->default('0')
+                ->hideFromIndex()
+                ->hideFromIndex()
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
         ];
     }
 
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
-    public function cards(Request $request)
+    public function cards(NovaRequest $request)
     {
         return [];
     }
@@ -74,10 +95,10 @@ class ListingType extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
-    public function filters(Request $request)
+    public function filters(NovaRequest $request)
     {
         return [];
     }
@@ -85,10 +106,10 @@ class ListingType extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
-    public function lenses(Request $request)
+    public function lenses(NovaRequest $request)
     {
         return [];
     }
@@ -96,10 +117,10 @@ class ListingType extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
-    public function actions(Request $request)
+    public function actions(NovaRequest $request)
     {
         return [];
     }

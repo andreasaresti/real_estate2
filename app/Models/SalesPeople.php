@@ -31,28 +31,25 @@ class SalesPeople extends Model
         return $this->belongsTo(Agent::class);
     }
 
-    public function salesRequests()
+    public function listingRequests()
     {
-        return $this->hasMany(SalesRequest::class);
+        return $this->hasMany(ListingRequest::class);
     }
 
-    public function salesPeopleAgreements()
+    public function ListingType(){
+        return $this->belongsToMany(ListingType::class,'listing_type_sales_people','sales_people_id','listing_type_id');
+    }
+
+    public function PropertyType(){
+        return $this->belongsToMany(PropertyType::class,'property_type_sales_people','sales_people_id','property_type_id');
+    }
+
+    public function District(){
+        return $this->belongsToMany(District::class,'district_sales_people','sales_people_id','district_id');
+    }
+
+    public function SalesPeopleAgreement()
     {
         return $this->hasMany(SalesPeopleAgreement::class);
-    }
-
-    public function listingTypes()
-    {
-        return $this->belongsToMany(ListingType::class);
-    }
-
-    public function districts()
-    {
-        return $this->belongsToMany(District::class);
-    }
-
-    public function propertyTypes()
-    {
-        return $this->belongsToMany(PropertyType::class);
     }
 }

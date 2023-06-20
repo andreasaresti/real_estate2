@@ -2,14 +2,16 @@
 
 namespace App\Nova;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Fields\Country;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -47,6 +49,10 @@ class Agent extends Resource
         return [
             ID::make('id')->sortable(),
 
+            Text::make('Name')
+                ->rules('required', 'max:255', 'string')
+                ->placeholder('Name'),
+
             Text::make('Ext Code')
                 ->creationRules(
                     'nullable',
@@ -60,11 +66,8 @@ class Agent extends Resource
                     'max:255',
                     'string'
                 )
-                ->placeholder('Ext Code'),
-
-            Text::make('Name')
-                ->rules('required', 'max:255', 'string')
-                ->placeholder('Name'),
+                ->placeholder('Ext Code')
+                ->hideFromIndex(),
 
             Text::make('Email')
                 ->rules('nullable', 'email')
@@ -80,30 +83,37 @@ class Agent extends Resource
 
             Text::make('Address')
                 ->rules('nullable', 'max:255', 'string')
-                ->placeholder('Address'),
+                ->placeholder('Address')
+                ->hideFromIndex(),
 
             Text::make('Postal Code')
                 ->rules('nullable', 'max:255', 'string')
-                ->placeholder('Postal Code'),
+                ->placeholder('Postal Code')
+                ->hideFromIndex(),
 
             Text::make('City')
                 ->rules('nullable', 'max:255', 'string')
-                ->placeholder('City'),
+                ->placeholder('City')
+                ->hideFromIndex(),
 
-            Text::make('Country')
+            BelongsTo::make('District', 'district')->showCreateRelationButton(),
+
+            Country::make('Country')
                 ->rules('nullable', 'max:255', 'string')
-                ->placeholder('Country'),
+                ->placeholder('Country')
+                ->default('CY')
+                ->hideFromIndex(),
 
-            Textarea::make('Comments')
+            Trix::make('Comments')
                 ->rules('nullable', 'max:255', 'string')
                 ->placeholder('Comments'),
 
             Boolean::make('Active')
-                ->rules('required', 'boolean')
+                ->rules('boolean')
                 ->placeholder('Active')
                 ->default('1'),
-
-            HasMany::make('AllSalesPeople', 'allSalesPeople'),
+                
+            HasMany::make('Agent Agreement', 'agentAgreement'),
         ];
     }
 

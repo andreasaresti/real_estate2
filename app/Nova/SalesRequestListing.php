@@ -2,11 +2,17 @@
 
 namespace App\Nova;
 
+use App\Models\SalesRequestMunicipality;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Trix;
+use Laravel\Nova\Fields\Datetime;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Boolean;
-use Laravel\Nova\Fields\Textarea;
+use ZiffMedia\NovaSelectPlus\SelectPlus;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -24,15 +30,17 @@ class SalesRequestListing extends Resource
      *
      * @var string
      */
-    public static $title = 'status';
+    public static $title = 'name';
 
     /**
      * The columns that should be searched.
      *
      * @var array
      */
-    public static $search = ['status'];
+    public static $search = ['name'];
 
+    
+   
     /**
      * Get the fields displayed by the resource.
      *
@@ -44,25 +52,34 @@ class SalesRequestListing extends Resource
         return [
             ID::make('id')->sortable(),
 
-            Select::make('Status')
-                ->rules('nullable', 'max:255', 'string')
-                ->searchable()
-                ->options([
-                    'open' => 'Open',
-                ])
-                ->displayUsingLabels()
-                ->placeholder('Status'),
+            BelongsTo::make('Sales Request', 'salesRequest'),
+            BelongsTo::make('Listing', 'listing')->searchable(),
 
-            Textarea::make('Notes')
-                ->rules('nullable', 'max:255', 'string')
-                ->placeholder('Notes'),
+            Trix::make('Notes')
+						->rules('nullable')
+						->placeholder('notes')
+						->hideFromIndex(),
+
+            Select::make('Status')
+                        ->rules('required', 'max:255', 'string')
+                        ->options([
+                            'open' => 'Open',
+                            'not_interested' => 'Not Interested',
+                        ])
+                        ->displayUsingLabels()
+                        ->placeholder('Status')
+                        ->default('open'),
+                        
+            Boolean::make('Emailed')
+                ->rules('nullable', 'boolean')
+                ->placeholder('Emailed')
+                ->default(false),
 
             Boolean::make('Active')
-                ->rules('required', 'boolean')
+                ->rules('nullable', 'boolean')
                 ->placeholder('Active')
-                ->default('1'),
-
-            BelongsTo::make('Listing', 'listing'),
+                ->default(true),
+            
         ];
     }
 

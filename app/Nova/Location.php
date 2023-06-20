@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Nova;
-
+use Illuminate\Support\Facades\DB;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
@@ -34,6 +34,9 @@ class Location extends Resource
      */
     public static $search = ['name'];
 
+    public static $searchRelations = [
+        'Municipality' => ['name'],
+   ];
     /**
      * Get the fields displayed by the resource.
      *
@@ -46,23 +49,9 @@ class Location extends Resource
             ID::make('id')->sortable(),
 
             Text::make('Name')
-                ->rules('required', 'max:255', 'json')
+				->translatable(DB::table('languages')->select('encoding','name')->orderBy('sequence')->pluck('name', 'encoding')->toArray())
+                ->rules('required', 'max:255')
                 ->placeholder('Name'),
-
-            Text::make('Ext Code')
-                ->creationRules(
-                    'nullable',
-                    'unique:locations,ext_code',
-                    'max:255',
-                    'string'
-                )
-                ->updateRules(
-                    'nullable',
-                    'unique:locations,ext_code,{{resourceId}}',
-                    'max:255',
-                    'string'
-                )
-                ->placeholder('Ext Code'),
 
             Number::make('Sequence')
                 ->rules('required', 'numeric')
@@ -71,9 +60,7 @@ class Location extends Resource
 
             HasMany::make('Listings', 'listings'),
 
-            BelongsTo::make('Municipality', 'municipality'),
-
-            HasMany::make('SalesRequestLocations', 'salesRequestLocations'),
+            BelongsTo::make('Municipality', 'municipality')->showCreateRelationButton(),
         ];
     }
 

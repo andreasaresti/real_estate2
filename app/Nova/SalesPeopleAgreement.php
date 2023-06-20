@@ -4,8 +4,12 @@ namespace App\Nova;
 
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Boolean;
+use ZiffMedia\NovaSelectPlus\SelectPlus;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -23,15 +27,17 @@ class SalesPeopleAgreement extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'name';
 
     /**
      * The columns that should be searched.
      *
      * @var array
      */
-    public static $search = ['id'];
+    public static $search = ['name'];
 
+  
+   
     /**
      * Get the fields displayed by the resource.
      *
@@ -43,13 +49,12 @@ class SalesPeopleAgreement extends Resource
         return [
             ID::make('id')->sortable(),
 
-            Number::make('Salespeople Commission Percentage')
-                ->rules('required', 'numeric')
-                ->placeholder('Salespeople Commission Percentage'),
-
-            BelongsTo::make('SalesPeople', 'salesPeople'),
-
+            BelongsTo::make('Sales People', 'salesPeople'),
             BelongsTo::make('District', 'district'),
+            BelongsTo::make('Property Type', 'propertyType'),
+            Number::make('Salespeople Commission Percentage')
+                ->rules('required')
+                ->placeholder('Commission Percentage'),
         ];
     }
 

@@ -32,7 +32,9 @@ class ListingAttachment extends Resource
      * @var array
      */
     public static $search = ['name'];
-
+    public static $searchRelations = [
+        'Listing' => ['name'],           
+   ];
     /**
      * Get the fields displayed by the resource.
      *

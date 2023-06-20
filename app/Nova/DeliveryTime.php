@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Nova;
-
+use Illuminate\Support\Facades\DB;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
@@ -44,6 +44,11 @@ class DeliveryTime extends Resource
         return [
             ID::make('id')->sortable(),
 
+            Text::make('Name')
+				->translatable()
+                ->rules('required', 'max:255')
+                ->placeholder('Name'),
+
             Text::make('Ext Code')
                 ->creationRules(
                     'nullable',
@@ -59,20 +64,17 @@ class DeliveryTime extends Resource
                 )
                 ->placeholder('Ext Code'),
 
-            Text::make('Name')
-                ->rules('required', 'max:255', 'json')
-                ->placeholder('Name'),
-
             Image::make('Image')
                 ->rules('nullable', 'image', 'max:1024')
-                ->placeholder('Image')
-                ->hideFromIndex(),
+                ->placeholder('Image'),
 
             Number::make('Sequence')
                 ->rules('required', 'numeric')
                 ->placeholder('Sequence')
                 ->default('0')
-                ->hideFromIndex(),
+                ->hideFromIndex()
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
 
             HasMany::make('Listings', 'listings'),
         ];

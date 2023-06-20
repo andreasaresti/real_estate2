@@ -2,11 +2,18 @@
 
 namespace App\Nova;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Select;
-use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\Trix;
+use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Fields\Country;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class CustomerAgreement extends Resource
@@ -23,14 +30,14 @@ class CustomerAgreement extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'name';
 
     /**
      * The columns that should be searched.
      *
      * @var array
      */
-    public static $search = ['id'];
+    public static $search = ['name'];
 
     /**
      * Get the fields displayed by the resource.
@@ -42,17 +49,12 @@ class CustomerAgreement extends Resource
     {
         return [
             ID::make('id')->sortable(),
-
-            Number::make('Agency Commission Percentage')
-                ->rules('required', 'numeric')
-                ->placeholder('Agency Commission Percentage')
-                ->default('0'),
-
             BelongsTo::make('Customer', 'customer'),
-
+            BelongsTo::make('Property Type', 'propertyType')->showCreateRelationButton(),
             BelongsTo::make('District', 'district'),
-
-            BelongsTo::make('PropertyType', 'propertyType'),
+            Text::make('Agency Commission Percentage','agency_commission_percentage')
+				->rules('required','nullable', 'max:255', 'string')
+				->placeholder('5.00'),            
         ];
     }
 

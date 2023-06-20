@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Nova;
-
+use Illuminate\Support\Facades\DB;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Color;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -56,16 +57,25 @@ class Status extends Resource
                     'max:255',
                     'string'
                 )
-                ->placeholder('Ext Code'),
+                ->placeholder('Ext Code')
+                ->hideFromIndex(),
 
             Text::make('Name')
-                ->rules('required', 'max:255', 'json')
+				->translatable(DB::table('languages')->select('encoding','name')->orderBy('sequence')->pluck('name', 'encoding')->toArray())
+                ->rules('required', 'max:255')
                 ->placeholder('Name'),
+            
+            Color::make('Color')
+                ->rules('nullable', 'max:255')
+                ->placeholder('Color'),
 
             Number::make('Sequence')
                 ->rules('required', 'numeric')
                 ->placeholder('Sequence')
-                ->default('0'),
+                ->default('0')
+                ->hideWhenCreating()
+                ->hideWhenUpdating()
+                ->hideFromIndex(),
 
             HasMany::make('Listings', 'listings'),
         ];

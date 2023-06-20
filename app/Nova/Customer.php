@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Trix;
+use Laravel\Nova\Fields\Country;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\Password;
@@ -35,7 +37,9 @@ class Customer extends Resource
      * @var array
      */
     public static $search = ['name'];
-
+    public static $searchRelations = [
+        'CustomerRole' => ['name'],
+    ];
     /**
      * Get the fields displayed by the resource.
      *
@@ -78,9 +82,9 @@ class Customer extends Resource
                 ->rules('required', 'max:255', 'string')
                 ->placeholder('Name'),
 
-            Text::make('Surname')
-                ->rules('nullable', 'max:255', 'string')
-                ->placeholder('Surname'),
+            // Text::make('Surname')
+            //     ->rules('nullable', 'max:255', 'string')
+            //     ->placeholder('Surname'),
 
             Text::make('Company Name')
                 ->rules('nullable', 'max:255', 'string')
@@ -136,21 +140,22 @@ class Customer extends Resource
                 ->placeholder('District')
                 ->hideFromIndex(),
 
-            Text::make('Country')
+            Country::make('Country')
                 ->rules('nullable', 'max:255', 'string')
                 ->placeholder('Country')
-                ->hideFromIndex(),
+                ->hideFromIndex()
+                ->default('CY'),
 
-            Textarea::make('Notes')
+            Trix::make('Notes')
                 ->rules('nullable', 'max:255', 'string')
                 ->placeholder('Notes')
                 ->hideFromIndex(),
 
             HasMany::make('Listings', 'listings'),
 
-            BelongsTo::make('CustomerRole', 'customerRole')->nullable(),
+            BelongsTo::make('Customer Role', 'customerRole')->nullable()->showCreateRelationButton(),
 
-            HasMany::make('SalesRequests', 'salesRequests'),
+            HasMany::make('Customer Agreement', 'customerAgreement'),
         ];
     }
 

@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Nova;
-
+use Illuminate\Support\Facades\DB;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Boolean;
-use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\Country;
+use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Marketplace extends Resource
@@ -44,12 +46,16 @@ class Marketplace extends Resource
             ID::make('id')->sortable(),
 
             Text::make('Name')
-                ->rules('required', 'max:255', 'string')
-                ->placeholder('Name'),
+				->rules('required', 'max:255')
+                ->placeholder('Name')
+                ->sortable(),
 
             Boolean::make('Active')
-                ->rules('required', 'boolean')
-                ->placeholder('Active'),
+                ->rules('nullable', 'boolean')
+                ->placeholder('Active')
+                ->default(true)
+                ->sortable(),	
+            
         ];
     }
 

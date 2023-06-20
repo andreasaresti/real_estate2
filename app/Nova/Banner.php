@@ -2,13 +2,16 @@
 
 namespace App\Nova;
 
-use Laravel\Nova\Fields\ID;
+use Ctessier\NovaAdvancedImageField\AdvancedImage;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Image;
+use Illuminate\Support\Facades\DB;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Trix;
+use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Banner extends Resource
@@ -16,7 +19,7 @@ class Banner extends Resource
     /**
      * The model the resource corresponds to.
      *
-     * @var string
+     * @var class-string<\App\Models\Banner>
      */
     public static $model = \App\Models\Banner::class;
 
@@ -32,51 +35,54 @@ class Banner extends Resource
      *
      * @var array
      */
-    public static $search = ['name'];
+    public static $search = [
+        'id',
+    ];
 
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
-    public function fields(Request $request)
+    public function fields(NovaRequest $request)
     {
         return [
-            ID::make('id')->sortable(),
+            ID::make()->sortable(),
 
             Text::make('Name')
                 ->rules('required', 'max:255', 'string')
                 ->placeholder('Name'),
 
-            Image::make('Image')
-                ->rules('nullable', 'image', 'max:1024')
-                ->placeholder('Image'),
+            AdvancedImage::make('Image')
+                ->croppable()
+                ->resize(1920)
+                ->driver('imagick')
+                ->croppable(),
 
-            Textarea::make('Title')
-                ->rules('nullable', 'max:255', 'json')
+            Text::make('Title')
+                ->translatable(DB::table('languages')->select('encoding','name')->orderBy('sequence')->pluck('name', 'encoding')->toArray())
+                ->rules('nullable')
                 ->placeholder('Title'),
 
-            Textarea::make('Description')
-                ->rules('nullable', 'max:255', 'json')
+            Trix::make('Description')
+                ->translatable(DB::table('languages')->select('encoding','name')->orderBy('sequence')->pluck('name', 'encoding')->toArray())
+                ->rules('nullable')
                 ->placeholder('Description'),
 
-            Boolean::make('Active')
-                ->rules('required', 'boolean')
-                ->placeholder('Active')
-                ->default('1'),
+            Boolean::make('Active')->default(true),
 
-            HasMany::make('BannerImages', 'bannerImages'),
+            HasMany::make('BannerImage', 'bannerImages'),
         ];
     }
 
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
-    public function cards(Request $request)
+    public function cards(NovaRequest $request)
     {
         return [];
     }
@@ -84,10 +90,10 @@ class Banner extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
-    public function filters(Request $request)
+    public function filters(NovaRequest $request)
     {
         return [];
     }
@@ -95,10 +101,10 @@ class Banner extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
-    public function lenses(Request $request)
+    public function lenses(NovaRequest $request)
     {
         return [];
     }
@@ -106,10 +112,10 @@ class Banner extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
-    public function actions(Request $request)
+    public function actions(NovaRequest $request)
     {
         return [];
     }

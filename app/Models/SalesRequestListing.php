@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Scopes\Searchable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class SalesRequestListing extends Model
@@ -33,7 +34,6 @@ class SalesRequestListing extends Model
     {
         return $this->belongsTo(Listing::class);
     }
-
     public function salesRequest()
     {
         return $this->belongsTo(SalesRequest::class);

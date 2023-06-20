@@ -45,23 +45,21 @@ class Customer extends Model
         return $this->belongsTo(CustomerRole::class);
     }
 
-    public function allSalesPeople()
+    public function salesPeople()
     {
         return $this->hasMany(SalesPeople::class);
     }
 
-    public function salesRequests()
+    public function listingRequests()
     {
-        return $this->hasMany(SalesRequest::class);
+        return $this->hasMany(ListingRequest::class);
     }
-
-    public function customerAgreements()
+    public function CustomerPropertyType()
+    {
+        return $this->hasMany(CustomerPropertyType::class);
+    }
+    public function customerAgreement()
     {
         return $this->hasMany(CustomerAgreement::class);
-    }
-
-    public function favoriteProperties()
-    {
-        return $this->hasMany(FavoriteProperty::class);
     }
 }

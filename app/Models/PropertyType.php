@@ -5,11 +5,15 @@ namespace App\Models;
 use App\Models\Scopes\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\Translatable\HasTranslations;
 
 class PropertyType extends Model
 {
     use HasFactory;
     use Searchable;
+	use HasTranslations;
+	
+	public $translatable = ['name'];
 
     protected $fillable = ['ext_code', 'name', 'color', 'sequence'];
 
@@ -21,28 +25,8 @@ class PropertyType extends Model
         'name' => 'array',
     ];
 
-    public function salesRequests()
+    public function listings()
     {
-        return $this->hasMany(SalesRequest::class);
-    }
-
-    public function agentAgreements()
-    {
-        return $this->hasMany(AgentAgreement::class);
-    }
-
-    public function salesPeopleAgreements()
-    {
-        return $this->hasMany(SalesPeopleAgreement::class);
-    }
-
-    public function customerAgreements()
-    {
-        return $this->hasMany(CustomerAgreement::class);
-    }
-
-    public function allSalesPeople()
-    {
-        return $this->belongsToMany(SalesPeople::class);
+        return $this->hasMany(Listing::class);
     }
 }

@@ -1,13 +1,12 @@
 <?php
 
 namespace App\Nova;
-
+use Illuminate\Support\Facades\DB;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class PropertyType extends Resource
@@ -44,6 +43,11 @@ class PropertyType extends Resource
         return [
             ID::make('id')->sortable(),
 
+            Text::make('Name')
+				->translatable()
+                ->rules('required', 'max:255')
+                ->placeholder('Name'),
+
             Text::make('Ext Code')
                 ->creationRules(
                     'nullable',
@@ -59,14 +63,14 @@ class PropertyType extends Resource
                 )
                 ->placeholder('Ext Code'),
 
-            Text::make('Name')
-                ->rules('required', 'max:255', 'json')
-                ->placeholder('Name'),
-
             Number::make('Sequence')
                 ->rules('required', 'numeric')
                 ->placeholder('Sequence')
-                ->default('0'),
+                ->default('0')
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
+
+            HasMany::make('Listings', 'listings'),
         ];
     }
 

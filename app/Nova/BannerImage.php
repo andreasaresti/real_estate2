@@ -2,22 +2,24 @@
 
 namespace App\Nova;
 
-use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Fields\Select;
-use Laravel\Nova\Fields\Boolean;
-use Laravel\Nova\Fields\Textarea;
+use Ctessier\NovaAdvancedImageField\AdvancedImage;
+use Illuminate\Support\Facades\DB;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Outl1ne\NovaSortable\Traits\HasSortableRows;
 
 class BannerImage extends Resource
 {
+    
+  use HasSortableRows;
     /**
      * The model the resource corresponds to.
      *
-     * @var string
+     * @var class-string<\App\Models\BannerImage>
      */
     public static $model = \App\Models\BannerImage::class;
 
@@ -26,65 +28,70 @@ class BannerImage extends Resource
      *
      * @var string
      */
-    public static $title = 'name';
+    public static $title = 'id';
 
     /**
      * The columns that should be searched.
      *
      * @var array
      */
-    public static $search = ['name'];
+    public static $search = [
+        'id',
+    ];
 
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
-    public function fields(Request $request)
+    public function fields(NovaRequest $request)
     {
         return [
-            ID::make('id')->sortable(),
+            ID::make()->sortable(),
 
-            Image::make('Image')
-                ->creationRules('required', 'image', 'max:1024')
-                ->updateRules('image', 'max:1024', 'nullable')
-                ->placeholder('Image'),
+            BelongsTo::make('Banner', 'banner'),
 
-            Textarea::make('Name')
-                ->rules('nullable', 'max:255', 'json')
+            BelongsTo::make('Language', 'language')->nullable(),
+
+            Text::make('Name')
+                ->translatable(DB::table('languages')->select('encoding','name')->orderBy('sequence')->pluck('name', 'encoding')->toArray())
+                ->rules('required', 'max:255', 'string')
                 ->placeholder('Name'),
 
-            Textarea::make('Description')
-                ->rules('nullable', 'max:255', 'json')
-                ->placeholder('Description'),
+            AdvancedImage::make('Image')
+                ->croppable()
+                ->resize(1920)
+                ->driver('imagick')
+                ->detailWidth(500)
+                ->indexWidth(200)
+                ->croppable(),
 
-            Textarea::make('Button Text')
-                ->rules('nullable', 'max:255', 'json')
-                ->placeholder('Button Text'),
+            Trix::make('Description')
+                ->translatable(DB::table('languages')->select('encoding','name')->orderBy('sequence')->pluck('name', 'encoding')->toArray())
+                ->rules('nullable')
+                ->placeholder('Description'),
 
             Text::make('Link')
                 ->rules('nullable', 'max:255', 'string')
                 ->placeholder('Link'),
 
-            Boolean::make('Active')
-                ->rules('required', 'boolean')
-                ->placeholder('Active')
-                ->default('1'),
+            Text::make('Button Text')
+                ->translatable(DB::table('languages')->select('encoding','name')->orderBy('sequence')->pluck('name', 'encoding')->toArray())
+                ->rules('nullable', 'max:255', 'string')
+                ->placeholder('Button Text'),
 
-            BelongsTo::make('Language', 'language')->nullable(),
-
-            BelongsTo::make('Banner', 'banner'),
+            Boolean::make('Active')->default(true),
         ];
     }
 
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
-    public function cards(Request $request)
+    public function cards(NovaRequest $request)
     {
         return [];
     }
@@ -92,10 +99,10 @@ class BannerImage extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
-    public function filters(Request $request)
+    public function filters(NovaRequest $request)
     {
         return [];
     }
@@ -103,10 +110,10 @@ class BannerImage extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
-    public function lenses(Request $request)
+    public function lenses(NovaRequest $request)
     {
         return [];
     }
@@ -114,10 +121,10 @@ class BannerImage extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
-    public function actions(Request $request)
+    public function actions(NovaRequest $request)
     {
         return [];
     }

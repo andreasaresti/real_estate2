@@ -3,20 +3,30 @@
 namespace App\Nova;
 
 use Laravel\Nova\Fields\ID;
+use Illuminate\Support\Facades\DB;
+use Eminiarts\Tabs\Tabs;
+use Eminiarts\Tabs\Tab;
+use Eminiarts\Tabs\Traits\HasTabs;
+use Eminiarts\Tabs\Traits\HasActionsInTabs; // Add this Trait
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
+use ZiffMedia\NovaSelectPlus\SelectPlus;
+use Laravel\Nova\Fields\FormData;
+
 
 class Listing extends Resource
 {
+	use HasTabs;
+    use HasActionsInTabs;
     /**
      * The model the resource corresponds to.
      *
@@ -35,184 +45,285 @@ class Listing extends Resource
      * The columns that should be searched.
      *
      * @var array
+	 *
      */
-    public static $search = ['name'];
-
+    public static $search = ['name', 'id','ext_code'];
+	public static $searchRelations = [
+		'Location' => ['name'],
+		'Customer' => ['name'],
+	];
     /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    public function fields(Request $request)
+    public function fields(NovaRequest $request)
     {
         return [
-            ID::make('id')->sortable(),
+			 Tabs::make('Listing', [
+                 Tab::make('Basic Information',[
 
-            Textarea::make('Name')
-                ->rules('required', 'max:255', 'json')
-                ->placeholder('Name'),
+					ID::make('id')->sortable(),
 
-            Image::make('Image')
-                ->rules('nullable', 'image', 'max:1024')
-                ->placeholder('Image'),
+					
 
-            Textarea::make('Description')
-                ->rules('nullable', 'max:255', 'json')
-                ->placeholder('Description')
-                ->hideFromIndex(),
+					Text::make('Ext Code')
+						->creationRules(
+							'nullable',
+							'unique:property_types,ext_code',
+							'max:255',
+							'string'
+						)
+						->updateRules(
+							'nullable',
+							'unique:property_types,ext_code,{{resourceId}}',
+							'max:255',
+							'string'
+						)
+						->placeholder('Ext Code')
+						->hideFromIndex(),
 
-            Number::make('Price')
-                ->rules('required', 'numeric')
-                ->placeholder('Price')
-                ->hideFromIndex(),
+					Text::make('Name')
+						->translatable(DB::table('languages')->select('encoding','name')->orderBy('sequence')->pluck('name', 'encoding')->toArray())
+						->rules('nullable')
+						->placeholder('Name'),
 
-            Number::make('Old Price')
-                ->rules('nullable', 'numeric')
-                ->placeholder('Old Price')
-                ->hideFromIndex(),
 
-            Text::make('Price Prefix')
-                ->rules('nullable', 'max:255', 'string')
-                ->placeholder('Price Prefix')
-                ->hideFromIndex(),
+					Image::make('Image')
+						->rules('nullable', 'image', 'max:1024')
+						->placeholder('Image'),
 
-            Text::make('Price Postfix')
-                ->rules('nullable', 'max:255', 'string')
-                ->placeholder('Price Postfix')
-                ->hideFromIndex(),
+					Trix::make('Description')
+						->translatable(DB::table('languages')->select('encoding','name')->orderBy('sequence')->pluck('name', 'encoding')->toArray())
+						->rules('nullable')
+						->placeholder('Description')
+						->hideFromIndex(),
 
-            Number::make('Area Size')
-                ->rules('nullable', 'numeric')
-                ->placeholder('Area Size')
-                ->hideFromIndex(),
+					Number::make('Price')
+						->rules('required', 'numeric')
+						->placeholder('Price')
+						->hideFromIndex(),
 
-            Text::make('Area Size Prefix')
-                ->rules('nullable', 'max:255', 'string')
-                ->placeholder('Area Size Prefix')
-                ->hideFromIndex(),
+					Number::make('Old Price')
+						->rules('nullable', 'numeric')
+						->placeholder('Old Price')
+						->hideFromIndex(),
 
-            Text::make('Area Size Postfix')
-                ->rules('nullable', 'max:255', 'string')
-                ->placeholder('Area Size Postfix')
-                ->hideFromIndex(),
+					Text::make('Price Prefix')
+						->rules('nullable', 'max:255', 'string')
+						->placeholder('Price Prefix')
+						->hideFromIndex(),
 
-            Number::make('Number Of Bedrooms')
-                ->rules('nullable', 'numeric')
-                ->placeholder('Number Of Bedrooms')
-                ->hideFromIndex(),
+					Text::make('Price Postfix')
+						->rules('nullable', 'max:255', 'string')
+						->placeholder('Price Postfix')
+						->hideFromIndex(),
 
-            Number::make('Number Of Bathrooms')
-                ->rules('nullable', 'numeric')
-                ->placeholder('Number Of Bathrooms')
-                ->hideFromIndex(),
+					Number::make('Area Size')
+						->rules('nullable', 'numeric')
+						->placeholder('Area Size')
+						->hideFromIndex(),
 
-            Number::make('Number Of Garages Or Parkingpaces')
-                ->rules('nullable', 'numeric')
-                ->placeholder('Number Of Garages Or Parkingpaces')
-                ->hideFromIndex(),
+					Text::make('Area Size Prefix')
+						->rules('nullable', 'max:255', 'string')
+						->placeholder('Area Size Prefix')
+						->hideFromIndex(),
 
-            Number::make('Year Built')
-                ->rules('nullable', 'numeric')
-                ->placeholder('Year Built')
-                ->hideFromIndex(),
+					Text::make('Area Size Postfix')
+						->rules('nullable', 'max:255', 'string')
+						->placeholder('Area Size Postfix')
+						->hideFromIndex(),
 
-            Boolean::make('Featured')
-                ->rules('nullable', 'boolean')
-                ->placeholder('Featured'),
+					Number::make('Number Of Bedrooms')
+						->rules('nullable', 'numeric')
+						->placeholder('Number Of Bedrooms')
+						->hideFromIndex(),
 
-            Boolean::make('Published')
-                ->rules('required', 'boolean')
-                ->placeholder('Published'),
+					Number::make('Number Of Bathrooms')
+						->rules('nullable', 'numeric')
+						->placeholder('Number Of Bathrooms')
+						->hideFromIndex(),
 
-            Text::make('Address')
-                ->rules('nullable', 'max:255', 'string')
-                ->placeholder('Address')
-                ->hideFromIndex(),
+					Number::make('Number Of Garages Or Parkingpaces')
+						->rules('nullable', 'numeric')
+						->placeholder('Number Of Garages Or Parkingpaces')
+						->hideFromIndex(),
 
-            Number::make('Latitude')
-                ->rules('nullable', 'numeric')
-                ->placeholder('Latitude')
-                ->hideFromIndex(),
+					Number::make('Year Built')
+						->rules('nullable', 'numeric')
+						->placeholder('Year Built')
+						->hideFromIndex(),
 
-            Text::make('Longitude')
-                ->rules('nullable', 'max:255', 'string')
-                ->placeholder('Longitude')
-                ->hideFromIndex(),
+					BelongsTo::make('Listing', 'listing')
+						->nullable()
+						->hideFromIndex()
+						->searchable(),
 
-            Textarea::make('360 Virtual Tour')
-                ->rules('nullable', 'max:255', 'string')
-                ->placeholder('360 Virtual Tour')
-                ->hideFromIndex(),
+					BelongsTo::make('Location', 'location')
+						->nullable()
+						->showCreateRelationButton()
+						->sortable()
+						->searchable(),
 
-            Text::make('Energy Class')
-                ->rules('nullable', 'max:255', 'string')
-                ->placeholder('Energy Class')
-                ->hideFromIndex(),
+					BelongsTo::make('PropertyType', 'propertyType')
+						->nullable()
+						->showCreateRelationButton()
+						->sortable(),
 
-            Text::make('Energy Performance')
-                ->rules('nullable', 'max:255', 'string')
-                ->placeholder('Energy Performance')
-                ->hideFromIndex(),
+					// SelectPlus::make('ListingTypeRelation', 'listingTypeRelation', ListingTypeRelation::class),
 
-            Text::make('Epc Current Rating')
-                ->rules('nullable', 'max:255', 'string')
-                ->placeholder('Epc Current Rating')
-                ->hideFromIndex(),
+					BelongsTo::make('Status', 'status')
+						->nullable()
+						->showCreateRelationButton()
+						->hideFromIndex(),
 
-            Text::make('Epc Potential Rating')
-                ->rules('nullable', 'max:255', 'string')
-                ->placeholder('Epc Potential Rating')
-                ->hideFromIndex(),
+					BelongsTo::make('DeliveryTime', 'deliveryTime')
+						->nullable()
+						->showCreateRelationButton()
+						->hideFromIndex(),
+					// BelongsTo::make('ListingType', 'listingType')->showCreateRelationButton(),
 
-            Text::make('Taxes')
-                ->rules('nullable', 'max:255', 'string')
-                ->placeholder('Taxes')
-                ->hideFromIndex(),
+					BelongsTo::make('InternalStatus', 'internalStatus')
+						->nullable()
+						->showCreateRelationButton()
+						->hideFromIndex(),
 
-            Text::make('Dues')
-                ->rules('nullable', 'max:255', 'string')
-                ->placeholder('Dues')
-                ->hideFromIndex(),
+					BelongsTo::make('Customer', 'customer')
+						->nullable()
+						->showCreateRelationButton()
+						->sortable()
+						->searchable(),
+						
+					SelectPlus::make('Features', 'Featured', Feature::class)->hideFromIndex(),
+					SelectPlus::make('ListingType', 'ListingType', ListingType::class)->hideFromIndex(),
 
-            Textarea::make('Notes')
-                ->rules('nullable', 'max:255', 'string')
-                ->placeholder('Notes')
-                ->hideFromIndex(),
+					
 
-            BelongsTo::make('Listing', 'listing')->nullable(),
+					Boolean::make('Export All Marketplaces')
+						->rules('nullable', 'boolean')
+						->placeholder('Export All Marketplaces')
+						->default(true)
+						->hideFromIndex(),
 
-            HasMany::make('Listings', 'listings'),
+					SelectPlus::make('Marketplaces', 'Marketplaces', Marketplace::class)
+						->dependsOn(
+							['export_all_marketplaces'],
+							function (SelectPlus $field, NovaRequest $request, FormData $formData) {
+								if ($formData->export_all_marketplaces === true) {
+									$field->show();
+								}
+								else{
+									$field->hide();
+								}
+							}
+						)
+						// ->hide()
+						->hideFromIndex(),
 
-            BelongsTo::make('Location', 'location')->nullable(),
+					Boolean::make('Published')
+						->rules('nullable', 'boolean')
+						->placeholder('Published')
+						->sortable(),	
+				 ]),
+				 
+				 Tab::make('Location',[
 
-            BelongsTo::make('Status', 'status')->nullable(),
+					Text::make('Address')
+						->rules('nullable', 'max:255', 'string')
+						->placeholder('Address')
+						->hideFromIndex(),
 
-            BelongsTo::make('DeliveryTime', 'deliveryTime')->nullable(),
+					Text::make('Latitude')
+						->rules('nullable', 'max:255', 'string')
+						->placeholder('Latitude')
+						->hideFromIndex(),
 
-            BelongsTo::make('InternalStatus', 'internalStatus')->nullable(),
+					Text::make('longitude')
+						->rules('nullable', 'max:255', 'string')
+						->placeholder('longitude')
+						->hideFromIndex(),
+				]),
+				Tab::make('Images',[
+					Images::make('Images', 'images') // second parameter is the media collection name
+					->conversionOnPreview('medium-size') // conversion used to display the "original" image
+					->conversionOnDetailView('thumb') // conversion used on the model's view
+					->conversionOnIndexView('thumb') // conversion used to display the image on the model's index page
+					->conversionOnForm('thumb') // conversion used to display the image on the model's form
+					->fullSize() // full size column
+					// ->rules('required', 'size:3') // validation rules for the collection of images
+					// validation rules for the collection of images
+					->singleImageRules('dimensions:min_width=100')
+					->hideFromIndex(),
+			  
+				]),
+				Tab::make('Property Video',[
+					Textarea::make('360 Virtual Tour')
+						->rules('nullable', 'max:255', 'string')
+						->placeholder('360 Virtual Tour')
+						->hideFromIndex(),
+				]),
+				Tab::make('Energy Performance',[
+					Text::make('Energy Class')
+						->rules('nullable', 'max:255', 'string')
+						->placeholder('Energy Class')
+						->hideFromIndex(),
 
-            BelongsTo::make('Customer', 'customer')->nullable(),
+					Text::make('Energy Performance')
+						->rules('nullable', 'max:255', 'string')
+						->placeholder('Energy Performance')
+						->hideFromIndex(),
 
-            HasMany::make('ListingAttachments', 'listingAttachments'),
+					Text::make('Epc Current Rating')
+						->rules('nullable', 'max:255', 'string')
+						->placeholder('Epc Current Rating')
+						->hideFromIndex(),
 
-            HasMany::make(
-                'ListingAdditionalDetails',
-                'listingAdditionalDetails'
-            ),
+					Text::make('Epc Potential Rating')
+						->rules('nullable', 'max:255', 'string')
+						->placeholder('Epc Potential Rating')
+						->hideFromIndex(),					
+				]),
+				Tab::make('Floor Plans / Attachments',[
+                    Text::make('Taxes')
+						->rules('nullable', 'max:255', 'string')
+						->placeholder('Taxes')
+						->hideFromIndex(),
 
-            HasMany::make('FloorPlans', 'floorPlans'),
+					Text::make('Dues')
+						->rules('nullable', 'max:255', 'string')
+						->placeholder('Dues')
+						->hideFromIndex(),
 
-            BelongsTo::make('Agent', 'agent'),
+					Trix::make('Notes')
+						->rules('nullable', 'max:255', 'string')
+						->placeholder('Notes')
+						->hideFromIndex(),
+				]),
+				Tab::make('Additional Fields',[
+                    Text::make('Taxes')
+						->rules('nullable', 'max:255', 'string')
+						->placeholder('Taxes')
+						->hideFromIndex(),
 
-            HasMany::make(
-                'SalesRequestAppointments',
-                'salesRequestAppointments'
-            ),
+					Text::make('Dues')
+						->rules('nullable', 'max:255', 'string')
+						->placeholder('Dues')
+						->hideFromIndex(),
 
-            HasMany::make('SalesRequestListings', 'salesRequestListings'),
+					Trix::make('Notes')
+						->rules('nullable', 'max:255', 'string')
+						->placeholder('Notes')
+						->hideFromIndex(),
+				]),
+			]),
+			HasMany::make('ListingAttachment', 'listingAttachment'),
+			// HasMany::make('FloorPlan', 'floorPlan'),
 
-            BelongsToMany::make('Marketplaces', 'marketplaces'),
+			HasMany::make(
+				'ListingAdditionalDetail',
+				'listingAdditionalDetail'
+			),
         ];
     }
 
@@ -222,7 +333,7 @@ class Listing extends Resource
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    public function cards(Request $request)
+    public function cards(NovaRequest $request)
     {
         return [];
     }
@@ -233,9 +344,18 @@ class Listing extends Resource
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    public function filters(Request $request)
+    public function filters(NovaRequest $request)
     {
-        return [];
+        return [
+			new Filters\Type(),
+			new Filters\Listing_types(),
+			new Filters\Price(),
+			new Filters\Number_of_Bedrooms(),
+			new Filters\Number_of_Bathrooms(),
+			new Filters\Owner(),
+			new Filters\Status(),
+		];
+
     }
 
     /**
@@ -255,8 +375,8 @@ class Listing extends Resource
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    public function actions(Request $request)
+    public function actions(NovaRequest $request)
     {
-        return [];
+        return [ Actions\DuplicateListing::make()->showInline() ];
     }
 }

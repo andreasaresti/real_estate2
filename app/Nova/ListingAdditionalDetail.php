@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Nova;
-
+use Illuminate\Support\Facades\DB;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
@@ -32,7 +32,9 @@ class ListingAdditionalDetail extends Resource
      * @var array
      */
     public static $search = ['title'];
-
+    public static $searchRelations = [
+        'Listing' => ['name'],           
+   ];
     /**
      * Get the fields displayed by the resource.
      *
@@ -45,17 +47,21 @@ class ListingAdditionalDetail extends Resource
             ID::make('id')->sortable(),
 
             Text::make('Title')
-                ->rules('required', 'max:255', 'json')
+                ->translatable(DB::table('languages')->select('encoding','name')->orderBy('sequence')->pluck('name', 'encoding')->toArray())
+                ->rules('required', 'max:255')
                 ->placeholder('Title'),
 
             Text::make('Value')
-                ->rules('required', 'max:255', 'json')
+                ->translatable(DB::table('languages')->select('encoding','name')->orderBy('sequence')->pluck('name', 'encoding')->toArray())
+                ->rules('required', 'max:255')
                 ->placeholder('Value'),
 
             Number::make('Sequence')
                 ->rules('required', 'numeric')
                 ->placeholder('Sequence')
-                ->default('0'),
+                ->default('0')
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
 
             BelongsTo::make('Listing', 'listing'),
         ];

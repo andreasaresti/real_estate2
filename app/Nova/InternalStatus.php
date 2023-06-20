@@ -44,6 +44,10 @@ class InternalStatus extends Resource
         return [
             ID::make('id')->sortable(),
 
+            Text::make('Name')
+                ->rules('required', 'max:255', 'string')
+                ->placeholder('Name'),
+
             Text::make('Ext Code')
                 ->creationRules(
                     'nullable',
@@ -57,11 +61,8 @@ class InternalStatus extends Resource
                     'max:255',
                     'string'
                 )
-                ->placeholder('Ext Code'),
-
-            Text::make('Name')
-                ->rules('required', 'max:255', 'string')
-                ->placeholder('Name'),
+                ->placeholder('Ext Code')
+                ->hideFromIndex(),
 
             Image::make('Image')
                 ->rules('nullable', 'image', 'max:1024')
@@ -71,7 +72,9 @@ class InternalStatus extends Resource
                 ->rules('required', 'numeric')
                 ->placeholder('Sequence')
                 ->default('0')
-                ->hideFromIndex(),
+                ->hideFromIndex()
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
 
             HasMany::make('Listings', 'listings'),
         ];

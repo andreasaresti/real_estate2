@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Nova;
-
+use Illuminate\Support\Facades\DB;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
@@ -34,6 +34,9 @@ class Municipality extends Resource
      */
     public static $search = ['name'];
 
+    public static $searchRelations = [
+        'District' => ['name'],
+   ];
     /**
      * Get the fields displayed by the resource.
      *
@@ -44,34 +47,31 @@ class Municipality extends Resource
     {
         return [
             ID::make('id')->sortable(),
-
             Text::make('Name')
-                ->rules('required', 'max:255', 'json')
+				->translatable(DB::table('languages')->select('encoding','name')->orderBy('sequence')->pluck('name', 'encoding')->toArray())
+                ->rules('required', 'max:255')
                 ->placeholder('Name'),
 
             Text::make('Ext Code')
-                ->creationRules(
-                    'nullable',
-                    'unique:municipalities,ext_code',
-                    'max:255',
-                    'string'
-                )
-                ->updateRules(
-                    'nullable',
-                    'unique:municipalities,ext_code,{{resourceId}}',
-                    'max:255',
-                    'string'
-                )
-                ->placeholder('Ext Code'),
+                ->rules('nullable', 'max:255', 'string')
+                ->placeholder('Ext Code')
+                ->hideFromIndex(),
+
+            
+
+            
+
+            BelongsTo::make('District', 'district')->showCreateRelationButton(),
 
             Number::make('Sequence')
                 ->rules('required', 'numeric')
                 ->placeholder('Sequence')
-                ->default('0'),
-
-            BelongsTo::make('District', 'district'),
+                ->default('0')
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
 
             HasMany::make('Locations', 'locations'),
+
         ];
     }
 

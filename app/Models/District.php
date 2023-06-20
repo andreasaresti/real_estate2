@@ -5,13 +5,17 @@ namespace App\Models;
 use App\Models\Scopes\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\Translatable\HasTranslations;
 
 class District extends Model
 {
     use HasFactory;
     use Searchable;
+	use HasTranslations;
+	
+	public $translatable = ['name'];
 
-    protected $fillable = ['ext_code', 'country', 'name'];
+    protected $fillable = ['ext_code', 'country', 'name', 'listingRequest_id'];
 
     protected $searchableFields = ['*'];
 
@@ -24,28 +28,8 @@ class District extends Model
         return $this->hasMany(Municipality::class);
     }
 
-    public function agents()
+    public function listingRequest()
     {
-        return $this->hasMany(Agent::class);
-    }
-
-    public function salesRequestDistricts()
-    {
-        return $this->hasMany(SalesRequestDistrict::class);
-    }
-
-    public function salesPeopleAgreements()
-    {
-        return $this->hasMany(SalesPeopleAgreement::class);
-    }
-
-    public function customerAgreements()
-    {
-        return $this->hasMany(CustomerAgreement::class);
-    }
-
-    public function allSalesPeople()
-    {
-        return $this->belongsToMany(SalesPeople::class);
+        return $this->belongsTo(ListingRequest::class, 'listingRequest_id');
     }
 }

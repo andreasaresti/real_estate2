@@ -20,12 +20,10 @@ class Agent extends Model
         'address',
         'postal_code',
         'city',
+        'map',
         'country',
         'comments',
         'active',
-        'longitude',
-        'laditude',
-        'district_id',
     ];
 
     protected $searchableFields = ['*'];
@@ -34,23 +32,22 @@ class Agent extends Model
         'active' => 'boolean',
     ];
 
-    public function allSalesPeople()
+    public function salesPeople()
     {
         return $this->hasMany(SalesPeople::class);
-    }
-
-    public function listings()
-    {
-        return $this->hasMany(Listing::class);
     }
 
     public function district()
     {
         return $this->belongsTo(District::class);
     }
-
-    public function agentAgreements()
+    public function propertyTypes()
+    {
+        return $this->belongsToMany(PropertyType::class,'agent_property_type','agent_id','agent_id');
+    }
+    public function agentAgreement()
     {
         return $this->hasMany(AgentAgreement::class);
     }
 }
+

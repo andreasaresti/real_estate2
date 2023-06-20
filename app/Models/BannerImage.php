@@ -5,11 +5,26 @@ namespace App\Models;
 use App\Models\Scopes\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Outl1ne\NovaSortable\Traits\HasSortableRows;
+use Spatie\EloquentSortable\Sortable;
+use Spatie\Translatable\HasTranslations;
+use Spatie\EloquentSortable\SortableTrait;
 
 class BannerImage extends Model
 {
     use HasFactory;
     use Searchable;
+    use HasTranslations;
+    use SortableTrait;
+
+    public $sortable = [
+        'order_column_name' => 'sort_order',
+        'sort_when_creating' => true,
+      ];
+    
+
+	
+	public $translatable = ['name','description'];
 
     protected $fillable = [
         'banner_id',
@@ -18,8 +33,8 @@ class BannerImage extends Model
         'description',
         'button_text',
         'link',
-        'sort_order',
         'language_id',
+        'sort_order',
         'active',
     ];
 
@@ -29,6 +44,7 @@ class BannerImage extends Model
 
     protected $casts = [
         'name' => 'array',
+        'description' => 'array',
         'button_text' => 'array',
         'active' => 'boolean',
     ];

@@ -2,17 +2,21 @@
 
 namespace App\Nova;
 
+use App\Models\SalesRequestMunicipality;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Fields\Date;
-use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Boolean;
+use ZiffMedia\NovaSelectPlus\SelectPlus;
 use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Fields\FormData;
 
 class SalesRequest extends Resource
 {
@@ -37,6 +41,11 @@ class SalesRequest extends Resource
      */
     public static $search = ['name'];
 
+    public static $searchRelations = [
+        'Agent' => ['name'],        
+        'Customer' => ['name'],        
+   ];
+   
     /**
      * Get the fields displayed by the resource.
      *
@@ -45,7 +54,25 @@ class SalesRequest extends Resource
      */
     public function fields(Request $request)
     {
+        $listing_arr = [];
+        if($this->id != ''){
+            $listings = DB::table('listings')
+                            ->join('sales_request_listings', 'listings.id', '=', 'sales_request_listings.listing_id')
+                            ->select('listings.*')
+                            ->where("sales_request_listings.sales_request_id", $this->id)->get();
+            $listing_arr = [];
+            for ($i = 0; $i < count($listings); $i++){
+                $listing_name = json_decode( $listings[$i]->name,true);
+                $first_key = array_key_first($listing_name);
+                $listing_arr[$listings[$i]->id] = $listing_name[$first_key];
+            }  
+        }
+        
+        
+        
+
         return [
+            
             ID::make('id')->sortable(),
 
             Text::make('Name')
@@ -53,52 +80,204 @@ class SalesRequest extends Resource
                 ->placeholder('Name'),
 
             Date::make('Date')
-                ->rules('required', 'date')
-                ->placeholder('Date'),
+                ->rules('required', 'max:255', 'string')
+                ->placeholder('Date')
+                ->default(now()),
+
+            BelongsTo::make('Customer', 'customer')                
+                ->searchable()
+                ->showCreateRelationButton(),
+
+            BelongsTo::make('PropertyType', 'propertyType')->showCreateRelationButton(),
+
+            
+            SelectPlus::make('District', 'salesRequestDistricts', District::class)->hideFromIndex(),
+
+            SelectPlus::make('ListingType', 'salesRequestListingType', ListingType::class)->hideFromIndex(),
 
             Number::make('Minimum Budget')
                 ->rules('nullable', 'numeric')
-                ->placeholder('Minimum Budget'),
+                ->placeholder('Minimum Budget')
+                ->hideFromIndex(),
 
             Number::make('Maximum Budget')
                 ->rules('nullable', 'numeric')
-                ->placeholder('Maximum Budget'),
+                ->placeholder('Maximum Budget')
+                ->hideFromIndex(),
 
-            Textarea::make('Description')
+
+            SelectPlus::make('Municipality', 'salesRequestMunicipalities', Municipality::class)->hideFromIndex(),
+
+            SelectPlus::make('Location', 'salesRequestLocations', Location::class)->hideFromIndex(),
+            
+            SelectPlus::make('Features', 'features', Feature::class)->hideFromIndex(),
+
+            Number::make('Minimum Bedrooms')
+                ->rules('nullable', 'numeric')
+                ->placeholder('Minimum Bedrooms')
+                ->hideFromIndex(),
+                
+            Number::make('Minimum Bathrooms')
+                    ->rules('nullable', 'numeric')
+                    ->placeholder('Minimum Bathrooms')
+                    ->hideFromIndex(),
+                    
+            Number::make('Minimum Size')
+                ->rules('nullable', 'numeric')
+                ->placeholder('Minimum Size')
+                ->hideFromIndex(),
+
+            Number::make('Maximum Size')
+                ->rules('nullable', 'numeric')
+                ->placeholder('Maximum Size')
+                ->hideFromIndex(),
+
+            Trix::make('Description')
+						->rules('nullable')
+						->placeholder('Description')
+						->hideFromIndex(),
+
+            Boolean::make('Assigned')
+                ->rules('nullable', 'boolean')
+                ->placeholder('Assigned')
+                ->default(false),
+
+            BelongsTo::make('Sales People', 'salesPeople')
+                ->nullable()
+                ->searchable()
+                ->dependsOn(
+                    ['assigned'],
+                    function (BelongsTo $field, NovaRequest $request, FormData $formData) {
+                        if ($formData->assigned === true) {
+                            $field->required()->readonly(false)->show();
+                        }
+                    }
+                )
+                ->hide()
+                ->showCreateRelationButton(),
+
+            Select::make('Accepted Status')
                 ->rules('nullable', 'max:255', 'string')
-                ->placeholder('Description'),
+                ->options([
+                    'no' => 'No',
+                    'yes' => 'Yes',
+                ])
+                ->dependsOn(
+                    ['assigned'],
+                    function (Select $field, NovaRequest $request, FormData $formData) {
+                        if ($formData->assigned === true) {
+                            $field->required()->readonly(false)->show();
+                        }
+                    }
+                )
+                ->hide()
+                ->displayUsingLabels()
+                ->placeholder('Select Accepted Status')
+                ->default('no'),
+
+            BelongsTo::make('Source', 'source')                
+                ->searchable()
+                ->showCreateRelationButton(),
+
+            Select::make('Status')
+                ->rules('required', 'max:255', 'string')
+                ->options([
+                    'open' => 'Open',
+                    'won' => 'Won',
+                    'lost' => 'Lost',
+                ])
+                ->displayUsingLabels()
+                ->placeholder('Select Status')
+                ->default('open'),
 
             Boolean::make('Active')
-                ->rules('required', 'boolean')
+                ->rules('nullable', 'boolean')
+                ->dependsOn(
+                    ['status'],
+                    function (Boolean $field, NovaRequest $request, FormData $formData) {
+                        if ($formData->status === 'won' || $formData->status === 'lost') {
+                            $field->readonly(true)->hide();
+                        }
+                    }
+                )
                 ->placeholder('Active')
-                ->default('1'),
+                ->default(true),
 
-            BelongsTo::make('Customer', 'customer'),
+            // BelongsTo::make('Listing', 'listing')->showCreateRelationButton(),
 
-            BelongsTo::make('Source', 'source'),
+            Select::make('Listing', 'listing_id')
+                ->nullable()
+                ->dependsOn(
+                        ['status'],
+                        function (Select $field, NovaRequest $request, FormData $formData) {
+                            if ($formData->status === 'won') {
+                                $field->rules(['required'])->show();
+                            }
+                        }
+                    )
+                ->hide()
+                ->options($listing_arr)
+                ->hideFromIndex(),
 
-            BelongsTo::make('SalesPeople', 'salesPeople')->nullable(),
+            Number::make('Agreement Price')
+                ->rules('nullable', 'numeric')
+                ->dependsOn(
+                    ['status'],
+                    function (Number $field, NovaRequest $request, FormData $formData) {
+                        if ($formData->status === 'won') {
+                            $field->readonly(false)->rules(['required'])->show();
+                        }
+                    }
+                )
+                ->placeholder('Agreement Price')
+                ->hide()
+                ->hideFromIndex(),
 
-            BelongsTo::make('PropertyType', 'propertyType'),
+            Number::make('Salespeople Percentage')
+                ->rules('nullable', 'numeric')
+                ->placeholder('Salespeople Percentage')
+                ->dependsOn(
+                    ['status'],
+                    function (Number $field, NovaRequest $request, FormData $formData) {
+                        if ($formData->status === 'won') {
+                            $field->readonly(false)->rules(['required'])->show();
+                        }
+                    }
+                )
+                ->default($request->id)
+                ->hide()
+                ->hideFromIndex(),
 
-            HasMany::make('SalesRequestLocations', 'salesRequestLocations'),
+            Number::make('Agency Percentage')
+                ->rules('nullable', 'numeric')
+                ->dependsOn(
+                    ['status'],
+                    function (Number $field, NovaRequest $request, FormData $formData) {
+                        if ($formData->status === 'won') {
+                            $field->readonly(false)->rules(['required'])->show();
+                        }
+                    }
+                )
+                ->hide()
+                ->placeholder('Agency Percentage')
+                ->hideFromIndex(),
+            
+            BelongsTo::make('Sales Lost Reason', 'salesLostReason')
+                ->nullable()
+                ->dependsOn(
+                    ['status'],
+                    function (BelongsTo $field, NovaRequest $request, FormData $formData) {
+                        if ($formData->status === 'lost') {
+                            $field->readonly(false)->rules(['required'])->show();
+                        }
+                    }
+                )
+                ->hide()
+                ->showCreateRelationButton(),
+            
 
-            HasMany::make('SalesRequestDistricts', 'salesRequestDistricts'),
-
-            HasMany::make(
-                'SalesRequestMunicipalities',
-                'salesRequestMunicipalities'
-            ),
-
-            HasMany::make(
-                'SalesRequestListingTypes',
-                'salesRequestListingTypes'
-            ),
-
-            HasMany::make(
-                'SalesRequestAppointments',
-                'salesRequestAppointments'
-            ),
+            HasMany::make('Sales Request Appointment', 'salesRequestAppointment'),
+            HasMany::make('Sales Request Listing', 'salesRequestListing'),
         ];
     }
 
@@ -121,7 +300,12 @@ class SalesRequest extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [
+            new Filters\RequestSalesPerson(),
+            new Filters\RequestStatus(),
+            new Filters\RequestType(),
+            new Filters\RequestAcceptedStatus(),
+        ];
     }
 
     /**
@@ -141,8 +325,10 @@ class SalesRequest extends Resource
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    public function actions(Request $request)
+    public function actions(Request  $request)
     {
-        return [];
+        return [
+            Actions\AssignRequest::make()->showInline()
+        ];
     }
 }

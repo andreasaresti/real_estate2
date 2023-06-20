@@ -14,7 +14,7 @@ class CustomerAgreement extends Model
     protected $fillable = [
         'customer_id',
         'district_id',
-        'property_type_id',
+        'listing_type_id',
         'agency_commission_percentage',
     ];
 

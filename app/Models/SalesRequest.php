@@ -16,26 +16,20 @@ class SalesRequest extends Model
         'date',
         'customer_id',
         'source_id',
+        'sales_people_id',
         'property_type_id',
         'minimum_budget',
         'maximum_budget',
+        'minimum_bedrooms',
+        'maximum_bedrooms',
+        'minimum_bathrooms',
+        'maximum_bathrooms',
         'minimum_size',
         'maximum_size',
-        'minimum_bedrooms',
-        'minimum_bathrooms',
+        'budget',
         'description',
-        'assigned',
-        'sales_people_id',
-        'accepted_status',
-        'status',
+        'salesRequestStatus_id',
         'active',
-        'listing_id',
-        'agreement_price',
-        'agency_percentage',
-        'salespeople_percentage',
-        'sales_lost_reason_id',
-        'intermediate_percentage',
-        'final_status',
     ];
 
     protected $searchableFields = ['*'];
@@ -44,7 +38,6 @@ class SalesRequest extends Model
 
     protected $casts = [
         'date' => 'date',
-        'assigned' => 'boolean',
         'active' => 'boolean',
     ];
 
@@ -68,39 +61,6 @@ class SalesRequest extends Model
         return $this->belongsTo(PropertyType::class);
     }
 
-    public function salesRequestLocations()
-    {
-        return $this->hasMany(SalesRequestLocation::class, 'salesRequest_id');
-    }
-
-    public function salesRequestDistricts()
-    {
-        return $this->hasMany(SalesRequestDistrict::class, 'salesRequest_id');
-    }
-
-    public function salesRequestMunicipalities()
-    {
-        return $this->hasMany(
-            SalesRequestMunicipality::class,
-            'salesRequest_id'
-        );
-    }
-
-    public function salesRequestListingTypes()
-    {
-        return $this->hasMany(SalesRequestListingType::class);
-    }
-
-    public function salesRequestAppointments()
-    {
-        return $this->hasMany(SalesRequestAppointment::class);
-    }
-
-    public function salesRequestListings()
-    {
-        return $this->hasMany(SalesRequestListing::class);
-    }
-
     public function listing()
     {
         return $this->belongsTo(Listing::class);
@@ -109,5 +69,47 @@ class SalesRequest extends Model
     public function salesLostReason()
     {
         return $this->belongsTo(SalesLostReason::class);
+    }
+
+    
+
+    public function salesRequestLocations()
+    {
+        return $this->belongsToMany(Location::class,'sales_request_locations','salesRequest_id','location_id');
+    }
+
+    public function salesRequestListingType()
+    {
+        return $this->belongsToMany(ListingType::class,'sales_request_listing_types','sales_request_id','listing_type_id');
+    }
+    public function salesRequestStatus()
+    {
+        return $this->belongsTo(
+            SalesRequestStatus::class,
+            'salesRequestStatus_id'
+        );
+    }
+
+    public function salesRequestDistricts()
+    {
+        return $this->belongsToMany(District::class,'sales_request_districts','salesRequest_id','district_id');
+    }
+
+    public function salesRequestMunicipalities(){
+        return $this->belongsToMany(Municipality::class,'sales_request_municipalities','salesRequest_id','municipality_id');
+    }
+
+    public function features(){
+        return $this->belongsToMany(Feature::class,'feature_sales_request','sales_request_id','feature_id');
+    }
+
+    public function salesRequestAppointment()
+    {
+        return $this->hasMany(SalesRequestAppointment::class);
+    }
+
+    public function salesRequestListing()
+    {
+        return $this->hasMany(SalesRequestListing::class);
     }
 }

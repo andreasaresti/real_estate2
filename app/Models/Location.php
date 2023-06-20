@@ -5,19 +5,21 @@ namespace App\Models;
 use App\Models\Scopes\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\Translatable\HasTranslations;
 
 class Location extends Model
 {
     use HasFactory;
     use Searchable;
+	use HasTranslations;
+	
+	public $translatable = ['name'];
 
     protected $fillable = [
-        'ext_code',
         'municipality_id',
         'name',
         'sequence',
-        'laditude',
-        'longitude',
+        'listingRequest_id',
     ];
 
     protected $searchableFields = ['*'];
@@ -36,8 +38,8 @@ class Location extends Model
         return $this->belongsTo(Municipality::class);
     }
 
-    public function salesRequestLocations()
+    public function listingRequest()
     {
-        return $this->hasMany(SalesRequestLocation::class);
+        return $this->belongsTo(ListingRequest::class, 'listingRequest_id');
     }
 }

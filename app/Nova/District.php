@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Nova;
-
+use Illuminate\Support\Facades\DB;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Country;
 use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class District extends Resource
@@ -43,29 +44,21 @@ class District extends Resource
         return [
             ID::make('id')->sortable(),
 
-            Text::make('Ext Code')
-                ->creationRules(
-                    'nullable',
-                    'unique:districts,ext_code',
-                    'max:255',
-                    'string'
-                )
-                ->updateRules(
-                    'nullable',
-                    'unique:districts,ext_code,{{resourceId}}',
-                    'max:255',
-                    'string'
-                )
-                ->placeholder('Ext Code'),
-
-            Text::make('Country')
-                ->rules('required', 'max:255', 'string')
-                ->placeholder('Country'),
-
             Text::make('Name')
-                ->rules('required', 'max:255', 'json')
+				->translatable(DB::table('languages')->select('encoding','name')->orderBy('sequence')->pluck('name', 'encoding')->toArray())
+                ->rules('required', 'max:255')
                 ->placeholder('Name'),
 
+
+            Text::make('Ext Code')
+                ->rules('nullable', 'max:255', 'string')
+                ->placeholder('Ext Code')
+                ->hideFromIndex(),
+
+            Country::make('Country')
+                ->rules('required', 'max:255', 'string')
+                ->placeholder('Country')
+                ->default('CY'),
             HasMany::make('Municipalities', 'municipalities'),
         ];
     }

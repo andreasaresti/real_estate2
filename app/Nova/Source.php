@@ -55,8 +55,6 @@ class Source extends Resource
                 ->rules('required', 'numeric')
                 ->placeholder('Sequence')
                 ->default('0'),
-
-            HasMany::make('SalesRequests', 'salesRequests'),
         ];
     }
 
