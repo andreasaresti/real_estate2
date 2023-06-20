@@ -3,7 +3,6 @@
 namespace PHPageBuilder\Core;
 
 use PDO;
-use PDOException;
 
 /**
  * Class DB
@@ -26,17 +25,13 @@ class DB
      */
     public function __construct(array $config)
     {
-        try {
-            $this->pdo = new PDO(
-                $config['driver'] . ':host=' . $config['host'] . ';dbname=' . $config['database'] . ";options='--client_encoding=" . $config['charset'] . "'",
-                $config['username'],
-                $config['password'],
-                [PDO::ATTR_ERRMODE => PDO::ERRMODE_SILENT]
-            );
-            $this->pdo->exec("set names " . $config['charset']);
-        } catch (PDOException $e) {
-        echo "Database connection failed: " . $e->getMessage();
-    }
+        $this->pdo = new PDO(
+            $config['driver'] . ':host=' . $config['host'] . ';dbname=' . $config['database'] . ";options='--client_encoding=" . $config['charset'] . "'",
+            $config['username'],
+            $config['password'],
+            [PDO::ATTR_ERRMODE => PDO::ERRMODE_SILENT]
+        );
+        $this->pdo->exec("set names " . $config['charset']);
     }
 
     /**
