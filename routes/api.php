@@ -9,15 +9,15 @@ use App\Http\Controllers\Api\AgentController;
 use App\Http\Controllers\Api\SourceController;
 use App\Http\Controllers\Api\StatusController;
 use App\Http\Controllers\Api\BannerController;
-use App\Http\Controllers\Api\FeatureController;
-use App\Http\Controllers\Api\ListingController;
-use App\Http\Controllers\Api\CustomerController;
+// use App\Http\Controllers\Api\FeatureController;
+// use App\Http\Controllers\Api\ListingController;
+// use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\DistrictController;
 use App\Http\Controllers\Api\LanguageController;
 use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Api\FloorPlanController;
 use App\Http\Controllers\Api\PermissionController;
-use App\Http\Controllers\Api\SalesPeopleController;
+// use App\Http\Controllers\Api\SalesPeopleController;
 use App\Http\Controllers\Api\ListingTypeController;
 use App\Http\Controllers\Api\MarketplaceController;
 use App\Http\Controllers\Api\BannerImageController;
@@ -25,7 +25,7 @@ use App\Http\Controllers\Api\CustomerRoleController;
 use App\Http\Controllers\Api\DeliveryTimeController;
 use App\Http\Controllers\Api\MunicipalityController;
 use App\Http\Controllers\Api\PropertyTypeController;
-use App\Http\Controllers\Api\SalesRequestController;
+// use App\Http\Controllers\Api\SalesRequestController;
 use App\Http\Controllers\Api\AgentListingsController;
 use App\Http\Controllers\Api\DistrictAgentsController;
 use App\Http\Controllers\Api\InternalStatusController;
@@ -63,7 +63,7 @@ use App\Http\Controllers\Api\DistrictAllSalesPeopleController;
 use App\Http\Controllers\Api\InternalStatusListingsController;
 use App\Http\Controllers\Api\ListingAdditionalDetailController;
 use App\Http\Controllers\Api\SalesPeopleListingTypesController;
-use App\Http\Controllers\Api\SalesRequestAppointmentController;
+// use App\Http\Controllers\Api\SalesRequestAppointmentController;
 use App\Http\Controllers\Api\SalesPeopleSalesRequestsController;
 use App\Http\Controllers\Api\SalesPeoplePropertyTypesController;
 use App\Http\Controllers\Api\ListingListingAttachmentsController;
@@ -94,6 +94,17 @@ use App\Http\Controllers\Api\SalesRequestSalesRequestAppointmentsController;
 use App\Http\Controllers\Api\MunicipalitySalesRequestMunicipalitiesController;
 use App\Http\Controllers\Api\SalesRequestSalesRequestMunicipalitiesController;
 
+use App\Http\Controllers\MenuController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\StatueController;
+use App\Http\Controllers\FeatureController;
+use App\Http\Controllers\TypeController;
+use App\Http\Controllers\ListingController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\SalesPeopleController;
+use App\Http\Controllers\SalesRequestController;
+use App\Http\Controllers\SalesRequestAppointmentController;
+use App\Http\Controllers\FavoritePropertyController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -104,6 +115,52 @@ use App\Http\Controllers\Api\SalesRequestSalesRequestMunicipalitiesController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::controller(MenuController::class)->group(function(){
+    Route::get('menu', 'index');
+});
+Route::controller(PageController::class)->group(function(){
+    Route::get('page/{url}', 'get');
+});
+Route::controller(StatueController::class)->group(function(){
+    Route::get('statue', 'index');
+});
+Route::controller(FeatureController::class)->group(function(){
+    Route::get('feature', 'index');
+});
+Route::controller(TypeController::class)->group(function(){
+    Route::get('type', 'index');
+});
+Route::controller(FavoritePropertyController::class)->group(function(){
+	Route::get('add_favorit/{index}', 'create');
+});
+Route::controller(ListingController::class)->group(function(){
+    Route::post('listing', 'get');
+	Route::post('add_listing', 'add');
+	Route::get('get_listing_param', 'get_param');
+	Route::get('listing/{index}', 'cur_get');
+	// Route::get('add_favorit/{index}', 'add_favorit');
+});
+Route::controller(CustomerController::class)->group(function(){
+    Route::post('customer', 'get');
+	Route::get('logout', 'logout');
+	Route::post('save_customer', 'store');
+	Route::post('customer_details', 'get_details');
+	Route::post('update_profile', 'update');
+});
+Route::controller(SalesPeopleController::class)->group(function(){
+    Route::post('agencies', 'get');
+	Route::post('request_inquiry', 'store_inquiry');
+});
+Route::controller(SalesRequestController::class)->group(function(){
+	Route::post('request_get', 'get');
+	Route::post('request_cur_get_list', 'cur_get_list');
+	Route::post('update_request', 'update');
+	Route::post('add_request_listing', 'add_listing');
+	Route::post('update_request_listings_status', 'update_listings_status');
+	Route::post('accept_request', 'accept');
+	Route::post('colse_deal_request', 'colse_deal');
+});
 
 Route::post('/login', [AuthController::class, 'login'])->name('api.login');
 
