@@ -117,7 +117,7 @@ use App\Http\Controllers\webUsersController;
 |
 */
 
-Route::middleware('localhost')->group(function () {
+// Route::middleware('localhost')->group(function () {
     Route::get('create-webuser', [webUsersController::class, 'create_user']);
 	Route::get('get-webuser', [webUsersController::class, 'get_users']);
 	Route::get('webusersupdate', [webUsersController::class, 'update_user']);
@@ -128,7 +128,7 @@ Route::middleware('localhost')->group(function () {
 	Route::get('getcart', [webUsersController::class, 'get_cart']);
 	Route::get('add-remove-wishlist', [webUsersController::class, 'add_remove_to_wish_list']);
 	Route::get('add-remove-cart', [webUsersController::class, 'add_remove_to_cart']);
-});
+// });
 
 Route::controller(MenuController::class)->group(function(){
     Route::get('menu', 'index');
