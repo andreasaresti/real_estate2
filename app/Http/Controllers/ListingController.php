@@ -176,7 +176,7 @@ class ListingController extends Controller
 	}
 	public function get_single_list_sales_people($index)
 	{
-		session_start():
+		session_start();
 		$result = array();
 		if($index > 0){
 			$results = DB::select('SELECT DISTINCT  sp.id AS id, cs.name AS name, cs.address AS address,  cs.image AS image, cs.mobile AS mobile, cs.phone AS phone, cs.email AS email FROM listings ls JOIN customers cs ON cs.id = ls.owner_id JOIN sales_people sp ON sp.customer_id=cs.id where ls.id="'.$index.'"');
@@ -188,7 +188,7 @@ class ListingController extends Controller
 	}
 	public function cur_get($index)
 	{
-		session_start():
+		session_start();
 		$result = array();
 		$image = array();
 		$images = DB::select('SELECT * from media where model_id = '.$index.' and model_type like "%Listing%" order by "id" desc');
@@ -216,7 +216,7 @@ class ListingController extends Controller
 	}
 	public function add(Request $request)//: JsonResponse
     {
-		session_start():
+		session_start();
 		
 		$data = $request;
 		$cur_date = date('Y-m-d H:i:s');
@@ -324,7 +324,7 @@ class ListingController extends Controller
     }
 	public function get_param()//: JsonResponse
     {
-		session_start():
+		session_start();
 		$result = array();
 		$locations = array();
 		$result_locations = DB::select('SELECT * FROM locations');
@@ -356,7 +356,7 @@ class ListingController extends Controller
     }
 	public function add_favorit($index)
 	{
-		session_start():
+		session_start();
         if(!DB::table('favorite_properties')->where('customer_id', $_SESSION["user_id"])->where('listing_id', $index)->exists()){
 		    $temp = DB::select('INSERT INTO favorite_properties( customer_id, listing_id) 
                 VALUES ('.$_SESSION["user_id"].','.$index.')');

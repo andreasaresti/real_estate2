@@ -205,7 +205,7 @@ class webUsersController extends Controller
     }
     public function get_users(Request $request)
     {
-        session_start():
+        session_start();
         // $this->authorize('view-any', Customer::class);
 
         $perPage = 20;
@@ -238,7 +238,7 @@ class webUsersController extends Controller
     }
     public function get_wish_list(Request $request)
     {
-        session_start():
+        session_start();
         $validator = Validator::make($request->all(), [
             'customer_id' => [
                 'required','integer',
@@ -286,7 +286,7 @@ class webUsersController extends Controller
     
     public function add_remove_to_wish_list(Request $request)
     {
-        session_start():
+        session_start();
         $validator = Validator::make($request->all(), [
             'customer_id' => [
                 'required','integer',
@@ -338,7 +338,7 @@ class webUsersController extends Controller
     }
     public function remove_cart(Request $request)
     {
-        session_start():
+        session_start();
         $validator = Validator::make($request->all(), [
             'cart_id' => [
                 'required','integer',
@@ -367,7 +367,7 @@ class webUsersController extends Controller
     }
     public function update_cart(Request $request)
     {
-        session_start():
+        session_start();
         $validator = Validator::make($request->all(), [
             'cart_id' => [
                 'required','integer',
@@ -397,7 +397,7 @@ class webUsersController extends Controller
     }
     public function get_cart(Request $request)
     {
-        session_start():
+        session_start();
         $validator = Validator::make($request->all(), [
             'customer_id' => [
                 'required','integer',
@@ -463,7 +463,7 @@ class webUsersController extends Controller
     }
     public function add_remove_to_cart(Request $request)
     {    
-        session_start():    
+        session_start();    
         $validator = Validator::make($request->all(), [
             'customer_id' => [
                 'required','integer',
