@@ -33,7 +33,8 @@ use App\Http\Controllers\CustomerAgreementController;
 use App\Http\Controllers\SalesRequestListingController;
 use App\Http\Controllers\SalesPeopleAgreementController;
 use App\Http\Controllers\ListingAdditionalDetailController;
-use App\Http\Controllers\SalesRequestAppointmentController;use Fosetico\LaravelPageBuilder\LaravelPageBuilder;
+use App\Http\Controllers\SalesRequestAppointmentController;
+use Fosetico\LaravelPageBuilder\LaravelPageBuilder;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -61,7 +62,7 @@ Route::any( '/page/{any}', function() {
 })->where('any', '.*');
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/page/home');
 });
 
 Route::middleware(['auth:sanctum', 'verified'])

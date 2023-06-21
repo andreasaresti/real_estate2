@@ -105,6 +105,7 @@ use App\Http\Controllers\SalesPeopleController;
 use App\Http\Controllers\SalesRequestController;
 use App\Http\Controllers\SalesRequestAppointmentController;
 use App\Http\Controllers\FavoritePropertyController;
+use App\Http\Controllers\webUsersController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -115,6 +116,19 @@ use App\Http\Controllers\FavoritePropertyController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::middleware('localhost')->group(function () {
+    Route::get('create-webuser', [webUsersController::class, 'create_user']);
+	Route::get('get-webuser', [webUsersController::class, 'get_users']);
+	Route::get('webusersupdate', [webUsersController::class, 'update_user']);
+	Route::get('webuserschangepassword', [webUsersController::class, 'changepassword_user']);
+	Route::post('login-webuser', [webUsersController::class, 'login_user']);
+	Route::get('logout-webuser', [webUsersController::class, 'logout_user']);
+	Route::get('getwishlist', [webUsersController::class, 'get_wish_list']);
+	Route::get('getcart', [webUsersController::class, 'get_cart']);
+	Route::get('add-remove-wishlist', [webUsersController::class, 'add_remove_to_wish_list']);
+	Route::get('add-remove-cart', [webUsersController::class, 'add_remove_to_cart']);
+});
 
 Route::controller(MenuController::class)->group(function(){
     Route::get('menu', 'index');
