@@ -159,8 +159,12 @@ class ListingController extends Controller
 			}
 		}
 		session_start();
+		$user_id = -1;
+		if(isset($_SESSION["user_id"])){
+			$user_id = $_SESSION["user_id"];
+		}
 		$favoritelist = array();
-		$favorites = DB::select('SELECT * FROM favorite_properties where customer_id='.$_SESSION["user_id"]);
+		$favorites = DB::select("SELECT * FROM favorite_properties where customer_id='".$user_id."'");
 		for($i=0;$i<count($favorites);$i++){
 			array_push($favoritelist, $favorites[$i]->listing_id);
 		}
@@ -297,7 +301,6 @@ class ListingController extends Controller
 											'order_column' => $i + 1,
 											'generated_conversions' => array('large-size' => true,"medium-size" => true, "thumb" => true)
 										));
-			echo 'media_listing: '.$media_listing->id.'<br>';
 			$imageId =  $media_listing->id;
 			
 			if (!file_exists(public_path('storage').'/'.$imageId)) 
