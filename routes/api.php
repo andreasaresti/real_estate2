@@ -156,7 +156,7 @@ Route::controller(ListingController::class)->group(function(){
 	Route::post('add_listing', 'add');
 	Route::get('get_listing_param', 'get_param');
 	Route::get('listing/{index}', 'cur_get');
-	// Route::get('add_favorit/{index}', 'add_favorit');
+	Route::get('add_favorit/{index}', 'add_favorit');
 });
 Route::controller(CustomerController::class)->group(function(){
     Route::post('customer', 'get');
@@ -177,6 +177,13 @@ Route::controller(SalesRequestController::class)->group(function(){
 	Route::post('update_request_listings_status', 'update_listings_status');
 	Route::post('accept_request', 'accept');
 	Route::post('colse_deal_request', 'colse_deal');
+});
+
+Route::controller(SalesRequestAppointmentController::class)->group(function(){
+	Route::post('get_appointments', 'get');
+	Route::post('add_appointments', 'add');
+	Route::post('update_appointments_status', 'update_status');
+	Route::post('update_appointments', 'update');
 });
 
 Route::post('/login', [AuthController::class, 'login'])->name('api.login');

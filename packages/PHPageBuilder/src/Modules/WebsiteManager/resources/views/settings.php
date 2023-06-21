@@ -16,7 +16,7 @@ $setting = phpb_instance('setting');
         ?>
 
         <div class="form-group required">
-            <label for="languages">
+            <label>
                 <?= phpb_trans('website-manager.website-languages') ?>
             </label>
             <select class="form-control" id="languages" name="languages[]" title="<?= phpb_trans('website-manager.languages-selector-placeholder') ?>" required multiple>
