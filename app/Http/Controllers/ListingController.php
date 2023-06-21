@@ -25,6 +25,9 @@ class ListingController extends Controller
 		
 		$result = array();
 		$data = $request;
+
+		
+
 		if($data['flag1']=="requestListingsList"){
 			if($data['show_open_flage']){
 				$sql = "SELECT	DISTINCT l.property_type_id, l.created_at, l.latitude, l.longitude, l.area_size, l.id, l.name, l.image ,l.price ,l.number_of_garages_or_parkingpaces, l.number_of_bedrooms ,l.number_of_bathrooms, ls.name as l_name FROM listings l JOIN locations ls ON ls.id = l.location_id  JOIN sales_request_listings srl ON srl.listing_id=l.id  WHERE srl.sales_request_id=".$data['requestIndex']." AND srl.status = 'open'";
@@ -36,13 +39,14 @@ class ListingController extends Controller
 			$listingType = explode(',', $data['listingType']);
 			
 			$sql = "SELECT	DISTINCT l.property_type_id, l.latitude, l.longitude,l.area_size, l.id, l.name, l.image ,l.price ,l.number_of_garages_or_parkingpaces, l.number_of_bedrooms ,l.number_of_bathrooms, ll.name as l_name FROM listings l JOIN property_types lt ON lt.id = l.property_type_id JOIN listing_listing_type ls ON ls.listing_id = l.id  JOIN locations ll ON ll.id = l.location_id ";
-			if($data['flag1']=="requested"){
+			if(isset($data['flag1']) && $data['flag1']=="requested"){
 				$sql .= " JOIN sales_request_listings srl ON srl.listing_id=l.id ";
 			}
-			if(count($data['feature']) > 0 ){
+			
+			if(isset($data['flag1']) && is_array($data['feature']) && count($data['feature']) > 0 ){
 				$sql .= " JOIN feature_listing fl ON l.id = fl.listing_id JOIN features ft ON ft.id =  fl.feature_id ";
 			}
-			if(count($location_data) > 1){
+			if(isset($location_data) && is_array($location_data) && count($location_data) > 1){
 				if(strpos($data['location'],"districts")>0){
 					$sql .= " JOIN municipalities ml ON ml.id = ll.municipality_id JOIN districts dl ON dl.id = ml.district_id ";
 				}else if(strpos($data['location'],"municipalities")>0){
@@ -50,7 +54,9 @@ class ListingController extends Controller
 				}
 			}
 			$sql .= " WHERE published = 1 ";
-			if(count($location_data) > 1){
+			
+			if(isset($location_data) && is_array($location_data) && count($location_data) > 1 && $location_data[0] != ''){
+				
 				$sql .= " AND (";
 				for($i=0;$i<count($location_data);$i=$i+2){
 					if($location_data[$i+1] == "districts"){
@@ -66,27 +72,33 @@ class ListingController extends Controller
 				$sql .= ")";
 			}
 			
-			if(count($data['feature']) > 0 ){
+			if(isset($data['feature']) && is_array($data['feature']) && count($data['feature']) > 0 ){
 				for($i=0;$i<count($data['feature']);$i++)
 				{
 					$sql .= " AND ft.id = ".$data['feature'][$i]." "; 
 				}
 			}
-			if($data['type']>0){
+			if(isset($data['type']) && $data['type']>0){
 				$sql .= " AND lt.id = '".$data['type']."' "; 
 			}
-			if(count($listingType) > 0 && $listingType[0] !== "0"){
+			if(isset($listingType) && is_array($listingType) && count($listingType) > 0 && $listingType[0] !== "0" && $listingType[0] !== ""){
+				// print_r($listingType);
+				// return true;
 				$sql .= " AND (";
 				for($i=0;$i<count($listingType);$i++)
 				{
-					if($i == 0 ){
-						$sql .= " ls.listing_type_id =  ".$listingType[$i]." "; 
+					if($listingType[$i] != ''){
+						if($i == 0 ){
+						$sql .= " ls.listing_type_id =  '".$listingType[$i]."' "; 
 					}else{
-						$sql .= " OR ls.listing_type_id =  ".$listingType[$i]." "; 
+						$sql .= " OR ls.listing_type_id =  '".$listingType[$i]."' "; 
 					}
+					}
+					
 				}
 				$sql .= " ) ";
 			}
+			
 			if($data['flag1']=="requestList"){
 				if($data['bedrooms']>0){
 					$sql .= " AND l.number_of_bedrooms >= '".$data['bedrooms']."' "; 
@@ -102,6 +114,7 @@ class ListingController extends Controller
 					$sql .= " AND l.number_of_bathrooms = '".$data['bathrooms']."' "; 
 				}
 			}
+			
 			if(isset($data['string'])){
 				$sql .= " AND ( l.description LIKE '%".$data['string']."%' OR l.name LIKE '%".$data['string']."%') ";
 			}
