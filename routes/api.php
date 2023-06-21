@@ -107,6 +107,8 @@ use App\Http\Controllers\SalesRequestAppointmentController;
 use App\Http\Controllers\FavoritePropertyController;
 use App\Http\Controllers\webUsersController;
 use App\Http\Controllers\webListings;
+
+
 /*
 |--------------------------------------------------------------------------
 | API Routes

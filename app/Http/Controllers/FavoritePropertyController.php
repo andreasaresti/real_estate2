@@ -33,6 +33,7 @@ class FavoritePropertyController extends Controller
      */
     public function create($index)
     {
+        session_start();
         if(!FavoriteProperty::where('customer_id', $_SESSION["user_id"])->where('listing_id', $index)->exists()){
             FavoriteProperty::insert(array('customer_id' =>  $_SESSION["user_id"], 'listing_id' => $index));
             return "ok";

@@ -33,7 +33,7 @@ class CustomerController extends Controller
     {
 		$data = $request;
 
-        echo 'we are here<br>';
+        session_start();
 
         $result = Customer::where('email', '=', $data['email'])
                                 ->where('password', md5($data['password']))
@@ -72,6 +72,7 @@ class CustomerController extends Controller
 	}
     public function update(Request $request)
     {
+        session_start():
 		$data = $request;
 		$temp = DB::table('customers') ->where('email', $_SESSION["email"]) ->limit(1) 
             ->update( [ 
@@ -91,6 +92,7 @@ class CustomerController extends Controller
 	}
     public function get_details(Request $request)
     {
+        session_start():
 		$data = $request->data;
 		if(DB::table('customers')->where('email', $data['email'])->exists()){
 			$result = DB::table('customers')->where('email', $data['email'])->orderBy('created_at', 'desc')->first();
@@ -115,6 +117,7 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
+        session_start():
 		$cur_date = date('Y-m-d H:i:s');
         $data = $request;
         $user = Customer::where('email', '=', $data['email'])->first();
@@ -128,6 +131,7 @@ class CustomerController extends Controller
     }
     public function store_details(Request $request)
     {
+        session_start():
 		$cur_date = date('Y-m-d H:i:s');
         $data = $request->data;
         if($data['password']!==""){
@@ -155,6 +159,7 @@ class CustomerController extends Controller
 
     public function logout()
     {
+        session_start():
         unset($_SESSION["email"]);
         unset($_SESSION["name"]);
         unset($_SESSION["user_id"]);

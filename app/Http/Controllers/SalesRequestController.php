@@ -40,6 +40,7 @@ class SalesRequestController extends Controller
 
     public function get(Request $request)
     {
+        session_start():
         $result = array();
 		$data = $request;
 		$location_data = explode(',', $data['location']);
