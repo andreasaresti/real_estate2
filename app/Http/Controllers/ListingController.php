@@ -26,6 +26,8 @@ class ListingController extends Controller
 		$result = array();
 		$data = $request;
 
+		// print_r($data);
+
 		
 
 		if($data['flag1']=="requestListingsList"){
@@ -115,6 +117,7 @@ class ListingController extends Controller
 				}
 			}
 			
+			
 			if(isset($data['string'])){
 				$sql .= " AND ( l.description LIKE '%".$data['string']."%' OR l.name LIKE '%".$data['string']."%') ";
 			}
@@ -138,6 +141,7 @@ class ListingController extends Controller
 				}
 			}
 		}
+		
 		$listings = DB::select($sql);
 		$countlistings = count($listings);
 		if(isset($data['page_index'])){
@@ -154,6 +158,7 @@ class ListingController extends Controller
 				array_push($result,["countlistings" =>$countlistings, "property_type_id" =>$listings[$i]->property_type_id,"latitude" =>$listings[$i]->latitude,"longitude" =>$listings[$i]->longitude,"area_size" =>$listings[$i]->area_size, "id"=>$listings[$i]->id, "name"=> json_decode($listings[$i]->name), "image"=>  $listings[$i]->image ,"price"=> $listings[$i]->price, "bedrooms"=>$listings[$i]->number_of_bedrooms, "bathrooms"=>$listings[$i]->number_of_bathrooms , "address"=>json_decode($listings[$i]->l_name), "garages"=>$listings[$i]->number_of_garages_or_parkingpaces]);
 			}
 		}
+		session_start();
 		$favoritelist = array();
 		$favorites = DB::select('SELECT * FROM favorite_properties where customer_id='.$_SESSION["user_id"]);
 		for($i=0;$i<count($favorites);$i++){

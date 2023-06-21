@@ -106,6 +106,7 @@ use App\Http\Controllers\SalesRequestController;
 use App\Http\Controllers\SalesRequestAppointmentController;
 use App\Http\Controllers\FavoritePropertyController;
 use App\Http\Controllers\webUsersController;
+use App\Http\Controllers\webListings;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -128,6 +129,8 @@ use App\Http\Controllers\webUsersController;
 	Route::get('getcart', [webUsersController::class, 'get_cart']);
 	Route::get('add-remove-wishlist', [webUsersController::class, 'add_remove_to_wish_list']);
 	Route::get('add-remove-cart', [webUsersController::class, 'add_remove_to_cart']);
+    	
+	Route::post('activelistings', [webListings::class, 'get_active_listings']);
 // });
 
 Route::controller(MenuController::class)->group(function(){
