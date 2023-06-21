@@ -25,12 +25,13 @@ class webUsersController extends Controller
     }
     public function create_user(Request $request)
     {
+        session_start();
         // $this->authorize('create', Customer::class);
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'surname' => 'required',
             'email' => 'required|email|unique:customers',
-            'password' => 'required|min:8',
+            'password' => 'required|min:4',
             'confirm_password' => 'required|same:password',
         ]);
 
@@ -64,6 +65,7 @@ class webUsersController extends Controller
     }
     public function update_user(Request $request)
     {
+        session_start();
         // $this->authorize('create', Customer::class);
         $validator = Validator::make($request->all(), [
             'name' => 'required',
@@ -108,9 +110,10 @@ class webUsersController extends Controller
     }
     public function changepassword_user(Request $request)
     {
+        session_start();
         // $this->authorize('create', Customer::class);
         $validator = Validator::make($request->all(), [
-            'password' => 'required|min:8',
+            'password' => 'required|min:6',
             'confirm_password' => 'required|same:password',
             'id' => 'required'
         ]);
@@ -135,9 +138,11 @@ class webUsersController extends Controller
     }
     public function login_user(Request $request)
     {
+        session_start();
+        
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
-            'password' => 'required|min:8',
+            'password' => 'required|min:6',
         ]);
         // Check if the validation fails
         if ($validator->fails()) {
@@ -153,7 +158,7 @@ class webUsersController extends Controller
             // The hashed value matches the input
             // Perform additional logic or return a success response
 
-            session_start();
+            
 
             $_SESSION["email"] = $customer->email;
             $_SESSION["name"] = $customer->name;
