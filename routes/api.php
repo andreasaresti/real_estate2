@@ -133,6 +133,10 @@ use App\Http\Controllers\webListings;
 	Route::get('add-remove-cart', [webUsersController::class, 'add_remove_to_cart']);
     	
 	Route::post('activelistings', [webListings::class, 'get_active_listings']);
+	Route::post('activefeatures', [webListings::class, 'get_active_features']);
+	Route::post('activedistrict', [webListings::class, 'get_active_district']);
+	Route::post('activemunicipality', [webListings::class, 'get_active_municipality']);
+	Route::post('activelocation', [webListings::class, 'get_active_location']);
 // });
 
 Route::controller(MenuController::class)->group(function(){

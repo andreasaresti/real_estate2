@@ -8,6 +8,7 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class FloorPlan extends Resource
@@ -46,18 +47,18 @@ class FloorPlan extends Resource
         return [
             ID::make('id')->sortable(),
 
-            Image::make('Image')
-                ->rules('nullable', 'image', 'max:1024')
-                ->placeholder('Image'),
-
             Text::make('Name')
 				->translatable(DB::table('languages')->select('encoding','name')->orderBy('sequence')->pluck('name', 'encoding')->toArray())
                 ->rules('nullable', 'max:255')
                 ->placeholder('Name'),
 
-            Textarea::make('Description')
+            Image::make('Image')
+                ->rules('nullable', 'image', 'max:1024')
+                ->placeholder('Image'),
+
+            Trix::make('Description')
 				->translatable(DB::table('languages')->select('encoding','name')->orderBy('sequence')->pluck('name', 'encoding')->toArray())
-                ->rules('required', 'max:255')
+                ->rules('nullable', 'max:255')
                 ->placeholder('Description'),
 
             BelongsTo::make('Listing', 'listing'),

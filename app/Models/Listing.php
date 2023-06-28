@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Models\Scopes\Searchable;
-use App\Nova\FloorPlan;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\MediaLibrary\HasMedia;

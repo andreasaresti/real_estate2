@@ -12,6 +12,7 @@ use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\Computed;
 use ZiffMedia\NovaSelectPlus\SelectPlus;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\BelongsTo;
@@ -75,10 +76,13 @@ class SalesRequest extends Resource
             
             ID::make('id')->sortable(),
 
+            
+            
+
             Text::make('Name')
                 ->rules('required', 'max:255', 'string')
                 ->placeholder('Name'),
-
+            
             Date::make('Date')
                 ->rules('required', 'max:255', 'string')
                 ->placeholder('Date')
@@ -175,8 +179,8 @@ class SalesRequest extends Resource
                 ->placeholder('Select Accepted Status')
                 ->default('no'),
 
-            BelongsTo::make('Source', 'source')                
-                ->searchable()
+            BelongsTo::make('Source', 'source') 
+                ->rules('required')
                 ->showCreateRelationButton(),
 
             Select::make('Status')

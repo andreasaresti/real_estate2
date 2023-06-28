@@ -2,11 +2,132 @@
 
 
 namespace App\Http\Controllers;
+
+use App\Models\District;
+use App\Models\Feature;
+use App\Models\Listing;
+use App\Models\Location;
+use App\Models\Municipality;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class webListings extends Controller
 {
+    public function get_active_features(Request $request)
+    {
+        // $this->authorize('view-any', Size::class);
+
+        $query = Feature::join('feature_listing', 'features.id', '=', 'feature_listing.feature_id')
+                            ->join('listings', 'listings.id', '=', 'feature_listing.listing_id')
+                            ->where('listings.published', true);
+        $query = $query->select('features.*')
+                ->orderBy('features.sequence', 'desc')
+                ->orderBy('features.name', 'desc')
+                ->paginate(1000);
+
+        
+
+        foreach ($query as $key=>$row) {
+            $name_array = $row->name;
+            $query[$key]->displayname = $name_array;
+        }
+
+        $sizes = $query;
+
+        return response()->json($sizes);
+    }
+    public function get_active_district(Request $request)
+    {
+        // http://localhost:8000/api/activelocation
+        // http://localhost:8000/api/activemunicipality
+        // http://localhost:8000/api/activedistrict
+        // http://localhost:8000/api/activefeatures
+
+        $query = District::whereIn('districts.id', function ($subquery) {
+                                $subquery->select('location_id')
+                                ->from('listings')
+                                ->join('locations', 'listings.location_id', '=', 'locations.id')
+                                ->join('municipalities', 'listings.location_id', '=', 'locations.id')
+                                ->where('listings.published', '=', 1);
+                            });
+        if ($request->has('district')) {
+            $query = $query->where('municipalities.district_id', '=', $request->district);
+        }
+        $query = $query->select('districts.*')
+                ->orderBy('districts.name', 'asc')
+                ->paginate(1000);
+
+        
+
+        foreach ($query as $key=>$row) {
+            $name_array = $row->name;
+            $query[$key]->displayname = $name_array;
+        }
+
+        $districts = $query;
+
+        return response()->json($districts);
+    }
+    public function get_active_municipality(Request $request)
+    {
+        // http://localhost:8000/api/activelocation
+        // http://localhost:8000/api/activemunicipality
+
+        $query = Municipality::whereIn('municipalities.id', function ($subquery) {
+                                $subquery->select('municipality_id')
+                                ->from('listings')
+                                ->join('locations', 'listings.location_id', '=', 'locations.id')
+                                ->where('published', '=', 1);
+                            });
+        if ($request->has('district')) {
+            $query = $query->where('municipalities.district_id', '=', $request->district);
+        }
+        $query = $query->select('municipalities.*')
+                ->orderBy('municipalities.name', 'asc')
+                ->paginate(1000);
+
+        
+
+        foreach ($query as $key=>$row) {
+            $name_array = $row->name;
+            $query[$key]->displayname = $name_array;
+        }
+
+        $municipality = $query;
+
+        return response()->json($municipality);
+    }
+    public function get_active_location(Request $request)
+    {
+        // $this->authorize('view-any', Size::class);
+
+        $query = Location::whereIn('locations.id', function ($subquery) {
+            $subquery->select('location_id')
+            ->from('listings')
+            ->where('published', '=', 1);
+        });
+        if ($request->has('municipality')) {
+            $query = $query->where('municipality_id', '=', $request->municipality);
+        }
+        if ($request->has('district')) {
+            $query = $query->join('municipalities', 'municipalities.id', '=', 'locations.municipality_id')
+                        ->where('municipalities.district_id', '=', $request->district);
+        }
+        $query = $query->select('locations.*')
+                ->orderBy('locations.name', 'asc')
+                ->paginate(1000);
+
+        
+
+        foreach ($query as $key=>$row) {
+            $name_array = $row->name;
+            $query[$key]->displayname = $name_array;
+        }
+
+        $locations = $query;
+
+        return response()->json($locations);
+    }
     public function get_active_listings(Request $request)
     {
         // $request = $_REQUEST;
@@ -24,8 +145,7 @@ class webListings extends Controller
             $perPage = $request->per_page;
         }
         
-        $query = DB::table('listings')
-                    ->where('published', '=', 1);
+        $query = Listing::where('published', '=', 1);
 
         if ($request->has('features')) {
             foreach($request->features as $feature){

@@ -317,8 +317,8 @@ class Listing extends Resource
 						->hideFromIndex(),
 				]),
 			]),
-			HasMany::make('ListingAttachment', 'listingAttachment'),
-			// HasMany::make('FloorPlan', 'floorPlan'),
+			HasMany::make('Listing Attachment', 'listingAttachment'),
+			HasMany::make('Floor Plan', 'floorPlan'),
 
 			HasMany::make(
 				'ListingAdditionalDetail',

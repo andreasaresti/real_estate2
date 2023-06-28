@@ -18,6 +18,7 @@ class SalesRequest extends Model
         'source_id',
         'sales_people_id',
         'property_type_id',
+        'assigned_date'.
         'minimum_budget',
         'maximum_budget',
         'minimum_bedrooms',
