@@ -11,6 +11,10 @@ class Customer extends Model
     use HasFactory;
     use Searchable;
 
+    protected $attributes = [
+        'type' => 'individual',
+    ];
+
     protected $fillable = [
         'ext_code',
         'type',

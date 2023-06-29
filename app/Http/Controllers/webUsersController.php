@@ -59,6 +59,11 @@ class webUsersController extends Controller
             'notes' => $request->notes,
         ]);
 
+        $_SESSION["email"] = $request->email;
+        $_SESSION["name"] = $request->name.' '.$request->surname;
+        $_SESSION["user_id"] = $user->id;
+        $_SESSION["user_image"] = '';
+
         // You can customize the response as per your needs
         return response()->json([
             'message' => 'User created successfully',
@@ -103,6 +108,11 @@ class webUsersController extends Controller
             'country' => $request->country,
             'notes' => $request->notes,
         ]);
+
+        $_SESSION["email"] = $request->email;
+        $_SESSION["name"] = $request->name.' '.$request->surname;
+        $_SESSION["user_id"] = $request->id;
+        $_SESSION["user_image"] = '';
 
         // You can customize the response as per your needs
         return response()->json([
@@ -231,7 +241,9 @@ class webUsersController extends Controller
                     ->select('customers.*')                
                     ->orderBy($orderby, $orderbytype)
                     ->paginate($perPage, ['/*'], 'page', $page);
-
+        foreach ($query as $key=>$row) {
+            unset($query[$key]->password);
+        }
         $customers = $query; 
 
         return response()->json($customers);
