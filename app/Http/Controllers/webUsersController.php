@@ -8,6 +8,8 @@ use App\Models\WishList;
 use App\Models\Product;
 use App\Models\ProductVariant;
 use App\Models\Colour;
+use App\Models\FavoriteProperty;
+use App\Models\Listing;
 use App\Models\SalesPeople;
 use App\Models\Size;
 use Illuminate\Http\Request;
@@ -205,7 +207,6 @@ class webUsersController extends Controller
     }
     public function get_users(Request $request)
     {
-        session_start();
         // $this->authorize('view-any', Customer::class);
 
         $perPage = 20;
@@ -236,67 +237,19 @@ class webUsersController extends Controller
         return response()->json($customers);
 
     }
-    public function get_wish_list(Request $request)
-    {
-        session_start();
-        $validator = Validator::make($request->all(), [
-            'customer_id' => [
-                'required','integer',
-                Rule::exists('customers', 'id'),
-            ]
-        ]);
-
-        // Check if the validation fails
-        if ($validator->fails()) {
-            // Return the validation errors
-            return response()->json([
-                'errors' => $validator->errors(),
-            ], 422);
-        }
-
-        $query = DB::table('wish_lists')
-                ->where('customer_id', $request->customer_id)
-                ->paginate(1000);
-
-        foreach ($query as $key=>$row) {
-
-            $product = Product::where('id', $row->product_id)->first();
-
-            $productData = $product;
-
-            // $name_array =json_decode($product->name);
-            // $productData->productName = isset($name_array->en)?$name_array->en:'';
-
-            $productData->productName = $product->name;
-            $query[$key]->product = $productData;
-
-            $post = Product::with('media')->find($row->product_id);
-            $media = $post->media;
-            $images_array = [];
-            foreach ($media as $m) {
-                $images_array[] = env('APP_URL').'/storage/'.$m->id.'/'.$m->file_name;
-            }
-            $query[$key]->images = $images_array;
-
-        }
-        $wishlist = $query;
-
-        return response()->json($wishlist);
-    }
     
-    public function add_remove_to_wish_list(Request $request)
+    
+    public function add_remove_to_favorites(Request $request)
     {
-        session_start();
         $validator = Validator::make($request->all(), [
             'customer_id' => [
                 'required','integer',
                 Rule::exists('customers', 'id'),
             ],
-            'product_id' => [
+            'listing_id' => [
                 'required','integer',
-                Rule::exists('products', 'id'),
-            ],
-            'action' => 'required|in:add,remove'
+                Rule::exists('listings', 'id'),
+            ]
         ]);
 
         // Check if the validation fails
@@ -306,217 +259,21 @@ class webUsersController extends Controller
                 'errors' => $validator->errors(),
             ], 422);
         }
-        $existingModel = WishList::where('product_id', $request->product_id)
+        $existingModel = FavoriteProperty::where('listing_id', $request->listing_id)
                                     ->where('customer_id', $request->customer_id)
                                     ->first();
-
-        if($request->action == 'add'){
-            $quantity = $request->quantity;
-        }
-        else if($request->action == 'remove'){
-            $quantity = (-1) * $request->quantity;
-        }
-
         if ($existingModel) {
-            // If the model exists, increment the desired field by 1
-            if($request->action == 'remove'){
                 $existingModel->delete();
-            }
         } 
         else {
-            if($request->action == 'add'){
-                WishList::create([
-                                    'customer_id' => $request->customer_id, 
-                                    'product_id' => $request->product_id
-                                ]);
-            }
-        }
-
-        return response()->json([
-            'message' => 'Wish list updated successfully'
-        ], 201);
-    }
-    public function remove_cart(Request $request)
-    {
-        session_start();
-        $validator = Validator::make($request->all(), [
-            'cart_id' => [
-                'required','integer',
-                Rule::exists('shopping_carts', 'id'),
-            ]
-        ]);
-
-        // Check if the validation fails
-        if ($validator->fails()) {
-            // Return the validation errors
-            return response()->json([
-                'errors' => $validator->errors(),
-            ], 422);
-        }
-        
-        $existingModel = ShoppingCart::where('id', $request->cart_id)
-        ->first();
-
-        if ($existingModel) {
-            $existingModel->delete();
-        } 
-
-        return response()->json([
-            'message' => 'Cart list removed successfully'
-        ], 201);
-    }
-    public function update_cart(Request $request)
-    {
-        session_start();
-        $validator = Validator::make($request->all(), [
-            'cart_id' => [
-                'required','integer',
-                Rule::exists('shopping_carts', 'id'),
-            ],
-            'quantity' => 'required|integer|min:1'
-        ]);
-
-        // Check if the validation fails
-        if ($validator->fails()) {
-            // Return the validation errors
-            return response()->json([
-                'errors' => $validator->errors(),
-            ], 422);
-        }
-        
-        $existingModel = ShoppingCart::where('id', $request->cart_id)
-        ->first();
-
-        if ($existingModel) {
-            $existingModel->update(['quantity' => $request->quantity]);
-        } 
-
-        return response()->json([
-            'message' => 'Cart list updated successfully'
-        ], 201);
-    }
-    public function get_cart(Request $request)
-    {
-        session_start();
-        $validator = Validator::make($request->all(), [
-            'customer_id' => [
-                'required','integer',
-                Rule::exists('customers', 'id'),
-            ]
-        ]);
-
-        // Check if the validation fails
-        if ($validator->fails()) {
-            // Return the validation errors
-            return response()->json([
-                'errors' => $validator->errors(),
-            ], 422);
-        }
-
-        $query = DB::table('shopping_carts')
-                ->where('customer_id', $request->customer_id)
-                ->paginate(1000);
-
-        foreach ($query as $key=>$row) {
-
-            $product = Product::where('id', $row->product_id)->first();
-
-            $productData = $product;
-
-            // $name_array =json_decode($product->name);
-            // $productData->productName = isset($name_array->en)?$name_array->en:'';
-
-            $productData->productName = $product->name;
-            $query[$key]->product = $productData;
-
-            $post = Product::with('media')->find($row->product_id);
-            $media = $post->media;
-            $images_array = [];
-            foreach ($media as $m) {
-                $images_array[] = env('APP_URL').'/storage/'.$m->id.'/'.$m->file_name;
-            }
-            $query[$key]->images = $images_array;
-
-            $variant = ProductVariant::where('id', $row->product_variant_id)->first();
-
-            $variants_array = $variant;
-
-            $variant->color_name = '';
-            if($variant->colour_id != ''){
-                $colour = Colour::find($variant->colour_id);
-                $variants_array->color_name = $colour->name;
-                $variants_array->color_code = $colour->colour_code;
-            }
-            $variant->size_name = '';
-            if($variant->size_id != ''){
-                $size = Size::find($variant->size_id);
-                $variants_array->size_name = $size->name;
-            }
-
-            $query[$key]->variants = $variants_array;
-
-        }
-
-        $cart = $query;
-
-        return response()->json($cart);
-    }
-    public function add_remove_to_cart(Request $request)
-    {    
-        session_start();    
-        $validator = Validator::make($request->all(), [
-            'customer_id' => [
-                'required','integer',
-                Rule::exists('customers', 'id'),
-            ],
-            'product_id' => [
-                'required','integer',
-                Rule::exists('products', 'id'),
-            ],
-            'product_variant_id' => [
-                'nullable','integer',
-                Rule::exists('product_variants', 'id'),
-            ],
-            'quantity' => 'required|integer|min:1',
-            'action' => 'required|in:add,remove'
-        ]);
-
-        // Check if the validation fails
-        if ($validator->fails()) {
-            // Return the validation errors
-            return response()->json([
-                'errors' => $validator->errors(),
-            ], 422);
-        }
-        $existingModel = ShoppingCart::where('product_id', $request->product_id)
-                                    ->where('customer_id', $request->customer_id)
-                                    ->where('product_variant_id', $request->product_variant_id)
-                                    ->first();
-
-        if($request->action == 'add'){
-            $quantity = $request->quantity;
-        }
-        else if($request->action == 'remove'){
-            $quantity = (-1) * $request->quantity;
-        }
-
-        if ($existingModel) {
-            // If the model exists, increment the desired field by 1
-            $existingModel->update(['quantity' => $existingModel->quantity + $quantity]);
-        } 
-        else {
-            // If the model doesn't exist, create a new one with the desired field set to 1
-            ShoppingCart::create([
+            FavoriteProperty::create([
                                 'customer_id' => $request->customer_id, 
-                                'product_id' => $request->product_id, 
-                                'product_variant_id' => $request->product_variant_id,
-                                'quantity' => $quantity
+                                'listing_id' => $request->listing_id
                             ]);
         }
-        ShoppingCart::where('quantity', '<=', 0)->delete();
 
         return response()->json([
-            'message' => 'Shopping Cart updated successfully'
+            'message' => 'Favorite Listing updated successfully'
         ], 201);
     }
 }
