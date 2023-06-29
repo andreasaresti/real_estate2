@@ -24,8 +24,8 @@ class webListings extends Controller
     {
         // $this->authorize('view-any', Size::class);
 
-        $query = Feature::join('feature_listings', 'features.id', '=', 'feature_listings.feature_id')
-                            ->join('listings', 'listings.id', '=', 'feature_listings.listing_id')
+        $query = Feature::join('feature_listing', 'features.id', '=', 'feature_listing.feature_id')
+                            ->join('listings', 'listings.id', '=', 'feature_listing.listing_id')
                             ->where('listings.published', true);
         $query = $query->select('features.*')
                 ->orderBy('features.sequence', 'desc')
