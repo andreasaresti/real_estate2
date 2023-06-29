@@ -58,6 +58,7 @@ class webListings extends Controller
         }
         $query = $query->select('districts.*')
                 ->orderBy('districts.name', 'asc')
+                ->distinct()
                 ->paginate(1000);
 
         
@@ -87,6 +88,7 @@ class webListings extends Controller
         }
         $query = $query->select('municipalities.*')
                 ->orderBy('municipalities.name', 'asc')
+                ->distinct()
                 ->paginate(1000);
 
         
@@ -118,6 +120,7 @@ class webListings extends Controller
         }
         $query = $query->select('locations.*')
                 ->orderBy('locations.name', 'asc')
+                ->distinct()
                 ->paginate(1000);
 
         
@@ -216,9 +219,6 @@ class webListings extends Controller
                 ->where('sales_request_id', $request->sales_request_id);
             });
         }
-
-        
-        
 
         $query = $query
                     ->select('listings.*')                
