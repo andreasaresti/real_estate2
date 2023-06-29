@@ -36,8 +36,6 @@ class webListings extends Controller
                 ->orderBy('features.name', 'asc')
                 ->paginate(1000);
 
-        
-
         foreach ($query as $key=>$row) {
             $name_array = $row->name;
             $query[$key]->displayname = $name_array;
@@ -63,6 +61,7 @@ class webListings extends Controller
         }
         $query = $query->select('districts.*')
                 ->orderBy('districts.name', 'asc')
+                ->distinct()
                 ->paginate(1000);
 
         
@@ -92,6 +91,7 @@ class webListings extends Controller
         }
         $query = $query->select('municipalities.*')
                 ->orderBy('municipalities.name', 'asc')
+                ->distinct()
                 ->paginate(1000);
 
         
@@ -123,6 +123,7 @@ class webListings extends Controller
         }
         $query = $query->select('locations.*')
                 ->orderBy('locations.name', 'asc')
+                ->distinct()
                 ->paginate(1000);
 
         
@@ -221,9 +222,6 @@ class webListings extends Controller
                 ->where('sales_request_id', $request->sales_request_id);
             });
         }
-
-        
-        
 
         $query = $query
                     ->select('listings.*')                

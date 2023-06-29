@@ -132,7 +132,7 @@ use App\Http\Controllers\webListings;
 	Route::get('getcart', [webUsersController::class, 'get_cart']);
 	Route::get('add-remove-wishlist', [webUsersController::class, 'add_remove_to_wish_list']);
 	Route::get('add-remove-cart', [webUsersController::class, 'add_remove_to_cart']);
-    	
+
 	Route::post('activelistings', [webListings::class, 'get_active_listings']);
 	Route::post('activefeatures', [webListings::class, 'get_active_features']);
 	Route::post('activedistrict', [webListings::class, 'get_active_district']);
