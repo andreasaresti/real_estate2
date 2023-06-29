@@ -8,8 +8,10 @@ use App\Models\Feature;
 use App\Models\FeatureListing;
 use App\Models\FloorPlan;
 use App\Models\Listing;
+use App\Models\ListingType;
 use App\Models\Location;
 use App\Models\Municipality;
+use App\Models\PropertyType;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
@@ -262,6 +264,25 @@ class webListings extends Controller
                 $floor_plan_array[$i]->displaydescription = $description_array;
             }
             $query[$key]->floor_plans = $floor_plan_array;
+
+            $listing_types = DB::table('listing_listing_type')->where('listing_id', $row->id)->pluck('listing_type_id');
+            $listing_types_array = ListingType::whereIn('id', $listing_types)->orderBy('name', 'asc')->get();
+            $listing_types = [];
+            for($i = 0; $i < count($listing_types_array); $i++){
+                $name_array = $listing_types_array[$i]->name;
+                $listing_types[] = $name_array;
+            }
+            $query[$key]->listing_types = $listing_types;
+
+            $property_type = PropertyType::where('id', $row->property_type_id)->first();
+            $query[$key]->property_type = $property_type->name;
+
+            $location = Location::where('id', $row->location_id)->first();
+            $query[$key]->location_name = $location->name;
+
+            if($row->image != ''){
+                $query[$key]->image = env('APP_URL').'/storage/'.$row->image;
+            }
         }
 
         $products = $query; 
