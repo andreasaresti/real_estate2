@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Country;
 use App\Models\District;
 use App\Models\Feature;
 use App\Models\FeatureListing;
@@ -25,6 +26,20 @@ class webListings extends Controller
     // http://localhost:8000/api/activefeatures
     // http://localhost:8000/api/activelistings
 
+    public function get_countries(Request $request){
+        $query = Country::select('countries.*')
+                ->orderBy('countries.name', 'asc')
+                ->paginate(1000);
+
+        foreach ($query as $key=>$row) {
+            $name_array = $row->name;
+            $query[$key]->displayname = $name_array;
+        }
+
+        $features = $query;
+
+        return response()->json($features);
+    }
     public function get_active_features(Request $request)
     {
         // $this->authorize('view-any', Size::class);
@@ -45,9 +60,9 @@ class webListings extends Controller
             $query[$key]->displayname = $name_array;
         }
 
-        $sizes = $query;
+        $features = $query;
 
-        return response()->json($sizes);
+        return response()->json($features);
     }
     public function get_active_district(Request $request)
     {

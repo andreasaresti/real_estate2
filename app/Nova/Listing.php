@@ -284,22 +284,6 @@ class Listing extends Resource
 						->placeholder('Epc Potential Rating')
 						->hideFromIndex(),					
 				]),
-				Tab::make('Floor Plans / Attachments',[
-                    Text::make('Taxes')
-						->rules('nullable', 'max:255', 'string')
-						->placeholder('Taxes')
-						->hideFromIndex(),
-
-					Text::make('Dues')
-						->rules('nullable', 'max:255', 'string')
-						->placeholder('Dues')
-						->hideFromIndex(),
-
-					Trix::make('Notes')
-						->rules('nullable', 'max:255', 'string')
-						->placeholder('Notes')
-						->hideFromIndex(),
-				]),
 				Tab::make('Additional Fields',[
                     Text::make('Taxes')
 						->rules('nullable', 'max:255', 'string')

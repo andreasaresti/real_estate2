@@ -135,6 +135,7 @@ use App\Http\Controllers\webListings;
 	Route::post('activedistrict', [webListings::class, 'get_active_district']);
 	Route::post('activemunicipality', [webListings::class, 'get_active_municipality']);
 	Route::post('activelocation', [webListings::class, 'get_active_location']);
+	Route::get('get-countries', [webListings::class, 'get_countries']);
 // });
 
 Route::controller(MenuController::class)->group(function(){
