@@ -10,6 +10,8 @@ use App\Models\FloorPlan;
 use App\Models\Listing;
 use App\Models\Location;
 use App\Models\Municipality;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -265,5 +267,41 @@ class webListings extends Controller
         $products = $query; 
 
         return response()->json($products);
+    }
+    public function get_pagination(Request $request)
+    {
+        // Simulating a collection of items
+        $items = Collection::make(range(1, $request->total));
+
+        // Current page number
+        $page = $request->current_page;
+
+        // Number of items per page
+        $perPage = $request->per_page;
+
+        // Create a paginator instance
+        $paginator = new LengthAwarePaginator(
+            $items->forPage($page, $perPage),
+            $items->count(),
+            $perPage,
+            $page,
+            ['path' => url('/')] // Replace with your desired URL path
+        );
+
+        // Set the number of pages to show before and after the current page
+        $paginator->withPath('');
+        
+
+        // Get the pagination array
+        $paginationArray = $paginator->toArray();
+        foreach($paginationArray['links'] as $key => $link){
+            if($link['label'] == 'pagination.previous'){
+                $paginationArray['links'][$key]['label'] = 'Previous';
+            }
+            if($link['label'] == 'pagination.next'){
+                $paginationArray['links'][$key]['label'] = 'Next';
+            }
+        }
+        return response()->json($paginationArray);
     }
 }
