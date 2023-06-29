@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\District;
 use App\Models\Feature;
 use App\Models\FeatureListing;
+use App\Models\FloorPlan;
 use App\Models\Listing;
 use App\Models\Location;
 use App\Models\Municipality;
@@ -24,12 +25,15 @@ class webListings extends Controller
     {
         // $this->authorize('view-any', Size::class);
 
-        $query = Feature::join('feature_listing', 'features.id', '=', 'feature_listing.feature_id')
-                            ->join('listings', 'listings.id', '=', 'feature_listing.listing_id')
-                            ->where('listings.published', true);
+        $query = Feature::whereIn('features.id', function ($subquery) {
+            $subquery->select('listings.id')
+            ->from('listings')
+            ->join('feature_listing', 'feature_listing.listing_id', '=', 'listings.id')
+            ->where('listings.published', '=', 1);
+        });
+        
         $query = $query->select('features.*')
-                ->orderBy('features.sequence', 'desc')
-                ->orderBy('features.name', 'desc')
+                ->orderBy('features.name', 'asc')
                 ->paginate(1000);
 
         
@@ -242,17 +246,22 @@ class webListings extends Controller
             $query[$key]->images = $images_array;
 
             $features = DB::table('feature_listing')->where('listing_id', $row->id)->pluck('feature_id');
-            // print_r($features);
-            // return true;
-            $features_array = Feature::whereIn('id', $features)->orderBy('name', 'asc')->get();;
-            // print_r($features);
-            // return true;
+            $features_array = Feature::whereIn('id', $features)->orderBy('name', 'asc')->get();
             $features = [];
             for($i = 0; $i < count($features_array); $i++){
                 $name_array = $features_array[$i]->name;
                 $features[] = $name_array;
             }
             $query[$key]->features = $features;
+
+            $floor_plan_array = FloorPlan::where('listing_id', $row->id)->get();
+            for($i = 0; $i < count($floor_plan_array); $i++){
+                $name_array = $floor_plan_array[$i]->name;
+                $description_array = $floor_plan_array[$i]->description;
+                $floor_plan_array[$i]->displayname = $name_array;
+                $floor_plan_array[$i]->displaydescription = $description_array;
+            }
+            $query[$key]->floor_plans = $floor_plan_array;
         }
 
         $products = $query; 

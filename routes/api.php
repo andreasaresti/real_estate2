@@ -121,6 +121,7 @@ use App\Http\Controllers\webListings;
 */
 
 // Route::middleware('localhost')->group(function () {
+    Route::get('remind-password', [webUsersController::class, 'remind_password']);
     Route::get('create-webuser', [webUsersController::class, 'create_user']);
 	Route::get('get-webuser', [webUsersController::class, 'get_users']);
 	Route::get('webusersupdate', [webUsersController::class, 'update_user']);
