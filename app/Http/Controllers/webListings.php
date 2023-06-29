@@ -159,6 +159,26 @@ class webListings extends Controller
         }
         
         $query = Listing::where('published', '=', 1);
+        $select_values_array[] = 'listings.*';
+
+        if ($request->has('customer_id')) {
+            $select_values_array[] = 'favorite_properties.listing_id as favorite_properties_listing_id';
+            $query = $query->leftJoin('favorite_properties', function ($join) use ($request) {
+                $join->on('listings.id', '=', 'favorite_properties.listing_id')
+                    ->where('favorite_properties.customer_id', '=', $request->customer_id);
+            });
+        }
+        else{
+            // $select_values_array[] = "'' as favorite_properties_listing_id";
+        }
+
+        if ($request->has('search_term') && $request->search_term != '') {
+            $search = $request->search_term;
+            $query = $query
+                        ->where('listings.id', 'LIKE', '%' . $search . '%')
+                        ->orWhere('listings.ext_code', 'LIKE', '%' . $search . '%')
+                        ->orWhere('listings.name', 'LIKE', '%' . $search . '%');
+        }
 
         if ($request->has('features')) {
             foreach($request->features as $feature){
@@ -170,7 +190,7 @@ class webListings extends Controller
             }
         }
         if ($request->has('id') && $request->id != '') {
-            $query = $query->where('id', $request->id);
+            $query = $query->where('listings.id', $request->id);
         }
         if ($request->has('locations') && count($request->locations) > 0) {
             $query = $query->whereIn('location_id', $request->locations);
@@ -228,7 +248,7 @@ class webListings extends Controller
         }
 
         $query = $query
-                    ->select('listings.*')                
+                    ->select($select_values_array)               
                     ->orderBy($orderby, $orderbytype)
                     ->paginate($perPage, ['/*'], 'page', $page);
 
@@ -282,6 +302,11 @@ class webListings extends Controller
 
             if($row->image != ''){
                 $query[$key]->image = env('APP_URL').'/storage/'.$row->image;
+            }
+
+            $query[$key]->in_favoriteproperties = 0;
+            if(isset($query[$key]->favorite_properties_listing_id) && $query[$key]->favorite_properties_listing_id == $query[$key]->id){
+                $query[$key]->in_favoriteproperties = 1;
             }
         }
 
