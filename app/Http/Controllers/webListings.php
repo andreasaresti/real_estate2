@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\District;
 use App\Models\Feature;
+use App\Models\FeatureListing;
 use App\Models\Listing;
 use App\Models\Location;
 use App\Models\Municipality;
@@ -13,6 +14,12 @@ use Illuminate\Support\Facades\DB;
 
 class webListings extends Controller
 {
+    // http://localhost:8000/api/activelocation
+    // http://localhost:8000/api/activemunicipality
+    // http://localhost:8000/api/activedistrict
+    // http://localhost:8000/api/activefeatures
+    // http://localhost:8000/api/activelistings
+
     public function get_active_features(Request $request)
     {
         // $this->authorize('view-any', Size::class);
@@ -37,10 +44,7 @@ class webListings extends Controller
     }
     public function get_active_district(Request $request)
     {
-        // http://localhost:8000/api/activelocation
-        // http://localhost:8000/api/activemunicipality
-        // http://localhost:8000/api/activedistrict
-        // http://localhost:8000/api/activefeatures
+        
 
         $query = District::whereIn('districts.id', function ($subquery) {
                                 $subquery->select('location_id')
@@ -155,111 +159,79 @@ class webListings extends Controller
                 });
             }
         }
-        if ($request->has('locations')) {
-            $query = $query->whereIn('location_id', $request->locations);
-        }
-        
-
-/*
-                    echo 'we are here<br>';
-        echo $request->address;
-        return true;
-
-        $select_values_array = [];
-        
-        if ($request->has('customer_id')) {
-            $select_values_array[] = 'wish_lists.product_id as wish_list_product_id';
-            $query = $query->leftJoin('wish_lists', function ($join) use ($request) {
-                $join->on('products.id', '=', 'wish_lists.product_id')
-                    ->where('wish_lists.customer_id', '=', $request->customer_id);
-            });
-        }
-        else{
-            // $select_values_array[] = "'' as wish_list_product_id";
-        }
-
-        if(count($subcategories_array) > 0){
-            $query = $query->whereIn('products.id', function ($subquery) use ($subcategories_array) {
-                $subquery->select('product_id')
-                    ->from('category_product')
-                    ->whereIn('category_id', $subcategories_array);
-            });
-        }
-        if ($request->has('brands')) {
-            $brands_array = [];
-            foreach(explode(',', $request->brands) as $brandid){
-                if(is_numeric($brandid)){
-                    $brands_array[] = $brandid;
-                }
-            }
-            if(count($brands_array) > 0){
-                $query = $query->whereIn('brand_id', $brands_array);
-            }   
-        }
-        
-        if ($request->has('colours')) {
-            $colours_array = [];
-            foreach(explode(',', $request->colours) as $colorid){
-                if(is_numeric($colorid)){
-                    $colours_array[] = $colorid;
-                }
-            }
-            if(count($colours_array) > 0){
-                $query = $query->whereIn('products.id', function ($subquery) use ($colours_array) {
-                    $subquery->select('product_id')
-                        ->from('product_variants')
-                        ->whereIn('product_variants.colour_id', $colours_array)
-                        ->where('product_variants.active', '=', 1);
-                });
-            }            
-        }
-        
-        if ($request->has('sizes')) {
-            $sizes_array = [];
-            foreach(explode(',', $request->sizes) as $sizesid){
-                if(is_numeric($sizesid)){
-                    $sizes_array[] = $sizesid;
-                }
-            }
-            if(count($sizes_array) > 0){
-                $query = $query->whereIn('products.id', function ($subquery) use ($sizes_array) {
-                    $subquery->select('product_id')
-                        ->from('product_variants')
-                        ->whereIn('product_variants.size_id', $sizes_array)
-                        ->where('product_variants.active', '=', 1);
-                });
-            }            
-        }
-        
         if ($request->has('id') && $request->id != '') {
             $query = $query->where('id', $request->id);
         }
-        if ($request->has('search') && $request->search != '') {
-            $search = $request->search;
-            $query = $query
-                        ->where('sku', 'LIKE', '%' . $search . '%')
-                        ->orWhere('barcode', 'LIKE', '%' . $search . '%')
-                        ->orWhere('name', 'LIKE', '%' . $search . '%');
+        if ($request->has('locations') && count($request->locations) > 0) {
+            $query = $query->whereIn('location_id', $request->locations);
         }
+
+        if ($request->has('number_of_bedrooms') && $request->number_of_bedrooms != '') {
+            $query = $query->where('number_of_bedrooms', $request->number_of_bedrooms);
+        }
+
+        if ($request->has('number_of_bathrooms') && $request->number_of_bathrooms != '') {
+            $query = $query->where('number_of_bathrooms', $request->number_of_bathrooms);
+        }
+        if ($request->has('min_area_size') && $request->min_area_size != '') {
+            $query = $query->where('area_size', '>=', $request->min_area_size);
+        }
+        if ($request->has('max_area_size') && $request->max_area_size != '') {
+            $query = $query->where('area_size', '<=', $request->max_area_size);
+        }
+        if ($request->has('min_price') && $request->min_price != '') {
+            $query = $query->where('price', '>=', $request->min_price);
+        }
+        if ($request->has('max_price') && $request->max_price != '') {
+            $query = $query->where('price', '<=', $request->max_price);
+        }
+
+        if ($request->has('municipalities') && count($request->municipalities) > 0) {
+            $query = $query->whereIn('listings.id', function ($subquery) use($request){
+                $subquery->select('listings.id')
+                ->from('listings')
+                ->join('locations', 'listings.location_id', '=', 'locations.id')
+                ->whereIn('locations.municipality_id', $request->municipalities);
+            });
+        }
+        if ($request->has('listing_types') && count($request->listing_types) > 0) {
+            $query = $query->whereIn('listings.id', function ($subquery) use($request){
+                $subquery->select('listing_id')
+                ->from('listing_listing_type')
+                ->whereIn('listing_type_id', $request->listing_types);
+            });
+        }
+
+        if ($request->has('customer_id') && $request->customer_id != '' && $request->has('show_favorites') &&  $request->show_favorites == 1) {
+            $query = $query->whereIn('listings.id', function ($subquery) use($request){
+                $subquery->select('listing_id')
+                ->from('favorite_properties')
+                ->where('customer_id', $request->customer_id);
+            });
+        }
+        if ($request->has('sales_request_id') && $request->sales_request_id != '') {
+            $query = $query->whereIn('listings.id', function ($subquery) use($request){
+                $subquery->select('listing_id')
+                ->from('sales_request_listings')
+                ->where('sales_request_id', $request->sales_request_id);
+            });
+        }
+
         
-        $select_values_array[] = 'products.*';
-        */
+        
+
         $query = $query
                     ->select('listings.*')                
                     ->orderBy($orderby, $orderbytype)
                     ->paginate($perPage, ['/*'], 'page', $page);
 
-                    print_r($query);
-                    return '12345';
-        /*       
         foreach ($query as $key=>$row) {
-            $name_array =json_decode($row->name);
-            $query[$key]->name = isset($name_array->en)?$name_array->en:'';
+            $name_array = $row->name;
+            $query[$key]->displayname = $name_array;
+            $description_array = $row->description;
+            $query[$key]->displaydescription = $description_array;
 
-            $description_array =json_decode($row->description);
-            $query[$key]->description = isset($description_array->en)?$description_array->en:'';
-
-            $post = Product::with('media')->find($row->id);
+            $post = Listing::with('media')->find($row->id);
             $media = $post->media;
             
             $images_array = [];
@@ -267,39 +239,22 @@ class webListings extends Controller
                 $images_array[] = env('APP_URL').'/storage/'.$m->id.'/'.$m->file_name;
             }
             $query[$key]->images = $images_array;
-            $query[$key]->brand_name = '';
-            if($row->brand_id != ''){
-                $brand = Brand::find($row->brand_id);
-                $query[$key]->brand_name = $brand->name;
-            }
-            $variants = ProductVariant::where('product_id', $row->id)->get();
 
-            $variants_array = [];
-            foreach ($variants as $variant) {
-                $variant->color_name = '';
-                if($variant->colour_id != ''){
-                    $colour = Colour::find($variant->colour_id);
-                    $variant->color_name = $colour->name;
-                }
-                $variant->size_name = '';
-                if($variant->size_id != ''){
-                    $size = Size::find($variant->size_id);
-                    $variant->size_name = $size->name;
-                }
-                $variants_array[] = $variant;
+            $features = DB::table('feature_listing')->where('listing_id', $row->id)->pluck('feature_id');
+            // print_r($features);
+            // return true;
+            $features_array = Feature::whereIn('id', $features)->orderBy('name', 'asc')->get();;
+            // print_r($features);
+            // return true;
+            $features = [];
+            for($i = 0; $i < count($features_array); $i++){
+                $name_array = $features_array[$i]->name;
+                $features[] = $name_array;
             }
-            $query[$key]->variants = $variants_array;
-            $query[$key]->in_wishlist = 0;
-            if(isset($query[$key]->wish_list_product_id) && $query[$key]->wish_list_product_id == $query[$key]->id){
-                $query[$key]->in_wishlist = 1;
-            }
+            $query[$key]->features = $features;
         }
-        */
 
         $products = $query; 
-
-        print_r($products);
-        return true;
 
         return response()->json($products);
     }
