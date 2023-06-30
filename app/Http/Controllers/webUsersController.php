@@ -63,6 +63,7 @@ class webUsersController extends Controller
         $_SESSION["name"] = $request->name.' '.$request->surname;
         $_SESSION["user_id"] = $user->id;
         $_SESSION["user_image"] = '';
+        $_SESSION["user_role"] = "";
 
         // You can customize the response as per your needs
         return response()->json([
@@ -113,6 +114,7 @@ class webUsersController extends Controller
         $_SESSION["name"] = $request->name.' '.$request->surname;
         $_SESSION["user_id"] = $request->id;
         $_SESSION["user_image"] = '';
+        $_SESSION["user_role"] = "";
 
         // You can customize the response as per your needs
         return response()->json([
