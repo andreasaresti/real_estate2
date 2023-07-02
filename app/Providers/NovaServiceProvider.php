@@ -25,6 +25,7 @@ use App\Nova\Customer;
 use App\Nova\CustomerRole;
 use App\Nova\SalesLostReason;
 use App\Nova\SalesRequestAppointment;
+use App\Nova\SalesRequestNoteType;
 use App\Nova\Source;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -76,6 +77,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                     MenuItem::resource(SalesPeople::class),
                     MenuItem::resource(Agent::class),
                     MenuGroup::make('Settings', [
+                        MenuItem::resource(SalesRequestNoteType::class),
                         MenuItem::resource(SalesLostReason::class),
                     ])->collapsable(),
                 ])->icon('pencil-alt')->collapsable(),

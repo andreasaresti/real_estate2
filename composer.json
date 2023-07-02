@@ -12,10 +12,13 @@
         "ardenthq/nova-image-gallery-field": "^1.1",
         "ayvazyan10/nova-imagic": "^1.1",
         "barryvdh/laravel-dompdf": "^2.0",
+        "codebykyle/calculated-field": "^1.1",
         "ctessier/nova-advanced-image-field": "^2.0",
         "digital-creative/nova-range-input-filter": "*",
         "ebess/advanced-nova-media-library": "4.0",
         "eminiarts/nova-tabs": "^2.2",
+        "fosetico/laravel-pagebuilder": "*",
+        "fosetico/phpagebuilder": "*",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/fortify": "*",
         "laravel/framework": "^9.2",
@@ -36,9 +39,9 @@
         "spatie/laravel-translatable": "^6.3",
         "spatie/nova-tags-field": "^4.0",
         "titasgailius/search-relations": "^2.0",
-        "ziffmedia/nova-select-plus": "^2.0",
-        "fosetico/phpagebuilder": "*",
-        "fosetico/laravel-pagebuilder": "*"
+        "trinityrank/google-map-with-autocomplete": "^1.0",
+        "whitecube/nova-google-maps": "^0.0.1",
+        "ziffmedia/nova-select-plus": "^2.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

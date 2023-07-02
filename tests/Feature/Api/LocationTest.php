@@ -54,7 +54,7 @@ class LocationTest extends TestCase
 
         $response = $this->postJson(route('api.locations.store'), $data);
 
-        unset($data['laditude']);
+        unset($data['latitude']);
         unset($data['longitude']);
 
         $this->assertDatabaseHas('locations', $data);
@@ -75,7 +75,7 @@ class LocationTest extends TestCase
             'ext_code' => $this->faker->unique->text(255),
             'name' => [],
             'sequence' => $this->faker->randomNumber(0),
-            'laditude' => $this->faker->randomNumber(2),
+            'latitude' => $this->faker->randomNumber(2),
             'longitude' => $this->faker->longitude,
             'municipality_id' => $municipality->id,
         ];
@@ -85,7 +85,7 @@ class LocationTest extends TestCase
             $data
         );
 
-        unset($data['laditude']);
+        unset($data['latitude']);
         unset($data['longitude']);
 
         $data['id'] = $location->id;

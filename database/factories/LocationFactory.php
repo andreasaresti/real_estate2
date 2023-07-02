@@ -26,7 +26,7 @@ class LocationFactory extends Factory
             'ext_code' => $this->faker->unique->text(255),
             'name' => [],
             'sequence' => $this->faker->randomNumber(0),
-            'laditude' => $this->faker->randomNumber(2),
+            'latitude' => $this->faker->randomNumber(2),
             'longitude' => $this->faker->longitude,
             'municipality_id' => \App\Models\Municipality::factory(),
         ];

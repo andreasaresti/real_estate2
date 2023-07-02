@@ -67,7 +67,7 @@ class AgentControllerTest extends TestCase
         $response = $this->post(route('agents.store'), $data);
 
         unset($data['longitude']);
-        unset($data['laditude']);
+        unset($data['latitude']);
 
         $this->assertDatabaseHas('agents', $data);
 
@@ -127,14 +127,14 @@ class AgentControllerTest extends TestCase
             'comments' => $this->faker->text,
             'active' => $this->faker->boolean,
             'longitude' => $this->faker->longitude,
-            'laditude' => $this->faker->randomNumber(2),
+            'latitude' => $this->faker->randomNumber(2),
             'district_id' => $district->id,
         ];
 
         $response = $this->put(route('agents.update', $agent), $data);
 
         unset($data['longitude']);
-        unset($data['laditude']);
+        unset($data['latitude']);
 
         $data['id'] = $agent->id;
 

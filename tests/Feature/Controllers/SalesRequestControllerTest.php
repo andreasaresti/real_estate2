@@ -88,9 +88,10 @@ class SalesRequestControllerTest extends TestCase
         unset($data['salesperson_amount']);
         unset($data['salespeople_percentage']);
         unset($data['sales_lost_reason_id']);
-        unset($data['intermediate_percentage']);
         unset($data['final_status']);
+        unset($data['has_intermediate_agent']);
         unset($data['intermediate_agent_id']);
+        unset($data['intermediate_percentage']);
         unset($data['intermediate_amount']);
 
         $this->assertDatabaseHas('sales_requests', $data);
@@ -166,8 +167,9 @@ class SalesRequestControllerTest extends TestCase
             'agency_amount' => $this->faker->randomNumber(1),
             'salesperson_amount' => $this->faker->randomNumber(1),
             'salespeople_percentage' => $this->faker->randomNumber(2),
-            'intermediate_percentage' => $this->faker->randomNumber(2),
             'final_status' => $this->faker->text(255),
+            'has_intermediate_agent' => $this->faker->boolean,
+            'intermediate_percentage' => $this->faker->randomNumber(2),
             'intermediate_amount' => $this->faker->randomNumber(1),
             'customer_id' => $customer->id,
             'source_id' => $source->id,
@@ -199,9 +201,10 @@ class SalesRequestControllerTest extends TestCase
         unset($data['salesperson_amount']);
         unset($data['salespeople_percentage']);
         unset($data['sales_lost_reason_id']);
-        unset($data['intermediate_percentage']);
         unset($data['final_status']);
+        unset($data['has_intermediate_agent']);
         unset($data['intermediate_agent_id']);
+        unset($data['intermediate_percentage']);
         unset($data['intermediate_amount']);
 
         $data['id'] = $salesRequest->id;

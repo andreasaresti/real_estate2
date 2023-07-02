@@ -517,6 +517,64 @@ return [
         ],
     ],
 
+    'charge_request_collect_monies' => [
+        'name' => 'Charge Request Collect Monies',
+        'index_title' => 'ChargeRequestCollectMonies List',
+        'new_title' => 'New Charge request collect money',
+        'create_title' => 'Create ChargeRequestCollectMoney',
+        'edit_title' => 'Edit ChargeRequestCollectMoney',
+        'show_title' => 'Show ChargeRequestCollectMoney',
+        'inputs' => [
+            'sales_request_id' => 'Sales Request',
+            'sales_people_id' => 'Sales People',
+            'amount' => 'Amount',
+            'commission_amount' => 'Commission Amount',
+        ],
+    ],
+
+    'favorite_properties' => [
+        'name' => 'Favorite Properties',
+        'index_title' => 'FavoriteProperties List',
+        'new_title' => 'New Favorite property',
+        'create_title' => 'Create FavoriteProperty',
+        'edit_title' => 'Edit FavoriteProperty',
+        'show_title' => 'Show FavoriteProperty',
+        'inputs' => [
+            'customer_id' => 'Customer',
+            'listing_id' => 'Listing',
+        ],
+    ],
+
+    'intermediate_agents' => [
+        'name' => 'Intermediate Agents',
+        'index_title' => 'IntermediateAgents List',
+        'new_title' => 'New Intermediate agent',
+        'create_title' => 'Create IntermediateAgent',
+        'edit_title' => 'Edit IntermediateAgent',
+        'show_title' => 'Show IntermediateAgent',
+        'inputs' => [
+            'name' => 'Name',
+            'address' => 'Address',
+            'city' => 'City',
+            'country' => 'Country',
+            'telephone' => 'Telephone',
+            'email' => 'Email',
+            'website' => 'Website',
+        ],
+    ],
+
+    'sales_request_note_types' => [
+        'name' => 'Sales Request Note Types',
+        'index_title' => 'SalesRequestNoteTypes List',
+        'new_title' => 'New Sales request note type',
+        'create_title' => 'Create SalesRequestNoteType',
+        'edit_title' => 'Edit SalesRequestNoteType',
+        'show_title' => 'Show SalesRequestNoteType',
+        'inputs' => [
+            'name' => 'Name',
+        ],
+    ],
+
     'roles' => [
         'name' => 'Roles',
         'index_title' => 'Roles List',

@@ -69,15 +69,22 @@ class ListingSalesRequestsTest extends TestCase
         unset($data['minimum_bedrooms']);
         unset($data['minimum_bathrooms']);
         unset($data['assigned']);
+        unset($data['assigned_date']);
         unset($data['accepted_status']);
         unset($data['status']);
         unset($data['listing_id']);
         unset($data['agreement_price']);
+        unset($data['commission_amount']);
         unset($data['agency_percentage']);
+        unset($data['agency_amount']);
+        unset($data['salesperson_amount']);
         unset($data['salespeople_percentage']);
         unset($data['sales_lost_reason_id']);
-        unset($data['intermediate_percentage']);
         unset($data['final_status']);
+        unset($data['has_intermediate_agent']);
+        unset($data['intermediate_agent_id']);
+        unset($data['intermediate_percentage']);
+        unset($data['intermediate_amount']);
 
         $this->assertDatabaseHas('sales_requests', $data);
 

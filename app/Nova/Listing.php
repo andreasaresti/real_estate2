@@ -21,7 +21,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use ZiffMedia\NovaSelectPlus\SelectPlus;
 use Laravel\Nova\Fields\FormData;
-
+use Trinityrank\GoogleMapWithAutocomplete\TRLocation;
 
 class Listing extends Resource
 {
@@ -229,6 +229,12 @@ class Listing extends Resource
 				 
 				 Tab::make('Location',[
 
+			// 		GoogleMaps::make('Address')
+            // ->zoom(8) // Optionally set the zoom level
+            // ->defaultCoordinates('35.1681365','32.7658189'),
+
+			// TRLocation::make('Location')->rules('nullable'),
+
 					Text::make('Address')
 						->rules('nullable', 'max:255', 'string')
 						->placeholder('Address')
@@ -239,9 +245,9 @@ class Listing extends Resource
 						->placeholder('Latitude')
 						->hideFromIndex(),
 
-					Text::make('longitude')
+					Text::make('Longitude')
 						->rules('nullable', 'max:255', 'string')
-						->placeholder('longitude')
+						->placeholder('Longitude')
 						->hideFromIndex(),
 				]),
 				Tab::make('Images',[

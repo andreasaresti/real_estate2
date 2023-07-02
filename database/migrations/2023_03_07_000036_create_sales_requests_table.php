@@ -26,19 +26,26 @@ return new class extends Migration {
             $table->longText('description')->nullable();
             $table->boolean('assigned')->default(0);
             $table->unsignedBigInteger('sales_people_id')->nullable();
+            $table->date('assigned_date')->nullable();
             $table->string('accepted_status')->default('open');
             $table->string('status')->default('open');
             $table->boolean('active')->default(1);
             $table->unsignedBigInteger('listing_id')->nullable();
             $table->float('agreement_price')->nullable();
+            $table->decimal('commission_amount')->default(0);
             $table->float('agency_percentage')->nullable();
+            $table->decimal('agency_amount')->default(0);
+            $table->decimal('salesperson_amount')->default(0);
             $table->float('salespeople_percentage')->nullable();
             $table->unsignedBigInteger('sales_lost_reason_id')->nullable();
+            $table->string('final_status')->nullable();
+            $table->boolean('has_intermediate_agent')->default(0);
+            $table->unsignedBigInteger('intermediate_agent_id')->nullable();
             $table
                 ->float('intermediate_percentage')
                 ->default(0)
                 ->nullable();
-            $table->string('final_status')->nullable();
+            $table->decimal('intermediate_amount')->default(0);
 
             $table->timestamps();
         });

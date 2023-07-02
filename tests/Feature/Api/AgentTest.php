@@ -55,7 +55,7 @@ class AgentTest extends TestCase
         $response = $this->postJson(route('api.agents.store'), $data);
 
         unset($data['longitude']);
-        unset($data['laditude']);
+        unset($data['latitude']);
 
         $this->assertDatabaseHas('agents', $data);
 
@@ -83,14 +83,14 @@ class AgentTest extends TestCase
             'comments' => $this->faker->text,
             'active' => $this->faker->boolean,
             'longitude' => $this->faker->longitude,
-            'laditude' => $this->faker->randomNumber(2),
+            'latitude' => $this->faker->randomNumber(2),
             'district_id' => $district->id,
         ];
 
         $response = $this->putJson(route('api.agents.update', $agent), $data);
 
         unset($data['longitude']);
-        unset($data['laditude']);
+        unset($data['latitude']);
 
         $data['id'] = $agent->id;
 

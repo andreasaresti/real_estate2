@@ -64,7 +64,7 @@ class MunicipalityLocationsTest extends TestCase
             $data
         );
 
-        unset($data['laditude']);
+        unset($data['latitude']);
         unset($data['longitude']);
 
         $this->assertDatabaseHas('locations', $data);

@@ -168,6 +168,26 @@
                         Banner Images
                         </x-dropdown-link>
                         @endcan
+                        @can('view-any', App\Models\ChargeRequestCollectMoney::class)
+                        <x-dropdown-link href="{{ route('charge-request-collect-monies.index') }}">
+                        Charge Request Collect Monies
+                        </x-dropdown-link>
+                        @endcan
+                        @can('view-any', App\Models\FavoriteProperty::class)
+                        <x-dropdown-link href="{{ route('favorite-properties.index') }}">
+                        Favorite Properties
+                        </x-dropdown-link>
+                        @endcan
+                        @can('view-any', App\Models\IntermediateAgent::class)
+                        <x-dropdown-link href="{{ route('intermediate-agents.index') }}">
+                        Intermediate Agents
+                        </x-dropdown-link>
+                        @endcan
+                        @can('view-any', App\Models\SalesRequestNoteType::class)
+                        <x-dropdown-link href="{{ route('sales-request-note-types.index') }}">
+                        Sales Request Note Types
+                        </x-dropdown-link>
+                        @endcan
                 </x-nav-dropdown>
 
                     @if (Auth::user()->can('view-any', Spatie\Permission\Models\Role::class) || 
@@ -458,6 +478,26 @@
                 @can('view-any', App\Models\BannerImage::class)
                 <x-jet-responsive-nav-link href="{{ route('banner-images.index') }}">
                 Banner Images
+                </x-jet-responsive-nav-link>
+                @endcan
+                @can('view-any', App\Models\ChargeRequestCollectMoney::class)
+                <x-jet-responsive-nav-link href="{{ route('charge-request-collect-monies.index') }}">
+                Charge Request Collect Monies
+                </x-jet-responsive-nav-link>
+                @endcan
+                @can('view-any', App\Models\FavoriteProperty::class)
+                <x-jet-responsive-nav-link href="{{ route('favorite-properties.index') }}">
+                Favorite Properties
+                </x-jet-responsive-nav-link>
+                @endcan
+                @can('view-any', App\Models\IntermediateAgent::class)
+                <x-jet-responsive-nav-link href="{{ route('intermediate-agents.index') }}">
+                Intermediate Agents
+                </x-jet-responsive-nav-link>
+                @endcan
+                @can('view-any', App\Models\SalesRequestNoteType::class)
+                <x-jet-responsive-nav-link href="{{ route('sales-request-note-types.index') }}">
+                Sales Request Note Types
                 </x-jet-responsive-nav-link>
                 @endcan
 

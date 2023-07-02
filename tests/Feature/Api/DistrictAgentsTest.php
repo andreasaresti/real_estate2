@@ -65,7 +65,7 @@ class DistrictAgentsTest extends TestCase
         );
 
         unset($data['longitude']);
-        unset($data['laditude']);
+        unset($data['latitude']);
 
         $this->assertDatabaseHas('agents', $data);
 

@@ -12,7 +12,6 @@ use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Boolean;
-use Laravel\Nova\Fields\Computed;
 use ZiffMedia\NovaSelectPlus\SelectPlus;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\BelongsTo;
@@ -76,13 +75,10 @@ class SalesRequest extends Resource
             
             ID::make('id')->sortable(),
 
-            
-            
-
             Text::make('Name')
                 ->rules('required', 'max:255', 'string')
                 ->placeholder('Name'),
-            
+
             Date::make('Date')
                 ->rules('required', 'max:255', 'string')
                 ->placeholder('Date')
@@ -148,7 +144,6 @@ class SalesRequest extends Resource
 
             BelongsTo::make('Sales People', 'salesPeople')
                 ->nullable()
-                ->searchable()
                 ->dependsOn(
                     ['assigned'],
                     function (BelongsTo $field, NovaRequest $request, FormData $formData) {
@@ -179,13 +174,12 @@ class SalesRequest extends Resource
                 ->placeholder('Select Accepted Status')
                 ->default('no'),
 
-            BelongsTo::make('Source', 'source') 
-                ->rules('required')
+            BelongsTo::make('Source', 'source')                
                 ->showCreateRelationButton(),
 
             Select::make('Status')
                 ->rules('required', 'max:255', 'string')
-                ->options([
+            ->options([
                     'open' => 'Open',
                     'won' => 'Won',
                     'lost' => 'Lost',
@@ -266,6 +260,75 @@ class SalesRequest extends Resource
                 ->placeholder('Agency Percentage')
                 ->hideFromIndex(),
             
+            Number::make('Intermediate Percentage')
+                ->rules('nullable', 'numeric')
+                ->dependsOn(
+                    ['status'],
+                    function (Number $field, NovaRequest $request, FormData $formData) {
+                        if ($formData->status === 'won') {
+                            $field->readonly(false)->rules(['required'])->show();
+                        }
+                    }
+                )
+                ->hide()
+                ->placeholder('Intermediate Percentage')
+                ->hideFromIndex(),
+
+            Number::make('Commission Amount')
+                ->rules('nullable', 'numeric')
+                ->dependsOn(
+                    ['status'],
+                    function (Number $field, NovaRequest $request, FormData $formData) {
+                        if ($formData->status === 'won') {
+                            $field->readonly(false)->rules(['required'])->show();
+                        }
+                    }
+                )
+                ->hide()
+                ->placeholder('Commission Amount')
+                ->hideFromIndex(),
+
+            Number::make('Salesperson Amount')
+                ->rules('nullable', 'numeric')
+                ->dependsOn(
+                    ['status'],
+                    function (Number $field, NovaRequest $request, FormData $formData) {
+                        if ($formData->status === 'won') {
+                            $field->readonly(false)->rules(['required'])->show();
+                        }
+                    }
+                )
+                ->hide()
+                ->placeholder('Salesperson Amount')
+                ->hideFromIndex(),
+
+            Number::make('Intermediate Amount')
+                ->rules('nullable', 'numeric')
+                ->dependsOn(
+                    ['status'],
+                    function (Number $field, NovaRequest $request, FormData $formData) {
+                        if ($formData->status === 'won') {
+                            $field->readonly(false)->rules(['required'])->show();
+                        }
+                    }
+                )
+                ->hide()
+                ->placeholder('Intermediate Amount')
+                ->hideFromIndex(),
+
+            BelongsTo::make('Intermediate Agent', 'intermediateAgent')
+                ->nullable()
+                ->dependsOn(
+                    ['status'],
+                    function (BelongsTo $field, NovaRequest $request, FormData $formData) {
+                        if ($formData->status === 'won') {
+                            $field->readonly(false)->show();
+                        }
+                    }
+                )
+                ->hide()
+                ->showCreateRelationButton(),
+
             BelongsTo::make('Sales Lost Reason', 'salesLostReason')
                 ->nullable()
                 ->dependsOn(
@@ -282,6 +345,8 @@ class SalesRequest extends Resource
 
             HasMany::make('Sales Request Appointment', 'salesRequestAppointment'),
             HasMany::make('Sales Request Listing', 'salesRequestListing'),
+            HasMany::make('ChargeRequestCollectMoney', 'chargeRequestCollectMoney'),
+            HasMany::make('SalesRequestNote', 'SalesRequestNote'),
         ];
     }
 

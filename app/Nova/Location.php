@@ -56,7 +56,17 @@ class Location extends Resource
             Number::make('Sequence')
                 ->rules('required', 'numeric')
                 ->placeholder('Sequence')
-                ->default('0'),
+                ->default('0')
+                ->hideFromIndex()
+                ->hideWhenUpdating(),
+
+                Text::make('Latitude')
+                ->rules('nullable', 'max:255', 'string')
+                ->placeholder('Latitude'),
+
+            Text::make('Longitude')
+                ->rules('nullable', 'max:255', 'string')
+                ->placeholder('Longitude'),
 
             HasMany::make('Listings', 'listings'),
 

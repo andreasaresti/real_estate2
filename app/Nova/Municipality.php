@@ -68,7 +68,9 @@ class Municipality extends Resource
                 ->placeholder('Sequence')
                 ->default('0')
                 ->hideWhenCreating()
-                ->hideWhenUpdating(),
+                ->hideWhenUpdating()
+                ->hideFromIndex()
+                ->hideFromDetail(),
 
             HasMany::make('Locations', 'locations'),
 

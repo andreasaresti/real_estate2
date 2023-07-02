@@ -52,6 +52,13 @@ return new class extends Migration {
                 ->on('sales_lost_reasons')
                 ->onUpdate('CASCADE')
                 ->onDelete('CASCADE');
+
+            $table
+                ->foreign('intermediate_agent_id')
+                ->references('id')
+                ->on('intermediate_agents')
+                ->onUpdate('CASCADE')
+                ->onDelete('CASCADE');
         });
     }
 
@@ -67,6 +74,7 @@ return new class extends Migration {
             $table->dropForeign(['sales_people_id']);
             $table->dropForeign(['listing_id']);
             $table->dropForeign(['sales_lost_reason_id']);
+            $table->dropForeign(['intermediate_agent_id']);
         });
     }
 };

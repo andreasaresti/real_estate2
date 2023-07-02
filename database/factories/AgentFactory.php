@@ -34,7 +34,7 @@ class AgentFactory extends Factory
             'comments' => $this->faker->text,
             'active' => $this->faker->boolean,
             'longitude' => $this->faker->longitude,
-            'laditude' => $this->faker->randomNumber(2),
+            'latitude' => $this->faker->randomNumber(2),
             'district_id' => \App\Models\District::factory(),
         ];
     }

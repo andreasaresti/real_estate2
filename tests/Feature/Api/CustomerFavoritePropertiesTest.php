@@ -64,9 +64,6 @@ class CustomerFavoritePropertiesTest extends TestCase
             $data
         );
 
-        unset($data['customer_id']);
-        unset($data['listing_id']);
-
         $this->assertDatabaseHas('favorite_properties', $data);
 
         $response->assertStatus(201)->assertJsonFragment($data);

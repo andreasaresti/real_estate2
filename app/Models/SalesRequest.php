@@ -18,7 +18,6 @@ class SalesRequest extends Model
         'source_id',
         'sales_people_id',
         'property_type_id',
-        'assigned_date'.
         'minimum_budget',
         'maximum_budget',
         'minimum_bedrooms',
@@ -27,9 +26,13 @@ class SalesRequest extends Model
         'maximum_bathrooms',
         'minimum_size',
         'maximum_size',
+        'intermediate_percentage',
+        'intermediate_agent_id',
+        'intermediate_amount',
         'budget',
         'description',
         'salesRequestStatus_id',
+        'sales_lost_reason_id',
         'active',
     ];
 
@@ -42,10 +45,12 @@ class SalesRequest extends Model
         'active' => 'boolean',
     ];
 
+    
     public function customer()
     {
         return $this->belongsTo(Customer::class);
     }
+    
 
     public function source()
     {
@@ -70,6 +75,11 @@ class SalesRequest extends Model
     public function salesLostReason()
     {
         return $this->belongsTo(SalesLostReason::class);
+    }
+
+    public function intermediateAgent()
+    {
+        return $this->belongsTo(IntermediateAgent::class);
     }
 
     
@@ -112,5 +122,14 @@ class SalesRequest extends Model
     public function salesRequestListing()
     {
         return $this->hasMany(SalesRequestListing::class);
+    }
+
+    public function chargeRequestCollectMoney()
+    {
+        return $this->hasMany(ChargeRequestCollectMoney::class);
+    }
+    public function SalesRequestNote()
+    {
+        return $this->hasMany(SalesRequestNote::class);
     }
 }

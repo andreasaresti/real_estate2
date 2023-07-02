@@ -81,7 +81,7 @@ class LocationControllerTest extends TestCase
 
         $response = $this->post(route('locations.store'), $data);
 
-        unset($data['laditude']);
+        unset($data['latitude']);
         unset($data['longitude']);
 
         $data['name'] = $this->castToJson($data['name']);
@@ -136,7 +136,7 @@ class LocationControllerTest extends TestCase
             'ext_code' => $this->faker->unique->text(255),
             'name' => [],
             'sequence' => $this->faker->randomNumber(0),
-            'laditude' => $this->faker->randomNumber(2),
+            'latitude' => $this->faker->randomNumber(2),
             'longitude' => $this->faker->longitude,
             'municipality_id' => $municipality->id,
         ];
@@ -145,7 +145,7 @@ class LocationControllerTest extends TestCase
 
         $response = $this->put(route('locations.update', $location), $data);
 
-        unset($data['laditude']);
+        unset($data['latitude']);
         unset($data['longitude']);
 
         $data['id'] = $location->id;

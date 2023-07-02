@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1682f501bded21aad8c334814ff94c0d",
+    "content-hash": "9278470cb7f8ca55ab6ea9a8b512e9f0",
     "packages": [
         {
             "name": "ardenthq/nova-image-gallery-field",
@@ -366,6 +366,54 @@
                 }
             ],
             "time": "2023-01-15T23:59:01+00:00"
+        },
+        {
+            "name": "codebykyle/calculated-field",
+            "version": "1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/codebykyle/calculated-field.git",
+                "reference": "9216d02c15e0e4d8453ba79b4f1218e50e6548d4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/codebykyle/calculated-field/zipball/9216d02c15e0e4d8453ba79b4f1218e50e6548d4",
+                "reference": "9216d02c15e0e4d8453ba79b4f1218e50e6548d4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Codebykyle\\CalculatedField\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Codebykyle\\CalculatedField\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A server side calculated field for Laravel Nova",
+            "keywords": [
+                "calculated",
+                "field",
+                "laravel",
+                "nova",
+                "server-side"
+            ],
+            "support": {
+                "issues": "https://github.com/codebykyle/calculated-field/issues",
+                "source": "https://github.com/codebykyle/calculated-field/tree/1.1"
+            },
+            "time": "2019-10-10T15:13:58+00:00"
         },
         {
             "name": "ctessier/nova-advanced-image-field",
@@ -9155,6 +9203,53 @@
             "time": "2021-07-16T15:55:13+00:00"
         },
         {
+            "name": "trinityrank/google-map-with-autocomplete",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/trinity-rank/google-map-with-autocomplete.git",
+                "reference": "32be53b5e6e82f54d9a4d0f567f2b7a34a5d22e0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/trinity-rank/google-map-with-autocomplete/zipball/32be53b5e6e82f54d9a4d0f567f2b7a34a5d22e0",
+                "reference": "32be53b5e6e82f54d9a4d0f567f2b7a34a5d22e0",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/nova": "^4.0",
+                "php": "^7.4|^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Trinityrank\\GoogleMapWithAutocomplete\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Trinityrank\\GoogleMapWithAutocomplete\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Nova Google Map With Autocomplete Field Package.",
+            "keywords": [
+                "google map",
+                "laravel",
+                "nova 4"
+            ],
+            "support": {
+                "issues": "https://github.com/trinity-rank/google-map-with-autocomplete/issues",
+                "source": "https://github.com/trinity-rank/google-map-with-autocomplete/tree/v1.0.0"
+            },
+            "time": "2022-07-27T07:24:05+00:00"
+        },
+        {
             "name": "vlucas/phpdotenv",
             "version": "v5.5.0",
             "source": {
@@ -9369,6 +9464,51 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.11.0"
             },
             "time": "2022-06-03T18:03:27+00:00"
+        },
+        {
+            "name": "whitecube/nova-google-maps",
+            "version": "v0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/whitecube/nova-google-maps.git",
+                "reference": "1761cb462b528d0c94bc15c9ef5747ce8ae2d114"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/whitecube/nova-google-maps/zipball/1761cb462b528d0c94bc15c9ef5747ce8ae2d114",
+                "reference": "1761cb462b528d0c94bc15c9ef5747ce8ae2d114",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Whitecube\\NovaGoogleMaps\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Whitecube\\NovaGoogleMaps\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova field.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "support": {
+                "issues": "https://github.com/whitecube/nova-google-maps/issues",
+                "source": "https://github.com/whitecube/nova-google-maps/tree/v0.0.1"
+            },
+            "time": "2020-05-04T14:32:00+00:00"
         },
         {
             "name": "ziffmedia/nova-select-plus",

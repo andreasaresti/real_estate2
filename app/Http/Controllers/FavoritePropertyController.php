@@ -2,101 +2,134 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\FavoriteProperty;
-use App\Models\NovaMenuMenus;
-use App\Models\NovaMenuMenuItems;
+use App\Models\Listing;
+use App\Models\Customer;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
-use ZipArchive;
-use Config;
+use App\Models\FavoriteProperty;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\FavoritePropertyStoreRequest;
+use App\Http\Requests\FavoritePropertyUpdateRequest;
 
 class FavoritePropertyController extends Controller
 {
-
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
-
-
-    public function index()//: JsonResponse
+    public function index(Request $request): View
     {
-		
+        $this->authorize('view-any', FavoriteProperty::class);
+
+        $search = $request->get('search', '');
+
+        $favoriteProperties = FavoriteProperty::search($search)
+            ->latest()
+            ->paginate(5)
+            ->withQueryString();
+
+        return view(
+            'app.favorite_properties.index',
+            compact('favoriteProperties', 'search')
+        );
     }
-	
+
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function create($index)
+    public function create(Request $request): View
     {
-        session_start();
-        if(!FavoriteProperty::where('customer_id', $_SESSION["user_id"])->where('listing_id', $index)->exists()){
-            FavoriteProperty::insert(array('customer_id' =>  $_SESSION["user_id"], 'listing_id' => $index));
-            return "ok";
-        }else{
-			FavoriteProperty::where('customer_id', $_SESSION["user_id"])->where('listing_id', $index)->delete();
-            return "fail";
-        }
+        $this->authorize('create', FavoriteProperty::class);
+
+        $customers = Customer::pluck('name', 'id');
+        $listings = Listing::pluck('name', 'id');
+
+        return view(
+            'app.favorite_properties.create',
+            compact('customers', 'listings')
+        );
     }
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(
+        FavoritePropertyStoreRequest $request
+    ): RedirectResponse {
+        $this->authorize('create', FavoriteProperty::class);
+
+        $validated = $request->validated();
+
+        $favoriteProperty = FavoriteProperty::create($validated);
+
+        return redirect()
+            ->route('favorite-properties.edit', $favoriteProperty)
+            ->withSuccess(__('crud.common.created'));
     }
 
     /**
      * Display the specified resource.
-     *
-     * @param  \App\Models\Menu  $Menu
-     * @return \Illuminate\Http\Response
      */
-    public function show(Menu $Menu)
-    {
-        //return view('Menu.view', ['Menu' => $Menu]);
-        // return $Menu;
+    public function show(
+        Request $request,
+        FavoriteProperty $favoriteProperty
+    ): View {
+        $this->authorize('view', $favoriteProperty);
+
+        return view(
+            'app.favorite_properties.show',
+            compact('favoriteProperty')
+        );
     }
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Menu  $Menu
-     * @return \Illuminate\Http\Response
      */
-    public function edit(Menu $Menu)
-    {
-        //
+    public function edit(
+        Request $request,
+        FavoriteProperty $favoriteProperty
+    ): View {
+        $this->authorize('update', $favoriteProperty);
+
+        $customers = Customer::pluck('name', 'id');
+        $listings = Listing::pluck('name', 'id');
+
+        return view(
+            'app.favorite_properties.edit',
+            compact('favoriteProperty', 'customers', 'listings')
+        );
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Menu  $Menu
-     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Menu $Menu)
-    {
-        //
+    public function update(
+        FavoritePropertyUpdateRequest $request,
+        FavoriteProperty $favoriteProperty
+    ): RedirectResponse {
+        $this->authorize('update', $favoriteProperty);
+
+        $validated = $request->validated();
+
+        $favoriteProperty->update($validated);
+
+        return redirect()
+            ->route('favorite-properties.edit', $favoriteProperty)
+            ->withSuccess(__('crud.common.saved'));
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Menu  $Menu
-     * @return \Illuminate\Http\Response
      */
-    public function destroy(Menu $Menu)
-    {
-        //
+    public function destroy(
+        Request $request,
+        FavoriteProperty $favoriteProperty
+    ): RedirectResponse {
+        $this->authorize('delete', $favoriteProperty);
+
+        $favoriteProperty->delete();
+
+        return redirect()
+            ->route('favorite-properties.index')
+            ->withSuccess(__('crud.common.removed'));
     }
 }

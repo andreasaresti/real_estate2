@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Country;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -287,7 +288,7 @@ class DatabaseSeeder extends Seeder
             foreach ($countries as $key => $value) {
                 Country::create($value);
             }
-            
+
         $this->call(PermissionsSeeder::class);
 
         // $this->call(AgentSeeder::class);
