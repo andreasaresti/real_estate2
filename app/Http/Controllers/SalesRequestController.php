@@ -427,18 +427,29 @@ class SalesRequestController extends Controller
             $request->has('sales_lost_reason_id') &&
             $request->sales_lost_reason_id != ''
         ) {
-            $query = $query
-                ->where('id', $request->id)
-                ->where('status', $request->status)
-                ->where('listing_id', $request->listing_id)
-                ->where('agreement_price', $request->agreement_price)
-                ->where('sales_lost_reason_id', $request->sales_lost_reason_id);
+            if ($request->status == "won") {
+                $query = $query
+                    ->where('id', $request->id)
+                    ->where('status', $request->status)
+                    ->where('listing_id', $request->listing_id)
+                    ->where('agreement_price', $request->agreement_price);
+            } else if ($request->status == "lost") {
+                $query = $query
+                    ->where('status', $request->status)
+                    ->where('sales_lost_reason_id', $request->sales_lost_reason_id);
+            } else {
+                $query = [];
+            }
         }
 
-        $query = $query
-            ->select('sales_requests.*')
-            ->orderBy($orderby, $orderbytype)
-            ->paginate($perPage, ['/*'], 'page', $page);
+        if ($query) {
+            $query = $query
+                ->select('sales_requests.*')
+                ->orderBy($orderby, $orderbytype)
+                ->paginate($perPage, ['/*'], 'page', $page);
+        } else {
+            $query = "No data";
+        }
 
         $sales_requests = $query;
         return response()->json($sales_requests);
