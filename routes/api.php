@@ -142,6 +142,7 @@ Route::post('get_pagination', [webListings::class, 'get_pagination']);
 Route::post('add-remove-to-favorites', [webListings::class, 'add_remove_to_favorites']);
 
 Route::get('salesrequest-getnotes', [SalesRequestController::class, 'get_notes']);
+Route::get('salesrequest-closedeal', [SalesRequestController::class, 'close_deal']);
 // });
 
 Route::controller(MenuController::class)->group(function () {

@@ -377,7 +377,12 @@ class SalesRequestController extends Controller
 
         $query = DB::table('sales_request_notes');
 
-        if ($request->has('sales_request_id') && $request->sales_request_id != '') {
+        if (
+            $request->has('sales_request_id') &&
+            $request->sales_request_id != '' &&
+            $request->has('sales_request_note_type_id') &&
+            $request->sales_request_note_type_id != ''
+        ) {
             $query = $query
                 ->where('sales_request_id', $request->sales_request_id)
                 ->where('sales_request_note_type_id', $request->sales_request_note_type_id);
@@ -394,25 +399,48 @@ class SalesRequestController extends Controller
 
     }
 
-    // public function close_deal(Request $request)
-    // {
-    //     $perPage = 20;
-    //     $page = 1;
-    //     $orderby = 'sales_requests.id';
-    //     $orderbytype = 'desc';
+    public function close_deal(Request $request)
+    {
+        $perPage = 20;
+        $page = 1;
+        $orderby = 'sales_requests.id';
+        $orderbytype = 'desc';
 
-    //     if ($request->has('page') && is_numeric($request->page)) {
-    //         $page = $request->page;
-    //     }
-    //     if ($request->has('per_page') && is_numeric($request->per_page)) {
-    //         $perPage = $request->per_page;
-    //     }
+        if ($request->has('page') && is_numeric($request->page)) {
+            $page = $request->page;
+        }
+        if ($request->has('per_page') && is_numeric($request->per_page)) {
+            $perPage = $request->per_page;
+        }
 
-    //     $query = DB::table('sales_requests');
+        $query = DB::table('sales_requests');
 
-    //     if ($request->has('id') && $request->id != '') {
-    //         $query = $query
-    //             ->where('sales_requests', $request->id);
-    //     }
-    // }
+        if (
+            $request->has('id') &&
+            $request->id != '' &&
+            $request->has('status') &&
+            $request->status != '' &&
+            $request->has('listing_id') &&
+            $request->listing_id != '' &&
+            $request->has('agreement_price') &&
+            $request->agreement_price != '' &&
+            $request->has('sales_lost_reason_id') &&
+            $request->sales_lost_reason_id != ''
+        ) {
+            $query = $query
+                ->where('id', $request->id)
+                ->where('status', $request->status)
+                ->where('listing_id', $request->listing_id)
+                ->where('agreement_price', $request->agreement_price)
+                ->where('sales_lost_reason_id', $request->sales_lost_reason_id);
+        }
+
+        $query = $query
+            ->select('sales_requests.*')
+            ->orderBy($orderby, $orderbytype)
+            ->paginate($perPage, ['/*'], 'page', $page);
+
+        $sales_requests = $query;
+        return response()->json($sales_requests);
+    }
 }
