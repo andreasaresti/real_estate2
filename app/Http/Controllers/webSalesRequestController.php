@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\SalesRequestNote;
 use App\Models\SalesRequestListing;
+use App\Models\SalesRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -210,11 +211,71 @@ class webSalesRequestController extends Controller
     public function change_listing_type(Request $request)
     {
     }
-    public function add_sales_request(Request $request)
-    {
-    }
+    // public function add_sales_request(Request $request)
+    // {
+    //     $validator = Validator::make($request->all(), [
+    //         'name' => 'required|string',
+    //         'date' => 'required|date',
+    //         'customer_id' => 'required|integer|exists:customers,id',
+    //         'source_id' => 'required|integer|exists:sources,id',
+    //         'property_type_id' => 'required|integer|exists:property_types,id',
+    //         'minimum_budget' => 'nullable|integer',
+    //         'maximum_budget' => 'nullable|integer',
+    //         'minimum_size' => 'nullable|integer',
+    //         'maximum_size' => 'nullable|integer',
+    //         'minimum_bedrooms' => 'nullable|integer',
+    //         'maximum_bedrooms' => 'nullable|integer',
+    //         'description' => 'nullable|string',
+    //         'sales_request_districts' => 'nullable|'
+    //     ]);
+    //     if ($validator->fails()) {
+    //         // Return the validation errors
+    //         return response()->json([
+    //             'errors' => $validator->errors(),
+    //         ], 422);
+    //     }
+
+    //     $salesRequest = SalesRequest::create([
+    //         'name' => $request->name,
+    //         'date'
+    //     ])
+    // }
     public function get_sales_request(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'status' => 'required|string',
+            'accepted_status' => 'required|string',
+            'sales_people_id' => 'required|integer|exists:sales_people,id',
+        ]);
+
+        // Check if the validation fails
+        if ($validator->fails()) {
+            // Return the validation errors
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        $perPage = 20;
+        $page = 1;
+        $orderby = 'sales_requests.id';
+        $orderbytype = 'desc';
+
+        $query = DB::table('sales_requests');
+
+        $query = $query
+            ->where('status', $request->status)
+            ->where('accepted_status', $request->accepted_status)
+            ->where('sales_people_id', $request->sales_people_id);
+
+        $query = $query
+            ->select('sales_requests.*')
+            ->orderBy($orderby, $orderbytype)
+            ->paginate($perPage, ['/*'], 'page', $page);
+
+        $sales_requests = $query;
+
+        return response()->json($sales_requests);
     }
     public function accept_sales_request(Request $request)
     {
