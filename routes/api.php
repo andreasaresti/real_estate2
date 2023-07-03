@@ -121,46 +121,26 @@ use App\Http\Controllers\webListings;
 */
 
 // Route::middleware('localhost')->group(function () {
-<<<<<<< Updated upstream
-    Route::get('remind-password', [webUsersController::class, 'remind_password']);
-    Route::post('create-webuser', [webUsersController::class, 'create_user']);
-	Route::post('get-webuser', [webUsersController::class, 'get_users']);
-	Route::post('update-webuser', [webUsersController::class, 'update_user']);
-	Route::post('webuserschangepassword', [webUsersController::class, 'changepassword_user']);
-	Route::post('login-webuser', [webUsersController::class, 'login_user']);
-	Route::post('logout-webuser', [webUsersController::class, 'logout_user']);
-	
-
-	Route::post('activelistings', [webListings::class, 'get_active_listings']);
-	Route::post('activelisting-types', [webListings::class, 'get_active_listing_types']);
-	Route::post('activeproperty-types', [webListings::class, 'get_active_property_types']);
-	Route::post('activefeatures', [webListings::class, 'get_active_features']);
-	Route::post('activedistrict', [webListings::class, 'get_active_district']);
-	Route::post('activemunicipality', [webListings::class, 'get_active_municipality']);
-	Route::post('activelocation', [webListings::class, 'get_active_location']);
-	Route::post('get-countries', [webListings::class, 'get_countries']);
-	Route::post('get_pagination', [webListings::class, 'get_pagination']);
-    Route::post('add-remove-to-favorites', [webListings::class, 'add_remove_to_favorites']);
-=======
-Route::get('create-webuser', [webUsersController::class, 'create_user']);
-Route::get('get-webuser', [webUsersController::class, 'get_users']);
-Route::get('webusersupdate', [webUsersController::class, 'update_user']);
-Route::get('webuserschangepassword', [webUsersController::class, 'changepassword_user']);
+Route::get('remind-password', [webUsersController::class, 'remind_password']);
+Route::post('create-webuser', [webUsersController::class, 'create_user']);
+Route::post('get-webuser', [webUsersController::class, 'get_users']);
+Route::post('update-webuser', [webUsersController::class, 'update_user']);
+Route::post('webuserschangepassword', [webUsersController::class, 'changepassword_user']);
 Route::post('login-webuser', [webUsersController::class, 'login_user']);
-Route::get('logout-webuser', [webUsersController::class, 'logout_user']);
-Route::get('getwishlist', [webUsersController::class, 'get_wish_list']);
-Route::get('getcart', [webUsersController::class, 'get_cart']);
-Route::get('add-remove-wishlist', [webUsersController::class, 'add_remove_to_wish_list']);
-Route::get('add-remove-cart', [webUsersController::class, 'add_remove_to_cart']);
+Route::post('logout-webuser', [webUsersController::class, 'logout_user']);
+
 
 Route::post('activelistings', [webListings::class, 'get_active_listings']);
+Route::post('activelisting-types', [webListings::class, 'get_active_listing_types']);
+Route::post('activeproperty-types', [webListings::class, 'get_active_property_types']);
 Route::post('activefeatures', [webListings::class, 'get_active_features']);
 Route::post('activedistrict', [webListings::class, 'get_active_district']);
 Route::post('activemunicipality', [webListings::class, 'get_active_municipality']);
 Route::post('activelocation', [webListings::class, 'get_active_location']);
-
+Route::post('get-countries', [webListings::class, 'get_countries']);
+Route::post('get_pagination', [webListings::class, 'get_pagination']);
+Route::post('add-remove-to-favorites', [webListings::class, 'add_remove_to_favorites']);
 Route::get('salesrequest-getnotes', [SalesRequestController::class, 'get_notes']);
->>>>>>> Stashed changes
 // });
 
 Route::controller(MenuController::class)->group(function () {
