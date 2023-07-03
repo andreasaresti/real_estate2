@@ -251,8 +251,6 @@ class webUsersController extends Controller
         return response()->json($customers);
 
     }
-    
-    
     public function add_remove_to_favorites(Request $request)
     {
         $validator = Validator::make($request->all(), [
