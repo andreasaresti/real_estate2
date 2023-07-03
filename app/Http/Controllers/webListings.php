@@ -13,10 +13,13 @@ use App\Models\ListingType;
 use App\Models\Location;
 use App\Models\Municipality;
 use App\Models\PropertyType;
+use App\Models\FavoriteProperty;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class webListings extends Controller
 {
@@ -122,9 +125,6 @@ class webListings extends Controller
                                 ->join('municipalities', 'listings.location_id', '=', 'locations.id')
                                 ->where('listings.published', '=', 1);
                             });
-        if ($request->has('district')) {
-            $query = $query->where('municipalities.district_id', '=', $request->district);
-        }
         $query = $query->select('districts.*')
                 ->orderBy('districts.name', 'asc')
                 ->distinct()
@@ -143,16 +143,13 @@ class webListings extends Controller
     }
     public function get_active_municipality(Request $request)
     {
-        // http://localhost:8000/api/activelocation
-        // http://localhost:8000/api/activemunicipality
-
         $query = Municipality::whereIn('municipalities.id', function ($subquery) {
                                 $subquery->select('municipality_id')
                                 ->from('listings')
                                 ->join('locations', 'listings.location_id', '=', 'locations.id')
                                 ->where('published', '=', 1);
                             });
-        if ($request->has('district')) {
+        if ($request->has('district') && $request->district != '') {
             $query = $query->where('municipalities.district_id', '=', $request->district);
         }
         $query = $query->select('municipalities.*')
@@ -173,17 +170,15 @@ class webListings extends Controller
     }
     public function get_active_location(Request $request)
     {
-        // $this->authorize('view-any', Size::class);
-
         $query = Location::whereIn('locations.id', function ($subquery) {
             $subquery->select('location_id')
             ->from('listings')
             ->where('published', '=', 1);
         });
-        if ($request->has('municipality')) {
+        if ($request->has('municipality') && $request->municipality != '') {
             $query = $query->where('municipality_id', '=', $request->municipality);
         }
-        if ($request->has('district')) {
+        if ($request->has('district') && $request->district != '') {
             $query = $query->join('municipalities', 'municipalities.id', '=', 'locations.municipality_id')
                         ->where('municipalities.district_id', '=', $request->district);
         }
@@ -229,9 +224,6 @@ class webListings extends Controller
                 $join->on('listings.id', '=', 'favorite_properties.listing_id')
                     ->where('favorite_properties.customer_id', '=', $request->customer_id);
             });
-        }
-        else{
-            // $select_values_array[] = "'' as favorite_properties_listing_id";
         }
 
         if ($request->has('search_term') && $request->search_term != '') {
@@ -375,6 +367,43 @@ class webListings extends Controller
         $products = $query; 
 
         return response()->json($products);
+    }
+    public function add_remove_to_favorites(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'customer_id' => [
+                'required','integer',
+                Rule::exists('customers', 'id'),
+            ],
+            'listing_id' => [
+                'required','integer',
+                Rule::exists('listings', 'id'),
+            ]
+        ]);
+
+        // Check if the validation fails
+        if ($validator->fails()) {
+            // Return the validation errors
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+        $existingModel = FavoriteProperty::where('listing_id', $request->listing_id)
+                                    ->where('customer_id', $request->customer_id)
+                                    ->first();
+        if ($existingModel) {
+                $existingModel->delete();
+        } 
+        else {
+            FavoriteProperty::create([
+                                'customer_id' => $request->customer_id, 
+                                'listing_id' => $request->listing_id
+                            ]);
+        }
+
+        return response()->json([
+            'message' => 'Favorite Listing updated successfully'
+        ], 201);
     }
     public function get_pagination(Request $request)
     {

@@ -123,12 +123,12 @@ use App\Http\Controllers\webListings;
 // Route::middleware('localhost')->group(function () {
     Route::get('remind-password', [webUsersController::class, 'remind_password']);
     Route::post('create-webuser', [webUsersController::class, 'create_user']);
-	Route::get('get-webuser', [webUsersController::class, 'get_users']);
+	Route::post('get-webuser', [webUsersController::class, 'get_users']);
 	Route::post('update-webuser', [webUsersController::class, 'update_user']);
-	Route::get('webuserschangepassword', [webUsersController::class, 'changepassword_user']);
+	Route::post('webuserschangepassword', [webUsersController::class, 'changepassword_user']);
 	Route::post('login-webuser', [webUsersController::class, 'login_user']);
-	Route::get('logout-webuser', [webUsersController::class, 'logout_user']);
-	Route::post('add-remove-to-favorites', [webUsersController::class, 'add_remove_to_favorites']);
+	Route::post('logout-webuser', [webUsersController::class, 'logout_user']);
+	
 
 	Route::post('activelistings', [webListings::class, 'get_active_listings']);
 	Route::post('activelisting-types', [webListings::class, 'get_active_listing_types']);
@@ -137,7 +137,9 @@ use App\Http\Controllers\webListings;
 	Route::post('activedistrict', [webListings::class, 'get_active_district']);
 	Route::post('activemunicipality', [webListings::class, 'get_active_municipality']);
 	Route::post('activelocation', [webListings::class, 'get_active_location']);
-	Route::get('get-countries', [webListings::class, 'get_countries']);
+	Route::post('get-countries', [webListings::class, 'get_countries']);
+	Route::post('get_pagination', [webListings::class, 'get_pagination']);
+    Route::post('add-remove-to-favorites', [webListings::class, 'add_remove_to_favorites']);
 // });
 
 Route::controller(MenuController::class)->group(function(){
