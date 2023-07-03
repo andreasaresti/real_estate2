@@ -35,24 +35,11 @@ class webSalesRequestController extends Controller
 
         $query = DB::table('sales_requests');
 
-        if (
-            $request->has('id') &&
-            $request->id != '' &&
-            $request->has('status') &&
-            $request->status != '' &&
-            $request->has('listing_id') &&
-            $request->listing_id != '' &&
-            $request->has('agreement_price') &&
-            $request->agreement_price != '' &&
-            $request->has('sales_lost_reason_id') &&
-            $request->sales_lost_reason_id != ''
-        ) {
-            $query = $query
-                ->where('id', $request->id)
-                ->where('listing_id', $request->listing_id)
-                ->where('agreement_price', $request->agreement_price)
-                ->where('sales_lost_reason_id', $request->sales_lost_reason_id);
-        }
+        $query = $query
+            ->where('id', $request->id)
+            ->where('listing_id', $request->listing_id)
+            ->where('agreement_price', $request->agreement_price)
+            ->where('sales_lost_reason_id', $request->sales_lost_reason_id);
 
         $query = $query
             ->select('sales_requests.*')
@@ -108,16 +95,9 @@ class webSalesRequestController extends Controller
 
         $query = DB::table('sales_request_notes');
 
-        if (
-            $request->has('sales_request_id') &&
-            $request->sales_request_id != '' &&
-            $request->has('sales_request_note_type_id') &&
-            $request->sales_request_note_type_id != ''
-        ) {
-            $query = $query
-                ->where('sales_request_id', $request->sales_request_id)
-                ->where('sales_request_note_type_id', $request->sales_request_note_type_id);
-        }
+        $query = $query
+            ->where('sales_request_id', $request->sales_request_id)
+            ->where('sales_request_note_type_id', $request->sales_request_note_type_id);
 
         $query = $query
             ->select('sales_request_notes.*')
@@ -153,22 +133,13 @@ class webSalesRequestController extends Controller
 
         $query = DB::table('sales_request_appointments');
 
-        if (
-            $request->has('listing_id') &&
-            $request->listing_id != '' &&
-            $request->has('status') &&
-            $request->status != '' &&
-            $request->has('signed') &&
-            $request->signed != ''
-        ) {
-            $query = $query
-                ->where('listing_id', $request->listing_id)
-                ->where('status', $request->status)
-                ->where('signed', $request->signed);
-        }
+        $query = $query
+            ->where('listing_id', $request->listing_id)
+            ->where('status', $request->status)
+            ->where('signed', $request->signed);
 
         $query = $query
-            ->select('sales_request_appointments')
+            ->select('sales_request_appointments.*')
             ->orderBy($orderby, $orderbytype)
             ->paginate($perPage, ['/*'], 'page', $page);
         $sales_request_appointments = $query;
@@ -176,6 +147,41 @@ class webSalesRequestController extends Controller
     }
     public function get_listings(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'sales_request_id' => 'required|integer|exists:sales_requests,id',
+            'listing_id' => 'required|integer|exists:listings,id',
+            'status' => 'required|string',
+            'emailed' => 'nullable|integer',
+            'active' => 'nullable|integer',
+        ]);
+        // Check if the validation fails
+        if ($validator->fails()) {
+            // Return the validation errors
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        $perPage = 20;
+        $page = 1;
+        $orderby = 'sales_request_listings.id';
+        $orderbytype = 'desc';
+
+        $query = DB::table('sales_request_listings');
+
+        $query = $query
+            ->where('sales_request_id', $request->sales_request_id)
+            ->where('listing_id', $request->listing_id)
+            ->where('status', $request->status)
+            ->where('emailed', $request->emailed)
+            ->where('active', $request->active);
+
+        $query = $query
+            ->select('sales_request_listings.*')
+            ->orderBy($orderby, $orderbytype)
+            ->paginate($perPage, ['/*'], 'page', $page);
+        $sales_request_listings = $query;
+        return response()->json($sales_request_listings);
     }
     public function add_listing(Request $request)
     {
