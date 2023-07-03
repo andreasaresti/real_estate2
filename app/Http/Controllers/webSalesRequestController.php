@@ -16,7 +16,7 @@ class webSalesRequestController extends Controller
         $validator = Validator::make($request->all(), [
             'id' => 'required|integer',
             'status' => 'required|in:won,lost',
-            'listing_id' => 'nullable|integer|required_if:status,won|exists:sales_request_listings,id',
+            'listing_id' => 'nullable|integer|required_if:status,won|exists:listings,id',
             'agreement_price' => 'nullable|integer|required_if:status,won',
             'sales_lost_reason_id' => 'nullable|integer|required_if:status,lost|exists:sales_lost_reasons,id',
         ]);
@@ -47,7 +47,6 @@ class webSalesRequestController extends Controller
             $request->has('sales_lost_reason_id') &&
             $request->sales_lost_reason_id != ''
         ) {
-            // if ($request->status == "won") {
             $query = $query
                 ->where('id', $request->id)
                 ->where('listing_id', $request->listing_id)
@@ -55,15 +54,10 @@ class webSalesRequestController extends Controller
                 ->where('sales_lost_reason_id', $request->sales_lost_reason_id);
         }
 
-        if ($query) {
-            $query = $query
-                ->select('sales_requests.*')
-                ->orderBy($orderby, $orderbytype)
-                ->paginate($perPage, ['/*'], 'page', $page);
-        } else {
-            $query = "No data";
-        }
-
+        $query = $query
+            ->select('sales_requests.*')
+            ->orderBy($orderby, $orderbytype)
+            ->paginate($perPage, ['/*'], 'page', $page);
         $sales_requests = $query;
         return response()->json($sales_requests);
     }
@@ -139,6 +133,46 @@ class webSalesRequestController extends Controller
     }
     public function get_appointments(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'listing_id' => 'required|integer|exists:listings,id',
+            'status' => 'required|string',
+            'signed' => 'required|integer',
+        ]);
+        // Check if the validation fails
+        if ($validator->fails()) {
+            // Return the validation errors
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        $perPage = 20;
+        $page = 1;
+        $orderby = 'sales_request_appointments.id';
+        $orderbytype = 'desc';
+
+        $query = DB::table('sales_request_appointments');
+
+        if (
+            $request->has('listing_id') &&
+            $request->listing_id != '' &&
+            $request->has('status') &&
+            $request->status != '' &&
+            $request->has('signed') &&
+            $request->signed != ''
+        ) {
+            $query = $query
+                ->where('listing_id', $request->listing_id)
+                ->where('status', $request->status)
+                ->where('signed', $request->signed);
+        }
+
+        $query = $query
+            ->select('sales_request_appointments')
+            ->orderBy($orderby, $orderbytype)
+            ->paginate($perPage, ['/*'], 'page', $page);
+        $sales_request_appointments = $query;
+        return response()->json($sales_request_appointments);
     }
     public function get_listings(Request $request)
     {
