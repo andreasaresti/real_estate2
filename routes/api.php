@@ -131,6 +131,8 @@ use App\Http\Controllers\webListings;
 	Route::post('add-remove-to-favorites', [webUsersController::class, 'add_remove_to_favorites']);
 
 	Route::post('activelistings', [webListings::class, 'get_active_listings']);
+	Route::post('activelisting-types', [webListings::class, 'get_active_listing_types']);
+	Route::post('activeproperty-types', [webListings::class, 'get_active_property_types']);
 	Route::post('activefeatures', [webListings::class, 'get_active_features']);
 	Route::post('activedistrict', [webListings::class, 'get_active_district']);
 	Route::post('activemunicipality', [webListings::class, 'get_active_municipality']);

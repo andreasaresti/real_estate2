@@ -40,6 +40,53 @@ class webListings extends Controller
 
         return response()->json($features);
     }
+    public function get_active_property_types(Request $request)
+    {
+        // $this->authorize('view-any', Size::class);
+
+        $query = PropertyType::whereIn('property_types.id', function ($subquery) {
+            $subquery->select('listings.property_type_id')
+            ->from('listings')
+            ->where('listings.published', '=', 1);
+        });
+        
+        $query = $query->select('property_types.*')
+                ->orderBy('property_types.name', 'asc')
+                ->paginate(1000);
+
+        foreach ($query as $key=>$row) {
+            $name_array = $row->name;
+            $query[$key]->displayname = $name_array;
+        }
+
+        $listing_types = $query;
+
+        return response()->json($listing_types);
+    }
+    public function get_active_listing_types(Request $request)
+    {
+        // $this->authorize('view-any', Size::class);
+
+        $query = ListingType::whereIn('listing_types.id', function ($subquery) {
+            $subquery->select('listings.id')
+            ->from('listings')
+            ->join('listing_listing_type', 'listing_listing_type.listing_id', '=', 'listings.id')
+            ->where('listings.published', '=', 1);
+        });
+        
+        $query = $query->select('listing_types.*')
+                ->orderBy('listing_types.name', 'asc')
+                ->paginate(1000);
+
+        foreach ($query as $key=>$row) {
+            $name_array = $row->name;
+            $query[$key]->displayname = $name_array;
+        }
+
+        $listing_types = $query;
+
+        return response()->json($listing_types);
+    }
     public function get_active_features(Request $request)
     {
         // $this->authorize('view-any', Size::class);
