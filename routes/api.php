@@ -108,6 +108,7 @@ use App\Http\Controllers\FavoritePropertyController;
 use App\Http\Controllers\webUsersController;
 use App\Http\Controllers\webListings;
 use App\Http\Controllers\webSalesRequestController;
+use App\Http\Controllers\webWebsiteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -140,8 +141,10 @@ use App\Http\Controllers\webSalesRequestController;
 	Route::post('activemunicipality', [webListings::class, 'get_active_municipality']);
 	Route::post('activelocation', [webListings::class, 'get_active_location']);
 	Route::post('get-countries', [webListings::class, 'get_countries']);
-	Route::post('get_pagination', [webListings::class, 'get_pagination']);
+	Route::post('getpagination', [webListings::class, 'get_pagination']);
     Route::post('add-remove-to-favorites', [webListings::class, 'add_remove_to_favorites']);
+    Route::post('createlisting', [webListings::class, 'create_listing']);
+    Route::post('get-similar-listings', [webListings::class, 'get_similar_listings']);
 
     // webSalesRequestController
     Route::post('salesrequest-closedeal', [webSalesRequestController::class, 'close_deal']);
@@ -157,6 +160,11 @@ use App\Http\Controllers\webSalesRequestController;
     Route::post('salesrequest-getsalesrequest', [webSalesRequestController::class, 'get_sales_request']);
     Route::post('salesrequest-signappointment', [webSalesRequestController::class, 'sign_appointment']);
     Route::post('salesrequest-updatesalesrequest', [webSalesRequestController::class, 'update_sales_request']);
+
+    // webSalesRequestController
+    Route::post('getmenu', [webWebsiteController::class, 'get_menu']);
+    Route::post('getbanner', [webWebsiteController::class, 'get_banner']);
+    Route::post('getlanguages', [webWebsiteController::class, 'get_languages']);
 
 // });
 

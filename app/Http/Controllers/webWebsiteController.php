@@ -55,4 +55,13 @@ class webWebsiteController extends Controller
 
         return response()->json($languages);
     }
+    public function get_banner(Request $request)
+    {
+        
+
+        $query = Language::orderBy('sequence', 'asc')->orderBy('id', 'asc')->get();
+        $languages = $query; 
+
+        return response()->json($languages);
+    }
 }
