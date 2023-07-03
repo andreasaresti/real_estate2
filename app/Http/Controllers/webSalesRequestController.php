@@ -100,7 +100,8 @@ class webSalesRequestController extends Controller
         $orderbytype = 'desc';
 
         $validator = Validator::make($request->all(), [
-            'sales_request_id' => 'required'
+            'sales_request_id' => 'required|integer|exists:sales_requests,id',
+            'sales_request_note_type_id' => 'nullable|integer|exists:sales_request_note_types,id',
         ]);
 
         // Check if the validation fails
