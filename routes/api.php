@@ -153,7 +153,7 @@ Route::post('salesrequest-getlistings', [webSalesRequestController::class, 'get_
 Route::post('salesrequest-addlisting', [webSalesRequestController::class, 'add_listing']);
 Route::post('salesrequest-changelistingtype', [webSalesRequestController::class, 'change_listing_type']);
 Route::post('salesrequest-addsalesrequest', [webSalesRequestController::class, 'add_sales_request']);
-Route::post('salesrequest-getsalesrequest', [webSalesRequestController::class, 'accept_sales_request']);
+Route::post('salesrequest-acceptsalesrequest', [webSalesRequestController::class, 'accept_sales_request']);
 Route::post('salesrequest-getsalesrequest', [webSalesRequestController::class, 'get_sales_request']);
 Route::post('salesrequest-signappointment', [webSalesRequestController::class, 'sign_appointment']);
 Route::post('salesrequest-updatesalesrequest', [webSalesRequestController::class, 'update_sales_request']);

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
+use Spatie\MediaLibrary\ResponsiveImages\ResponsiveImage;
 
 class webSalesRequestController extends Controller
 {
@@ -279,6 +280,33 @@ class webSalesRequestController extends Controller
     }
     public function accept_sales_request(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|integer|exists:sales_requests,id',
+        ]);
+        // Check if the validation fails
+        if ($validator->fails()) {
+            // Return the validation errors
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        $perPage = 20;
+        $page = 1;
+        $orderby = 'sales_requests.id';
+        $orderbytype = 'desc';
+
+        $query = DB::table('sales_requests');
+
+        $query = $query
+            ->where('id', $request->id);
+        $query = $query
+            ->select('sales_requests.*')
+            ->orderBy($orderby, $orderbytype)
+            ->paginate($perPage, ['/*'], 'page', $page);
+
+        $accept_sales_request = $query;
+        return response()->json($accept_sales_request);
     }
     public function sign_appointment(Request $request)
     {
