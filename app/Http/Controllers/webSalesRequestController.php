@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SalesRequestNote;
+use App\Models\SalesRequestListing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -185,6 +186,26 @@ class webSalesRequestController extends Controller
     }
     public function add_listing(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'sales_request_id' => 'required|integer|exists:sales_requests,id',
+            'listing_id' => 'required|integer|exists:listings,id',
+        ]);
+        if ($validator->fails()) {
+            // Return the validation errors
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        $list = SalesRequestListing::create([
+            'sales_request_id' => $request->sales_request_id,
+            'listing_id' => $request->listing_id,
+        ]);
+
+        return response()->json([
+            'message' => 'Note created successfully',
+            'list' => $list,
+        ], 201);
     }
     public function change_listing_type(Request $request)
     {
