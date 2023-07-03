@@ -35,6 +35,7 @@ use App\Http\Controllers\SalesPeopleAgreementController;
 use App\Http\Controllers\ListingAdditionalDetailController;
 use App\Http\Controllers\SalesRequestAppointmentController;
 use Fosetico\LaravelPageBuilder\LaravelPageBuilder;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,12 +51,12 @@ Route::get('/', function () {
     return redirect('/page/home');
 })->name('page');
 
-Route::any( '/page/{any}', function() {
+Route::any('/page/{any}', function () {
 
     $builder = new LaravelPageBuilder(config('pagebuilder'));
     $hasPageReturned = $builder->handlePublicRequest();
 
-    if (request()->path() === '/' && ! $hasPageReturned) {
+    if (request()->path() === '/' && !$hasPageReturned) {
         $builder->getWebsiteManager()->renderWelcomePage();
     }
 
