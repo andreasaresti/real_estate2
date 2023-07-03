@@ -140,6 +140,7 @@ Route::post('activelocation', [webListings::class, 'get_active_location']);
 Route::post('get-countries', [webListings::class, 'get_countries']);
 Route::post('get_pagination', [webListings::class, 'get_pagination']);
 Route::post('add-remove-to-favorites', [webListings::class, 'add_remove_to_favorites']);
+
 Route::get('salesrequest-getnotes', [SalesRequestController::class, 'get_notes']);
 // });
 

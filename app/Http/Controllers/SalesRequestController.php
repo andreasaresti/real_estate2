@@ -378,7 +378,9 @@ class SalesRequestController extends Controller
         $query = DB::table('sales_request_notes');
 
         if ($request->has('sales_request_id') && $request->sales_request_id != '') {
-            $query = $query->where('sales_request_id', $request->sales_request_id);
+            $query = $query
+                ->where('sales_request_id', $request->sales_request_id)
+                ->where('sales_request_note_type_id', $request->sales_request_note_type_id);
         }
 
         $query = $query
@@ -391,4 +393,26 @@ class SalesRequestController extends Controller
         return response()->json($sales_request_notes);
 
     }
+
+    // public function close_deal(Request $request)
+    // {
+    //     $perPage = 20;
+    //     $page = 1;
+    //     $orderby = 'sales_requests.id';
+    //     $orderbytype = 'desc';
+
+    //     if ($request->has('page') && is_numeric($request->page)) {
+    //         $page = $request->page;
+    //     }
+    //     if ($request->has('per_page') && is_numeric($request->per_page)) {
+    //         $perPage = $request->per_page;
+    //     }
+
+    //     $query = DB::table('sales_requests');
+
+    //     if ($request->has('id') && $request->id != '') {
+    //         $query = $query
+    //             ->where('sales_requests', $request->id);
+    //     }
+    // }
 }
