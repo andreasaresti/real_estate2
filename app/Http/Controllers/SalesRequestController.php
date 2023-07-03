@@ -15,6 +15,7 @@ use App\Http\Requests\SalesRequestStoreRequest;
 use App\Http\Requests\SalesRequestUpdateRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\FacadesDB;
+use Illuminate\Support\Facades\Validator;
 
 class SalesRequestController extends Controller
 {
@@ -368,11 +369,16 @@ class SalesRequestController extends Controller
         $orderby = 'sales_request_notes.id';
         $orderbytype = 'desc';
 
-        if ($request->has('page') && is_numeric($request->page)) {
-            $page = $request->page;
-        }
-        if ($request->has('per_page') && is_numeric($request->per_page)) {
-            $perPage = $request->per_page;
+        $validator = Validator::make($request->all(), [
+            'sales_request_id' => 'required'
+        ]);
+
+        // Check if the validation fails
+        if ($validator->fails()) {
+            // Return the validation errors
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
         }
 
         $query = DB::table('sales_request_notes');
@@ -454,4 +460,5 @@ class SalesRequestController extends Controller
         $sales_requests = $query;
         return response()->json($sales_requests);
     }
+
 }
