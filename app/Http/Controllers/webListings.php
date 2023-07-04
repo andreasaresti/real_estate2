@@ -29,6 +29,10 @@ class webListings extends Controller
     // http://localhost:8000/api/activefeatures
     // http://localhost:8000/api/activelistings
 
+    public function get_similar_listings(Request $request){
+    }
+    public function create_listing(Request $request){
+    }
     public function get_countries(Request $request){
         $query = Country::select('countries.*')
                 ->orderBy('countries.name', 'asc')
