@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\SalesRequestNote;
 use App\Models\SalesRequestListing;
 use App\Models\SalesRequest;
+use App\Models\SalesRequestAppointment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -17,7 +18,7 @@ class webSalesRequestController extends Controller
     {
         // $this->authorize('create', Customer::class);
         $validator = Validator::make($request->all(), [
-            'id' => 'required|integer',
+            'id' => 'required|integer|exists:sales_requests,id',
             'status' => 'required|in:won,lost',
             'listing_id' => 'nullable|integer|required_if:status,won|exists:listings,id',
             'agreement_price' => 'nullable|integer|required_if:status,won',
@@ -31,32 +32,23 @@ class webSalesRequestController extends Controller
             ], 422);
         }
 
-        $perPage = 20;
-        $page = 1;
-        $orderby = 'sales_requests.id';
-        $orderbytype = 'desc';
+        SalesRequest::where('id', $request->id)->update([
+            'status' => $request->status,
+            'listing_id' => $request->listing_id,
+            'agreement_price' => $request->agreement_price,
+            'sales_lost_reason_id' => $request->sales_lost_reason_id,
+        ]);
 
-        $query = DB::table('sales_requests');
-
-        $query = $query
-            ->where('id', $request->id)
-            ->where('listing_id', $request->listing_id)
-            ->where('agreement_price', $request->agreement_price)
-            ->where('sales_lost_reason_id', $request->sales_lost_reason_id);
-
-        $query = $query
-            ->select('sales_requests.*')
-            ->orderBy($orderby, $orderbytype)
-            ->paginate($perPage, ['/*'], 'page', $page);
-        $sales_requests = $query;
-        return response()->json($sales_requests);
+        return response()->json([
+            'message' => 'Sales Request updated successfully'
+        ], 201);
     }
     public function add_note(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'sales_request_id' => 'required|integer|exists:sales_requests,id|unique:sales_request_notes',
-            'sales_request_note_type_id' => 'required|integer|exists:sales_request_note_types,id|unique:sales_request_notes',
-            'description' => 'required | string'
+            'sales_request_id' => 'required|integer|exists:sales_requests,id',
+            'sales_request_note_type_id' => 'required|integer|exists:sales_request_note_types,id',
+            'description' => 'required|string'
         ]);
         if ($validator->fails()) {
             // Return the validation errors
@@ -96,11 +88,10 @@ class webSalesRequestController extends Controller
             ], 422);
         }
 
-        $query = DB::table('sales_request_notes');
-
-        $query = $query
-            ->where('sales_request_id', $request->sales_request_id)
-            ->where('sales_request_note_type_id', $request->sales_request_note_type_id);
+        $query = SalesRequestNote::where('sales_request_id', $request->sales_request_id);;
+        if ($request->has('sales_request_note_type_id') && $request->sales_request_note_type_id != '') {
+            $query = $query->where('sales_request_note_type_id', $request->sales_request_note_type_id);
+        }
 
         $query = $query
             ->select('sales_request_notes.*')
@@ -117,9 +108,10 @@ class webSalesRequestController extends Controller
     public function get_appointments(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'listing_id' => 'required|integer|exists:listings,id',
-            'status' => 'required|string',
-            'signed' => 'required|integer',
+            'sales_request_id' => 'required|integer|exists:sales_requests,id',
+            'listing_id' => 'nullable|integer|exists:listings,id',
+            'status' => 'nullable|string',
+            'signed' => 'nullable|integer',
         ]);
         // Check if the validation fails
         if ($validator->fails()) {
@@ -134,12 +126,16 @@ class webSalesRequestController extends Controller
         $orderby = 'sales_request_appointments.id';
         $orderbytype = 'desc';
 
-        $query = DB::table('sales_request_appointments');
-
-        $query = $query
-            ->where('listing_id', $request->listing_id)
-            ->where('status', $request->status)
-            ->where('signed', $request->signed);
+        $query = SalesRequestAppointment::where('sales_request_id', $request->sales_request_id);
+        if ($request->has('listing_id') && $request->listing_id != '') {
+            $query = $query->where('listing_id', $request->listing_id);
+        }
+        if ($request->has('status') && $request->status != '') {
+            $query = $query->where('status', $request->status);
+        }
+        if ($request->has('signed') && $request->signed != '') {
+            $query = $query->where('signed', $request->signed);
+        }
 
         $query = $query
             ->select('sales_request_appointments.*')
@@ -152,11 +148,13 @@ class webSalesRequestController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'sales_request_id' => 'required|integer|exists:sales_requests,id',
-            'listing_id' => 'required|integer|exists:listings,id',
-            'status' => 'required|string',
+            'listing_id' => 'nullable|integer|exists:listings,id',
+            'status' => 'nullable|string',
             'emailed' => 'nullable|integer',
             'active' => 'nullable|integer',
         ]);
+
+        
         // Check if the validation fails
         if ($validator->fails()) {
             // Return the validation errors
@@ -170,14 +168,20 @@ class webSalesRequestController extends Controller
         $orderby = 'sales_request_listings.id';
         $orderbytype = 'desc';
 
-        $query = DB::table('sales_request_listings');
+        $query = SalesRequestListing::where('sales_request_id', $request->sales_request_id);
 
-        $query = $query
-            ->where('sales_request_id', $request->sales_request_id)
-            ->where('listing_id', $request->listing_id)
-            ->where('status', $request->status)
-            ->where('emailed', $request->emailed)
-            ->where('active', $request->active);
+        if ($request->has('listing_id') && $request->listing_id != '') {
+            $query = $query->where('listing_id', $request->listing_id);
+        }
+        if ($request->has('status') && $request->status != '') {
+            $query = $query->where('status', $request->status);
+        }
+        if ($request->has('emailed') && $request->emailed != '') {
+            $query = $query->where('emailed', $request->emailed);
+        }
+        if ($request->has('active') && $request->active != '') {
+            $query = $query->where('active', $request->active);
+        }
 
         $query = $query
             ->select('sales_request_listings.*')
@@ -199,14 +203,14 @@ class webSalesRequestController extends Controller
             ], 422);
         }
 
-        $list = SalesRequestListing::create([
+        $listing = SalesRequestListing::create([
             'sales_request_id' => $request->sales_request_id,
             'listing_id' => $request->listing_id,
         ]);
 
         return response()->json([
-            'message' => 'Note created successfully',
-            'list' => $list,
+            'message' => 'Listing added successfully',
+            'list' => $listing,
         ], 201);
     }
     public function change_listing_type(Request $request)
@@ -244,8 +248,7 @@ class webSalesRequestController extends Controller
     public function get_sales_request(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'status' => 'required|string',
-            'accepted_status' => 'required|string',
+            'accepted_status' => 'nullable|string|in:yes,no',
             'sales_people_id' => 'required|integer|exists:sales_people,id',
         ]);
 
@@ -262,12 +265,13 @@ class webSalesRequestController extends Controller
         $orderby = 'sales_requests.id';
         $orderbytype = 'desc';
 
-        $query = DB::table('sales_requests');
+        $query = SalesRequest::where('sales_people_id', $request->sales_people_id)
+                                ->where('status', 'open')
+                                ->where('active', '1');
 
-        $query = $query
-            ->where('status', $request->status)
-            ->where('accepted_status', $request->accepted_status)
-            ->where('sales_people_id', $request->sales_people_id);
+        if ($request->has('accepted_status') && $request->accepted_status != '') {
+            $query = $query->where('accepted_status', $request->accepted_status);
+        }
 
         $query = $query
             ->select('sales_requests.*')
@@ -291,22 +295,13 @@ class webSalesRequestController extends Controller
             ], 422);
         }
 
-        $perPage = 20;
-        $page = 1;
-        $orderby = 'sales_requests.id';
-        $orderbytype = 'desc';
+        SalesRequest::where('id', $request->id)->update([
+            'accepted_status' => 'yes',
+        ]);
 
-        $query = DB::table('sales_requests');
-
-        $query = $query
-            ->where('id', $request->id);
-        $query = $query
-            ->select('sales_requests.*')
-            ->orderBy($orderby, $orderbytype)
-            ->paginate($perPage, ['/*'], 'page', $page);
-
-        $accept_sales_request = $query;
-        return response()->json($accept_sales_request);
+        return response()->json([
+            'message' => 'Sales Request updated successfully'
+        ], 201);
     }
     public function sign_appointment(Request $request)
     {

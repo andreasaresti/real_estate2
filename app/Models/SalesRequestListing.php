@@ -21,6 +21,11 @@ class SalesRequestListing extends Model
         'active',
     ];
 
+    protected $attributes = [
+        'status' => 'open',
+        'emailed' => '0',
+    ];
+
     protected $searchableFields = ['*'];
 
     protected $table = 'sales_request_listings';
