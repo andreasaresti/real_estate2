@@ -271,6 +271,84 @@ class webSalesRequestController extends Controller
     }
     public function add_sales_request(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string',
+            'date' => 'required|date',
+            'customer_id' => 'required|integer|exists:customers,id',
+            'source_id' => 'required|integer|exists:sources,id',
+            'property_type_id' => 'required|integer|exists:property_types,id',
+            'minimum_budget' => 'nullable|integer',
+            'maximum_budget' => 'nullable|integer',
+            'minimum_size' => 'nullable|integer',
+            'maximum_size' => 'nullable|integer',
+            'minimum_bedrooms' => 'nullable|integer',
+            'minimum_bashrooms' => 'nullable|integer',
+            'description' => 'nullable|string',
+            'sales_request_districts' => 'nullable|array|exists:districts,id',
+            'sales_request_listing_types' => 'nullable|array|exists:listing_types,id',
+            'sales_request_locations' => 'nullable|array|exists:locations,id',
+            'sales_request_municipalities' => 'nullable|array|exists:municipalities,id',
+        ]);
+        if ($validator->fails()) {
+            // Return the validation errors
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        $sales_request_districts = $request->sales_request_districts;
+        $sales_request_listing_types = $request->sales_request_listing_types;
+        $sales_request_locations = $request->sales_request_locations;
+        $sales_request_municipalities = $request->sales_request_municipalities;
+
+        if (!$request->sales_request_districts) {
+            array_unshift($sales_request_districts, null);
+        }
+        if (!$request->sales_request_listing_types) {
+            array_unshift($sales_request_listing_types, null);
+        }
+        if (!$request->sales_request_locations) {
+            array_unshift($sales_request_locations, null);
+        }
+        if (!$request->sales_request_municipalities) {
+            array_unshift($sales_request_municipalities, null);
+        }
+
+        $salesRequest_array = [];
+
+        foreach ($sales_request_districts as $district_id) {
+            foreach ($sales_request_listing_types as $listing_type_id) {
+                foreach ($sales_request_locations as $location_id) {
+                    foreach ($sales_request_municipalities as $municipality_id) {
+                        $salesRequest = SalesRequest::create([
+                            'name' => $request->name,
+                            'date' => $request->date,
+                            'customer_id' => $request->customer_id,
+                            'source_id' => $request->source_id,
+                            'property_type_id' => $request->property_type_id,
+                            'minimum_budget' => $request->minimum_budget,
+                            'maximum_budget' => $request->maximum_budget,
+                            'minimum_size' => $request->minumum_size,
+                            'maximum_size' => $request->maximum_size,
+                            'minimum_bedrooms' => $request->minimum_bedrooms,
+                            'minimum_bashrooms' => $request->minimum_bashrooms,
+                            'description' => $request->description,
+                            'sales_request_districts' => $district_id,
+                            'sales_request_listing_types' => $listing_type_id,
+                            'sales_request_locations' => $location_id,
+                            'sales_request_municipalities' => $municipality_id,
+                        ]);
+                        array_push($salesRequest_array, $salesRequest);
+                    }
+                }
+            }
+        }
+        ;
+
+        return response()->json([
+            'message' => 'Sales Request added successfully',
+            'salesRequest' => $salesRequest_array,
+        ], 201);
     }
     public function get_sales_request(Request $request)
     {
