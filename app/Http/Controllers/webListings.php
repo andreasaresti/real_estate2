@@ -29,6 +29,10 @@ class webListings extends Controller
     // http://localhost:8000/api/activefeatures
     // http://localhost:8000/api/activelistings
 
+    public function get_similar_listings(Request $request){
+    }
+    public function create_listing(Request $request){
+    }
     public function get_countries(Request $request){
         $query = Country::select('countries.*')
                 ->orderBy('countries.name', 'asc')
@@ -616,6 +620,7 @@ class webListings extends Controller
         $perPage = $request->per_page;
 
         // Create a paginator instance
+        
         $paginator = new LengthAwarePaginator(
             $items->forPage($page, $perPage),
             $items->count(),
@@ -623,13 +628,12 @@ class webListings extends Controller
             $page,
             ['path' => url('/')] // Replace with your desired URL path
         );
-
         // Set the number of pages to show before and after the current page
-        $paginator->withPath('');
+        $paginator1 = $paginator->onEachSide(1);
         
 
         // Get the pagination array
-        $paginationArray = $paginator->toArray();
+        $paginationArray = $paginator1->toArray();
         foreach($paginationArray['links'] as $key => $link){
             if($link['label'] == 'pagination.previous'){
                 $paginationArray['links'][$key]['label'] = 'Previous';

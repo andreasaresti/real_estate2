@@ -108,6 +108,7 @@ use App\Http\Controllers\FavoritePropertyController;
 use App\Http\Controllers\webUsersController;
 use App\Http\Controllers\webListings;
 use App\Http\Controllers\webSalesRequestController;
+use App\Http\Controllers\webWebsiteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -121,6 +122,7 @@ use App\Http\Controllers\webSalesRequestController;
 */
 
 // Route::middleware('localhost')->group(function () {
+<<<<<<< HEAD
 
 // webUsersController
 Route::get('remind-password', [webUsersController::class, 'remind_password']);
@@ -157,6 +159,51 @@ Route::post('salesrequest-acceptsalesrequest', [webSalesRequestController::class
 Route::post('salesrequest-getsalesrequest', [webSalesRequestController::class, 'get_sales_request']);
 Route::post('salesrequest-signappointment', [webSalesRequestController::class, 'sign_appointment']);
 Route::post('salesrequest-updatesalesrequest', [webSalesRequestController::class, 'update_sales_request']);
+=======
+    
+    // webUsersController
+    Route::get('remind-password', [webUsersController::class, 'remind_password']);
+    Route::post('create-webuser', [webUsersController::class, 'create_user']);
+	Route::post('get-webuser', [webUsersController::class, 'get_users']);
+	Route::post('update-webuser', [webUsersController::class, 'update_user']);
+	Route::post('webuserschangepassword', [webUsersController::class, 'changepassword_user']);
+	Route::post('login-webuser', [webUsersController::class, 'login_user']);
+	Route::post('logout-webuser', [webUsersController::class, 'logout_user']);
+	
+    // webListings
+	Route::post('activelistings', [webListings::class, 'get_active_listings']);
+	Route::post('activelisting-types', [webListings::class, 'get_active_listing_types']);
+	Route::post('activeproperty-types', [webListings::class, 'get_active_property_types']);
+	Route::post('activefeatures', [webListings::class, 'get_active_features']);
+	Route::post('activedistrict', [webListings::class, 'get_active_district']);
+	Route::post('activemunicipality', [webListings::class, 'get_active_municipality']);
+	Route::post('activelocation', [webListings::class, 'get_active_location']);
+	Route::post('get-countries', [webListings::class, 'get_countries']);
+	Route::post('getpagination', [webListings::class, 'get_pagination']);
+    Route::post('add-remove-to-favorites', [webListings::class, 'add_remove_to_favorites']);
+    Route::post('createlisting', [webListings::class, 'create_listing']);
+    Route::post('get-similar-listings', [webListings::class, 'get_similar_listings']);
+
+    // webSalesRequestController
+    Route::post('salesrequest-closedeal', [webSalesRequestController::class, 'close_deal']);
+    Route::post('addnote', [webSalesRequestController::class, 'add_note']);
+    Route::post('salesrequest-getnotes', [webSalesRequestController::class, 'get_notes']);
+    Route::post('salesrequest-addappointments', [webSalesRequestController::class, 'add_appointments']);
+    Route::post('salesrequest-getappointments', [webSalesRequestController::class, 'get_appointments']);
+    Route::post('salesrequest-getlistings', [webSalesRequestController::class, 'get_listings']);
+    Route::post('salesrequest-addlisting', [webSalesRequestController::class, 'add_listing']);
+    Route::post('salesrequest-changelistingtype', [webSalesRequestController::class, 'change_listing_type']);
+    Route::post('salesrequest-addsalesrequest', [webSalesRequestController::class, 'add_sales_request']);
+    Route::post('salesrequest-acceptsalesrequest', [webSalesRequestController::class, 'accept_sales_request']);
+    Route::post('salesrequest-getsalesrequest', [webSalesRequestController::class, 'get_sales_request']);
+    Route::post('salesrequest-signappointment', [webSalesRequestController::class, 'sign_appointment']);
+    Route::post('salesrequest-updatesalesrequest', [webSalesRequestController::class, 'update_sales_request']);
+>>>>>>> main
+
+    // webSalesRequestController
+    Route::post('getmenu', [webWebsiteController::class, 'get_menu']);
+    Route::post('getbanner', [webWebsiteController::class, 'get_banner']);
+    Route::post('getlanguages', [webWebsiteController::class, 'get_languages']);
 
 // });
 
