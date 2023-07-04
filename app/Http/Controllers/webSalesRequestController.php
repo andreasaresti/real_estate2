@@ -260,7 +260,10 @@ class webSalesRequestController extends Controller
     //         'minimum_bedrooms' => 'nullable|integer',
     //         'maximum_bedrooms' => 'nullable|integer',
     //         'description' => 'nullable|string',
-    //         'sales_request_districts' => 'nullable|'
+    //         'sales_request_districts' => 'nullable|array|exists:districts,id',
+    //         'sales_request_listing_types' => 'nullable|array|exists:listing_types,id',
+    //         'sales_request_locations' => 'nullable|array|exists:locations,id',
+    //         'sales_request_municipalities' => 'nullable|array|exists:municipalities,id',
     //     ]);
     //     if ($validator->fails()) {
     //         // Return the validation errors
@@ -271,8 +274,23 @@ class webSalesRequestController extends Controller
 
     //     $salesRequest = SalesRequest::create([
     //         'name' => $request->name,
-    //         'date'
-    //     ])
+    //         'date' => $request->date,
+    //         'customer_id' => $request->customer_id,
+    //         'source_id' => $request->source_id,
+    //         'property_type_id' => $request->property_type_id,
+    //         'minimum_budget' => $request->minimum_budget,
+    //         'maximum_budget' => $request->maximum_budget,
+    //         'minimum_size' => $request->minimum_size,
+    //         'maximum_size' => $request->maximum_size,
+    //         'minimum_bedrooms' => $request->minimum_bedrooms,
+    //         'maximum_bedrooms' => $request->maximum_bedrooms,
+    //         'description' => $request->description,
+    //     ]);
+
+    //     return response()->json([
+    //         'message' => 'SalesRequest created successfully',
+    //         'salesRequest' => $salesRequest,
+    //     ]);
     // }
     public function get_sales_request(Request $request)
     {
@@ -343,6 +361,28 @@ class webSalesRequestController extends Controller
     }
     public function sign_appointment(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|array|exists:sales_request_appointments,id',
+            'signature' => 'required|string',
+        ]);
+        if ($validator->fails()) {
+            // Return the validation errors
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        $signappointment_array = [];
+        foreach ($request->id as $id) {
+            $signappointment = SalesRequestAppointment::where('id', $id)->update([
+                'signature' => $request->signature,
+            ]);
+            array_push($signappointment_array, $signappointment);
+        }
+        return response()->json([
+            'message' => 'Appointment updated successfully',
+            'appointment' => $signappointment_array,
+        ]);
     }
     public function update_sales_request(Request $request)
     {
