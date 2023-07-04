@@ -142,6 +142,16 @@ class webSalesRequestController extends Controller
             ->select('sales_request_appointments.*')
             ->orderBy($orderby, $orderbytype)
             ->paginate($perPage, ['/*'], 'page', $page);
+
+        foreach ($query as $key=>$row) {
+            $listing = Listing::find($row->listing_id);
+            $query[$key]->listing_name = $listing->name;
+            $query[$key]->image = '';
+            if($listing->image != ''){
+                $query[$key]->image = env('APP_URL').'/storage/'.$listing->image;
+            }
+            
+        }
         $sales_request_appointments = $query;
         return response()->json($sales_request_appointments);
     }
