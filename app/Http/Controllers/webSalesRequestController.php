@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Listing;
 use App\Models\SalesRequestNote;
 use App\Models\SalesRequestListing;
 use App\Models\SalesRequest;
@@ -175,6 +176,16 @@ class webSalesRequestController extends Controller
             ->select('sales_request_appointments.*')
             ->orderBy($orderby, $orderbytype)
             ->paginate($perPage, ['/*'], 'page', $page);
+
+        foreach ($query as $key=>$row) {
+            $listing = Listing::find($row->listing_id);
+            $query[$key]->listing_name = $listing->name;
+            $query[$key]->image = '';
+            if($listing->image != ''){
+                $query[$key]->image = env('APP_URL').'/storage/'.$listing->image;
+            }
+            
+        }
         $sales_request_appointments = $query;
         return response()->json($sales_request_appointments);
     }
@@ -221,6 +232,17 @@ class webSalesRequestController extends Controller
             ->select('sales_request_listings.*')
             ->orderBy($orderby, $orderbytype)
             ->paginate($perPage, ['/*'], 'page', $page);
+
+            foreach ($query as $key=>$row) {
+                $listing = Listing::find($row->listing_id);
+                $query[$key]->listing_name = $listing->name;
+                $query[$key]->image = '';
+                if($listing->image != ''){
+                    $query[$key]->image = env('APP_URL').'/storage/'.$listing->image;
+                }
+                
+            }
+
         $sales_request_listings = $query;
         return response()->json($sales_request_listings);
     }
@@ -391,6 +413,7 @@ class webSalesRequestController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'id' => 'required|integer|exists:sales_requests,id',
+            'accepted_status' => 'nullable|in:yes,no',
         ]);
         // Check if the validation fails
         if ($validator->fails()) {
@@ -399,9 +422,13 @@ class webSalesRequestController extends Controller
                 'errors' => $validator->errors(),
             ], 422);
         }
+        $accepted_status = 'yes';
+        if ($request->has('accepted_status') && $request->accepted_status != '') {
+            $accepted_status = $request->accepted_status;
+        }
 
         SalesRequest::where('id', $request->id)->update([
-            'accepted_status' => 'yes',
+            'accepted_status' => $accepted_status,
         ]);
 
         return response()->json([
