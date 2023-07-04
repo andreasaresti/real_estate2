@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use Spatie\MediaLibrary\ResponsiveImages\ResponsiveImage;
+use Symfony\Component\Routing\Matcher\ExpressionLanguageProvider;
 
 class webSalesRequestController extends Controller
 {
@@ -323,15 +324,23 @@ class webSalesRequestController extends Controller
             ], 422);
         }
 
+        $image = $request->signature;
+        $image_parts = explode(";base64", $image);
+        $image_type_aux = explode('image/', $image_parts[0]);
+        $image_type = $image_type_aux[1];
+        $file = base64_decode($image_parts[1]);
+        $safeName = 'signed_' . time() . "." . $image_type;
+        $success = file_put_contents(public_path('storage') . '/' . $safeName, $file);
+
         $signappointment_array = [];
         foreach ($request->id as $id) {
             $signappointment = SalesRequestAppointment::where('id', $id)->update([
-                'signature' => $request->signature,
+                'signature' => $safeName,
             ]);
             array_push($signappointment_array, $signappointment);
         }
         return response()->json([
-            'message' => 'Appointment updated successfully'
+            'message' => 'Appointment updated successfully',
         ], 201);
     }
     public function update_sales_request(Request $request)
