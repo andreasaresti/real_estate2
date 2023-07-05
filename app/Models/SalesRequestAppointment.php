@@ -11,7 +11,7 @@ class SalesRequestAppointment extends Model
     use HasFactory;
     use Searchable;
 
-    protected $fillable = ['listing_id', 'date', 'sales_request_id', 'date_signed'];
+    protected $fillable = ['listing_id', 'date', 'sales_request_id', 'status'];
 
     protected $searchableFields = ['*'];
 
@@ -21,7 +21,7 @@ class SalesRequestAppointment extends Model
         'date' => 'date',
         'date_signed' => 'date',
     ];
-    
+
     public function salesRequest()
     {
         return $this->belongsTo(SalesRequest::class);
@@ -32,5 +32,5 @@ class SalesRequestAppointment extends Model
         return $this->belongsTo(Listing::class);
     }
 
-    
+
 }

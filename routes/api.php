@@ -147,79 +147,102 @@ use App\Http\Controllers\webWebsiteController;
     Route::post('get-similar-listings', [webListings::class, 'get_similar_listings']);
     Route::post('addmedia', [webListings::class, 'add_media']);
 
-    // webSalesRequestController
-    Route::post('salesrequest-closedeal', [webSalesRequestController::class, 'close_deal']);
-    Route::post('addnote', [webSalesRequestController::class, 'add_note']);
-    Route::post('salesrequest-getnotes', [webSalesRequestController::class, 'get_notes']);
-    Route::post('salesrequest-addappointments', [webSalesRequestController::class, 'add_appointments']);
-    Route::post('salesrequest-getappointments', [webSalesRequestController::class, 'get_appointments']);
-    Route::post('salesrequest-getlistings', [webSalesRequestController::class, 'get_listings']);
-    Route::post('salesrequest-addlisting', [webSalesRequestController::class, 'add_listing']);
-    Route::post('salesrequest-changelistingtype', [webSalesRequestController::class, 'change_listing_type']);
-    Route::post('salesrequest-addsalesrequest', [webSalesRequestController::class, 'add_sales_request']);
-    Route::post('salesrequest-acceptsalesrequest', [webSalesRequestController::class, 'accept_sales_request']);
-    Route::post('salesrequest-getsalesrequest', [webSalesRequestController::class, 'get_sales_request']);
-    Route::post('salesrequest-signappointment', [webSalesRequestController::class, 'sign_appointment']);
-    Route::post('salesrequest-updatesalesrequest', [webSalesRequestController::class, 'update_sales_request']);
+// webUsersController
+Route::get('remind-password', [webUsersController::class, 'remind_password']);
+Route::post('create-webuser', [webUsersController::class, 'create_user']);
+Route::post('get-webuser', [webUsersController::class, 'get_users']);
+Route::post('update-webuser', [webUsersController::class, 'update_user']);
+Route::post('webuserschangepassword', [webUsersController::class, 'changepassword_user']);
+Route::post('login-webuser', [webUsersController::class, 'login_user']);
+Route::post('logout-webuser', [webUsersController::class, 'logout_user']);
 
-    // webSalesRequestController
-    Route::post('getmenu', [webWebsiteController::class, 'get_menu']);
-    Route::post('getbanner', [webWebsiteController::class, 'get_banner']);
-    Route::post('getlanguages', [webWebsiteController::class, 'get_languages']);
+// webListings
+Route::post('activelistings', [webListings::class, 'get_active_listings']);
+Route::post('activelisting-types', [webListings::class, 'get_active_listing_types']);
+Route::post('activeproperty-types', [webListings::class, 'get_active_property_types']);
+Route::post('activefeatures', [webListings::class, 'get_active_features']);
+Route::post('activedistrict', [webListings::class, 'get_active_district']);
+Route::post('activemunicipality', [webListings::class, 'get_active_municipality']);
+Route::post('activelocation', [webListings::class, 'get_active_location']);
+Route::post('get-countries', [webListings::class, 'get_countries']);
+Route::post('getpagination', [webListings::class, 'get_pagination']);
+Route::post('add-remove-to-favorites', [webListings::class, 'add_remove_to_favorites']);
+Route::post('createlisting', [webListings::class, 'create_listing']);
+Route::post('getsimilarlistings', [webListings::class, 'get_similar_listings']);
+
+// webSalesRequestController
+Route::post('salesrequest-closedeal', [webSalesRequestController::class, 'close_deal']);
+Route::post('addnote', [webSalesRequestController::class, 'add_note']);
+Route::post('salesrequest-getnotes', [webSalesRequestController::class, 'get_notes']);
+Route::post('salesrequest-addappointments', [webSalesRequestController::class, 'add_appointments']);
+Route::post('salesrequest-getappointments', [webSalesRequestController::class, 'get_appointments']);
+Route::post('salesrequest-getlistings', [webSalesRequestController::class, 'get_listings']);
+Route::post('salesrequest-addlisting', [webSalesRequestController::class, 'add_listing']);
+Route::post('salesrequest-changelistingtype', [webSalesRequestController::class, 'change_listing_type']);
+Route::post('salesrequest-addsalesrequest', [webSalesRequestController::class, 'add_sales_request']);
+Route::post('salesrequest-acceptsalesrequest', [webSalesRequestController::class, 'accept_sales_request']);
+Route::post('salesrequest-getsalesrequest', [webSalesRequestController::class, 'get_sales_request']);
+Route::post('salesrequest-signappointment', [webSalesRequestController::class, 'sign_appointment']);
+Route::post('salesrequest-updatesalesrequest', [webSalesRequestController::class, 'update_sales_request']);
+
+// webSalesRequestController
+Route::post('getmenu', [webWebsiteController::class, 'get_menu']);
+Route::post('getbanner', [webWebsiteController::class, 'get_banner']);
+Route::post('getlanguages', [webWebsiteController::class, 'get_languages']);
 
 // });
 
-Route::controller(MenuController::class)->group(function(){
+Route::controller(MenuController::class)->group(function () {
     Route::get('menu', 'index');
 });
-Route::controller(PageController::class)->group(function(){
+Route::controller(PageController::class)->group(function () {
     Route::get('page/{url}', 'get');
 });
-Route::controller(StatueController::class)->group(function(){
+Route::controller(StatueController::class)->group(function () {
     Route::get('statue', 'index');
 });
-Route::controller(FeatureController::class)->group(function(){
+Route::controller(FeatureController::class)->group(function () {
     Route::get('feature', 'index');
 });
-Route::controller(TypeController::class)->group(function(){
+Route::controller(TypeController::class)->group(function () {
     Route::get('type', 'index');
 });
-Route::controller(FavoritePropertyController::class)->group(function(){
-	Route::get('add_favorit/{index}', 'create');
+Route::controller(FavoritePropertyController::class)->group(function () {
+    Route::get('add_favorit/{index}', 'create');
 });
-Route::controller(ListingController::class)->group(function(){
+Route::controller(ListingController::class)->group(function () {
     Route::post('listing', 'get');
-	Route::post('add_listing', 'add');
-	Route::get('get_listing_param', 'get_param');
-	Route::get('listing/{index}', 'cur_get');
-	Route::get('add_favorit/{index}', 'add_favorit');
+    Route::post('add_listing', 'add');
+    Route::get('get_listing_param', 'get_param');
+    Route::get('listing/{index}', 'cur_get');
+    Route::get('add_favorit/{index}', 'add_favorit');
 });
-Route::controller(CustomerController::class)->group(function(){
+Route::controller(CustomerController::class)->group(function () {
     Route::post('customer', 'get');
-	Route::get('logout', 'logout');
-	Route::post('save_customer', 'store');
-	Route::post('customer_details', 'get_details');
-	Route::post('update_profile', 'update');
+    Route::get('logout', 'logout');
+    Route::post('save_customer', 'store');
+    Route::post('customer_details', 'get_details');
+    Route::post('update_profile', 'update');
 });
-Route::controller(SalesPeopleController::class)->group(function(){
+Route::controller(SalesPeopleController::class)->group(function () {
     Route::post('agencies', 'get');
-	Route::post('request_inquiry', 'store_inquiry');
+    Route::post('request_inquiry', 'store_inquiry');
 });
-Route::controller(SalesRequestController::class)->group(function(){
-	Route::post('request_get', 'get');
-	Route::post('request_cur_get_list', 'cur_get_list');
-	Route::post('update_request', 'update');
-	Route::post('add_request_listing', 'add_listing');
-	Route::post('update_request_listings_status', 'update_listings_status');
-	Route::post('accept_request', 'accept');
-	Route::post('colse_deal_request', 'colse_deal');
+Route::controller(SalesRequestController::class)->group(function () {
+    Route::post('request_get', 'get');
+    Route::post('request_cur_get_list', 'cur_get_list');
+    Route::post('update_request', 'update');
+    Route::post('add_request_listing', 'add_listing');
+    Route::post('update_request_listings_status', 'update_listings_status');
+    Route::post('accept_request', 'accept');
+    Route::post('colse_deal_request', 'colse_deal');
 });
 
-Route::controller(SalesRequestAppointmentController::class)->group(function(){
-	Route::post('get_appointments', 'get');
-	Route::post('add_appointments', 'add');
-	Route::post('update_appointments_status', 'update_status');
-	Route::post('update_appointments', 'update');
+Route::controller(SalesRequestAppointmentController::class)->group(function () {
+    Route::post('get_appointments', 'get');
+    Route::post('add_appointments', 'add');
+    Route::post('update_appointments_status', 'update_status');
+    Route::post('update_appointments', 'update');
 });
 
 Route::post('/login', [AuthController::class, 'login'])->name('api.login');

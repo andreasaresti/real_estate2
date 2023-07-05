@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< Updated upstream
     "content-hash": "9278470cb7f8ca55ab6ea9a8b512e9f0",
+=======
+    "content-hash": "aaeaede7666f5acedf5d8fb50a8475f0",
+>>>>>>> Stashed changes
     "packages": [
         {
             "name": "ardenthq/nova-image-gallery-field",

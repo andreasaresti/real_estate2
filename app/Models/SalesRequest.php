@@ -34,6 +34,10 @@ class SalesRequest extends Model
         'salesRequestStatus_id',
         'sales_lost_reason_id',
         'active',
+        'sales_request_districts',
+        'sales_request_listing_types',
+        'sales_request_locations',
+        'sales_request_municipalities'
     ];
 
     protected $searchableFields = ['*'];
@@ -45,12 +49,12 @@ class SalesRequest extends Model
         'active' => 'boolean',
     ];
 
-    
+
     public function customer()
     {
         return $this->belongsTo(Customer::class);
     }
-    
+
 
     public function source()
     {
@@ -82,16 +86,16 @@ class SalesRequest extends Model
         return $this->belongsTo(IntermediateAgent::class);
     }
 
-    
+
 
     public function salesRequestLocations()
     {
-        return $this->belongsToMany(Location::class,'sales_request_locations','salesRequest_id','location_id');
+        return $this->belongsToMany(Location::class, 'sales_request_locations', 'salesRequest_id', 'location_id');
     }
 
     public function salesRequestListingType()
     {
-        return $this->belongsToMany(ListingType::class,'sales_request_listing_types','sales_request_id','listing_type_id');
+        return $this->belongsToMany(ListingType::class, 'sales_request_listing_types', 'sales_request_id', 'listing_type_id');
     }
     public function salesRequestStatus()
     {
@@ -103,15 +107,17 @@ class SalesRequest extends Model
 
     public function salesRequestDistricts()
     {
-        return $this->belongsToMany(District::class,'sales_request_districts','salesRequest_id','district_id');
+        return $this->belongsToMany(District::class, 'sales_request_districts', 'salesRequest_id', 'district_id');
     }
 
-    public function salesRequestMunicipalities(){
-        return $this->belongsToMany(Municipality::class,'sales_request_municipalities','salesRequest_id','municipality_id');
+    public function salesRequestMunicipalities()
+    {
+        return $this->belongsToMany(Municipality::class, 'sales_request_municipalities', 'salesRequest_id', 'municipality_id');
     }
 
-    public function features(){
-        return $this->belongsToMany(Feature::class,'feature_sales_request','sales_request_id','feature_id');
+    public function features()
+    {
+        return $this->belongsToMany(Feature::class, 'feature_sales_request', 'sales_request_id', 'feature_id');
     }
 
     public function salesRequestAppointment()

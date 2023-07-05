@@ -93,7 +93,8 @@ class webSalesRequestController extends Controller
             ], 422);
         }
 
-        $query = SalesRequestNote::where('sales_request_id', $request->sales_request_id);;
+        $query = SalesRequestNote::where('sales_request_id', $request->sales_request_id);
+        ;
         if ($request->has('sales_request_note_type_id') && $request->sales_request_note_type_id != '') {
             $query = $query->where('sales_request_note_type_id', $request->sales_request_note_type_id);
         }
@@ -179,14 +180,14 @@ class webSalesRequestController extends Controller
             ->orderBy($orderby, $orderbytype)
             ->paginate($perPage, ['/*'], 'page', $page);
 
-        foreach ($query as $key=>$row) {
+        foreach ($query as $key => $row) {
             $listing = Listing::find($row->listing_id);
             $query[$key]->listing_name = $listing->name;
             $query[$key]->image = '';
-            if($listing->image != ''){
-                $query[$key]->image = env('APP_URL').'/storage/'.$listing->image;
+            if ($listing->image != '') {
+                $query[$key]->image = env('APP_URL') . '/storage/' . $listing->image;
             }
-            
+
         }
         $sales_request_appointments = $query;
         return response()->json($sales_request_appointments);
@@ -201,7 +202,7 @@ class webSalesRequestController extends Controller
             'active' => 'nullable|integer',
         ]);
 
-        
+
         // Check if the validation fails
         if ($validator->fails()) {
             // Return the validation errors
@@ -235,15 +236,15 @@ class webSalesRequestController extends Controller
             ->orderBy($orderby, $orderbytype)
             ->paginate($perPage, ['/*'], 'page', $page);
 
-            foreach ($query as $key=>$row) {
-                $listing = Listing::find($row->listing_id);
-                $query[$key]->listing_name = $listing->name;
-                $query[$key]->image = '';
-                if($listing->image != ''){
-                    $query[$key]->image = env('APP_URL').'/storage/'.$listing->image;
-                }
-                
+        foreach ($query as $key => $row) {
+            $listing = Listing::find($row->listing_id);
+            $query[$key]->listing_name = $listing->name;
+            $query[$key]->image = '';
+            if ($listing->image != '') {
+                $query[$key]->image = env('APP_URL') . '/storage/' . $listing->image;
             }
+
+        }
 
         $sales_request_listings = $query;
         return response()->json($sales_request_listings);
@@ -333,40 +334,40 @@ class webSalesRequestController extends Controller
             'minimum_bedrooms' => $request->minimum_bedrooms,
             'minimum_bashrooms' => $request->minimum_bashrooms,
             'description' => $request->description
-        ]);        
+        ]);
         if ($request->has('sales_request_districts') && count($request->sales_request_districts) > 0) {
-            foreach($request->sales_request_districts as $districtid){
+            foreach ($request->sales_request_districts as $districtid) {
                 SalesRequestDistrict::create([
                     'salesRequest_id' => $salesRequest->id,
                     'district_id' => $districtid,
-                ]);        
+                ]);
             }
         }
         if ($request->has('sales_request_municipalities') && count($request->sales_request_municipalities) > 0) {
-            foreach($request->sales_request_municipalities as $municipalityid){
+            foreach ($request->sales_request_municipalities as $municipalityid) {
                 SalesRequestMunicipality::create([
                     'salesRequest_id' => $salesRequest->id,
                     'municipality_id' => $municipalityid,
-                ]);        
+                ]);
             }
         }
         if ($request->has('sales_request_locations') && count($request->sales_request_locations) > 0) {
-            foreach($request->sales_request_locations as $locationid){
+            foreach ($request->sales_request_locations as $locationid) {
                 SalesRequestLocation::create([
                     'salesRequest_id' => $salesRequest->id,
                     'location_id' => $locationid,
-                ]);        
+                ]);
             }
         }
         if ($request->has('sales_request_listing_types') && count($request->sales_request_listing_types) > 0) {
-            foreach($request->sales_request_listing_types as $listingtype){
+            foreach ($request->sales_request_listing_types as $listingtype) {
                 SalesRequestListingType::create([
                     'sales_request_id' => $salesRequest->id,
                     'listing_type_id' => $listingtype,
-                ]);        
+                ]);
             }
         }
-        
+
 
         return response()->json([
             'message' => 'Sales Request added successfully',
@@ -394,8 +395,8 @@ class webSalesRequestController extends Controller
         $orderbytype = 'desc';
 
         $query = SalesRequest::where('sales_people_id', $request->sales_people_id)
-                                ->where('status', 'open')
-                                ->where('active', '1');
+            ->where('status', 'open')
+            ->where('active', '1');
 
         if ($request->has('accepted_status') && $request->accepted_status != '') {
             $query = $query->where('accepted_status', $request->accepted_status);
@@ -472,5 +473,87 @@ class webSalesRequestController extends Controller
     }
     public function update_sales_request(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|integer|exists:sales_requests,id',
+            'name' => 'required|string',
+            'date' => 'required|date',
+            'customer_id' => 'required|integer|exists:customers,id',
+            'source_id' => 'required|integer|exists:sources,id',
+            'property_type_id' => 'required|integer|exists:property_types,id',
+            'minimum_budget' => 'nullable|integer',
+            'maximum_budget' => 'nullable|integer',
+            'minimum_size' => 'nullable|integer',
+            'maximum_size' => 'nullable|integer',
+            'minimum_bedrooms' => 'nullable|integer',
+            'minimum_bashrooms' => 'nullable|integer',
+            'description' => 'nullable|string',
+            'sales_request_districts' => 'nullable|array|exists:districts,id',
+            'sales_request_listing_types' => 'nullable|array|exists:listing_types,id',
+            'sales_request_locations' => 'nullable|array|exists:locations,id',
+            'sales_request_municipalities' => 'nullable|array|exists:municipalities,id',
+        ]);
+        if ($validator->fails()) {
+            // Return the validation errors
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        SalesRequest::where('id', $request->id)->update([
+            'name' => $request->name,
+            'date' => $request->date,
+            'customer_id' => $request->customer_id,
+            'source_id' => $request->source_id,
+            'property_type_id' => $request->property_type_id,
+            'minimum_budget' => $request->minimum_budget,
+            'maximum_budget' => $request->maximum_budget,
+            'minimum_size' => $request->minumum_size,
+            'maximum_size' => $request->maximum_size,
+            'minimum_bedrooms' => $request->minimum_bedrooms,
+            'minimum_bashrooms' => $request->minimum_bashrooms,
+            'description' => $request->description
+        ]);
+
+        SalesRequestDistrict::where('salesRequest_id', $request->id)->delete();
+        SalesRequestMunicipality::where('salesRequest_id', $request->id)->delete();
+        SalesRequestLocation::where('salesRequest_id', $request->id)->delete();
+        SalesRequestListingType::where('sales_request_id', $request->id)->delete();
+
+        if ($request->has('sales_request_districts') && count($request->sales_request_districts) > 0) {
+            foreach ($request->sales_request_districts as $districtid) {
+                SalesRequestDistrict::create([
+                    'salesRequest_id' => $request->id,
+                    'district_id' => $districtid,
+                ]);
+            }
+        }
+        if ($request->has('sales_request_municipalities') && count($request->sales_request_municipalities) > 0) {
+            foreach ($request->sales_request_municipalities as $municipalityid) {
+                SalesRequestMunicipality::create([
+                    'salesRequest_id' => $request->id,
+                    'municipality_id' => $municipalityid,
+                ]);
+            }
+        }
+        if ($request->has('sales_request_locations') && count($request->sales_request_locations) > 0) {
+            foreach ($request->sales_request_locations as $locationid) {
+                SalesRequestLocation::create([
+                    'salesRequest_id' => $request->id,
+                    'location_id' => $locationid,
+                ]);
+            }
+        }
+        if ($request->has('sales_request_listing_types') && count($request->sales_request_listing_types) > 0) {
+            foreach ($request->sales_request_listing_types as $listingtype) {
+                SalesRequestListingType::create([
+                    'sales_request_id' => $request->id,
+                    'listing_type_id' => $listingtype,
+                ]);
+            }
+        }
+
+        return response()->json([
+            'message' => 'Sales Request updated successfully'
+        ], 201);
     }
 }
