@@ -7,12 +7,15 @@ use App\Models\SalesRequestNote;
 use App\Models\SalesRequestListing;
 use App\Models\SalesRequest;
 use App\Models\SalesRequestAppointment;
+use App\Models\SalesRequestDistrict;
+use App\Models\SalesRequestListingType;
+use App\Models\SalesRequestLocation;
+use App\Models\SalesRequestMunicipality;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use Spatie\MediaLibrary\ResponsiveImages\ResponsiveImage;
-use Symfony\Component\Routing\Matcher\ExpressionLanguageProvider;
 
 class webSalesRequestController extends Controller
 {
@@ -177,14 +180,14 @@ class webSalesRequestController extends Controller
             ->orderBy($orderby, $orderbytype)
             ->paginate($perPage, ['/*'], 'page', $page);
 
-        foreach ($query as $key=>$row) {
+        foreach ($query as $key => $row) {
             $listing = Listing::find($row->listing_id);
             $query[$key]->listing_name = $listing->name;
             $query[$key]->image = '';
-            if($listing->image != ''){
-                $query[$key]->image = env('APP_URL').'/storage/'.$listing->image;
+            if ($listing->image != '') {
+                $query[$key]->image = env('APP_URL') . '/storage/' . $listing->image;
             }
-            
+
         }
         $sales_request_appointments = $query;
         return response()->json($sales_request_appointments);
@@ -233,15 +236,15 @@ class webSalesRequestController extends Controller
             ->orderBy($orderby, $orderbytype)
             ->paginate($perPage, ['/*'], 'page', $page);
 
-            foreach ($query as $key=>$row) {
-                $listing = Listing::find($row->listing_id);
-                $query[$key]->listing_name = $listing->name;
-                $query[$key]->image = '';
-                if($listing->image != ''){
-                    $query[$key]->image = env('APP_URL').'/storage/'.$listing->image;
-                }
-                
+        foreach ($query as $key => $row) {
+            $listing = Listing::find($row->listing_id);
+            $query[$key]->listing_name = $listing->name;
+            $query[$key]->image = '';
+            if ($listing->image != '') {
+                $query[$key]->image = env('APP_URL') . '/storage/' . $listing->image;
             }
+
+        }
 
         $sales_request_listings = $query;
         return response()->json($sales_request_listings);
@@ -273,7 +276,7 @@ class webSalesRequestController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'id' => 'required|integer|exists:sales_request_listings,id',
-            'listing_id' => 'required|integer|exists:listings,id',
+            'status' => 'required|string|in:open,not_interested',
         ]);
         // Check if the validation errors
         if ($validator->fails()) {
@@ -284,7 +287,7 @@ class webSalesRequestController extends Controller
         }
 
         SalesRequestListing::where('id', $request->id)->update([
-            'listing_id' => $request->listing_id,
+            'status' => $request->status,
         ]);
 
         return response()->json([
@@ -318,58 +321,57 @@ class webSalesRequestController extends Controller
             ], 422);
         }
 
-        $sales_request_districts = $request->sales_request_districts;
-        $sales_request_listing_types = $request->sales_request_listing_types;
-        $sales_request_locations = $request->sales_request_locations;
-        $sales_request_municipalities = $request->sales_request_municipalities;
-
-        if (!$request->sales_request_districts) {
-            array_unshift($sales_request_districts, null);
-        }
-        if (!$request->sales_request_listing_types) {
-            array_unshift($sales_request_listing_types, null);
-        }
-        if (!$request->sales_request_locations) {
-            array_unshift($sales_request_locations, null);
-        }
-        if (!$request->sales_request_municipalities) {
-            array_unshift($sales_request_municipalities, null);
-        }
-
-        $salesRequest_array = [];
-
-        foreach ($sales_request_districts as $district_id) {
-            foreach ($sales_request_listing_types as $listing_type_id) {
-                foreach ($sales_request_locations as $location_id) {
-                    foreach ($sales_request_municipalities as $municipality_id) {
-                        $salesRequest = SalesRequest::create([
-                            'name' => $request->name,
-                            'date' => $request->date,
-                            'customer_id' => $request->customer_id,
-                            'source_id' => $request->source_id,
-                            'property_type_id' => $request->property_type_id,
-                            'minimum_budget' => $request->minimum_budget,
-                            'maximum_budget' => $request->maximum_budget,
-                            'minimum_size' => $request->minumum_size,
-                            'maximum_size' => $request->maximum_size,
-                            'minimum_bedrooms' => $request->minimum_bedrooms,
-                            'minimum_bashrooms' => $request->minimum_bashrooms,
-                            'description' => $request->description,
-                            'sales_request_districts' => $district_id,
-                            'sales_request_listing_types' => $listing_type_id,
-                            'sales_request_locations' => $location_id,
-                            'sales_request_municipalities' => $municipality_id,
-                        ]);
-                        array_push($salesRequest_array, $salesRequest);
-                    }
-                }
+        $salesRequest = SalesRequest::create([
+            'name' => $request->name,
+            'date' => $request->date,
+            'customer_id' => $request->customer_id,
+            'source_id' => $request->source_id,
+            'property_type_id' => $request->property_type_id,
+            'minimum_budget' => $request->minimum_budget,
+            'maximum_budget' => $request->maximum_budget,
+            'minimum_size' => $request->minumum_size,
+            'maximum_size' => $request->maximum_size,
+            'minimum_bedrooms' => $request->minimum_bedrooms,
+            'minimum_bashrooms' => $request->minimum_bashrooms,
+            'description' => $request->description
+        ]);
+        if ($request->has('sales_request_districts') && count($request->sales_request_districts) > 0) {
+            foreach ($request->sales_request_districts as $districtid) {
+                SalesRequestDistrict::create([
+                    'salesRequest_id' => $salesRequest->id,
+                    'district_id' => $districtid,
+                ]);
             }
         }
-        ;
+        if ($request->has('sales_request_municipalities') && count($request->sales_request_municipalities) > 0) {
+            foreach ($request->sales_request_municipalities as $municipalityid) {
+                SalesRequestMunicipality::create([
+                    'salesRequest_id' => $salesRequest->id,
+                    'municipality_id' => $municipalityid,
+                ]);
+            }
+        }
+        if ($request->has('sales_request_locations') && count($request->sales_request_locations) > 0) {
+            foreach ($request->sales_request_locations as $locationid) {
+                SalesRequestLocation::create([
+                    'salesRequest_id' => $salesRequest->id,
+                    'location_id' => $locationid,
+                ]);
+            }
+        }
+        if ($request->has('sales_request_listing_types') && count($request->sales_request_listing_types) > 0) {
+            foreach ($request->sales_request_listing_types as $listingtype) {
+                SalesRequestListingType::create([
+                    'sales_request_id' => $salesRequest->id,
+                    'listing_type_id' => $listingtype,
+                ]);
+            }
+        }
+
 
         return response()->json([
             'message' => 'Sales Request added successfully',
-            'salesRequest' => $salesRequest_array,
+            'salesRequest' => $salesRequest,
         ], 201);
     }
     public function get_sales_request(Request $request)
@@ -459,6 +461,8 @@ class webSalesRequestController extends Controller
         $signappointment_array = [];
         foreach ($request->id as $id) {
             $signappointment = SalesRequestAppointment::where('id', $id)->update([
+                'signed' => 1,
+                'date_signed' => date("Y-m-d H:i:s"),
                 'signature' => $safeName,
             ]);
             array_push($signappointment_array, $signappointment);
