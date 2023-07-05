@@ -513,30 +513,40 @@ class webSalesRequestController extends Controller
             'minimum_bashrooms' => $request->minimum_bashrooms,
             'description' => $request->description
         ]);
+
+        SalesRequestDistrict::where('salesRequest_id', $request->id)->delete();
+        SalesRequestMunicipality::where('salesRequest_id', $request->id)->delete();
+        SalesRequestLocation::where('salesRequest_id', $request->id)->delete();
+        SalesRequestListingType::where('sales_request_id', $request->id)->delete();
+
         if ($request->has('sales_request_districts') && count($request->sales_request_districts) > 0) {
             foreach ($request->sales_request_districts as $districtid) {
-                SalesRequestDistrict::where('salesRequest_id', $request->id)->update([
+                SalesRequestDistrict::create([
+                    'salesRequest_id' => $request->id,
                     'district_id' => $districtid,
                 ]);
             }
         }
         if ($request->has('sales_request_municipalities') && count($request->sales_request_municipalities) > 0) {
             foreach ($request->sales_request_municipalities as $municipalityid) {
-                SalesRequestMunicipality::where('salesRequest_id', $request->id)->update([
+                SalesRequestMunicipality::create([
+                    'salesRequest_id' => $request->id,
                     'municipality_id' => $municipalityid,
                 ]);
             }
         }
         if ($request->has('sales_request_locations') && count($request->sales_request_locations) > 0) {
             foreach ($request->sales_request_locations as $locationid) {
-                SalesRequestLocation::where('salesRequest_id', $request->id)->update([
+                SalesRequestLocation::create([
+                    'salesRequest_id' => $request->id,
                     'location_id' => $locationid,
                 ]);
             }
         }
         if ($request->has('sales_request_listing_types') && count($request->sales_request_listing_types) > 0) {
             foreach ($request->sales_request_listing_types as $listingtype) {
-                SalesRequestListingType::where('salesRequest_id', $request->id)->update([
+                SalesRequestListingType::create([
+                    'sales_request_id' => $request->id,
                     'listing_type_id' => $listingtype,
                 ]);
             }
