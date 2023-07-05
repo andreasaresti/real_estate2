@@ -332,6 +332,37 @@ class webSalesRequestController extends Controller
     }
     public function sign_appointment(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|array|exists:sales_request_appointments,id',
+            'signature' => 'required|string',
+        ]);
+        if ($validator->fails()) {
+            // Return the validation errors
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        $image = $request->signature;
+        $image_parts = explode(";base64", $image);
+        $image_type_aux = explode('image/', $image_parts[0]);
+        $image_type = $image_type_aux[1];
+        $file = base64_decode($image_parts[1]);
+        $safeName = 'signed_' . time() . "." . $image_type;
+        $success = file_put_contents(public_path('storage') . '/' . $safeName, $file);
+
+        $signappointment_array = [];
+        foreach ($request->id as $id) {
+            $signappointment = SalesRequestAppointment::where('id', $id)->update([
+                'signed' => 1,
+                'date_signed' => date("Y-m-d H:i:s"),
+                'signature' => $safeName,
+            ]);
+            array_push($signappointment_array, $signappointment);
+        }
+        return response()->json([
+            'message' => 'Appointment updated successfully',
+        ], 201);
     }
     public function update_sales_request(Request $request)
     {
