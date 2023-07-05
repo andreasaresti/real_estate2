@@ -57,9 +57,88 @@ class webListings extends Controller
         $similarListings = $query;
         return response()->json($similarListings);
     }
-    public function create_listing(Request $request)
-    {
-    }
+    // public function create_listing(Request $request)
+    // {
+    //     $validator = Validator::make($request->all(), [
+    //         'name' => 'required|string',
+    //         'image' => 'required|string',
+    //         'description' => 'required|string',
+    //         'price' => 'required|integer',
+    //         'map' => 'required|string',
+    //         'price_prefix' => 'required|string',
+    //         'price_postfix' => 'required|string',
+    //         'area_size' => 'required|integer',
+    //         'area_size_prefix' => 'required|string',
+    //         'area_size_postfix' => 'required|string',
+    //         'number_of_bedrooms' => 'required|integer',
+    //         'number_of_bathrooms' => 'required|integer',
+    //         'number_of_garages_or_parkingpaces' => 'required|integer',
+    //         'year_built' => 'required|integer',
+    //         'published' => 'required|integer',
+    //         'address' => 'required|string',
+    //         'latitude' => 'required|string',
+    //         'longitude' => 'required|string',
+    //         'virtual_tour' => 'required|string',
+    //         'energy_class' => 'required|string',
+    //         'energy_performance' => 'required|string',
+    //         'epc_current_rating' => 'required|string',
+    //         'epc_potential_rating' => 'required|string',
+    //         'location_id' => 'required|integer|exists:locations,id',
+    //         'property_type_id' => 'required|integer|exists:property_types,id',
+    //         'delivery_time_id' => 'required|integer|exists:delivery_times,id',
+    //         'owner_id' => 'required|integer|exists:customers,id',
+    //         'listing_listing_type' => 'nullable|array',
+    //         'images' => 'nullable|array',
+    //         'features' => 'nullable|array',
+    //     ]);
+    //     if ($validator->fails()) {
+    //         // Return the validation errors
+    //         return response()->json([
+    //             'errors' => $validator->errors(),
+    //         ], 422);
+    //     }
+
+    //     $listing = Listing::create([
+    //         'name' => $request->name,
+    //         'image' => $request->image,
+    //         'description' => $request->description,
+    //         'price' => $request->price,
+    //         'map' => $request->map,
+    //         'price_prefix' => $request->price_prefix,
+    //         'price_postfix' => $request->price_postfix,
+    //         'area_size' => $request->area_size,
+    //         'area_size_prefix' => $request->area_size_prefix,
+    //         'area_size_postfix' => $request->area_size_postfix,
+    //         'number_of_bedrooms' => $request->number_of_bedrooms,
+    //         'number_of_bashrooms' => $request->number_of_bashrooms,
+    //         'number_of_garages_or_parkingpaces' => $request->number_of_garages_or_parkingpaces,
+    //         'year_built' => $request->year_built,
+    //         'published' => $request->published,
+    //         'address' => $request->address,
+    //         'latitude' => $request->latitude,
+    //         'longitude' => $request->longitude,
+    //         '360_virtual_tour' => $request->virtual_tour,
+    //         'energy_class' => $request->energy_class,
+    //         'energy_performance' => $request->energy_performance,
+    //         'epc_current_rating' => $request->epc_current_rating,
+    //         'epc_potential_rating' => $request->epc_potential_rating,
+    //         'location_id' => $request->location_id,
+    //         'property_type_id' => $request->property_type_id,
+    //         'delivery_time_id' => $request->delivery_time_id,
+    //         'owner_id' => $request->owner_id,
+    //     ]);
+
+    //     if ($request->has('listing_listing_type') && count($request->listing_listing_type) > 0) {
+    //         foreach($request->listing_listing_type as $listing_type_id) {
+
+    //         }
+    //     }
+
+    //         return response()->json([
+    //             'message' => 'Listings added successfully',
+    //             'listing' => $listing,
+    //         ], 201);
+    // }
     public function get_countries(Request $request)
     {
         $query = Country::select('countries.*')

@@ -473,5 +473,77 @@ class webSalesRequestController extends Controller
     }
     public function update_sales_request(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|integer|exists:sales_requests,id',
+            'name' => 'required|string',
+            'date' => 'required|date',
+            'customer_id' => 'required|integer|exists:customers,id',
+            'source_id' => 'required|integer|exists:sources,id',
+            'property_type_id' => 'required|integer|exists:property_types,id',
+            'minimum_budget' => 'nullable|integer',
+            'maximum_budget' => 'nullable|integer',
+            'minimum_size' => 'nullable|integer',
+            'maximum_size' => 'nullable|integer',
+            'minimum_bedrooms' => 'nullable|integer',
+            'minimum_bashrooms' => 'nullable|integer',
+            'description' => 'nullable|string',
+            'sales_request_districts' => 'nullable|array|exists:districts,id',
+            'sales_request_listing_types' => 'nullable|array|exists:listing_types,id',
+            'sales_request_locations' => 'nullable|array|exists:locations,id',
+            'sales_request_municipalities' => 'nullable|array|exists:municipalities,id',
+        ]);
+        if ($validator->fails()) {
+            // Return the validation errors
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        SalesRequest::where('id', $request->id)->update([
+            'name' => $request->name,
+            'date' => $request->date,
+            'customer_id' => $request->customer_id,
+            'source_id' => $request->source_id,
+            'property_type_id' => $request->property_type_id,
+            'minimum_budget' => $request->minimum_budget,
+            'maximum_budget' => $request->maximum_budget,
+            'minimum_size' => $request->minumum_size,
+            'maximum_size' => $request->maximum_size,
+            'minimum_bedrooms' => $request->minimum_bedrooms,
+            'minimum_bashrooms' => $request->minimum_bashrooms,
+            'description' => $request->description
+        ]);
+        if ($request->has('sales_request_districts') && count($request->sales_request_districts) > 0) {
+            foreach ($request->sales_request_districts as $districtid) {
+                SalesRequestDistrict::where('salesRequest_id', $request->id)->update([
+                    'district_id' => $districtid,
+                ]);
+            }
+        }
+        if ($request->has('sales_request_municipalities') && count($request->sales_request_municipalities) > 0) {
+            foreach ($request->sales_request_municipalities as $municipalityid) {
+                SalesRequestMunicipality::where('salesRequest_id', $request->id)->update([
+                    'municipality_id' => $municipalityid,
+                ]);
+            }
+        }
+        if ($request->has('sales_request_locations') && count($request->sales_request_locations) > 0) {
+            foreach ($request->sales_request_locations as $locationid) {
+                SalesRequestLocation::where('salesRequest_id', $request->id)->update([
+                    'location_id' => $locationid,
+                ]);
+            }
+        }
+        if ($request->has('sales_request_listing_types') && count($request->sales_request_listing_types) > 0) {
+            foreach ($request->sales_request_listing_types as $listingtype) {
+                SalesRequestListingType::where('salesRequest_id', $request->id)->update([
+                    'listing_type_id' => $listingtype,
+                ]);
+            }
+        }
+
+        return response()->json([
+            'message' => 'Sales Request updated successfully'
+        ], 201);
     }
 }
