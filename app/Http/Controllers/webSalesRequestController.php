@@ -105,6 +105,38 @@ class webSalesRequestController extends Controller
     }
     public function add_appointments(Request $request)
     {
+        foreach ($request->sales_requests as $sales_request_id) {
+            $validator = Validator::make($request->all(), [
+                'sales_requests' => 'required|array|exists:sales_requests,id',
+                'listing_id' => 'required|integer|exists:listings,id',
+                'date' => 'required|date',
+                'status' => 'required|string',
+            ]);
+            // Check if the validation fails
+            if ($validator->fails()) {
+                // Return the validation errors
+                return response()->json([
+                    'errors' => $validator->errors(),
+                ], 422);
+            }
+        }
+
+        $appointment_array = [];
+
+        foreach ($request->sales_requests as $sales_request_id) {
+            $appointment = SalesRequestAppointment::create([
+                'sales_request_id' => $sales_request_id,
+                'listing_id' => $request->listing_id,
+                'date' => $request->date,
+                'status' => $request->status,
+            ]);
+            array_push($appointment_array, $appointment);
+        }
+
+        return response()->json([
+            'message' => 'Appointment created successfully.',
+            'appointment' => $appointment_array,
+        ], 201);
     }
     public function get_appointments(Request $request)
     {
