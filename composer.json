@@ -39,11 +39,6 @@
         "spatie/laravel-translatable": "^6.3",
         "spatie/nova-tags-field": "^4.0",
         "titasgailius/search-relations": "^2.0",
-<<<<<<< Updated upstream
-        "trinityrank/google-map-with-autocomplete": "^1.0",
-        "whitecube/nova-google-maps": "^0.0.1",
-=======
->>>>>>> Stashed changes
         "ziffmedia/nova-select-plus": "^2.0"
     },
     "require-dev": {
