@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Listing;
+use App\Models\Customer;
 use App\Models\SalesRequestNote;
 use App\Models\SalesRequestListing;
 use App\Models\SalesRequest;
@@ -11,6 +12,8 @@ use App\Models\SalesRequestDistrict;
 use App\Models\SalesRequestListingType;
 use App\Models\SalesRequestLocation;
 use App\Models\SalesRequestMunicipality;
+use App\Models\SalesLostReason;
+use App\Models\SalesRequestNoteType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -248,6 +251,37 @@ class webSalesRequestController extends Controller
 
         $sales_request_listings = $query;
         return response()->json($sales_request_listings);
+    }
+    public function get_sales_request_detail(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|integer|exists:sales_requests,id',
+        ]);
+
+
+        // Check if the validation fails
+        if ($validator->fails()) {
+            // Return the validation errors
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        $query = SalesRequest::where('id', $request->id);
+
+        $query = $query
+            ->select('sales_requests.*')
+            ->first();
+
+        $customer = Customer::where('id', $query->customer_id)->first();
+        $query->customer_name = $customer->name;
+        $query->customer_surname = $customer->surname;
+        $query->customer_email = $customer->email;
+        $query->customer_phone = $customer->phone;
+        $query->customer_address = $customer->address;
+
+        $sales_request_detail = $query;
+        return response()->json($sales_request_detail);
     }
     public function add_listing(Request $request)
     {
@@ -555,5 +589,23 @@ class webSalesRequestController extends Controller
         return response()->json([
             'message' => 'Sales Request updated successfully'
         ], 201);
+    }
+    public function get_lost_reason(Request $request)
+    {
+        $query = SalesLostReason::orderBy('sales_lost_reasons.name', 'asc')
+            ->paginate(1000);
+
+        $result = $query;
+
+        return response()->json($result);
+    }
+    public function get_note_type(Request $request)
+    {
+        $query = SalesRequestNoteType::orderBy('sales_request_note_types.name', 'asc')
+            ->paginate(1000);
+
+        $result = $query;
+
+        return response()->json($result);
     }
 }
