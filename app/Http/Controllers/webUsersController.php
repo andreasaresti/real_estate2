@@ -17,12 +17,42 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
+use Mail;
+use App\Mail\SendMail;
+
 
 class webUsersController extends Controller
 {
     public function remind_password(Request $request)
     {
-        echo 'remind password';
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|exists:users,email',
+        ]);
+        // Check if the validation fails
+        if ($validator->fails()) {
+            // Return the validation errors
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+        $token = STR::random(64);
+
+        DB::table('password_resets')->insert([
+            'email' => $request->email,
+            'token' => $token,
+        ]);
+
+        // Mail::send('email.testMail', ['token' => $token], function ($message) use ($request) {
+        //     $message->to($request->email);
+        //     $message->subject('Reset Password');
+        // });
+
+        // return back()->with('message', 'We have e-mailed your password reset link!');
+        Mail::to($request->email)->send(new SendMail($token));
+        return response()->json([
+            'message' => 'Successfully',
+        ], 201);
     }
     public function create_user(Request $request)
     {
@@ -59,7 +89,7 @@ class webUsersController extends Controller
         ]);
 
         $_SESSION["email"] = $request->email;
-        $_SESSION["name"] = $request->name.' '.$request->surname;
+        $_SESSION["name"] = $request->name . ' ' . $request->surname;
         $_SESSION["user_id"] = $user->id;
         $_SESSION["user_image"] = '';
         $_SESSION["user_role"] = "";
@@ -81,7 +111,7 @@ class webUsersController extends Controller
             'email' => [
                 'required',
                 'email',
-                Rule::unique('customers')->where(function ($query) use ($request){
+                Rule::unique('customers')->where(function ($query) use ($request) {
                     // Exclude rows with a specific condition
                     $query->where('id', '!=', $request->id);
                 }),
@@ -110,7 +140,7 @@ class webUsersController extends Controller
         ]);
 
         $_SESSION["email"] = $request->email;
-        $_SESSION["name"] = $request->name.' '.$request->surname;
+        $_SESSION["name"] = $request->name . ' ' . $request->surname;
         $_SESSION["user_id"] = $request->id;
         $_SESSION["user_image"] = '';
         $_SESSION["user_role"] = "";
@@ -152,7 +182,7 @@ class webUsersController extends Controller
     public function login_user(Request $request)
     {
         session_start();
-        
+
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|min:6',
@@ -171,7 +201,7 @@ class webUsersController extends Controller
             // The hashed value matches the input
             // Perform additional logic or return a success response
 
-            
+
 
             $_SESSION["email"] = $customer->email;
             $_SESSION["name"] = $customer->name;
@@ -179,12 +209,11 @@ class webUsersController extends Controller
             $_SESSION["user_image"] = $customer->image;
 
             $sales_people = SalesPeople::where('customer_id', $customer->id)
-                                ->first();
+                ->first();
             if ($sales_people !== null) {
                 $_SESSION["user_role"] = "sales_people";
                 $_SESSION["sales_person_id"] = $sales_people->id;
-            }
-            else{
+            } else {
                 $_SESSION["user_role"] = "";
             }
 
@@ -193,15 +222,16 @@ class webUsersController extends Controller
                 'message' => 'User logged in successfully',
                 'user' => $customer,
             ], 201);
-        } 
-        
+        }
+
         // Authentication failed
         return response()->json([
             'status' => false,
             'message' => 'Invalid login credentials',
         ], 401);
     }
-    public function logout_user(Request $request){
+    public function logout_user(Request $request)
+    {
         session_start();
         unset($_SESSION["email"]);
         unset($_SESSION["name"]);
@@ -239,18 +269,18 @@ class webUsersController extends Controller
         }
 
         $query = $query
-                    ->select('customers.*')                
-                    ->orderBy($orderby, $orderbytype)
-                    ->paginate($perPage, ['/*'], 'page', $page);
-        foreach ($query as $key=>$row) {
+            ->select('customers.*')
+            ->orderBy($orderby, $orderbytype)
+            ->paginate($perPage, ['/*'], 'page', $page);
+        foreach ($query as $key => $row) {
             unset($query[$key]->password);
         }
-        $customers = $query; 
+        $customers = $query;
 
         return response()->json($customers);
 
     }
-    
-    
-    
+
+
+
 }
