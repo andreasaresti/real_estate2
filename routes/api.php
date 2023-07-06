@@ -182,8 +182,11 @@ Route::post('salesrequest-changelistingtype', [webSalesRequestController::class,
 Route::post('salesrequest-addsalesrequest', [webSalesRequestController::class, 'add_sales_request']);
 Route::post('salesrequest-acceptsalesrequest', [webSalesRequestController::class, 'accept_sales_request']);
 Route::post('salesrequest-getsalesrequest', [webSalesRequestController::class, 'get_sales_request']);
+Route::post('salesrequest-getsalesrequestdetail', [webSalesRequestController::class, 'get_sales_request_detail']);
 Route::post('salesrequest-signappointment', [webSalesRequestController::class, 'sign_appointment']);
 Route::post('salesrequest-updatesalesrequest', [webSalesRequestController::class, 'update_sales_request']);
+Route::post('salesrequest-getlostreason', [webSalesRequestController::class, 'get_lost_reason']);
+Route::post('salesrequest-getnotetype', [webSalesRequestController::class, 'get_note_type']);
 
 // webSalesRequestController
 Route::post('getmenu', [webWebsiteController::class, 'get_menu']);
