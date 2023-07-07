@@ -14,6 +14,7 @@ use App\Models\SalesRequestLocation;
 use App\Models\SalesRequestMunicipality;
 use App\Models\SalesLostReason;
 use App\Models\SalesRequestNoteType;
+use App\Models\FeatureSalesRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -280,6 +281,41 @@ class webSalesRequestController extends Controller
         $query->customer_phone = $customer->phone;
         $query->customer_address = $customer->address;
 
+        $resultDistricts = SalesRequestDistrict::where('salesRequest_id', $request->id)->get();
+        $districts = array();
+        foreach ($resultDistricts as $row) {
+            array_push($districts, $row->district_id);
+        }
+        $query->districts = $districts;
+
+        $resultMunicipalities = SalesRequestMunicipality::where('salesRequest_id', $request->id)->get();
+        $Municipalities = array();
+        foreach ($resultMunicipalities as $row) {
+            array_push($Municipalities, $row->municipality_id);
+        }
+        $query->municipalities = $Municipalities;
+
+        $resultLocations = SalesRequestLocation::where('salesRequest_id', $request->id)->get();
+        $locations = array();
+        foreach ($resultLocations as $row) {
+            array_push($locations, $row->location_id);
+        }
+        $query->locations = $locations;
+
+        $resultListingTypes = SalesRequestListingType::where('sales_request_id', $request->id)->get();
+        $listingTypes = array();
+        foreach ($resultListingTypes as $row) {
+            array_push($listingTypes, $row->listing_type_id);
+        }
+        $query->listingTypes = $listingTypes;
+
+        $resultfeatures = FeatureSalesRequest::where('sales_request_id', $request->id)->get();
+        $features = array();
+        foreach ($resultfeatures as $row) {
+            array_push($features, $row->feature_id);
+        }
+        $query->features = $features;
+
         $sales_request_detail = $query;
         return response()->json($sales_request_detail);
     }
@@ -525,6 +561,7 @@ class webSalesRequestController extends Controller
             'sales_request_listing_types' => 'nullable|array|exists:listing_types,id',
             'sales_request_locations' => 'nullable|array|exists:locations,id',
             'sales_request_municipalities' => 'nullable|array|exists:municipalities,id',
+            'sales_request_feature' => 'nullable|array|exists:features,id',
         ]);
         if ($validator->fails()) {
             // Return the validation errors
@@ -544,7 +581,7 @@ class webSalesRequestController extends Controller
             'minimum_size' => $request->minumum_size,
             'maximum_size' => $request->maximum_size,
             'minimum_bedrooms' => $request->minimum_bedrooms,
-            'minimum_bashrooms' => $request->minimum_bashrooms,
+            'minimum_bathrooms' => $request->minimum_bashrooms,
             'description' => $request->description
         ]);
 
@@ -552,7 +589,16 @@ class webSalesRequestController extends Controller
         SalesRequestMunicipality::where('salesRequest_id', $request->id)->delete();
         SalesRequestLocation::where('salesRequest_id', $request->id)->delete();
         SalesRequestListingType::where('sales_request_id', $request->id)->delete();
+        FeatureSalesRequest::where('sales_request_id', $request->id)->delete();
 
+        if ($request->has('sales_request_feature') && count($request->sales_request_feature) > 0) {
+            foreach ($request->sales_request_feature as $featureid) {
+                FeatureSalesRequest::create([
+                    'sales_request_id' => $request->id,
+                    'feature_id' => $featureid,
+                ]);
+            }
+        }
         if ($request->has('sales_request_districts') && count($request->sales_request_districts) > 0) {
             foreach ($request->sales_request_districts as $districtid) {
                 SalesRequestDistrict::create([
