@@ -4,11 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-<<<<<<< Updated upstream
-    "content-hash": "9278470cb7f8ca55ab6ea9a8b512e9f0",
-=======
-    "content-hash": "aaeaede7666f5acedf5d8fb50a8475f0",
->>>>>>> Stashed changes
+    "content-hash": "772e36b9861fa0421c124db18b39db61",
     "packages": [
         {
             "name": "ardenthq/nova-image-gallery-field",
@@ -2727,17 +2723,17 @@
         },
         {
             "name": "laravel/nova",
-            "version": "4.26.1",
+            "version": "4.26.3",
             "source": {
                 "type": "git",
                 "url": "git@github.com:laravel/nova.git",
-                "reference": "cc7cf55d16f78abe049a1a131835a9558f54b301"
+                "reference": "4a4f4a548a9abe04934414212e484b27cf9860ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://nova.laravel.com/dist/laravel/nova/laravel-nova-cc7cf55d16f78abe049a1a131835a9558f54b301-zip-196a11.zip",
-                "reference": "cc7cf55d16f78abe049a1a131835a9558f54b301",
-                "shasum": "734d685f3b2775a46c12a22c2236f9bc719a290a"
+                "url": "https://nova.laravel.com/dist/laravel/nova/laravel-nova-4a4f4a548a9abe04934414212e484b27cf9860ec-zip-4c1a82.zip",
+                "reference": "4a4f4a548a9abe04934414212e484b27cf9860ec",
+                "shasum": "837efb43c116f89da00ab5df40d5a6a571477a58"
             },
             "require": {
                 "brick/money": "^0.5.0|^0.6.0|^0.7.0|^0.8.0",
@@ -2835,9 +2831,9 @@
                 "laravel"
             ],
             "support": {
-                "source": "https://github.com/laravel/nova/tree/v4.26.1"
+                "source": "https://github.com/laravel/nova/tree/v4.26.3"
             },
-            "time": "2023-06-28T19:37:42+00:00"
+            "time": "2023-06-30T04:49:39+00:00"
         },
         {
             "name": "laravel/sanctum",
@@ -3932,16 +3928,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.67.0",
+            "version": "2.68.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "c1001b3bc75039b07f38a79db5237c4c529e04c8"
+                "reference": "4f991ed2a403c85efbc4f23eb4030063fdbe01da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/c1001b3bc75039b07f38a79db5237c4c529e04c8",
-                "reference": "c1001b3bc75039b07f38a79db5237c4c529e04c8",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/4f991ed2a403c85efbc4f23eb4030063fdbe01da",
+                "reference": "4f991ed2a403c85efbc4f23eb4030063fdbe01da",
                 "shasum": ""
             },
             "require": {
@@ -4030,7 +4026,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-05-25T22:09:47+00:00"
+            "time": "2023-06-20T18:29:04+00:00"
         },
         {
             "name": "nette/schema",
@@ -4531,16 +4527,16 @@
         },
         {
             "name": "outl1ne/nova-color-field",
-            "version": "2.0.2",
+            "version": "2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/outl1ne/nova-color-field.git",
-                "reference": "1e72909e10e413d9da5fb16a3560dd5fcf209d9a"
+                "reference": "f94ad567bca1665c5f0c5368d2b5c0adbeaa5c8e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/outl1ne/nova-color-field/zipball/1e72909e10e413d9da5fb16a3560dd5fcf209d9a",
-                "reference": "1e72909e10e413d9da5fb16a3560dd5fcf209d9a",
+                "url": "https://api.github.com/repos/outl1ne/nova-color-field/zipball/f94ad567bca1665c5f0c5368d2b5c0adbeaa5c8e",
+                "reference": "f94ad567bca1665c5f0c5368d2b5c0adbeaa5c8e",
                 "shasum": ""
             },
             "require": {
@@ -4579,9 +4575,9 @@
             ],
             "support": {
                 "issues": "https://github.com/outl1ne/nova-color-field/issues",
-                "source": "https://github.com/outl1ne/nova-color-field/tree/2.0.2"
+                "source": "https://github.com/outl1ne/nova-color-field/tree/2.0.3"
             },
-            "time": "2022-10-21T14:02:01+00:00"
+            "time": "2023-06-30T11:18:33+00:00"
         },
         {
             "name": "outl1ne/nova-menu-builder",
@@ -4660,20 +4656,20 @@
         },
         {
             "name": "outl1ne/nova-sortable",
-            "version": "3.4.3",
+            "version": "3.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/outl1ne/nova-sortable.git",
-                "reference": "4ec83e01a4a68f287f7f36666ebe1df97d1a09ea"
+                "reference": "e655343f5fc97daabcf64fa2371f85489b4263ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/outl1ne/nova-sortable/zipball/4ec83e01a4a68f287f7f36666ebe1df97d1a09ea",
-                "reference": "4ec83e01a4a68f287f7f36666ebe1df97d1a09ea",
+                "url": "https://api.github.com/repos/outl1ne/nova-sortable/zipball/e655343f5fc97daabcf64fa2371f85489b4263ef",
+                "reference": "e655343f5fc97daabcf64fa2371f85489b4263ef",
                 "shasum": ""
             },
             "require": {
-                "laravel/nova": "^4.20.2",
+                "laravel/nova": "^4.24.0",
                 "outl1ne/nova-translations-loader": "^5.0",
                 "php": ">=8.0",
                 "spatie/eloquent-sortable": "^3.10.0|^4.0"
@@ -4705,7 +4701,7 @@
             ],
             "support": {
                 "issues": "https://github.com/outl1ne/nova-sortable/issues",
-                "source": "https://github.com/outl1ne/nova-sortable/tree/3.4.3"
+                "source": "https://github.com/outl1ne/nova-sortable/tree/3.4.4"
             },
             "funding": [
                 {
@@ -4713,20 +4709,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-03-17T14:17:12+00:00"
+            "time": "2023-06-30T12:50:22+00:00"
         },
         {
             "name": "outl1ne/nova-translatable",
-            "version": "2.1.6",
+            "version": "2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/outl1ne/nova-translatable.git",
-                "reference": "b10b9591e3fd682e92f14a98bafb82e229669688"
+                "reference": "321158d9e4d2bbf0800884946d0bea446ce495ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/outl1ne/nova-translatable/zipball/b10b9591e3fd682e92f14a98bafb82e229669688",
-                "reference": "b10b9591e3fd682e92f14a98bafb82e229669688",
+                "url": "https://api.github.com/repos/outl1ne/nova-translatable/zipball/321158d9e4d2bbf0800884946d0bea446ce495ab",
+                "reference": "321158d9e4d2bbf0800884946d0bea446ce495ab",
                 "shasum": ""
             },
             "require": {
@@ -4774,9 +4770,9 @@
             ],
             "support": {
                 "issues": "https://github.com/outl1ne/nova-translatable/issues",
-                "source": "https://github.com/outl1ne/nova-translatable/tree/2.1.6"
+                "source": "https://github.com/outl1ne/nova-translatable/tree/2.2.0"
             },
-            "time": "2023-01-16T15:56:46+00:00"
+            "time": "2023-06-30T09:22:48+00:00"
         },
         {
             "name": "outl1ne/nova-translations-loader",
@@ -6362,16 +6358,16 @@
         },
         {
             "name": "spatie/laravel-permission",
-            "version": "5.10.1",
+            "version": "5.10.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-permission.git",
-                "reference": "d08b3ffc5870cce4a47a39f22174947b33c191ae"
+                "reference": "671e46e079cbd4990a98427daaa09f4977b57ca9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/d08b3ffc5870cce4a47a39f22174947b33c191ae",
-                "reference": "d08b3ffc5870cce4a47a39f22174947b33c191ae",
+                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/671e46e079cbd4990a98427daaa09f4977b57ca9",
+                "reference": "671e46e079cbd4990a98427daaa09f4977b57ca9",
                 "shasum": ""
             },
             "require": {
@@ -6432,7 +6428,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-permission/issues",
-                "source": "https://github.com/spatie/laravel-permission/tree/5.10.1"
+                "source": "https://github.com/spatie/laravel-permission/tree/5.10.2"
             },
             "funding": [
                 {
@@ -6440,7 +6436,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-04-12T17:08:32+00:00"
+            "time": "2023-07-04T13:38:13+00:00"
         },
         {
             "name": "spatie/laravel-tags",
@@ -9207,53 +9203,6 @@
             "time": "2021-07-16T15:55:13+00:00"
         },
         {
-            "name": "trinityrank/google-map-with-autocomplete",
-            "version": "v1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/trinity-rank/google-map-with-autocomplete.git",
-                "reference": "32be53b5e6e82f54d9a4d0f567f2b7a34a5d22e0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/trinity-rank/google-map-with-autocomplete/zipball/32be53b5e6e82f54d9a4d0f567f2b7a34a5d22e0",
-                "reference": "32be53b5e6e82f54d9a4d0f567f2b7a34a5d22e0",
-                "shasum": ""
-            },
-            "require": {
-                "laravel/nova": "^4.0",
-                "php": "^7.4|^8.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Trinityrank\\GoogleMapWithAutocomplete\\FieldServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Trinityrank\\GoogleMapWithAutocomplete\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Nova Google Map With Autocomplete Field Package.",
-            "keywords": [
-                "google map",
-                "laravel",
-                "nova 4"
-            ],
-            "support": {
-                "issues": "https://github.com/trinity-rank/google-map-with-autocomplete/issues",
-                "source": "https://github.com/trinity-rank/google-map-with-autocomplete/tree/v1.0.0"
-            },
-            "time": "2022-07-27T07:24:05+00:00"
-        },
-        {
             "name": "vlucas/phpdotenv",
             "version": "v5.5.0",
             "source": {
@@ -9468,51 +9417,6 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.11.0"
             },
             "time": "2022-06-03T18:03:27+00:00"
-        },
-        {
-            "name": "whitecube/nova-google-maps",
-            "version": "v0.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/whitecube/nova-google-maps.git",
-                "reference": "1761cb462b528d0c94bc15c9ef5747ce8ae2d114"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/whitecube/nova-google-maps/zipball/1761cb462b528d0c94bc15c9ef5747ce8ae2d114",
-                "reference": "1761cb462b528d0c94bc15c9ef5747ce8ae2d114",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.1.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Whitecube\\NovaGoogleMaps\\FieldServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Whitecube\\NovaGoogleMaps\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "A Laravel Nova field.",
-            "keywords": [
-                "laravel",
-                "nova"
-            ],
-            "support": {
-                "issues": "https://github.com/whitecube/nova-google-maps/issues",
-                "source": "https://github.com/whitecube/nova-google-maps/tree/v0.0.1"
-            },
-            "time": "2020-05-04T14:32:00+00:00"
         },
         {
             "name": "ziffmedia/nova-select-plus",
@@ -11681,16 +11585,16 @@
         },
         {
             "name": "spatie/flare-client-php",
-            "version": "1.4.0",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/flare-client-php.git",
-                "reference": "82138174d5fe2829a7f085a6bdb2a06f6def9f7a"
+                "reference": "943894c6a6b00501365ac0b91ae0dce56f2226fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/flare-client-php/zipball/82138174d5fe2829a7f085a6bdb2a06f6def9f7a",
-                "reference": "82138174d5fe2829a7f085a6bdb2a06f6def9f7a",
+                "url": "https://api.github.com/repos/spatie/flare-client-php/zipball/943894c6a6b00501365ac0b91ae0dce56f2226fa",
+                "reference": "943894c6a6b00501365ac0b91ae0dce56f2226fa",
                 "shasum": ""
             },
             "require": {
@@ -11739,7 +11643,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/flare-client-php/issues",
-                "source": "https://github.com/spatie/flare-client-php/tree/1.4.0"
+                "source": "https://github.com/spatie/flare-client-php/tree/1.4.1"
             },
             "funding": [
                 {
@@ -11747,7 +11651,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-06-28T11:08:09+00:00"
+            "time": "2023-07-06T09:29:49+00:00"
         },
         {
             "name": "spatie/ignition",
