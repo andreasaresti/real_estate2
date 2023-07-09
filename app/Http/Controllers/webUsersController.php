@@ -18,8 +18,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
-use Mail;
 use App\Mail\SendMail;
+use Illuminate\Support\Facades\Mail;
 
 
 class webUsersController extends Controller

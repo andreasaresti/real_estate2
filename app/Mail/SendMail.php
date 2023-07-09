@@ -31,37 +31,4 @@ class SendMail extends Mailable
             ->view('emails.testMail');
     }
 
-    /**
-    //  * Get the message envelope.
-    //  *
-    //  * @return \Illuminate\Mail\Mailables\Envelope
-    //  */
-    // public function envelope()
-    // {
-    //     return new Envelope(
-    //         subject: 'Send Mail',
-    //     );
-    // }
-
-    // /**
-    //  * Get the message content definition.
-    //  *
-    //  * @return \Illuminate\Mail\Mailables\Content
-    //  */
-    // public function content()
-    // {
-    //     return new Content(
-    //         view: 'view.name',
-    //     );
-    // }
-
-    // /**
-    //  * Get the attachments for the message.
-    //  *
-    //  * @return array
-    //  */
-    // public function attachments()
-    // {
-    //     return [];
-    // }
 }
