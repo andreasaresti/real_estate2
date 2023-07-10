@@ -169,6 +169,7 @@ Route::post('getpagination', [webListings::class, 'get_pagination']);
 Route::post('add-remove-to-favorites', [webListings::class, 'add_remove_to_favorites']);
 Route::post('createlisting', [webListings::class, 'create_listing']);
 Route::post('getsimilarlistings', [webListings::class, 'get_similar_listings']);
+Route::post('activedelivery_times', [webListings::class, 'get_delivery_times']);
 
 // webSalesRequestController
 Route::post('salesrequest-closedeal', [webSalesRequestController::class, 'close_deal']);
@@ -178,6 +179,7 @@ Route::post('salesrequest-addappointments', [webSalesRequestController::class, '
 Route::post('salesrequest-getappointments', [webSalesRequestController::class, 'get_appointments']);
 Route::post('salesrequest-getlistings', [webSalesRequestController::class, 'get_listings']);
 Route::post('salesrequest-addlisting', [webSalesRequestController::class, 'add_listing']);
+Route::post('salesrequest-deletelisting', [webSalesRequestController::class, 'delete_listing']);
 Route::post('salesrequest-changelistingtype', [webSalesRequestController::class, 'change_listing_type']);
 Route::post('salesrequest-addsalesrequest', [webSalesRequestController::class, 'add_sales_request']);
 Route::post('salesrequest-acceptsalesrequest', [webSalesRequestController::class, 'accept_sales_request']);

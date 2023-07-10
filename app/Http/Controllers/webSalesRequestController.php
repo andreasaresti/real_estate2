@@ -342,6 +342,27 @@ class webSalesRequestController extends Controller
             'list' => $listing,
         ], 201);
     }
+    public function delete_listing(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'sales_request_id' => 'required|integer|exists:sales_requests,id',
+            'listing_id' => 'required|integer|exists:listings,id',
+        ]);
+        if ($validator->fails()) {
+            // Return the validation errors
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        $listing = SalesRequestListing::where('sales_request_id', $request->sales_request_id)
+            ->where('listing_id' , $request->listing_id) ->delete();
+
+        return response()->json([
+            'message' => 'Listing added successfully',
+            'list' => $listing,
+        ], 201);
+    }
     public function change_listing_type(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -578,7 +599,7 @@ class webSalesRequestController extends Controller
             'property_type_id' => $request->property_type_id,
             'minimum_budget' => $request->minimum_budget,
             'maximum_budget' => $request->maximum_budget,
-            'minimum_size' => $request->minumum_size,
+            'minimum_size' => $request->minimum_size,
             'maximum_size' => $request->maximum_size,
             'minimum_bedrooms' => $request->minimum_bedrooms,
             'minimum_bathrooms' => $request->minimum_bashrooms,
