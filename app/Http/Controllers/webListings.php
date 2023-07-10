@@ -14,6 +14,7 @@ use App\Models\Location;
 use App\Models\Municipality;
 use App\Models\PropertyType;
 use App\Models\FavoriteProperty;
+use App\Models\DeliveryTime;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
@@ -175,8 +176,61 @@ class webListings extends Controller
             'delivery_time_id' => $request->delivery_time_id,
             'owner_id' => $request->owner_id,
         ]);
-
         
+        foreach ($request->features as $key => $row) {
+            $temp = FeatureListing::create([
+                'listing_id' => $listing->id,
+                'feature_id' => $row,
+            ]);
+        }
+
+        foreach ($request->images as $key => $row) {
+            $image = $row;
+            $image_parts = explode(";base64", $image);
+            $image_type_aux = explode('image/', $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $file = base64_decode($image_parts[1]);
+            $safeName = 'signed_' . time() . "." . $image_type;
+            $preName = 'signed_' . time();
+
+
+            $model_type = str_replace("/", "\\", "App/Models/Listing");
+            
+        
+            $media_listing = Media::create(array(
+                'model_type' =>  $model_type, 
+                'model_id' => $listing->id,
+                'uuid' => rand(1,99999999999),
+                'name' => $safeName,
+                'size' => 520,
+                'file_name' => $safeName,
+                'collection_name' => 'images',
+                'mime_type' => 'image/'.$image_type,
+                'disk' => 'public',
+                'conversions_disk' => 'public',
+                'responsive_images' => array(),
+                'manipulations' => array(),
+                'custom_properties' => array(),
+                'generated_conversions' => array('large-size' => true,"medium-size" => true, "thumb" => true)
+            ));
+
+            $imageId =  $media_listing->id;
+            
+            $success = file_put_contents(public_path('storage') . '/' . $safeName, $file);
+            if (!file_exists(public_path('storage').'/'.$imageId)) 
+            {     
+                mkdir(public_path('storage').'/'.$imageId, 0777, true);
+            }
+            file_put_contents(public_path('storage').'/'.$imageId.'/'.$safeName, $file);
+            if (!file_exists(public_path('storage').'/'.$imageId.'/conversions')) 
+            {     
+                mkdir(public_path('storage').'/'.$imageId.'/conversions', 0777, true);
+            }
+            file_put_contents(public_path('storage').'/'.$imageId.'/conversions'.'/'.$preName.'-large-size.jpg', $file);
+            file_put_contents(public_path('storage').'/'.$imageId.'/conversions'.'/'.$preName.'-medium-size.jpg', $file);
+            file_put_contents(public_path('storage').'/'.$imageId.'/conversions'.'/'.$preName.'-thumb.jpg', $file);
+
+        }
 
         return response()->json([
             'message' => 'Listings added successfully',
@@ -839,5 +893,22 @@ class webListings extends Controller
             }
         }
         return response()->json($paginationArray);
+    }
+    public function get_delivery_times(Request $request)
+    {
+
+        $query = DeliveryTime::select('delivery_times.*')
+            ->orderBy('delivery_times.sequence', 'asc')
+            ->distinct()
+            ->paginate(1000);
+
+        foreach ($query as $key => $row) {
+            $name_array = $row->name;
+            $query[$key]->displayname = $name_array;
+        }
+
+        $result = $query;
+
+        return response()->json($result);
     }
 }

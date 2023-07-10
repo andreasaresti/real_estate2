@@ -11,16 +11,16 @@ class FeatureListing extends Model
     use HasFactory;
     use Searchable;
 
-    protected $fillable = ['customer_id', 'listing_id'];
+    protected $fillable = ['feature_id', 'listing_id'];
 
     protected $searchableFields = ['*'];
 
     protected $table = 'feature_listing';
 
-    public function customer()
-    {
-        return $this->belongsTo(Customer::class);
-    }
+    // public function customer()
+    // {
+    //     return $this->belongsTo(Customer::class);
+    // }
 
     public function listing()
     {
