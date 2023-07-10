@@ -62,7 +62,7 @@ class webUsersController extends Controller
             'name' => 'required',
             'surname' => 'required',
             'email' => 'required|email|unique:customers',
-            'password' => 'required|min:4',
+            'password' => 'required|min:6',
             'confirm_password' => 'required|same:password',
         ]);
 
