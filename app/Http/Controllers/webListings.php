@@ -96,6 +96,7 @@ class webListings extends Controller
         ], 201);
     }
     public function get_similar_listings(Request $request){
+        
     }
     public function create_listing(Request $request)
     {
@@ -478,7 +479,9 @@ class webListings extends Controller
         if ($request->has('max_price') && $request->max_price != '') {
             $query = $query->where('price', '<=', $request->max_price);
         }
-
+        if ($request->has('owner_id') && $request->owner_id > 0 ) {
+            $query = $query->where('owner_id', $request->owner_id);
+        }
         if ($request->has('municipalities') && count($request->municipalities) > 0) {
             $query = $query->whereIn('listings.id', function ($subquery) use ($request) {
                 $subquery->select('listings.id')
