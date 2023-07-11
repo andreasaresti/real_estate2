@@ -13,6 +13,8 @@ return new class extends Migration {
         Schema::create('district_sales_people', function (Blueprint $table) {
             $table->unsignedBigInteger('district_id');
             $table->unsignedBigInteger('sales_people_id');
+
+            $table->timestamps();
         });
     }
 

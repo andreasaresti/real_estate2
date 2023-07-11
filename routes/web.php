@@ -62,16 +62,7 @@ Route::any('/page/{any}', function () {
 
 })->where('any', '.*');
 
-Route::any( '/sabbiancowebsite/{any}', function() {
 
-    $builder = new LaravelPageBuilder(config('pagebuilder'));
-    $hasPageReturned = $builder->handlePublicRequest();
-
-    if (request()->path() === '/' && ! $hasPageReturned) {
-        $builder->getWebsiteManager()->renderWelcomePage();
-    }
-
-})->where('any', '.*');
 
 Route::get('/', function () {
     return redirect('/page/home');

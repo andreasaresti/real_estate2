@@ -2723,17 +2723,17 @@
         },
         {
             "name": "laravel/nova",
-            "version": "4.26.3",
+            "version": "4.26.4",
             "source": {
                 "type": "git",
                 "url": "git@github.com:laravel/nova.git",
-                "reference": "4a4f4a548a9abe04934414212e484b27cf9860ec"
+                "reference": "2c85439aa38f1aecf396b5fa473fa0f8dbd813f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://nova.laravel.com/dist/laravel/nova/laravel-nova-4a4f4a548a9abe04934414212e484b27cf9860ec-zip-4c1a82.zip",
-                "reference": "4a4f4a548a9abe04934414212e484b27cf9860ec",
-                "shasum": "837efb43c116f89da00ab5df40d5a6a571477a58"
+                "url": "https://nova.laravel.com/dist/laravel/nova/laravel-nova-2c85439aa38f1aecf396b5fa473fa0f8dbd813f7-zip-f99a68.zip",
+                "reference": "2c85439aa38f1aecf396b5fa473fa0f8dbd813f7",
+                "shasum": "9a150d8c7b62c5731a1247eda8f9d1cf0ae4d490"
             },
             "require": {
                 "brick/money": "^0.5.0|^0.6.0|^0.7.0|^0.8.0",
@@ -2831,9 +2831,9 @@
                 "laravel"
             ],
             "support": {
-                "source": "https://github.com/laravel/nova/tree/v4.26.3"
+                "source": "https://github.com/laravel/nova/tree/v4.26.4"
             },
-            "time": "2023-06-30T04:49:39+00:00"
+            "time": "2023-07-07T19:28:00+00:00"
         },
         {
             "name": "laravel/sanctum",
@@ -3428,16 +3428,16 @@
         },
         {
             "name": "league/glide",
-            "version": "2.2.4",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/glide.git",
-                "reference": "d31132bf5651d5abeef345ff523cd9cf2575b971"
+                "reference": "2ff92c8f1edc80b74e2d3c5efccfc7223f74d407"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/glide/zipball/d31132bf5651d5abeef345ff523cd9cf2575b971",
-                "reference": "d31132bf5651d5abeef345ff523cd9cf2575b971",
+                "url": "https://api.github.com/repos/thephpleague/glide/zipball/2ff92c8f1edc80b74e2d3c5efccfc7223f74d407",
+                "reference": "2ff92c8f1edc80b74e2d3c5efccfc7223f74d407",
                 "shasum": ""
             },
             "require": {
@@ -3487,9 +3487,9 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/glide/issues",
-                "source": "https://github.com/thephpleague/glide/tree/2.2.4"
+                "source": "https://github.com/thephpleague/glide/tree/2.3.0"
             },
-            "time": "2023-04-18T18:42:22+00:00"
+            "time": "2023-07-08T06:26:07+00:00"
         },
         {
             "name": "league/mime-type-detection",
@@ -4235,20 +4235,20 @@
         },
         {
             "name": "nova-kit/nova-packages-tool",
-            "version": "v1.11.0",
+            "version": "v1.11.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nova-kit/nova-packages-tool.git",
-                "reference": "b1286a662527c8e030145103e92fdc0762393e1e"
+                "reference": "e65fa42a8957f156278e0b3e9ba3f70e8b491e89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nova-kit/nova-packages-tool/zipball/b1286a662527c8e030145103e92fdc0762393e1e",
-                "reference": "b1286a662527c8e030145103e92fdc0762393e1e",
+                "url": "https://api.github.com/repos/nova-kit/nova-packages-tool/zipball/e65fa42a8957f156278e0b3e9ba3f70e8b491e89",
+                "reference": "e65fa42a8957f156278e0b3e9ba3f70e8b491e89",
                 "shasum": ""
             },
             "require": {
-                "laravel/nova": ">=4.26.0 <4.27.0",
+                "laravel/nova": ">=4.26.4 <4.27.0",
                 "php": "^7.3 || ^8.0"
             },
             "require-dev": {
@@ -4279,9 +4279,9 @@
             ],
             "description": "Tool for Laravel Nova Packages Development",
             "support": {
-                "source": "https://github.com/nova-kit/nova-packages-tool/tree/v1.11.0"
+                "source": "https://github.com/nova-kit/nova-packages-tool/tree/v1.11.1"
             },
-            "time": "2023-06-27T21:32:23+00:00"
+            "time": "2023-07-09T22:09:15+00:00"
         },
         {
             "name": "nunomaduro/termwind",
@@ -10456,16 +10456,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.6.9",
+            "version": "9.6.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "a9aceaf20a682aeacf28d582654a1670d8826778"
+                "reference": "a6d351645c3fe5a30f5e86be6577d946af65a328"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/a9aceaf20a682aeacf28d582654a1670d8826778",
-                "reference": "a9aceaf20a682aeacf28d582654a1670d8826778",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/a6d351645c3fe5a30f5e86be6577d946af65a328",
+                "reference": "a6d351645c3fe5a30f5e86be6577d946af65a328",
                 "shasum": ""
             },
             "require": {
@@ -10539,7 +10539,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.6.9"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.6.10"
             },
             "funding": [
                 {
@@ -10555,7 +10555,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-06-11T06:13:56+00:00"
+            "time": "2023-07-10T04:04:23+00:00"
         },
         {
             "name": "sebastian/cli-parser",

@@ -15,6 +15,8 @@ return new class extends Migration {
         ) {
             $table->unsignedBigInteger('listing_type_id');
             $table->unsignedBigInteger('sales_people_id');
+
+            $table->timestamps();
         });
     }
 

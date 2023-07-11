@@ -10,6 +10,7 @@ use App\Models\FeatureListing;
 use App\Models\FloorPlan;
 use App\Models\Listing;
 use App\Models\ListingType;
+use App\Models\ListingListingType;
 use App\Models\Location;
 use App\Models\Municipality;
 use App\Models\PropertyType;
@@ -127,10 +128,9 @@ class webListings extends Controller
             'property_type_id' => 'required|integer|exists:property_types,id',
             'delivery_time_id' => 'required|integer|exists:delivery_times,id',
             'owner_id' => 'required|integer|exists:customers,id',
-            'listing_listing_type' => 'nullable|array',
+            'listing_type_id' => 'required|integer|exists:listing_types,id',
             'images' => 'nullable|array',
             'features' => 'nullable|array',
-            'listing_listing_type.*' => 'exists:listing_types,id',
             'features.*' => 'exists:features,id',
         ]);
         if ($validator->fails()) {
@@ -178,13 +178,18 @@ class webListings extends Controller
             'owner_id' => $request->owner_id,
         ]);
         
+        
         foreach ($request->features as $key => $row) {
             $temp = FeatureListing::create([
                 'listing_id' => $listing->id,
                 'feature_id' => $row,
             ]);
         }
-
+        $temp = ListingListingType::create([
+            'listing_id' => $listing->id,
+            'listing_type_id' => $request->listing_type_id,
+        ]);
+            
         foreach ($request->images as $key => $row) {
             $image = $row;
             $image_parts = explode(";base64", $image);

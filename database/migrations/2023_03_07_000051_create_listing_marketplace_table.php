@@ -13,6 +13,8 @@ return new class extends Migration {
         Schema::create('listing_marketplace', function (Blueprint $table) {
             $table->unsignedBigInteger('marketplace_id');
             $table->unsignedBigInteger('listing_id');
+
+            $table->timestamps();
         });
     }
 
