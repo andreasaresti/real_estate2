@@ -565,10 +565,10 @@ class webListings extends Controller
         if ($request->has('max_price') && $request->max_price != '') {
             $query = $query->where('price', '<=', $request->max_price);
         }
-        if ($request->has('owner_id') && $request->owner_id > 0 ) {
+        if ($request->has('owner_id') && $request->owner_id > 0) {
             $query = $query->where('owner_id', $request->owner_id);
         }
-        if ($request->has('featured') && $request->featured > 0 ) {
+        if ($request->has('featured') && $request->featured == 1) {
             $query = $query->where('featured', $request->featured);
         }
         if ($request->has('municipalities') && count($request->municipalities) > 0) {
