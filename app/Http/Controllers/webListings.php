@@ -26,12 +26,6 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class webListings extends Controller
 {
-    // http://localhost:8000/api/activelocation
-    // http://localhost:8000/api/activemunicipality
-    // http://localhost:8000/api/activedistrict
-    // http://localhost:8000/api/activefeatures
-    // http://localhost:8000/api/activelistings
-
     public function add_media(Request $request){
         $validator = Validator::make($request->all(), [
             'model_type' => 'required|string',
@@ -530,6 +524,9 @@ class webListings extends Controller
                 ->orWhere('listings.name', 'LIKE', '%' . $search . '%');
         }
 
+        if ($request->has('property_type_array') && count($request->property_type_array) > 0) {
+            $query = $query->whereIn('property_type_id', $request->property_type_array);
+        }
         if ($request->has('features')) {
             foreach ($request->features as $feature) {
                 $query = $query->whereIn('listings.id', function ($subquery) use ($feature) {
@@ -855,7 +852,7 @@ class webListings extends Controller
             $query[$key]->displayname = $name_array;
             $description_array = $row->description;
             $query[$key]->displaydescription = $description_array;
-            $query[$key]->lisingmarker = $listing_markers[$key];
+            
 
             $post = Listing::with('media')->find($row->id);
             $media = $post->media;
@@ -907,6 +904,14 @@ class webListings extends Controller
             if (isset($query[$key]->favorite_properties_listing_id) && $query[$key]->favorite_properties_listing_id == $query[$key]->id) {
                 $query[$key]->in_favoriteproperties = 1;
             }
+
+            $listing_markers[$key]['id'] = "marker-".$row->id;
+            $listing_markers[$key]['title'] = $query[$key]->displayname;
+            $listing_markers[$key]['desc'] = $location->name;
+            $listing_markers[$key]['price'] = "€".$row->price;
+            $listing_markers[$key]['image'] = $query[$key]->image;
+            $listing_markers[$key]['link'] = 'page/listing-details?index='.$row->id;
+            $query[$key]->listingmarker = $listing_markers[$key];
         }
         $products = $query;
 
