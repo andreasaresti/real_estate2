@@ -504,7 +504,12 @@ class webListings extends Controller
         if ($request->has('per_page') && is_numeric($request->per_page)) {
             $perPage = $request->per_page;
         }
-
+        if ($request->has('orderbyName') && $request->orderbyName !== "") {
+            $orderby = $request->orderbyName;
+        }
+        if ($request->has('orderbyType') && $request->orderbyType !== "") {
+            $orderbytype = $request->orderbyType;
+        }
         $query = Listing::where('published', '=', 1);
         $select_values_array[] = 'listings.*';
 
