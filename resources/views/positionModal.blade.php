@@ -16,13 +16,8 @@
       height: 100vh;
       padding: 0;
       margin: 0;
-      background: rgba(73,155,234,1);
-      background: -moz-radial-gradient(center, ellipse cover, rgba(73,155,234,1) 0%, rgba(32,124,229,1) 100%);
-      background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(73,155,234,1)), color-stop(100%, rgba(32,124,229,1)));
-      background: -webkit-radial-gradient(center, ellipse cover, rgba(73,155,234,1) 0%, rgba(32,124,229,1) 100%);
-      background: -o-radial-gradient(center, ellipse cover, rgba(73,155,234,1) 0%, rgba(32,124,229,1) 100%);
-      background: -ms-radial-gradient(center, ellipse cover, rgba(73,155,234,1) 0%, rgba(32,124,229,1) 100%);
-      background: radial-gradient(ellipse at center, rgba(73,155,234,1) 0%, rgba(32,124,229,1) 100%);
+      background: currentcolor;
+      
       filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#499bea', endColorstr='#207ce5', GradientType=1 );
     }
 
@@ -127,6 +122,21 @@
       providers: [arcgisOnline]
     }).addTo(map);
 
+    searchControl.on('results', function(data){
+      $("#Latitude").val(data.latlng.lat);
+      $("#Longitude").val(data.latlng.lng);
+
+      marker.setLatLng(data.latlng, {
+        draggable: 'true'
+      }).bindPopup(data.latlng).update();
+
+      // console.log(data);
+      // results.clearLayers();
+      // for (var i = data.results.length - 1; i >= 0; i--) {
+      //   results.addLayer(L.marker(data.results[i].latlng));
+      // }
+    });
+
     var marker = new L.marker(curLocation, {
       draggable: 'true'
     });
@@ -160,7 +170,7 @@
       marker.setLatLng(e.latlng, {
         draggable: 'true'
       }).bindPopup(e.latlng).update();
-      
+
     }
 
   })
@@ -181,6 +191,9 @@
                 alert("Add Fail");
             }else{
                 alert("Add Ok");
+                //$(".iframe-popup-wrapper").css("display", "none");
+                console.log(document.getElementsByClassName("iframe-popup-wrapper"));//[0].style.display ="none";
+               // $(".iframe-popup-wrapper").
             }
         }
     });
