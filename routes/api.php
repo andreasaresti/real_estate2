@@ -170,7 +170,7 @@ Route::post('add-remove-to-favorites', [webListings::class, 'add_remove_to_favor
 Route::post('createlisting', [webListings::class, 'create_listing']);
 Route::post('getsimilarlistings', [webListings::class, 'get_similar_listings']);
 Route::post('activedelivery_times', [webListings::class, 'get_delivery_times']);
-
+Route::post('savelisting_position', [webListings::class, 'save_position']);
 // webSalesRequestController
 Route::post('salesrequest-closedeal', [webSalesRequestController::class, 'close_deal']);
 Route::post('addnote', [webSalesRequestController::class, 'add_note']);

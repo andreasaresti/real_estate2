@@ -1013,4 +1013,25 @@ class webListings extends Controller
 
         return response()->json($result);
     }
+    public function save_position(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'latitude' => 'required',
+            'longitude' => 'required',
+            'index' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                        'error' => $validator->errors()->all()
+                    ]);
+        }
+    
+        Listing::where('id',$request->index)->update([
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
+        ]);
+
+        return response()->json(['success' => 'Product created successfully.']);
+    }
 }

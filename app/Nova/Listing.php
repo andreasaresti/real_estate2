@@ -22,6 +22,7 @@ use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use ZiffMedia\NovaSelectPlus\SelectPlus;
 use Laravel\Nova\Fields\FormData;
 use Trinityrank\GoogleMapWithAutocomplete\TRLocation;
+use NormanHuth\IframePopup\IframePopup;
 
 class Listing extends Resource
 {
@@ -61,11 +62,18 @@ class Listing extends Resource
     public function fields(NovaRequest $request)
     {
         return [
+			// IframePopup::make(__('Position'), 'position'),
+			// IframePopup::make(__('Position'), 'position'), function () {
+			// 	return '/positionModal';
+			// }),
+			IframePopup::make(__('Position'), 'position', function () {
+					return '/positionModal?index='.$this->resource->id;
+				}),
+
 			 Tabs::make('Listing', [
                  Tab::make('Basic Information',[
 
 					ID::make('id')->sortable(),
-
 					
 
 					Text::make('Ext Code')

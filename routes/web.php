@@ -34,6 +34,7 @@ use App\Http\Controllers\SalesRequestListingController;
 use App\Http\Controllers\SalesPeopleAgreementController;
 use App\Http\Controllers\ListingAdditionalDetailController;
 use App\Http\Controllers\SalesRequestAppointmentController;
+use App\Http\Controllers\PositionModalController;
 use Fosetico\LaravelPageBuilder\LaravelPageBuilder;
 
 /*
@@ -62,7 +63,9 @@ Route::any('/page/{any}', function () {
 
 })->where('any', '.*');
 
-
+Route::controller(PositionModalController::class)->group(function(){
+    Route::get('positionModal', 'index');
+});
 
 Route::get('/', function () {
     return redirect('/page/home');
