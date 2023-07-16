@@ -16,6 +16,7 @@ use App\Models\Municipality;
 use App\Models\PropertyType;
 use App\Models\FavoriteProperty;
 use App\Models\DeliveryTime;
+use App\Models\Agent;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
@@ -1019,6 +1020,7 @@ class webListings extends Controller
             'latitude' => 'required',
             'longitude' => 'required',
             'index' => 'required',
+            'flag' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -1026,11 +1028,25 @@ class webListings extends Controller
                         'error' => $validator->errors()->all()
                     ]);
         }
-    
-        Listing::where('id',$request->index)->update([
-            'latitude' => $request->latitude,
-            'longitude' => $request->longitude,
-        ]);
+        if($request->flag == "listings"){
+            Listing::where('id',$request->index)->update([
+                'latitude' => $request->latitude,
+                'longitude' => $request->longitude,
+            ]);
+        }
+        if($request->flag == "locations"){
+            Location::where('id',$request->index)->update([
+                'latitude' => $request->latitude,
+                'longitude' => $request->longitude,
+            ]);
+        }
+        if($request->flag == "agencies"){
+            Agent::where('id',$request->index)->update([
+                'latitude' => $request->latitude,
+                'longitude' => $request->longitude,
+            ]);
+        }
+        
 
         return response()->json(['success' => 'Product created successfully.']);
     }

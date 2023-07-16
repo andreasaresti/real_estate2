@@ -1,3 +1,15 @@
+<?php
+  if(isset($_GET['index'])){
+    $index = $_GET['index'];
+  }else{
+    $index = 0;
+  }
+  if(isset($_GET['flag'])){
+    $flag = $_GET['flag'];
+  }else{
+    $flag = "";
+  }
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,13 +84,21 @@
         <div class="row">
           <section class="col col-3">
             <label class="input">
-              <input id="Latitude" placeholder="Latitude" value=<?php echo $listing->latitude; ?> name="Location.Latitude" />
+              <?php if($data->latitude){ ?>
+                <input id="Latitude" placeholder="Latitude" value=<?php echo $data->latitude;?> name="Location.Latitude"  />
+              <?php }else{ ?>
+                <input id="Latitude" placeholder="Latitude"  name="Location.Latitude" value="35.12647019957552"/>
               <!-- @Html.TextBoxFor(m => m.Location.Latitude, new {id = "Latitude", placeholder = "Latitude"}) -->
+              <?php } ?>
             </label>
           </section>
           <section class="col col-3">
             <label class="input">
-              <input id="Longitude" placeholder="Longitude" value=<?php echo $listing->longitude; ?> name="Location.Longitude" />
+              <?php if($data->longitude){ ?>
+                <input id="Longitude" placeholder="Longitude" value=<?php echo $data->longitude;?>  name="Location.Longitude" />
+              <?php }else{ ?>
+                <input id="Longitude" placeholder="Longitude"  name="Location.Longitude" value="33.446207830810565"/>
+              <?php } ?>
               <!-- @Html.TextBoxFor(m => m.Location.Longitude, new {id = "Longitude", placeholder = "Longitude"}) -->
             </label>
           </section>
@@ -86,7 +106,8 @@
         <div class="row">
           <div style="margin-top: 13px;display: flex; align-self: center;justify-content: center;" >
               <button class="btn btn-success btn-submit btn-sm">Submit</button>
-              <input type="hidden" id="index" style="margin: 5px;" value=<?php echo $listing->id; ?>>
+              <input type="hidden" id="index" style="margin: 5px;" value=<?php echo $data->id; ?>>
+              <input type="hidden" id="flag" style="margin: 5px;" value=<?php echo $flag; ?>>
           </div>
         </div>
       </section>
@@ -179,6 +200,7 @@
             "latitude": document.getElementById("Latitude").value,
             "longitude": document.getElementById("Longitude").value,
             "index": document.getElementById("index").value,
+            "flag": document.getElementById("flag").value,
         };
         const url = "/api/savelisting_position";
         let xhr = new XMLHttpRequest();

@@ -67,7 +67,7 @@ class Listing extends Resource
 			// 	return '/positionModal';
 			// }),
 			IframePopup::make(__('Position'), 'position', function () {
-					return '/positionModal?index='.$this->resource->id;
+					return '/positionModal?flag=listings&index='.$this->resource->id;
 				})->hideWhenCreating(),
 
 			 Tabs::make('Listing', [

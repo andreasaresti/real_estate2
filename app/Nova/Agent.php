@@ -14,6 +14,7 @@ use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\Country;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use NormanHuth\IframePopup\IframePopup;
 
 class Agent extends Resource
 {
@@ -47,6 +48,10 @@ class Agent extends Resource
     public function fields(Request $request)
     {
         return [
+            IframePopup::make(__('Position'), 'position', function () {
+                return '/positionModal?flag=agencies&index='.$this->resource->id;
+            })->hideWhenCreating(),
+
             ID::make('id')->sortable(),
 
             Text::make('Name')
