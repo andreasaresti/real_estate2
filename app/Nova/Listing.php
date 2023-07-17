@@ -62,10 +62,7 @@ class Listing extends Resource
     public function fields(NovaRequest $request)
     {
         return [
-			// IframePopup::make(__('Position'), 'position'),
-			// IframePopup::make(__('Position'), 'position'), function () {
-			// 	return '/positionModal';
-			// }),
+
 			IframePopup::make(__('Position'), 'position', function () {
 					return '/positionModal?flag=listings&index='.$this->resource->id;
 				})->hideWhenCreating(),
