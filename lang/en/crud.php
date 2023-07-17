@@ -575,6 +575,37 @@ return [
         ],
     ],
 
+    'blogs' => [
+        'name' => 'Blogs',
+        'index_title' => 'Blogs List',
+        'new_title' => 'New Blog',
+        'create_title' => 'Create Blog',
+        'edit_title' => 'Edit Blog',
+        'show_title' => 'Show Blog',
+        'inputs' => [
+            'name' => 'Name',
+            'active' => 'Active',
+        ],
+    ],
+
+    'blog_posts' => [
+        'name' => 'Blog Posts',
+        'index_title' => 'BlogPosts List',
+        'new_title' => 'New Blog post',
+        'create_title' => 'Create BlogPost',
+        'edit_title' => 'Edit BlogPost',
+        'show_title' => 'Show BlogPost',
+        'inputs' => [
+            'blog_id' => 'Blog',
+            'name' => 'Name',
+            'image' => 'Image',
+            'description' => 'Description',
+            'publish_on' => 'Publish On',
+            'priority' => 'Priority',
+            'published' => 'Published',
+        ],
+    ],
+
     'roles' => [
         'name' => 'Roles',
         'index_title' => 'Roles List',

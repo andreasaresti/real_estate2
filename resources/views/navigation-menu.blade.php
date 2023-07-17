@@ -188,6 +188,16 @@
                         Sales Request Note Types
                         </x-dropdown-link>
                         @endcan
+                        @can('view-any', App\Models\Blog::class)
+                        <x-dropdown-link href="{{ route('blogs.index') }}">
+                        Blogs
+                        </x-dropdown-link>
+                        @endcan
+                        @can('view-any', App\Models\BlogPost::class)
+                        <x-dropdown-link href="{{ route('blog-posts.index') }}">
+                        Blog Posts
+                        </x-dropdown-link>
+                        @endcan
                 </x-nav-dropdown>
 
                     @if (Auth::user()->can('view-any', Spatie\Permission\Models\Role::class) || 
@@ -498,6 +508,16 @@
                 @can('view-any', App\Models\SalesRequestNoteType::class)
                 <x-jet-responsive-nav-link href="{{ route('sales-request-note-types.index') }}">
                 Sales Request Note Types
+                </x-jet-responsive-nav-link>
+                @endcan
+                @can('view-any', App\Models\Blog::class)
+                <x-jet-responsive-nav-link href="{{ route('blogs.index') }}">
+                Blogs
+                </x-jet-responsive-nav-link>
+                @endcan
+                @can('view-any', App\Models\BlogPost::class)
+                <x-jet-responsive-nav-link href="{{ route('blog-posts.index') }}">
+                Blog Posts
                 </x-jet-responsive-nav-link>
                 @endcan
 

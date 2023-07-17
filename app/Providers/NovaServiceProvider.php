@@ -21,6 +21,7 @@ use App\Nova\InternalStatus;
 use App\Nova\ListingType;
 use App\Nova\Theme;
 use App\Nova\Banner;
+use App\Nova\Blog;
 use App\Nova\Customer;
 use App\Nova\CustomerRole;
 use App\Nova\SalesLostReason;
@@ -83,9 +84,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 ])->icon('pencil-alt')->collapsable(),
 
                 MenuSection::make('Website', [
-                   // MenuItem::resource(Page::class),
                     MenuItem::link('Page', '/page'),                    
                     MenuItem::link('Menu', '/menus'),
+                    MenuItem::resource(Blog::class),
                     MenuGroup::make('Settings', [
                         MenuItem::resource(Banner::class),
                         MenuItem::resource(Theme::class),

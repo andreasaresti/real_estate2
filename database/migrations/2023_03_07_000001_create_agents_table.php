@@ -26,8 +26,8 @@ return new class extends Migration {
             $table->string('country')->nullable();
             $table->longText('comments')->nullable();
             $table->boolean('active')->default(1);
-            $table->float('longitude')->nullable();
-            $table->float('latitude')->nullable();
+            $table->string('longitude')->nullable();
+            $table->string('latitude')->nullable();
             $table->unsignedBigInteger('district_id');
 
             $table->timestamps();

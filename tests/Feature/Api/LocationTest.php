@@ -75,8 +75,8 @@ class LocationTest extends TestCase
             'ext_code' => $this->faker->unique->text(255),
             'name' => [],
             'sequence' => $this->faker->randomNumber(0),
-            'latitude' => $this->faker->randomNumber(2),
-            'longitude' => $this->faker->longitude,
+            'latitude' => $this->faker->text(255),
+            'longitude' => $this->faker->text(255),
             'municipality_id' => $municipality->id,
         ];
 

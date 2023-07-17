@@ -19,8 +19,8 @@ return new class extends Migration {
             $table->unsignedBigInteger('municipality_id');
             $table->json('name');
             $table->integer('sequence')->default(0);
-            $table->float('latitude')->nullable();
-            $table->float('longitude')->nullable();
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
 
             $table->timestamps();
         });

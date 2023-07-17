@@ -214,7 +214,6 @@
             label="Latitude"
             :value="old('latitude', ($editing ? $listing->latitude : ''))"
             max="255"
-            step="0.01"
             placeholder="Latitude"
         ></x-inputs.number>
     </x-inputs.group>

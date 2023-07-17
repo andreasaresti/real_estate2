@@ -89,8 +89,8 @@ class ListingControllerTest extends TestCase
 
         unset($data['ext_code']);
         unset($data['agent_id']);
-        unset($data['map']);
         unset($data['export_all_marketplaces']);
+        unset($data['popular']);
 
         $data['name'] = $this->castToJson($data['name']);
         $data['description'] = $this->castToJson($data['description']);
@@ -165,9 +165,8 @@ class ListingControllerTest extends TestCase
             ),
             'year_built' => $this->faker->randomNumber(0),
             'featured' => $this->faker->boolean,
-            'published' => $this->faker->boolean,
             'address' => $this->faker->address,
-            'latitude' => $this->faker->latitude,
+            'latitude' => $this->faker->text(255),
             'longitude' => $this->faker->text(255),
             '360_virtual_tour' => $this->faker->text,
             'energy_class' => $this->faker->text(255),
@@ -175,10 +174,11 @@ class ListingControllerTest extends TestCase
             'epc_current_rating' => $this->faker->text(255),
             'epc_potential_rating' => $this->faker->text(255),
             'taxes' => $this->faker->text(255),
+            'published' => $this->faker->boolean,
             'dues' => $this->faker->text(255),
             'notes' => $this->faker->text,
-            'map' => $this->faker->text,
             'export_all_marketplaces' => $this->faker->boolean,
+            'popular' => $this->faker->boolean,
             'parent_id' => $listing->id,
             'location_id' => $location->id,
             'status_id' => $status->id,
@@ -195,8 +195,8 @@ class ListingControllerTest extends TestCase
 
         unset($data['ext_code']);
         unset($data['agent_id']);
-        unset($data['map']);
         unset($data['export_all_marketplaces']);
+        unset($data['popular']);
 
         $data['id'] = $listing->id;
 
