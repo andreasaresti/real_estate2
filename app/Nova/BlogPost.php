@@ -12,6 +12,7 @@ use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Illuminate\Support\Facades\DB;
 
 class BlogPost extends Resource
 {
@@ -55,16 +56,18 @@ class BlogPost extends Resource
             ID::make('id')->sortable(),
 
             Textarea::make('Name')
-                ->rules('required', 'max:255', 'json')
-                ->placeholder('Name'),
+                ->rules('required', 'max:255')
+                ->placeholder('Name')
+                ->translatable(DB::table('languages')->select('encoding','name')->orderBy('sequence')->pluck('name', 'encoding')->toArray()),
 
             Image::make('Image')
                 ->rules('nullable', 'image', 'max:1024')
                 ->placeholder('Image'),
 
             Textarea::make('Description')
-                ->rules('required', 'max:255', 'json')
-                ->placeholder('Description'),
+                ->rules('required', 'max:255')
+                ->placeholder('Description')
+                ->translatable(DB::table('languages')->select('encoding','name')->orderBy('sequence')->pluck('name', 'encoding')->toArray()),
 
             Date::make('Publish On')
                 ->rules('nullable', 'date')
@@ -73,7 +76,8 @@ class BlogPost extends Resource
             Number::make('Priority')
                 ->rules('required', 'numeric')
                 ->placeholder('Priority')
-                ->default('0'),
+                ->default('0')
+                ->sortable(),
 
             Boolean::make('Published')
                 ->rules('required', 'boolean')

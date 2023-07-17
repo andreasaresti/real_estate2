@@ -194,6 +194,7 @@ Route::post('salesrequest-getnotetype', [webSalesRequestController::class, 'get_
 Route::post('getmenu', [webWebsiteController::class, 'get_menu']);
 Route::post('getbanner', [webWebsiteController::class, 'get_banner']);
 Route::post('getlanguages', [webWebsiteController::class, 'get_languages']);
+Route::post('getblogs', [webWebsiteController::class, 'get_blogs']);
 
 // });
 

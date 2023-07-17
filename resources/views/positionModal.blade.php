@@ -10,12 +10,6 @@
     $flag = "";
   }
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-  <title>Google Maps</title>
   <link href="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.1.0/esri-leaflet-geocoder.css" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-2.2.4.min.js" ></script>
@@ -70,8 +64,7 @@
       border: 1px solid #569ae3;
     }
     </style>
-</head>
-<body>
+
   <div class="example-container">
     <div class="row">
       <section class="col col-2 header">Location</section>
@@ -113,7 +106,6 @@
       </section>
     </div>
   </div>
-</body>
 <script type="text/javascript">
   $(function() {
     // use below if you want to specify the path for leaflet's images
@@ -196,28 +188,24 @@
 
   })
   $(".btn-submit").click(function(e){
-        let data = {
-            "latitude": document.getElementById("Latitude").value,
-            "longitude": document.getElementById("Longitude").value,
-            "index": document.getElementById("index").value,
-            "flag": document.getElementById("flag").value,
-        };
-        const url = "/api/savelisting_position";
-        let xhr = new XMLHttpRequest();
-        xhr.open('POST', url, true);
-        xhr.setRequestHeader('Content-type', 'application/json');
-        xhr.send(JSON.stringify(data));
-        xhr.onload = function () {
-            console.log(xhr.response);    
-            if(xhr.response == "fail"){
-                alert("Add Fail");
-            }else{
-                alert("Add Ok");
-                //$(".iframe-popup-wrapper").css("display", "none");
-                console.log(document.getElementsByClassName("iframe-popup-wrapper"));//[0].style.display ="none";
-               // $(".iframe-popup-wrapper").
-            }
+    let data = {
+        "latitude": document.getElementById("Latitude").value,
+        "longitude": document.getElementById("Longitude").value,
+        "index": document.getElementById("index").value,
+        "flag": document.getElementById("flag").value,
+    };
+    const url = "/api/savelisting_position";
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('Content-type', 'application/json');
+    xhr.send(JSON.stringify(data));
+    xhr.onload = function () {
+        console.log(xhr.response);    
+        if(xhr.response == "fail"){
+            alert("Add Fail");
+        }else{
+            window.parent.location.reload();
         }
-    });
+    }
+  });
 </script>
-</html>

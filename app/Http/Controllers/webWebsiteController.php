@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Language;
+use App\Models\Blog;
+use App\Models\BlogPost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -63,5 +65,34 @@ class webWebsiteController extends Controller
         $languages = $query; 
 
         return response()->json($languages);
+    }
+    public function get_blogs(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'nullable|integer|exists:blogs,id',
+        ]);
+       
+        if ($request->has('id') && $request->id != '') {
+            $query = Blog::where('blogs.id', $request->id)->get();
+        }else{
+            $query = Blog::get();
+        }
+        
+        foreach ($query as $key => $row) {
+            $name_array = $row->name;
+            $query[$key]->displayname = $name_array;
+            $subquery = BlogPost::where('blog_id', $row->id)->get();
+            foreach ($subquery as $subkey => $subrow) {
+                $subname_array = $subrow->name;
+                $subquery[$subkey]->displayname = $subname_array;
+                $subname_array = $subrow->description;
+                $subquery[$subkey]->displaydescription = $subname_array;
+            }
+            $query[$key]->blogpost = $subquery;
+        }
+
+        $result = $query;
+
+        return response()->json($result);
     }
 }

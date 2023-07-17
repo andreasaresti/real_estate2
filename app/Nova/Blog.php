@@ -45,7 +45,7 @@ class Blog extends Resource
             ID::make('id')->sortable(),
 
             Textarea::make('Name')
-                ->rules('required', 'max:255', 'json')
+                ->rules('required', 'max:255')
                 ->placeholder('Name')
                 ->translatable(DB::table('languages')->select('encoding','name')->orderBy('sequence')->pluck('name', 'encoding')->toArray()),
 
