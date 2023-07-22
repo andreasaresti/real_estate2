@@ -79,14 +79,15 @@ class webWebsiteController extends Controller
         }
         
         foreach ($query as $key => $row) {
-            $name_array = $row->name;
-            $query[$key]->displayname = $name_array;
+            $name = $row->name;
+            $query[$key]->displayname = $name;
             $subquery = BlogPost::where('blog_id', $row->id)->get();
             foreach ($subquery as $subkey => $subrow) {
-                $subname_array = $subrow->name;
-                $subquery[$subkey]->displayname = $subname_array;
-                $subname_array = $subrow->description;
-                $subquery[$subkey]->displaydescription = $subname_array;
+                $subquery[$subkey]->imageUrl = env('APP_URL') . '/storage/' . $subrow->image;
+                $subname = $subrow->name;
+                $subquery[$subkey]->displayname = $subname;
+                $subdescription = $subrow->description;
+                $subquery[$subkey]->displaydescription = $subdescription;
             }
             $query[$key]->blogpost = $subquery;
         }
