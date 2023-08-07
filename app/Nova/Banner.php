@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use Ctessier\NovaAdvancedImageField\AdvancedImage;
+use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Laravel\Nova\Fields\BelongsTo;
@@ -69,6 +70,17 @@ class Banner extends Resource
                 ->translatable(DB::table('languages')->select('encoding','name')->orderBy('sequence')->pluck('name', 'encoding')->toArray())
                 ->rules('nullable')
                 ->placeholder('Description'),
+
+            Images::make('Images', 'images') // second parameter is the media collection name
+                ->conversionOnPreview('medium-size') // conversion used to display the "original" image
+                ->conversionOnDetailView('thumb') // conversion used on the model's view
+                ->conversionOnIndexView('thumb') // conversion used to display the image on the model's index page
+                ->conversionOnForm('thumb') // conversion used to display the image on the model's form
+                ->fullSize() // full size column
+                // ->rules('required', 'size:3') // validation rules for the collection of images
+                // validation rules for the collection of images
+                ->singleImageRules('dimensions:min_width=100')
+                ->hideFromIndex(),
 
             Boolean::make('Active')->default(true),
 
