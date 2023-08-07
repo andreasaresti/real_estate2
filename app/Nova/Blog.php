@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Blog extends Resource
@@ -44,7 +44,7 @@ class Blog extends Resource
         return [
             ID::make('id')->sortable(),
 
-            Textarea::make('Name')
+            Text::make('Name')
                 ->rules('required', 'max:255')
                 ->placeholder('Name')
                 ->translatable(DB::table('languages')->select('encoding','name')->orderBy('sequence')->pluck('name', 'encoding')->toArray()),

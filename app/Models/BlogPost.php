@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use App\Models\Scopes\Searchable;
+use Ebess\AdvancedNovaMediaLibrary\Fields\Media;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\Translatable\HasTranslations;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 class BlogPost extends Model
 {
@@ -39,5 +42,20 @@ class BlogPost extends Model
     public function blog()
     {
         return $this->belongsTo(Blog::class);
+    }
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('large-size')
+        ->width(1024)
+        ->height(768);
+        
+        $this->addMediaConversion('medium-size')
+        ->width(768)
+        ->height(576);
+
+        $this->addMediaConversion('thumb')
+        ->width(368)
+        ->height(232);
     }
 }

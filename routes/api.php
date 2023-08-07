@@ -165,6 +165,7 @@ Route::post('activedistrict', [webListings::class, 'get_active_district']);
 Route::post('activemunicipality', [webListings::class, 'get_active_municipality']);
 Route::post('activelocation', [webListings::class, 'get_active_location']);
 Route::post('get-countries', [webListings::class, 'get_countries']);
+Route::post('get-agencies', [webListings::class, 'get_agencies']);
 Route::post('getpagination', [webListings::class, 'get_pagination']);
 Route::post('add-remove-to-favorites', [webListings::class, 'add_remove_to_favorites']);
 Route::post('createlisting', [webListings::class, 'create_listing']);
@@ -195,6 +196,7 @@ Route::post('getmenu', [webWebsiteController::class, 'get_menu']);
 Route::post('getbanner', [webWebsiteController::class, 'get_banner']);
 Route::post('getlanguages', [webWebsiteController::class, 'get_languages']);
 Route::post('getblogs', [webWebsiteController::class, 'get_blogs']);
+Route::post('getblogposts', [webWebsiteController::class, 'get_blog_posts']);
 
 // });
 
