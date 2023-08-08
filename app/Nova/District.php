@@ -10,6 +10,7 @@ use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use NormanHuth\IframePopup\IframePopup;
 
 class District extends Resource
 {
@@ -43,6 +44,10 @@ class District extends Resource
     public function fields(Request $request)
     {
         return [
+            IframePopup::make(__('Position'), 'position', function () {
+                return '/positionModal?flag=districts&index='.$this->resource->id;
+            })->hideWhenCreating()->hideWhenUpdating(),
+
             ID::make('id')->sortable(),
 
             Text::make('Name')

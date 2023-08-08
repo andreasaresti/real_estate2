@@ -1071,6 +1071,18 @@ class webListings extends Controller
                 'longitude' => $request->longitude,
             ]);
         }
+        if($request->flag == "municipalities"){
+            Municipality::where('id',$request->index)->update([
+                'latitude' => $request->latitude,
+                'longitude' => $request->longitude,
+            ]);
+        }
+        if($request->flag == "districts"){
+            District::where('id',$request->index)->update([
+                'latitude' => $request->latitude,
+                'longitude' => $request->longitude,
+            ]);
+        }
         
 
         return response()->json(['success' => 'Product created successfully.']);

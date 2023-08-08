@@ -10,6 +10,7 @@ use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use NormanHuth\IframePopup\IframePopup;
 
 class Municipality extends Resource
 {
@@ -46,6 +47,10 @@ class Municipality extends Resource
     public function fields(Request $request)
     {
         return [
+            IframePopup::make(__('Position'), 'position', function () {
+                return '/positionModal?flag=municipalities&index='.$this->resource->id;
+            })->hideWhenCreating()->hideWhenUpdating(),
+            
             ID::make('id')->sortable(),
             Text::make('Name')
 				->translatable(DB::table('languages')->select('encoding','name')->orderBy('sequence')->pluck('name', 'encoding')->toArray())

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\Listing;
 use App\Models\Location;
 use App\Models\Agent;
+use App\Models\District;
+use App\Models\Municipality;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -31,6 +33,14 @@ class PositionModalController extends Controller
         }
         if($flag == "agencies"){
             $data = Agent::where('id',$index)->first();
+            return view('positionModal', compact('data'));
+        }
+        if($flag == "municipalities"){
+            $data = Municipality::where('id',$index)->first();
+            return view('positionModal', compact('data'));
+        }
+        if($flag == "districts"){
+            $data = District::where('id',$index)->first();
             return view('positionModal', compact('data'));
         }
     }
