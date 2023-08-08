@@ -65,7 +65,7 @@ class Listing extends Resource
 
 			IframePopup::make(__('Position'), 'position', function () {
 					return '/positionModal?flag=listings&index='.$this->resource->id;
-				})->hideWhenCreating(),
+				})->hideWhenCreating()->hideWhenUpdating(),
 
 			 Tabs::make('Listing', [
                  Tab::make('Basic Information',[
@@ -204,7 +204,7 @@ class Listing extends Resource
 					SelectPlus::make('ListingType', 'ListingType', ListingType::class)->hideFromIndex(),
 
 					
-
+					
 					Boolean::make('Export All Marketplaces')
 						->rules('nullable', 'boolean')
 						->placeholder('Export All Marketplaces')
@@ -225,6 +225,16 @@ class Listing extends Resource
 						)
 						// ->hide()
 						->hideFromIndex(),
+
+					Boolean::make('Popular')
+						->rules('nullable', 'boolean')
+						->placeholder('Popular')
+						->sortable(),	
+
+					Boolean::make('Featured')
+						->rules('nullable', 'boolean')
+						->placeholder('Featured')
+						->sortable(),	
 
 					Boolean::make('Published')
 						->rules('nullable', 'boolean')

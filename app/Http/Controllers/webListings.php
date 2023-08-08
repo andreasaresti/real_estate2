@@ -407,8 +407,6 @@ class webListings extends Controller
     }
     public function get_active_district(Request $request)
     {
-
-
         $query = District::whereIn('districts.id', function ($subquery) {
             $subquery->select('location_id')
                 ->from('listings')
@@ -573,6 +571,9 @@ class webListings extends Controller
         }
         if ($request->has('featured') && $request->featured == 1) {
             $query = $query->where('featured', $request->featured);
+        }
+        if ($request->has('popular') && $request->popular == 1) {
+            $query = $query->where('popular', $request->popular);
         }
         if ($request->has('municipalities') && count($request->municipalities) > 0) {
             $query = $query->whereIn('listings.id', function ($subquery) use ($request) {
