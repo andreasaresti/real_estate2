@@ -6,6 +6,7 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Country;
+use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -55,10 +56,27 @@ class District extends Resource
                 ->placeholder('Ext Code')
                 ->hideFromIndex(),
 
+            Image::make('Image')
+				->rules('nullable', 'max:255')
+                ->placeholder('Image'),
+
             Country::make('Country')
                 ->rules('required', 'max:255', 'string')
                 ->placeholder('Country')
                 ->default('CY'),
+
+            Text::make('Latitude')
+                ->rules('nullable', 'max:255', 'string')
+                ->placeholder('Latitude')
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
+
+            Text::make('Longitude')
+                ->rules('nullable', 'max:255', 'string')
+                ->placeholder('Longitude')
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
+
             HasMany::make('Municipalities', 'municipalities'),
         ];
     }

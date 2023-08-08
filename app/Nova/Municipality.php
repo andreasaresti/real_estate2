@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\DB;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\BelongsTo;
@@ -57,9 +57,9 @@ class Municipality extends Resource
                 ->placeholder('Ext Code')
                 ->hideFromIndex(),
 
-            
-
-            
+            Image::make('Image')
+				->rules('nullable', 'max:255')
+                ->placeholder('Image'),
 
             BelongsTo::make('District', 'district')->showCreateRelationButton(),
 
@@ -71,6 +71,18 @@ class Municipality extends Resource
                 ->hideWhenUpdating()
                 ->hideFromIndex()
                 ->hideFromDetail(),
+                
+            Text::make('Latitude')
+                ->rules('nullable', 'max:255', 'string')
+                ->placeholder('Latitude')
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
+
+            Text::make('Longitude')
+                ->rules('nullable', 'max:255', 'string')
+                ->placeholder('Longitude')
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
 
             HasMany::make('Locations', 'locations'),
 

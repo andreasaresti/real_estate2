@@ -15,6 +15,9 @@ return new class extends Migration {
             $table->string('ext_code')->nullable();
             $table->string('country');
             $table->json('name');
+            $table->string('image')->nullable();
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
 
             $table->timestamps();
         });

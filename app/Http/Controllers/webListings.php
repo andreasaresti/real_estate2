@@ -424,6 +424,16 @@ class webListings extends Controller
         foreach ($query as $key => $row) {
             $name_array = $row->name;
             $query[$key]->displayname = $name_array;
+
+            if($row->image != ''){
+                $query[$key]->image = env('APP_URL') . '/storage/' . $row->image;;
+            }
+
+            $listingCount  = Listing::join('locations', 'locations.id', '=', 'listings.location_id')
+                                        ->join('municipalities', 'locations.municipality_id', '=', 'municipalities.id')
+                                        ->where('listings.published', '=', 1)
+                                        ->where('municipalities.district_id', $row->id)->count();
+            $query[$key]->listingCount = $listingCount;
         }
 
         $districts = $query;
@@ -451,6 +461,15 @@ class webListings extends Controller
         foreach ($query as $key => $row) {
             $name_array = $row->name;
             $query[$key]->displayname = $name_array;
+
+            if($row->image != ''){
+                $query[$key]->image = env('APP_URL') . '/storage/' . $row->image;;
+            }
+
+            $listingCount  = Listing::join('locations', 'locations.id', '=', 'listings.location_id')
+                                        ->where('listings.published', '=', 1)
+                                        ->where('locations.municipality_id', $row->id)->count();
+            $query[$key]->listingCount = $listingCount;
         }
 
         $municipality = $query;
@@ -476,11 +495,16 @@ class webListings extends Controller
             ->distinct()
             ->paginate(1000);
 
-
-
         foreach ($query as $key => $row) {
             $name_array = $row->name;
             $query[$key]->displayname = $name_array;
+
+            $listingCount  = Listing::where('published', '=', 1)->where('location_id', $row->id)->count();
+            $query[$key]->listingCount = $listingCount;
+
+            if($row->image != ''){
+                $query[$key]->image = env('APP_URL') . '/storage/' . $row->image;
+            }
         }
 
         $locations = $query;

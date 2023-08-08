@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\DB;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\BelongsTo;
@@ -58,20 +58,29 @@ class Location extends Resource
                 ->rules('required', 'max:255')
                 ->placeholder('Name'),
 
+            Image::make('Image')
+				->rules('nullable', 'max:255')
+                ->placeholder('Image'),
+
             Number::make('Sequence')
                 ->rules('required', 'numeric')
                 ->placeholder('Sequence')
                 ->default('0')
                 ->hideFromIndex()
+                ->hideWhenCreating()
                 ->hideWhenUpdating(),
 
-                Text::make('Latitude')
+            Text::make('Latitude')
                 ->rules('nullable', 'max:255', 'string')
-                ->placeholder('Latitude'),
+                ->placeholder('Latitude')
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
 
             Text::make('Longitude')
                 ->rules('nullable', 'max:255', 'string')
-                ->placeholder('Longitude'),
+                ->placeholder('Longitude')
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
 
             HasMany::make('Listings', 'listings'),
 

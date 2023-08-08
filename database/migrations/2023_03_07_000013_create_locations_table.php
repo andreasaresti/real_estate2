@@ -18,6 +18,7 @@ return new class extends Migration {
                 ->unique();
             $table->unsignedBigInteger('municipality_id');
             $table->json('name');
+            $table->string('image')->nullable();
             $table->integer('sequence')->default(0);
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();

@@ -33,6 +33,7 @@ return new class extends Migration {
             $table->integer('number_of_garages_or_parkingpaces')->nullable();
             $table->integer('year_built')->nullable();
             $table->boolean('featured')->nullable();
+            $table->boolean('popular')->nullable();
             $table->boolean('published')->nullable();
             $table->string('address')->nullable();
             $table->string('latitude')->nullable();
