@@ -68,7 +68,7 @@ class BlogPost extends Resource
                 ->placeholder('Image'),
 
             Trix::make('Description')
-                ->rules('required', 'max:255')
+                ->rules('nullable')
                 ->placeholder('Description')
                 ->translatable(DB::table('languages')->select('encoding','name')->orderBy('sequence')->pluck('name', 'encoding')->toArray()),
 
