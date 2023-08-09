@@ -123,10 +123,13 @@ class webWebsiteController extends Controller
         if ($request->has('blog_id') && $request->blog_id != '') {
             $query = $query->where('blog_id', $request->blog_id);
         }
+        if ($request->has('featured') && $request->featured == 1) {
+            $query = $query->where('featured', $request->featured);
+        }
 
         $query = $query
             ->select('*')
-            ->orderBy('priority', 'asc')
+            ->orderBy('created_at', 'desc')
             ->paginate($perPage, ['/*'], 'page', $page);
         
         foreach ($query as $key => $row) {

@@ -72,6 +72,12 @@ class BlogPost extends Resource
                 ->placeholder('Description')
                 ->translatable(DB::table('languages')->select('encoding','name')->orderBy('sequence')->pluck('name', 'encoding')->toArray()),
 
+
+            Trix::make('Short Description')
+                ->rules('nullable')
+                ->placeholder('Short Description')
+                ->translatable(DB::table('languages')->select('encoding','name')->orderBy('sequence')->pluck('name', 'encoding')->toArray()),
+
             Date::make('Publish On')
                 ->rules('nullable', 'date')
                 ->placeholder('Publish On'),
@@ -93,6 +99,11 @@ class BlogPost extends Resource
 			// 		// validation rules for the collection of images
 			// 		->singleImageRules('dimensions:min_width=100')
 			// 		->hideFromIndex(),
+
+            Boolean::make('Featured')
+                ->rules('nullable', 'boolean')
+                ->placeholder('Featured')
+                ->default(false),
 
             Boolean::make('Published')
                 ->rules('nullable', 'boolean')

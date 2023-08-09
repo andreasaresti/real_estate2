@@ -16,8 +16,10 @@ return new class extends Migration {
             $table->json('name');
             $table->string('image')->nullable();
             $table->jsonb('description');
+            $table->jsonb('short_description');
             $table->date('publish_on')->nullable();
             $table->integer('priority')->default(0);
+            $table->boolean('featured')->default(1);
             $table->boolean('published')->default(1);
 
             $table->timestamps();
