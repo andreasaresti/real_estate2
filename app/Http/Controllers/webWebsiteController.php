@@ -140,8 +140,8 @@ class webWebsiteController extends Controller
             $query[$key]->displayname = $name_array;
             $description_array = $row->description;
             $query[$key]->displaydescription = $description_array;
-            $short_description_array = $row->short_description;
-            $query[$key]->short_description = $short_description_array;
+            $short_description_array = json_decode($row->short_description);
+            $query[$key]->short_description = isset($short_description_array->en)?$short_description_array->en:'';
             $query[$key]->link = '/page/blogpost-detail/'.$row->id;
         }
 
