@@ -118,7 +118,7 @@ class Agent extends Resource
                 ->placeholder('Active')
                 ->default('1'),
                 
-            HasMany::make('Agent Agreement', 'agentAgreement'),
+            // HasMany::make('Agent Agreement', 'agentAgreement'),
         ];
     }
 

@@ -137,6 +137,7 @@ class webWebsiteController extends Controller
             $query[$key]->displayname = $name_array;
             $description_array = $row->description;
             $query[$key]->displaydescription = $description_array;
+            $query[$key]->link = '/page/blogpost-detail/'.$row->id;
         }
 
         $result = $query;

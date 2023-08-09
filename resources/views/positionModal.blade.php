@@ -188,6 +188,13 @@
 
   })
   $(".btn-submit").click(function(e){
+    /*
+    console.log(document.getElementById("Latitude").value);
+    console.log(document.getElementById("Longitude").value);
+    console.log(document.getElementById("index").value);
+    console.log(document.getElementById("flag").value);
+    */
+
     let data = {
         "latitude": document.getElementById("Latitude").value,
         "longitude": document.getElementById("Longitude").value,

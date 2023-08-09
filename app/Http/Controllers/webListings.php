@@ -1117,9 +1117,21 @@ class webListings extends Controller
             ->orderBy('name', 'asc')
             ->paginate($perPage, ['/*'], 'page', $page);
         
-        foreach ($query as $key => $row) {
+        foreach ($query as $key => $row) {            
             if($row->image != ''){
                 $query[$key]->image = env('APP_URL') . '/storage/' . $row->image;
+            }
+            else{
+                $query[$key]->image = '';
+            }
+            if($row->country != ''){
+                $query_country = Country::where('code', $row->country)->first();
+                $query[$key]->country = $query_country->name;
+
+            }
+            else{
+                $query[$key]->country = '';
+
             }
         }
 
