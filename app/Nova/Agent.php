@@ -50,7 +50,7 @@ class Agent extends Resource
         return [
             IframePopup::make(__('Position'), 'position', function () {
                 return '/positionModal?flag=agencies&index='.$this->resource->id;
-            })->hideWhenCreating(),
+            })->hideWhenCreating()->hideWhenUpdating(),
 
             ID::make('id')->sortable(),
 
