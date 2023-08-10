@@ -21,6 +21,7 @@ class BlogPost extends Model
         'name',
         'image',
         'description',
+        'short_description',
         'publish_on',
         'priority',
         'published',
@@ -28,13 +29,14 @@ class BlogPost extends Model
 
     protected $searchableFields = ['*'];
 
-    public $translatable = ['name','description'];
+    public $translatable = ['name','description','short_description'];
 
     protected $table = 'blog_posts';
 
     protected $casts = [
         'name' => 'array',
         'description' => 'array',
+        'short_description' => 'array',
         'publish_on' => 'date',
         'published' => 'boolean',
     ];
