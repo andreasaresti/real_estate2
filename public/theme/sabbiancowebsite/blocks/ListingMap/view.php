@@ -221,13 +221,13 @@
         }
         
     }
-	// window.addEventListener("load", (event) => {
+	window.addEventListener("load", (event) => {
 		loadActiveFeaturesListingMap();
         loadActiveDistrictListingMap();
         loadActiveListingsListingMap();
         loadActivePropertTypeListingMap();
         loadActivePropertStatusListingMap();
-	// });
+	});
     function loadActivePropertStatusListingMap(){
 		
 		
