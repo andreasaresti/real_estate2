@@ -6,34 +6,31 @@
     $user_id = "";
  }
 ?>
-<div class="inner-pages homepage-4 agents hp-6 full hd-white">
-<section class="blog blog-section">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-12" style="position: sticky;">
-                <div class="row" id="ListingListContent" style="margin-left: 10px;">
-                    
+    <div class="inner-pages homepage-4 agents hp-6 full hd-white">
+    <section class="blog-section">
+            <div class="container">
+                <div class="news-wrap">
+                    <div class="row" id="ListingListContent"></div>
                 </div>
+                <nav aria-label="..." class="pt-3">
+                    <ul class="pagination mt-0" id="pagin_content" style="display: flex;justify-content: center;">
+                        
+                    </ul>
+                </nav>
+                <input type="hidden" id="page_index" value="1">
             </div>
-        </div>
-        <nav aria-label="..." class="pt-3">
-            <ul class="pagination mt-0" id="pagin_content" style="display: flex;justify-content: center;">
-                
-            </ul>
-        </nav>
-        <input type="hidden" id="page_index" value="1">
+        </section>
     </div>
-</section>
-</div>
 <script type="text/javascript">
-	// window.addEventListener("load", (event) => {
-        loadBlogpostsBlogPostList();
-	// });
+    var countries = [];
+	window.addEventListener("load", (event) => {
+        load_blogposts();
+	});
     
-    function loadBlogpostsBlogPostList(){
+    function load_blogposts(){
         const sendData = {
             "id":"",
-            "blog_id":"",
+            "blog_id":"<?php echo $block->setting("blog_id"); ?>",
             "perpage":20,
             "page":document.getElementById("page_index").value
         };
@@ -53,18 +50,18 @@
                 tempStr = tempStr.substring(0,450) + "...";
                 temp +=` <div class="col-md-12 col-xs-12" style="margin: 0px 0px 15px 0px;">
                             <div class="news-item news-item-sm" style="height: auto">
-                                <a href="#" class="news-img-link" style="flex-basis:25%">
+                                <a href="`+list[i].link+`" class="news-img-link" style="flex-basis:25%">
                                     <div class="news-item-img">
                                         <img class="resp-img" src="`+list[i].image+`" style="height: 220px;padding: 10px;">
                                     </div>
                                 </a>
                                 <div class="news-item-text">
-                                    <a href="#"><h3>`+ list[i].displayname + `</h3></a>
+                                    <a href="`+list[i].link+`"><h3>`+ list[i].displayname + `</h3></a>
                                     <div class="news-item-descr" style="height:105px !important;">
-                                        <p>`+ tempStr +`</p>
+                                        <p>`+ list[i].short_description +`</p>
                                     </div>
                                     <div class="news-item-bottom">
-                                        <a href="/page/blogpost-detail/`+list[i].id+`" class="news-link">Read more...</a>
+                                        <a href="`+list[i].link+`" class="news-link">Read more...</a>
                                     </div>
                                 </div>
                             </div>
@@ -98,14 +95,14 @@
                     }else{
                         urlIndex = tempStr.substring(tempStr.indexOf('?page=')+6,tempStr.length);
                     }
-                    temp1 += `<li class="page-item `+flag+`"><a class="page-link" onclick="loadPageBlogPostList(`+urlIndex+`)">`+list1[j].label+`</a></li>`;
+                    temp1 += `<li class="page-item `+flag+`"><a class="page-link" onclick="loadPage(`+urlIndex+`)">`+list1[j].label+`</a></li>`;
                 }
                 document.getElementById("pagin_content").innerHTML = temp1;
             }
 		}
 	}
-    function loadPageBlogPostList(index){
+    function loadPage(index){
         document.getElementById("page_index").value = index;
-		loadBlogpostsBlogPostList();
+		load_blogposts();
 	}
 </script>

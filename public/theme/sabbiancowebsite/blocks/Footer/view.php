@@ -183,7 +183,7 @@
         </footer>
     </div>
 </div> -->
-<link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/main.min.css">
+
 <div class="rh_sticky_wrapper_footer rh_apply_sticky_wrapper_footer">
 	<footer class="rh_footer rh_footer__before_fix rh_footer_layout_default">
 		<div class="rh_footer__wrap rh_footer__top_wrap rh_footer--alignCenter rh_footer--paddingBottom">
@@ -245,43 +245,7 @@
 								<font style="vertical-align: inherit;">Latest news</font>
 							</font>
 						</h3>
-						<ul>
-							<li>
-								<a href="https://sabbiancoproperties.com/%cf%80%ce%bf%ce%b9%ce%b1-%ce%b1%ce%ba%ce%af%ce%bd%ce%b7%cf%84%ce%b1-%ce%b2%cf%81%ce%af%cf%83%ce%ba%ce%bf%ce%bd%cf%84%ce%b1%ce%b9-%cf%83%ce%b5-%cf%80%cf%81%cf%8e%cf%84%ce%b7-%ce%b6%ce%ae%cf%84%ce%b7/">
-									<font style="vertical-align: inherit;">
-										<font style="vertical-align: inherit;">Which properties are in first demand in Cyprus?</font>
-									</font>
-								</a>
-							</li>
-							<li>
-								<a href="https://sabbiancoproperties.com/%ce%b1%cf%85%ce%be%ce%ae%ce%b8%ce%b7%ce%ba%ce%b1%ce%bd-%ce%ba%ce%b1%cf%84%ce%ac-212-%ce%bf%ce%b9-%ce%ac%ce%b4%ce%b5%ce%b9%ce%b5%cf%82-%ce%bf%ce%b9%ce%ba%ce%bf%ce%b4%ce%bf%ce%bc%ce%ae%cf%82-%cf%84/">
-									<font style="vertical-align: inherit;">
-										<font style="vertical-align: inherit;">Building permits increased by 21.2% in 2021</font>
-									</font>
-								</a>
-							</li>
-							<li>
-								<a href="https://sabbiancoproperties.com/%ce%b1%ce%bd%ce%ad%ce%b2%ce%b1%cf%83%ce%b1%ce%bd-%cf%83%cf%84%cf%81%ce%bf%cf%86%ce%ad%cf%82-%cf%84%ce%b1-%ce%b1%ce%ba%ce%af%ce%bd%ce%b7%cf%84%ce%b1/">
-									<font style="vertical-align: inherit;">
-										<font style="vertical-align: inherit;">Real estate took off</font>
-									</font>
-								</a>
-							</li>
-							<li>
-								<a href="https://sabbiancoproperties.com/%ce%b1%ce%ba%ce%af%ce%bd%ce%b7%cf%84%ce%b1-%cf%83%cf%84%ce%b7%ce%bd-%ce%ba%cf%8d%cf%80%cf%81%ce%bf-%ce%bf%ce%b9-%ce%bc%ce%b5%ce%b3%ce%b1%ce%bb%cf%8d%cf%84%ce%b5%cf%81%ce%b5%cf%82-%ce%bc%ce%b5%ce%b9/">
-									<font style="vertical-align: inherit;">
-										<font style="vertical-align: inherit;">Real estate: In Cyprus the biggest reductions</font>
-									</font>
-								</a>
-							</li>
-							<li>
-								<a href="https://sabbiancoproperties.com/%ce%b3%ce%b9%ce%b1-%ce%b1%ce%b3%ce%bf%cf%81%ce%ac-%ce%b1%ce%ba%ce%b9%ce%bd%ce%ae%cf%84%cf%89%ce%bd-%cf%84%ce%bf-%ce%ba%ce%bf%ce%bc%cf%80%cf%8c%ce%b4%ce%b5%ce%bc%ce%b1-%cf%80%ce%bf%cf%85-%ce%ad%cf%87/">
-									<font style="vertical-align: inherit;">
-										<font style="vertical-align: inherit;">For the purchase of real estate, the conglomerate built by the coronavirus</font>
-									</font>
-								</a>
-							</li>
-						</ul>
+						<div class="textwidget" id="homeLatestNews"></div>
 					</section>
 				</div>
 			</div>
@@ -293,33 +257,7 @@
 								<font style="vertical-align: inherit;">Private Data</font>
 							</font>
 						</h3>
-						<div class="textwidget custom-html-widget">
-							<div class="menu-footer-terms-container">
-								<ul id="menu-footer-terms" class="menu">
-									<li id="menu-item-5114" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5114">
-										<a href="https://sabbiancoproperties.com/privacy-policy-2/">
-											<font style="vertical-align: inherit;">
-												<font style="vertical-align: inherit;">Privacy Policy</font>
-											</font>
-										</a>
-									</li>
-									<li id="menu-item-5115" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5115">
-										<a href="https://sabbiancoproperties.com/terms-of-use/">
-											<font style="vertical-align: inherit;">
-												<font style="vertical-align: inherit;">Terms of use</font>
-											</font>
-										</a>
-									</li>
-									<li id="menu-item-5199" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5199">
-										<a href="https://sabbiancoproperties.com/gdpr/">
-											<font style="vertical-align: inherit;">
-												<font style="vertical-align: inherit;">GDPR</font>
-											</font>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</div>
+						<div class="textwidget" id="homeSpecialPages"></div>
 					</section>
 				</div>
 			</div>
@@ -393,27 +331,73 @@
 	</footer>
 </div>
 <script type="text/javascript">
-    var countriesFooter = [];
+    var countries = [];
 	// window.addEventListener("load", (event) => {
-        loadHomeCountryFooter();
-        
+        load_homeAgencies();      
+        load_homeLatestNews();      
+        load_homeSpecialPages();      
 	// });
-    function loadHomeCountryFooter(){
-        const url = "/api/get-countries";
+	
+    function load_homeSpecialPages(){
+        const sendData = {
+            "id": "",
+            "blog_id": 2,
+			"perpage":20,
+            "page":1
+        };
+		const url = "/api/getblogposts";
 		let xhr = new XMLHttpRequest();
 		xhr.open('POST', url, true);
 		xhr.setRequestHeader('Content-type', 'application/json');
-		xhr.send();
+		xhr.send(JSON.stringify(sendData));
 		xhr.onload = function () {
 			data = JSON.parse(xhr.response);
-            list = data.data;
-            for(i=0;i<list.length;i++){
-                countriesFooter.push({"code":list[i].code,"name":list[i].displayname});
+			list = data.data;
+			var temp = "";
+            for(i= 0; i<list.length; i++)
+            {
+                tempStr = list[i].displaydescription;
+                tempStr = tempStr.substring(0,450) + "...";
+                temp +=` <p>
+							<font style="vertical-align: inherit;">
+								<font style="vertical-align: inherit;"><a href="`+list[i].link+`">`+list[i].displayname+`</a></font>
+							</font>
+							</p>`;
             }
-            loadHomeAgenciesFooter();
-        }
-    }
-    function loadHomeAgenciesFooter(){
+            document.getElementById("homeSpecialPages").innerHTML = temp;
+		}
+	}
+	function load_homeLatestNews(){
+        const sendData = {
+            "id": "",
+            "blog_id": 1,
+			"perpage":20,
+            "page":1
+        };
+		const url = "/api/getblogposts";
+		let xhr = new XMLHttpRequest();
+		xhr.open('POST', url, true);
+		xhr.setRequestHeader('Content-type', 'application/json');
+		xhr.send(JSON.stringify(sendData));
+		xhr.onload = function () {
+			data = JSON.parse(xhr.response);
+			list = data.data;
+			var temp = "";
+            for(i= 0; i<list.length; i++)
+            {
+                tempStr = list[i].displaydescription;
+                tempStr = tempStr.substring(0,450) + "...";
+                temp +=` <p>
+							<font style="vertical-align: inherit;">
+								<font style="vertical-align: inherit;"><a href="`+list[i].link+`">`+list[i].displayname+`</a></font>
+							</font>
+							</p>`;
+            }
+            document.getElementById("homeLatestNews").innerHTML = temp;
+		}
+	}
+	
+	function load_homeAgencies(){
         const sendData = {
             // "id": id,
         };
@@ -441,18 +425,11 @@
 								</strong>
 								<br>
 								<font style="vertical-align: inherit;">
-									<font style="vertical-align: inherit;">`+list[i].address +" " + list[i].city +" "+ getCountryFooter(list[i].country) + `</font>
+									<font style="vertical-align: inherit;">`+list[i].address +" " + list[i].city +" "+ list[i].country + `</font>
 								</font>
 							</p>`;
             }
             document.getElementById("homeAgencyContent").innerHTML = temp;
 		}
 	}
-    function getCountryFooter(code){
-        for(i=0;i<countriesFooter.length;i++){
-            if(countriesFooter[i].code == code){
-                return countriesFooter[i].name;
-            }
-        }
-    }
 </script>

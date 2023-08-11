@@ -22,14 +22,6 @@
                                 </a>
                                 <div class="news-item-text details pb-0">
                                     <h3 id="title"></h3>
-                                    <!-- <div class="dates">
-                                        <span class="date">April 11, 2020 &nbsp;/</span>
-                                        <ul class="action-list pl-0">
-                                            <li class="action-item pl-2"><i class="fa fa-heart"></i> <span>306</span></li>
-                                            <li class="action-item"><i class="fa fa-comment"></i> <span>34</span></li>
-                                            <li class="action-item"><i class="fa fa-share-alt"></i> <span>122</span></li>
-                                        </ul>
-                                    </div> -->
                                     <div class="news-item-descr big-news details visib mb-0">
                                         <p class="mb-3" id="content"></p>
                                     </div>
@@ -45,10 +37,11 @@
 
 <script type="text/javascript">
 	// window.addEventListener("load", (event) => {
-        loadBlogpostsBlogPostDetails();
+        load_blogposts();
         
 	// });
-    function loadBlogpostsBlogPostDetails(){
+    
+    function load_blogposts(){
         const sendData = {
             "id": '<?php echo $index; ?>',
         };
