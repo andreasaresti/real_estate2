@@ -70,7 +70,7 @@ class PageRenderer
         $this->theme = $theme;
         $this->page = $page;
         $this->pageData = $page->getBuilderData();
-        $this->shortcodeParser = phpb_instance(ShortcodeParser::class, [$this]);
+        $this->shortcodeParser = new ShortcodeParser($this);
         $this->setLanguage(phpb_current_language());
         $this->forPageBuilder = $forPageBuilder;
     }
@@ -118,6 +118,11 @@ class PageRenderer
         }
 
         return file_exists($layoutPath) ? $layoutPath : null;
+    }
+
+    public function getThemeSlug()
+    {
+        return $this->theme->getThemeSlug();
     }
 
     /**
@@ -250,9 +255,9 @@ class PageRenderer
      */
     public function renderBlock($slug, $id = null, $context = null, $maxDepth = 25)
     {
-        $themeBlock = ($blockPath = Extensions::getBlock($slug))
-            ? new ThemeBlock($this->theme, $blockPath, true, $slug)
-            : new ThemeBlock($this->theme, $slug);
+        $themeBlock = ($blockPath = Extensions::getBlock($slug)) 
+                        ? new ThemeBlock($this->theme, $blockPath, true, $slug) 
+                        : new ThemeBlock($this->theme, $slug);
 
         $id = $id ?? $themeBlock->getSlug();
         $context = $context[$id] ?? $this->pageBlocksData[$id] ?? [];

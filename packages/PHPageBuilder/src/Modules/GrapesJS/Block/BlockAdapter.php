@@ -82,18 +82,24 @@ class BlockAdapter
     public function getBlockManagerArray()
     {
         $content = $this->pageRenderer->renderBlock($this->block->getSlug());
-
+        $realPath = $this->pageRenderer->getPageLayoutPath();
+        $realPath = str_replace("layouts","blocks",$realPath);
+        $realPath = str_replace("master",$this->block->getSlug(),$realPath);
+        $realPath = str_replace("view.php","thumb.png",$realPath);
+        $URL = "/theme";
+        $URL .= "/".$this->pageRenderer->getThemeSlug();
+        $URL .= "/blocks";
+        $URL .= "/".$this->block->getSlug();
+        $URL .= "/thumb.png";
         $img = '';
-        if (file_exists($this->block->getThumbPath())) {
-            $img = '<div class="block-thumb" style="background-image: url(' . phpb_full_url($this->block->getThumbUrl()) . '); background-size: cover"></div>';
+        if (file_exists($realPath)) {
+            $img = '<div class="block-thumb" style="background-image: url(' . phpb_full_url($URL) . '); background-size: cover"></div>';
         }
-
         $data = [
             'label' => $img . $this->getTitle(),
             'category' => $this->getCategory(),
             'content' => $content
         ];
-
         if (! $img) {
             $iconClass = 'fa fa-bars';
             if ($this->block->get('icon')) {
@@ -112,7 +118,7 @@ class BlockAdapter
      */
     public function getBlockSettingsArray()
     {
-        $blockSettings = $this->block::getDynamicConfig($this->getSlug())['settings'] ?? $this->block->get('settings');
+        $blockSettings = $this->block->get('settings');
         if ($this->block->isHtmlBlock() || ! is_array($blockSettings)) {
             return [];
         }

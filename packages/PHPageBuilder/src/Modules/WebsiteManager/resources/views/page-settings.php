@@ -28,7 +28,7 @@ $pageTranslations = $page ? $page->getTranslations() : [];
 
                 <div class="main-spacing">
                     <div class="form-group required">
-                        <label>
+                        <label for="name">
                             <?= phpb_trans('website-manager.name') ?>
                             <span class="text-muted">(<?= phpb_trans('website-manager.visible-in-page-overview') ?>)</span>
                         </label>
@@ -36,7 +36,7 @@ $pageTranslations = $page ? $page->getTranslations() : [];
                     </div>
 
                     <div class="form-group required">
-                        <label><?= phpb_trans('website-manager.layout') ?></label>
+                        <label for="layout"><?= phpb_trans('website-manager.layout') ?></label>
                         <select class="form-control" id="layout" name="layout" required>
                             <?php
                             $value = phpb_field_value('layout', $page);
@@ -57,22 +57,22 @@ $pageTranslations = $page ? $page->getTranslations() : [];
                     <h5 class="pt-2"><?= phpb_trans('languages.' . $languageCode) ?></h5>
                     <div class="pt-2 pl-3 pr-3">
                         <div class="form-group required">
-                            <label><?= phpb_trans('website-manager.page-title') ?></label>
+                            <label for="page-title"><?= phpb_trans('website-manager.page-title') ?></label>
                             <input type="text" class="form-control" id="page-title" name="title[<?= phpb_e($languageCode) ?>]" value="<?= phpb_e($pageTranslations[$languageCode]['title'] ?? '') ?>" required>
                         </div>
 
                         <div class="form-group">
-                            <label><?= phpb_trans('website-manager.page-meta-title') ?></label>
+                            <label for="page-meta-title"><?= phpb_trans('website-manager.page-meta-title') ?></label>
                             <input type="text" class="form-control" id="page-meta-title" name="meta_title[<?= phpb_e($languageCode) ?>]" value="<?= phpb_e($pageTranslations[$languageCode]['meta_title'] ?? '') ?>">
                         </div>
 
                         <div class="form-group">
-                            <label><?= phpb_trans('website-manager.page-meta-description') ?></label>
+                            <label for="page-meta-description"><?= phpb_trans('website-manager.page-meta-description') ?></label>
                             <input type="text" class="form-control" id="page-meta-description" name="meta_description[<?= phpb_e($languageCode) ?>]" value="<?= phpb_e($pageTranslations[$languageCode]['meta_description'] ?? '') ?>">
                         </div>
 
                         <div class="form-group required">
-                            <label><?= phpb_trans('website-manager.route') ?></label>
+                            <label for="route"><?= phpb_trans('website-manager.route') ?></label>
                             <input type="text" class="form-control" id="route" name="route[<?= phpb_e($languageCode) ?>]" value="<?= phpb_e($pageTranslations[$languageCode]['route'] ?? '') ?>" required>
                         </div>
                     </div>
