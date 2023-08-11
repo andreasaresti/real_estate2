@@ -285,6 +285,8 @@
                             </div>
                         </div>
                     </div>
+                    <div class="alert-box success" id="addProperty_success">Add Ok !!!</div>
+                    <div class="alert-box failure" id="addProperty_failure">fail!!!</div>
                     <div class="single-add-property">
                         <div class="add-property-button pt-5">
                             <div class="row">
@@ -310,7 +312,7 @@
 <script src="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.1.0/esri-leaflet-geocoder.js" crossorigin="anonymous"></script>
     
 <script type="text/javascript">
-	// window.addEventListener("load", (event) => {
+	window.addEventListener("load", (event) => {
         user_id = '<?php echo $user_id; ?>';
         if(user_id == ""){
             window.location.href="/page/home";
@@ -321,7 +323,7 @@
         loadActivePropertStatusAddProperty();
         loadActiveDeliveryTimesAddProperty();
         loadMapAddListingAddProperty();
-	// });
+	});
     function loadImageAddProperty(event)
     {
         var reader = new FileReader();
@@ -352,8 +354,6 @@
 		}
 	}
     function loadActivePropertTypeAddProperty(){
-		
-		
 		const url = "/api/activelisting-types";
 		let xhr = new XMLHttpRequest();
 		xhr.open('POST', url, true);
@@ -371,8 +371,6 @@
 		}
 	}
     function loadActiveFeaturesAddProperty(){
-		
-		
 		const url = "/api/activefeatures";
 		let xhr = new XMLHttpRequest();
 		xhr.open('POST', url, true);
@@ -396,8 +394,6 @@
 		}
 	}
     function loadActiveDistrictAddProperty(){
-		
-		
 		const url = "/api/activedistrict";
 		let xhr = new XMLHttpRequest();
         let xhr1 = new XMLHttpRequest();
@@ -417,8 +413,6 @@
 		}
 	}
     function loadActiveMunicipalityAddProperty(){
-		
-		
 		const url = "/api/activemunicipality";
 		let xhr = new XMLHttpRequest();
 		xhr.open('POST', url, true);
@@ -443,8 +437,6 @@
 		}
 	}
     function loadActiveLocationAddProperty(){
-		
-		
 		const url = "/api/activelocation";
 		let xhr = new XMLHttpRequest();
 		xhr.open('POST', url, true);
@@ -467,8 +459,6 @@
 		}
 	}
     function loadActiveDeliveryTimesAddProperty(){
-		
-		
 		const url = "/api/activedelivery_times";
 		let xhr = new XMLHttpRequest();
 		xhr.open('POST', url, true);
@@ -595,19 +585,21 @@
             "owner_id":user_id,
             "delivery_time_id": tempDeliveryTime,
         };
-        console.log(data);
         const url = "/api/createlisting";
         let xhr = new XMLHttpRequest();
         xhr.open('POST', url, true);
         xhr.setRequestHeader('Content-type', 'application/json');
         xhr.send(JSON.stringify(data));
         xhr.onload = function () {
-            console.log(xhr.response);    
-            if(xhr.response == "fail"){
-                alert("Add Fail");
+            data = JSON.parse(xhr.response);
+            if(data.hasOwnProperty("errors")){
+                Object.keys(data.errors).forEach(function(key) {
+                    $("#addProperty_failure").html(data.errors[key][0]);
+                })
+                $( "#addProperty_failure" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
             }else{
-                // alert("Add Ok");
-                // window.location.reload();
+                $( "#addProperty_success" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
+                window.location.reload();
             }
         }
     }
