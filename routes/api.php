@@ -144,7 +144,7 @@ use App\Http\Controllers\webWebsiteController;
 	Route::post('getpagination', [webListings::class, 'get_pagination']);
     Route::post('add-remove-to-favorites', [webListings::class, 'add_remove_to_favorites']);
     Route::post('createlisting', [webListings::class, 'create_listing']);
-    Route::post('salesrequest-getsalesrequest', [webListings::class, 'create_listing']);
+    // Route::post('salesrequest-getsalesrequest', [webListings::class, 'create_listing']);
     Route::post('get-similar-listings', [webListings::class, 'get_similar_listings']);
     Route::post('addmedia', [webListings::class, 'add_media']);
 
