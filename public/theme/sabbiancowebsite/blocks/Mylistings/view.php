@@ -86,7 +86,7 @@
                         </tbody>
                     </table>
                     <div class="pagination-container" >
-                        <nav>
+                        <nav style="display: flex;align-items: center;justify-content: center;">
                             <ul class="pagination" id="pagin_content">
                             </ul>
                         </nav>
@@ -97,14 +97,13 @@
     </div>
 </section>
 <script type="text/javascript">
-    // window.addEventListener("load", (event) => {
+    window.addEventListener("load", (event) => {
         user_id = '<?php echo $user_id; ?>';
         if(user_id == ""){
             window.location.href="/page/home";
         }
 		loadActivelistingsListMylistings();
-        
-	// });
+	});
     function loadActivelistingsListMylistings(){
         user_id = '<?php echo $user_id; ?>';
         const sendData = {
@@ -131,19 +130,7 @@
                                 <div class="inner">
                                     <a href="/page/listing-details?index=`+list[i].id+`"><h2>`+list[i].displayname+`</h2></a>
                                     <figure><i class="lni-map-marker"></i>`+list[i].location_name+`</figure>
-                                    <ul class="starts text-left mb-0">
-                                        <li class="mb-0"><i class="fa fa-star"></i>
-                                        </li>
-                                        <li class="mb-0"><i class="fa fa-star"></i>
-                                        </li>
-                                        <li class="mb-0"><i class="fa fa-star"></i>
-                                        </li>
-                                        <li class="mb-0"><i class="fa fa-star"></i>
-                                        </li>
-                                        <li class="mb-0"><i class="fa fa-star"></i>
-                                        </li>
-                                        <li class="ml-3">(6 Reviews)</li>
-                                    </ul>
+                                    
                                 </div>
                             </td>
                             <td>`+date+`</td>

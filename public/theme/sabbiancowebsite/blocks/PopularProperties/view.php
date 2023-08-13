@@ -16,21 +16,21 @@
                 </div>
                 <div class="portfolio col-xl-12">
                     <div class="slick-lancers">
-                        <div class="agents-grid" data-aos="fade-up" data-aos-delay="150">
+                        <div class="agents-grid">
                             <div class="landscapes">
                             </div>
                         </div>
-                        <div class="agents-grid" data-aos="fade-up" data-aos-delay="250">
+                        <div class="agents-grid">
                             <div class="people">
                                 
                             </div>
                         </div>
-                        <div class="agents-grid" data-aos="fade-up" data-aos-delay="350">
+                        <div class="agents-grid">
                             <div class="people landscapes no-pb pbp-3">
                                
                             </div>
                         </div>
-                        <div class="agents-grid" data-aos="fade-up" data-aos-delay="450">
+                        <div class="agents-grid">
                             <div class="landscapes">
                                 
                             </div>
@@ -62,10 +62,10 @@
     </div>
 </div>
 <script type="text/javascript">
-    // window.addEventListener("load", (event) => {
+    window.addEventListener("load", (event) => {
 		loadPoplarListingsListPopularProperties();
         
-	// });
+	});
     function loadPoplarListingsListPopularProperties(){
 		
         user_id = '<?php echo $user_id; ?>';
@@ -80,13 +80,13 @@
 		xhr.onload = function () {
 			data = JSON.parse(xhr.response);
 			list = data.data;
-            // temp = "";
+           
             if(list.length >= 8){
                 size = 8;
             }else{
                 size = list.length;
             }
-            for(var i= 0; i<size; i++)
+            for(i= 0; i<size; i++)
             {
                 favorite = "";
                 if(list[i].in_favoriteproperties == 1){
