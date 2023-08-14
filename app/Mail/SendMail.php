@@ -27,8 +27,8 @@ class SendMail extends Mailable
 
     public function build()
     {
-        return $this->subject('Email From AllPHPTricks.com')
-            ->view('emails.testMail');
+        return $this->subject('Email')
+            ->view('emails.templateMail');
     }
 
 }

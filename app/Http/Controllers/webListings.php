@@ -24,6 +24,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Mail;
+use App\Mail\SendMail;
 
 class webListings extends Controller
 {
@@ -314,6 +316,16 @@ class webListings extends Controller
 
         }
 
+        //sendmail
+        $WebListingEmail = env("Web_Listing_Email");
+
+        $testMailData = [
+            'title' => 'Add a New Listing',
+            'body' => 'User adds a new listing '
+        ];
+
+        Mail::to($WebListingEmail)->send(new SendMail($testMailData));
+        
         return response()->json([
             'message' => 'Listings added successfully',
             'listing' => $listing,

@@ -20,6 +20,9 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use Spatie\MediaLibrary\ResponsiveImages\ResponsiveImage;
+use PDF;
+use Mail;
+use App\Mail\SendMail;
 
 class webSalesRequestController extends Controller
 {
@@ -558,6 +561,41 @@ class webSalesRequestController extends Controller
             ]);
             array_push($signappointment_array, $signappointment);
         }
+        $sendData = SalesRequestAppointment::join('listings', 'listings.id', '=', 'sales_request_appointments.listing_id')
+                                            ->join('customers', 'customers.id', '=', 'listings.owner_id')
+                                            ->where('sales_request_appointments.id', $id)->get();
+        $sendData2 = SalesRequestAppointment::join('sales_requests', 'sales_requests.id', '=', 'sales_request_appointments.sales_request_id')
+                                            ->join('customers', 'customers.id', '=', 'sales_requests.customer_id')
+                                            ->where('sales_request_appointments.id', $id)->get();
+        $sendData3 = SalesRequestAppointment::join('sales_requests', 'sales_requests.id', '=', 'sales_request_appointments.sales_request_id')
+                                            ->join('sales_people', 'sales_people.id', '=', 'sales_requests.sales_people_id')
+                                            ->join('customers', 'customers.id', '=', 'sales_people.customer_id')
+                                            ->where('sales_request_appointments.id', $id)->get();
+        
+        $pdfData = [
+            'signature' => public_path('storage/'.$safeName),
+            'appointment_data' => $sendData[0]->date_signed,
+            'request_date'  => $sendData[0]->date,
+            'customer_name' => $sendData2[0]->name,
+            'salesperson_name'=> $sendData3[0]->name
+        ];
+
+        $pdf = PDF::loadView('emails.templatePDF', $pdfData);
+
+        $WebListingEmail = env("Web_Listing_Email");
+
+        $data["email"]= $sendData[0]->email;
+        $data["client_name"]= $sendData[0]->name;
+        $data["subject"]="sign";
+        $data["title"] = "Sign";
+        $data["body"] = "The request signed.";
+
+        Mail::send('emails.templateMail', $data, function($message)use($data,$pdf) {
+            $message->to($data["email"], $data["client_name"])
+            ->subject($data["subject"])
+            ->attachData($pdf->output(), "sign.pdf");
+        });
+
         return response()->json([
             'message' => 'Appointment updated successfully',
         ], 201);

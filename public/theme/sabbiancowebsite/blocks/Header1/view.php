@@ -1,5 +1,5 @@
 
- <?php
+<?php
     $serverUrl = env('APP_URL');
     if(isset($_SESSION["user_id"])){
         $user_id = $_SESSION["user_id"];
@@ -344,13 +344,13 @@
     </div>
 </div>
 <script type="text/javascript">
-	window.addEventListener("load", (event) => {
+	// window.addEventListener("load", (event) => {
         loadMenuHeader1();
         loadLangHeader1();
 		loadActiveFeaturesHeader1();
         loadActiveDistrictHeader1();
         loadActivePropertTypeHeader1();
-	});
+	// });
     function loadLangHeader1(){
         data = {
             "slug":"menu",

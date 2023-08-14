@@ -389,6 +389,8 @@ if(isset($_SESSION["user_role"])){
             <span aria-hidden="true">&times;</span>
         </button>
         </div>
+        <div class="alert-box success" id="add_appointment_success">Ok !!!</div>
+        <div class="alert-box failure" id="add_appointment_failure">fail!!!</div>
         <div class="modal-body">
             <label>Appointment Date</label>
             <input name="appointment_date" id="appointment_date" type="date" class="form-control">
@@ -641,8 +643,11 @@ if(isset($_SESSION["user_role"])){
 		xhr.setRequestHeader('Content-type', 'application/json');
 		xhr.send(JSON.stringify(sendData));
 		xhr.onload = function () {
+            data = JSON.parse(xhr.response);
+            console.log(data);
             if(xhr.status == "201"){
                 loadListingsRequestProperty();
+                // $("#addSignature").modal('hide');
             }else{
                 alert("fail");
             }
@@ -660,7 +665,6 @@ if(isset($_SESSION["user_role"])){
             "sales_request_id": sales_request_id,
             "signed":hide_signed_appointmet,
         }
-        console.log(sendData);
 		const url = "/api/salesrequest-getappointments";
 		let xhr = new XMLHttpRequest();
 		xhr.open('POST', url, true);
@@ -704,17 +708,29 @@ if(isset($_SESSION["user_role"])){
             "listings": temp,
             "status": "open",
         }
-        console.log(sendData);
 		const url = "/api/salesrequest-addappointments";
 		let xhr = new XMLHttpRequest();
 		xhr.open('POST', url, true);
 		xhr.setRequestHeader('Content-type', 'application/json');
 		xhr.send(JSON.stringify(sendData));
 		xhr.onload = function () {
+            data = JSON.parse(xhr.response);
             if(xhr.status == "201"){
+                if( data.hasOwnProperty('message')){
+                    $("#add_appointment_success").html(data.message);
+                }
+                $( "#add_appointment_success" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
                 loadAppointmentRequestProperty();
+                $("#addAppointments").modal('hide');
             }else{
-                alert("fail");
+                console.log(data.errors.date);
+                console.log(data.errors.date[0]);
+                if( data.hasOwnProperty('errors')){
+                    if( data.errors.hasOwnProperty('date')){
+                        $("#add_appointment_failure").html(data.errors.date[0]);
+                    }
+                }
+                $( "#add_appointment_failure" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
             }
 		}
 	}
