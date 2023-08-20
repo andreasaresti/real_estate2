@@ -210,6 +210,7 @@
 
 
 <script type="text/javascript">
+    
     function searchShowListingMap(){
         console.log(document.getElementById("SearchShowButton").innerHTML);
         if(document.getElementById("SearchShowButton").innerHTML == "Search Show"){
@@ -677,6 +678,7 @@
         if ($('#map-leaflet').length) {
 
             let set = 10;
+            var markerArray=[];
             $('.rangeListMap').on('input', function() {
                 set = $(this).val();
                 $('.kilometresListMap').val(set);
@@ -692,6 +694,7 @@
                     map.removeLayer(circle);
                 if(circleFlag == 1){
                     circle = L.circle(curLocation, 1000*set).addTo(map);
+                    calculate_point();
                 }
             });
 
@@ -706,26 +709,9 @@
                 map.remove(); // should remove the map from UI and clean the inner children of DOM element
             }
 
-            // var map = L.map('map-leaflet', {
-            //     zoom: 9,
-            //     maxZoom: 20,
-            //     tap: false,
-            //     gestureHandling: true,
-            //     center: [40.90, -73.90]
-            // });
             var map = L.map('map-leaflet').setView(valueArray[0].center, 10);
 
             L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
-
-            var marker_cluster = L.markerClusterGroup();
-
-            // map.scrollWheelZoom.disable();
-
-            // var OpenStreetMap_DE = L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
-            //     scrollWheelZoom: false,
-            //     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            // }).addTo(map);
-
             valueArray.forEach((value) => {
                 var icon = L.divIcon({
                     html: value.icon,
@@ -733,11 +719,11 @@
                     iconAnchor: [50, 50],
                     popupAnchor: [-20, -42]
                 });
-
                 var marker = L.marker(value.center, {
                     icon: icon
-                }).addTo(map);
-
+                });
+                map.addLayer(marker);
+                markerArray.push(marker);
                 marker.bindPopup(
                     '<div class="listing-window-image-wrapper">' +
                     '<a href="' + value.link + '">' +
@@ -751,10 +737,8 @@
                     '</div>' +
                     '</a>' +
                     '</div>'
-                );
-
-                marker_cluster.addLayer(marker);
-            });
+                );  
+            })
 
             let marker = new L.marker(curLocation, {
                 draggable: 'true'
@@ -768,6 +752,7 @@
                     draggable: 'true'
                 });
                 circle.setLatLng(curLocation);
+                calculate_point();
             });
 
             map.addLayer(marker);
@@ -788,6 +773,8 @@
                 circle = L.circle(curLocation, 1000*set).addTo(map);
                 circle.setLatLng(curLocation);
                 circleFlag = 1;
+                calculate_point();
+                
             });
 
             map.on("click", addMarker);
@@ -799,7 +786,28 @@
                     }).bindPopup(e.latlng).update();
                     curLocation = marker.getLatLng();
                     circle.setLatLng(curLocation);
+                    calculate_point();
                 }
+            }
+            function calculate_point(){
+                markerArray.forEach((value) => {
+                    flag = 0;
+                    if(circleFlag == 1){
+                        distance = Math.pow((curLocation.lat-value._latlng.lat),2);
+                        distance += Math.pow((curLocation.lng-value._latlng.lng),2);
+                        distance = Math.sqrt(distance);
+                        if(distance < 0.0090437*set){
+                            flag =1;
+                        }
+                    }else{
+                        flag =1;
+                    }
+                    if(flag == 1){
+                        map.addLayer(value);
+                    }else{
+                        map.removeLayer(value);
+                    }
+                });
             }
         }
     }
