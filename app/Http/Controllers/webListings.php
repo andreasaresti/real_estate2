@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Developer;
 use App\Models\Country;
 use App\Models\District;
 use App\Models\Feature;
@@ -1150,5 +1151,310 @@ class webListings extends Controller
         $result = $query;
 
         return response()->json($result);
+    }
+    public function get_active_listings_report(Request $request)
+    {
+        // $request = $_REQUEST;
+
+        $query = Listing::where('published', '=', 1);
+       
+        if($request->offset  == ""){
+            $offset = 0;
+        }else{
+            $offset = $request->offset;
+        }
+        if($request->limit  == ""){
+            $limit = 0;
+        }else{
+            $limit = $request->limit;
+        }
+        $query = $query->skip($offset)->take($limit)->get();
+        $data = array();
+        foreach ($query as $key => $row) {
+            $posts = array();
+            $name_array = $row->name;
+            $posts['Title'] = $name_array;
+            $description_array = $row->description;
+            $posts['Content'] =  $description_array;
+            
+            $post = Listing::with('media')->find($row->id);
+            $media = $post->media;
+
+            $images = "";
+            if ($row->image != '') {
+                $images = "|".env('APP_URL') . '/storage/' . $row->image;
+            }
+
+            foreach ($media as $m) {
+                $images .= "|".env('APP_URL') . '/storage/' . $m->id . '/' . $m->file_name;
+            }
+            $posts['ImageURL'] = substr($images,1);
+
+            $features = DB::table('feature_listing')->where('listing_id', $row->id)->pluck('feature_id');
+            $features_array = Feature::whereIn('id', $features)->orderBy('name', 'asc')->get();
+            $features = "";
+            for ($i = 0; $i < count($features_array); $i++) {
+                $name_array = $features_array[$i]->name;
+                $features .= "|".$name_array;
+            }
+            $posts['PropertyFeatures'] = substr($features,1);
+
+            $features = DB::table('feature_listing')->where('listing_id', $row->id)->pluck('feature_id');
+            $features_array = Feature::whereIn('id', $features)->orderBy('name', 'asc')->get();
+            $features = "";
+            for ($i = 0; $i < count($features_array); $i++) {
+                $name_array = $features_array[$i]->name;
+                $features .= "|".$name_array;
+            }
+            $posts['PropertyFeatures'] = substr($features,1);
+
+            $listing_types = DB::table('listing_listing_type')->where('listing_id', $row->id)->pluck('listing_type_id');
+            $listing_types_array = ListingType::whereIn('id', $listing_types)->orderBy('name', 'asc')->get();
+            $listing_types = "";
+            for ($i = 0; $i < count($listing_types_array); $i++) {
+                $name_array = $listing_types_array[$i]->name;
+                $listing_types .= "|".$name_array;
+            }
+            $posts['PropertyType'] = substr($listing_types,1);
+
+            $location = Location::where('id', $row->location_id)->first();
+            $municipality = Municipality::where('id', $location->municipality_id)->first();
+            $district = District::where('id', $municipality->district_id)->first();
+            $posts['PropertyCity'] = $location->name;
+            $posts['Address'] = $district->name." > ". $location->name." > ".$location->name;
+
+            $property_type = PropertyType::where('id', $row->property_type_id)->first();
+            $posts['PropertyStatus'] = $property_type->name;
+
+            $posts['REAL_HOMES_property_price'] = $row->price;
+            $posts['REAL_HOMES_property_size'] = $row->area_size;
+            $posts['REAL_HOMES_property_bedrooms'] = $row->number_of_bedrooms;
+            $posts['REAL_HOMES_property_bathrooms'] = $row->number_of_bathrooms;
+            $posts['REAL_HOMES_property_garage'] = $row->number_of_garages_or_parkingpaces;
+            $posts['REAL_HOMES_property_id'] = $row->ext_code;
+           
+            $posts['Сoordinates'] = $row->latitude . "," . $row->longitude;
+            $posts['Developer'] = $row->name;
+            
+            array_push($data,$posts);
+        }
+        $products['post'] = $data;
+
+        return response()->xml($products);
+    }
+    public function load_xml(Request $request)
+    {
+        $xml=simplexml_load_file($request->remoteXML) or die("Error: Cannot create object");
+        foreach($xml->post as $row)
+        { 
+            $Сoordinates = explode(",",$row->Сoordinates);
+            $name["en"] = trim($row->Title);
+            $description["en"] = trim($row->Content);
+
+            $developer_id = null;
+            if($row->Developer !== null || $row->Developer !== ""){
+                $temp = trim($row->Developer);
+                if(!Developer::where("name",$temp)->exists()){
+                    $result = Developer::insert(["name"=>$temp]);
+                }
+                $result = Developer::where("name", $temp)->first();
+                $developer_id = $result->id;
+            }
+            
+            $address = explode(",",trim($row->Address));
+            $country = "";
+            if(count($address) == 1){
+                $location = trim($address[0]);
+                $municipality = trim($address[0]);
+                $district = trim($address[0]);
+            }else if(count($address) == 2){
+                $location = trim($address[0]);
+                $municipality = trim($address[0]);
+                $district = trim($address[1]);
+            }else if(count($address) == 3){
+                $location = trim($address[0]);
+                $municipality = trim($address[1]);
+                $district = trim($address[2]);
+            }else{
+                $location = trim($address[0]);
+                $municipality = trim($address[1]);
+                $district = trim($address[2]);
+                $country = trim($address[3]);
+                for($i=0;$i<count($address);$i++){
+                    if(strpos($address[$i],"District")>0){
+                        $district = trim($address[$i]);
+                        $country = trim($address[$i+1]);
+                        $municipality = trim($address[$i-1]);
+                        $location = trim($address[0]);
+                        for($j=1;$j<$i-1;$j++){
+                            $location .= ", ".trim($address[$j]);
+                        }
+                    }
+                }
+            }
+            if(Country::where("name",$country)->exists()){
+                $result = Country::where("name",$country)->first();
+                $country_code = $result->code;
+            }else{
+                $country_code = "";
+            }
+            
+            if(!District::where("ext_code",$district)->exists()){
+                $temp = '{"en":"'.$district.'"}';
+                $result = District::insert(["ext_code"=>$district,
+                                            "country"=>$country_code,
+                                            "name"=>$temp,
+                                            "latitude"=>$Сoordinates[0],
+                                            "longitude"=>$Сoordinates[1]]);
+            }
+            $result = District::where("ext_code", $district)->first();
+            $district_id = $result->id;
+            
+            if(!Municipality::where("ext_code",$municipality)->exists()){
+                $temp = '{"en":"'.$municipality.'"}';
+                $result = Municipality::insert(["ext_code"=>$municipality,
+                                            "district_id"=>$district_id,
+                                            "name"=>$temp,
+                                            "latitude"=>$Сoordinates[0],
+                                            "longitude"=>$Сoordinates[1]]);
+            }
+            $result = Municipality::where("ext_code", $municipality)->first();
+            $municipality_id = $result->id;
+            
+            if(!Location::where("ext_code",$location)->exists()){
+                $temp = '{"en":"'.$location.'"}';
+                $result = Location::insert(["ext_code"=>$location,
+                                            "municipality_id"=>$municipality_id,
+                                            "name"=>$temp,
+                                            "latitude"=>$Сoordinates[0],
+                                            "longitude"=>$Сoordinates[1]]);
+            }
+            $result = Location::where("ext_code", $location)->first();
+            $location_id = $result->id;
+            
+            if(!PropertyType::where("ext_code",$row->PropertyStatus)->exists()){
+                $temp = '{"en":"'.$row->PropertyStatus.'"}';
+                $result = PropertyType::insert(["ext_code"=>$row->PropertyStatus,
+                                            "name"=>$temp]);
+            }
+            $result = PropertyType::where("ext_code",$row->PropertyStatus)->first();
+            $property_type_id = $result->id;
+
+            if(Listing::where("ext_code",$row->REAL_HOMES_property_id)->exists()){
+                $result = Listing::where("ext_code",$row->REAL_HOMES_property_id)
+                                ->update(["ext_code"=>$row->REAL_HOMES_property_id,
+                                        "price"=>intval($row->REAL_HOMES_property_price),  
+                                        "number_of_bedrooms"=>intval($row->REAL_HOMES_property_bedrooms), 
+                                        "number_of_bathrooms"=>intval($row->REAL_HOMES_property_bathrooms), 
+                                        "number_of_garages_or_parkingpaces"=>intval($row->REAL_HOMES_property_garage), 
+                                        "name"=>json_encode($name), 
+                                        "description"=>json_encode($description),
+                                        "area_size"=>intval($row->REAL_HOMES_property_size),
+                                        "address"=>$row->Address,
+                                        "latitude"=>$Сoordinates[0],
+                                        "longitude"=>$Сoordinates[1],
+                                        "location_id"=>$location_id,
+                                        "property_type_id"=>$property_type_id,
+                                        "developer_id"=>$developer_id]);
+            }else{
+                $result = Listing::insert(["ext_code"=>$row->REAL_HOMES_property_id,
+                                        "price"=>intval($row->REAL_HOMES_property_price),  
+                                        "number_of_bedrooms"=>intval($row->REAL_HOMES_property_bedrooms), 
+                                        "number_of_bathrooms"=>intval($row->REAL_HOMES_property_bathrooms), 
+                                        "number_of_garages_or_parkingpaces"=>intval($row->REAL_HOMES_property_garage), 
+                                        "name"=>json_encode($name), 
+                                        "description"=>json_encode($description),
+                                        "area_size"=>intval($row->REAL_HOMES_property_size),
+                                        "address"=>$row->Address,
+                                        "latitude"=>$Сoordinates[0],
+                                        "longitude"=>$Сoordinates[1],
+                                        "location_id"=>$location_id,
+                                        "property_type_id"=>$property_type_id,
+                                        "developer_id"=>$developer_id]);
+            }
+            $result = Listing::where("ext_code",$row->REAL_HOMES_property_id)->first();
+            $listing_id = $result->id;
+
+            $featuresArray = explode("|",$row->PropertyFeatures);
+            for($i=0;$i<count($featuresArray);$i++){
+                if(!Feature::where("ext_code",$featuresArray[$i])->exists()){
+                    $temp = '{"en":"'.$featuresArray[$i].'"}';
+                    $result = Feature::insert(["ext_code"=>$featuresArray[$i],
+                                                "name"=>$temp]);
+                }
+                $result = Feature::where("ext_code",$featuresArray[$i])->first();
+                $feature_id = $result->id;
+                $features = DB::table('feature_listing')->insert(["listing_id"=>$listing_id,
+                                                                "feature_id"=>$feature_id]);
+            }
+
+            $listingTypesArray = explode("|",$row->PropertyType);
+            for($i=0;$i<count($listingTypesArray);$i++){
+                if(!ListingType::where("ext_code",$listingTypesArray[$i])->exists()){
+                    $temp = '{"en":"'.$listingTypesArray[$i].'"}';
+                    $result = ListingType::insert(["ext_code"=>$listingTypesArray[$i],
+                                                "name"=>$temp]);
+                }
+                $result = ListingType::where("ext_code",$listingTypesArray[$i])->first();
+                $listing_type_id = $result->id;
+                $listing_type = DB::table('listing_listing_type')->insert(["listing_id"=>$listing_id,
+                                                                "listing_type_id"=>$listing_type_id]);
+            }
+
+            $imageArray = explode("|",$row->ImageURL);
+        
+            $result = Media::where('model_id',$listing_id)->delete();
+
+            for($i=0;$i<count($imageArray);$i++){
+                $ext = explode(".", basename($imageArray[$i]));
+                $image = 'data:image/'.$ext[1].';base64,'.base64_encode(file_get_contents($imageArray[$i]));
+                $image_parts = explode(";base64", $image);
+                $image_type_aux = explode('image/', $image_parts[0]);
+                $image_type = $image_type_aux[1];
+                $file = base64_decode($image_parts[1]);
+                $safeName = 'signed_' . time() . "." . $image_type;
+                $preName = 'signed_' . time();
+        
+                $model_type = str_replace("/", "\\", "App/Models/Listing");
+               
+                $media_listing = Media::create(array(
+                    'model_type' =>  $model_type, 
+                    'model_id' => $listing_id,
+                    'uuid' => rand(1,99999999999),
+                    'name' => $safeName,
+                    'size' => 520,
+                    'file_name' => $safeName,
+                    'collection_name' => 'images',
+                    'mime_type' => 'image/'.$image_type,
+                    'disk' => 'public',
+                    'conversions_disk' => 'public',
+                    'responsive_images' => array(),
+                    'manipulations' => array(),
+                    'custom_properties' => array(),
+                    'generated_conversions' => array('large-size' => true,"medium-size" => true, "thumb" => true)
+                ));
+                
+                $imageId =  $media_listing->id;
+                
+                $success = file_put_contents(public_path('storage') . '/' . $safeName, $file);
+                if (!file_exists(public_path('storage').'/'.$imageId)) 
+                {     
+                    mkdir(public_path('storage').'/'.$imageId, 0777, true);
+                }
+                file_put_contents(public_path('storage').'/'.$imageId.'/'.$safeName, $file);
+                if (!file_exists(public_path('storage').'/'.$imageId.'/conversions')) 
+                {     
+                    mkdir(public_path('storage').'/'.$imageId.'/conversions', 0777, true);
+                }
+                file_put_contents(public_path('storage').'/'.$imageId.'/conversions'.'/'.$preName.'-large-size.jpg', $file);
+                file_put_contents(public_path('storage').'/'.$imageId.'/conversions'.'/'.$preName.'-medium-size.jpg', $file);
+                file_put_contents(public_path('storage').'/'.$imageId.'/conversions'.'/'.$preName.'-thumb.jpg', $file);
+                if($i==0){
+                    $result = Listing::where("ext_code",$row->REAL_HOMES_property_id)
+                                ->where("id",$listing_id)
+                                ->update(["image"=>'/'.$imageId.'/conversions'.'/'.$preName.'-thumb.jpg']);
+                }
+            }
+        }
     }
 }

@@ -199,6 +199,7 @@ return [
         App\Providers\JetstreamServiceProvider::class,
         
         Barryvdh\DomPDF\ServiceProvider::class,
+        Mtownsend\ResponseXml\Providers\ResponseXmlServiceProvider::class,
     ],
 
     /*
