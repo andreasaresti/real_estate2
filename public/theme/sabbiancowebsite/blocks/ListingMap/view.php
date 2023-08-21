@@ -12,16 +12,17 @@
         
         <div class="row">
             <aside class="col-lg-6 col-md-6 google-maps-left mt-0">
-                <div style="display: flex;align-items: center;margin-left: 15px;">
-                    <input type="number" class="kilometresListMap" name="kilometresListMap" min="0" max="100" placeholder="15" value="15" />
-                    <input type="range" class="rangeListMap" name="rangeListMap" min="0" max="100" step="1" value="15" />
+                <div style="display: flex;align-items: center;margin-left: 15px;margin-bottom:10px">
+                    <input type="number" class="kilometresListMap" name="kilometresListMap" min="0" max="100" placeholder="15" value="15" />&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="range" class="rangeListMap" name="rangeListMap" min="0" max="100" step="1" value="15" />&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a style="height: 40px;width: 130px;padding: 0px 0px 0px 0px;line-height: 40px;" class="btn btn-yellow" id="SearchMap">Search</a>
                 </div>
                 <div id="map-leaflet"></div>
             </aside>
             <div class="col-lg-6 col-md-12 google-maps-right" style="padding-left:20px">
                 <!-- Search Form -->
                 <div class="col-12 px-0 parallax-searchs-button">
-                    <a onclick="searchShowListingMap();" class="btn btn-yellow" id="SearchShowButton" style="margin-top: 20px;height: 41px;padding: 0px;line-height: 39px;">Search Show</a>
+                    <a onclick="loadActiveListingsListingMap();" class="btn btn-yellow" id="SearchShowButton" style="margin-top: 20px;height: 41px;padding: 0px;line-height: 39px;">Search Show</a>
                 </div>
                 <div class="col-12 px-0 parallax-searchs" id="SearchBar">
                     <div class="banner-search-wrap">
@@ -210,7 +211,8 @@
 
 
 <script type="text/javascript">
-    
+    var map = null;
+    var circle;
     function searchShowListingMap(){
         console.log(document.getElementById("SearchShowButton").innerHTML);
         if(document.getElementById("SearchShowButton").innerHTML == "Search Show"){
@@ -675,7 +677,26 @@
         }
     }
     function map_init_circle(valueArray){
+       
         if ($('#map-leaflet').length) {
+
+            let curLocation = [0, 0];
+            var circleFlag = 0;
+            var container = L.DomUtil.get('map');
+            if(container != null){
+                container._leaflet_id = null;
+            }
+            
+            if (map !== undefined && map !== null) {
+                map.remove(); // should remove the map from UI and clean the inner children of DOM element
+                circleFlag = 0;
+            }
+
+            map = L.map('map-leaflet').setView(valueArray[0].center, 10);
+
+            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
+
+            circle = L.circle(curLocation, 0).addTo(map);
 
             let set = 10;
             var markerArray=[];
@@ -698,20 +719,19 @@
                 }
             });
 
-            let curLocation = [0, 0];
-            var circleFlag = 0;
-            var container = L.DomUtil.get('map');
-            if(container != null){
-                container._leaflet_id = null;
-            }
+            $( "#SearchMap" ).on('click', function() {
+                marker.setLatLng(valueArray[0].center, {
+                    draggable: 'true'
+                }).bindPopup(data.latlng).update();
+                curLocation = marker.getLatLng();
+                if(map.hasLayer(circle))
+                    map.removeLayer(circle);
+                circle = L.circle(curLocation, 1000*set).addTo(map);
+                circle.setLatLng(curLocation);
+                circleFlag = 1;
+                calculate_point();
+            });
 
-            if (map !== undefined && map !== null) {
-                map.remove(); // should remove the map from UI and clean the inner children of DOM element
-            }
-
-            var map = L.map('map-leaflet').setView(valueArray[0].center, 10);
-
-            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
             valueArray.forEach((value) => {
                 var icon = L.divIcon({
                     html: value.icon,
@@ -743,8 +763,6 @@
             let marker = new L.marker(curLocation, {
                 draggable: 'true'
             });
-
-            var circle = L.circle(curLocation, 0).addTo(map);
 
             marker.on('dragend', function(event) {
                 curLocation = marker.getLatLng();
@@ -809,6 +827,7 @@
                     }
                 });
             }
+            
         }
     }
 </script>
