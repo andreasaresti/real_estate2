@@ -611,10 +611,10 @@
         // var curLocation = [@Model.Location.addPropertyLatitude, @Model.Location.addPropertyLongitude];
     
         if (curLocation[0] == 0 && curLocation[1] == 0) {
-        curLocation = [5.9714, 116.0953];
+            curLocation = [5.9714, 116.0953];
         }
     
-        var map = L.map('MapLocation').setView(curLocation, 10);
+        var map = L.map('MapLocation').setView(curLocation, 12);
     
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

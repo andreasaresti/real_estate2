@@ -527,8 +527,6 @@ class webListings extends Controller
     public function get_active_listings(Request $request)
     {
         // $request = $_REQUEST;
-
-
         $perPage = 20;
         $page = 1;
         $orderby = 'listings.id';
@@ -648,249 +646,6 @@ class webListings extends Controller
             ->orderBy($orderby, $orderbytype)
             ->paginate($perPage, ['/*'], 'page', $page);
 
-        $listing_markers = [];
-        $listing_markers[] = [
-            "id" => "marker-1",
-            "center" => [40.94401669296697, -74.16938781738281],
-            "icon" => "<i class='fa fa-home'></i>",
-            "title" => "Real House Luxury Villa",
-            "desc" => "Est St, 77 - Central Park South, NYC",
-            "price" => "€ 230,000",
-            "image" => "images/feature-properties/fp-1.jpg",
-            "link" => "single-property-1.html"
-        ];
-        $listing_markers[] = [
-            "id" => "marker-2",
-            "center" => [40.77055783505125, -74.26002502441406],
-            "icon" => "<i class='fa fa-home'></i>",
-            "title" => "Real House Luxury Villa",
-            "desc" => "Est St, 77 - Central Park South, NYC",
-            "price" => "€ 230,000",
-            "image" => "images/feature-properties/fp-2.jpg",
-            "link" => "single-property-1.html"
-        ];
-
-        $listing_markers[] = [
-            "id" => "marker-3",
-            "center" => [40.7427837, -73.11445617675781],
-            "icon" => "<i class='fa fa-home'></i>",
-            "title" => "Real House Luxury Villa",
-            "desc" => "Est St, 77 - Central Park South, NYC",
-            "price" => "€ 230,000",
-            "image" => "images/feature-properties/fp-3.jpg",
-            "link" => "single-property-1.html"
-        ];
-
-        $listing_markers[] = [
-            "id" => "marker-4",
-            "center" => [40.70437865245596, -73.98674011230469],
-            "icon" => "<i class='fa fa-home'></i>",
-            "title" => "Real House Luxury Villa",
-            "desc" => "Est St, 77 - Central Park South, NYC",
-            "price" => "€ 230,000",
-            "image" => "images/feature-properties/fp-4.jpg",
-            "link" => "single-property-1.html"
-        ];
-
-        $listing_markers[] = [
-            "id" => "marker-5",
-            "center" => [40.641311, -73.778139],
-            "icon" => "<i class='fa fa-home'></i>",
-            "title" => "Real House Luxury Villa",
-            "desc" => "Est St, 77 - Central Park South, NYC",
-            "price" => "€ 230,000",
-            "image" => "images/feature-properties/fp-5.jpg",
-            "link" => "single-property-1.html"
-        ];
-
-        $listing_markers[] = [
-            "id" => "marker-6",
-            "center" => [41.080938, -73.535957],
-            "icon" => "<i class='fas fa-dumbbell'></i>",
-            "title" => "Gym in Town",
-            "desc" => "Est St, 77 - Central Park South, NYC",
-            "price" => "€ 230,000",
-            "image" => "images/popular-listings/6.jpeg",
-            "link" => "single-property-1.html"
-        ];
-
-        $listing_markers[] = [
-            "id" => "marker-7",
-            "center" => [41.079386, -73.519478],
-            "icon" => "<i class='fa fa-home'></i>",
-            "title" => "Real House Luxury Villa",
-            "desc" => "Est St, 77 - Central Park South, NYC",
-            "price" => "€ 230,000",
-            "image" => "images/feature-properties/fp-6.jpg",
-            "link" => "single-property-1.html"
-        ];
-
-        $listing_markers[] = [
-            "id" => "marker-8",
-            "center" => [52.368630, 4.895782],
-            "icon" => "<i class='fa fa-home'></i>",
-            "title" => "Real House Luxury Villa",
-            "desc" => "Est St, 77 - Central Park South, NYC",
-            "price" => "€ 230,000",
-            "image" => "images/feature-properties/fp-7.jpg",
-            "link" => "single-property-1.html"
-        ];
-
-        $listing_markers[] = [
-            "id" => "marker-9",
-            "center" => [52.350179, 4.634857],
-            "icon" => "<i class='fa fa-home'></i>",
-            "title" => "Real House Luxury Villa",
-            "desc" => "Est St, 77 - Central Park South, NYC",
-            "price" => "€ 230,000",
-            "image" => "images/feature-properties/fp-8.jpg",
-            "link" => "single-property-1.html"
-        ];
-
-
-        $listing_markers[] = [
-            "id" => "marker-10",
-            "center" => [40.641311, -74.878139],
-            "icon" => "<i class='fa fa-home'></i>",
-            "title" => "Real House Luxury Villa",
-            "desc" => "Est St, 77 - Central Park South, NYC",
-            "price" => "€ 230,000",
-            "image" => "images/feature-properties/fp-9.jpg",
-            "link" => "single-property-1.html"
-        ];
-
-        $listing_markers[] = [
-            "id" => "marker-11",
-            "center" => [40.641311, -75.458139],
-            "icon" => "<i class='fa fa-building'></i>",
-            "title" => "Real House Luxury Villa",
-            "desc" => "Est St, 77 - Central Park South, NYC",
-            "price" => "€ 230,000",
-            "image" => "images/feature-properties/fp-1.jpg",
-            "link" => "single-property-1.html"
-        ];
-
-        $listing_markers[] = [
-            "id" => "marker-12",
-            "center" => [41.100000, -74.558139],
-            "icon" => "<i class='fa fa-home'></i>",
-            "title" => "Real House Luxury Villa",
-            "desc" => "Est St, 77 - Central Park South, NYC",
-            "price" => "€ 230,000",
-            "image" => "images/feature-properties/fp-2.jpg",
-            "link" => "single-property-1.html"
-        ];
-
-        $listing_markers[] = [
-            "id" => "marker-13",
-            "center" => [41.149000, -74.558139],
-            "icon" => "<i class='fa fa-home'></i>",
-            "title" => "Real House Luxury Villa",
-            "desc" => "Est St, 77 - Central Park South, NYC",
-            "price" => "€ 230,000",
-            "image" => "images/feature-properties/fp-3.jpg",
-            "link" => "single-property-1.html"
-        ];
-
-        $listing_markers[] = [
-            "id" => "marker-14",
-            "center" => [41.149000, -75.348139],
-            "icon" => "<i class='fa fa-home'></i>",
-            "title" => "Real House Luxury Villa",
-            "desc" => "Est St, 77 - Central Park South, NYC",
-            "price" => "€ 230,000",
-            "image" => "images/feature-properties/fp-4.jpg",
-            "link" => "single-property-1.html"
-        ];
-
-        $listing_markers[] = [
-            "id" => "marker-15",
-            "center" => [41.299000, -73.498139],
-            "icon" => "<i class='fa fa-building'></i>",
-            "title" => "Real House Luxury Villa",
-            "desc" => "Est St, 77 - Central Park South, NYC",
-            "price" => "€ 230,000",
-            "image" => "images/feature-properties/fp-5.jpg",
-            "link" => "single-property-1.html"
-        ];
-
-        $listing_markers[] = [
-            "id" => "marker-16",
-            "center" => [41.278000, -74.608139],
-            "icon" => "<i class='fa fa-building'></i>",
-            "title" => "Real House Luxury Villa",
-            "desc" => "Est St, 77 - Central Park South, NYC",
-            "price" => "€ 230,000",
-            "image" => "images/feature-properties/fp-6.jpg",
-            "link" => "single-property-1.html"
-        ];
-
-        $listing_markers[] = [
-            "id" => "marker-17",
-            "center" => [41.278000, -72.708139],
-            "icon" => "<i class='fa fa-building'></i>",
-            "title" => "Real House Luxury Villa",
-            "desc" => "Est St, 77 - Central Park South, NYC",
-            "price" => "€ 230,000",
-            "image" => "images/feature-properties/fp-7.jpg",
-            "link" => "single-property-1.html"
-        ];
-
-        $listing_markers[] = [
-            "id" => "marker-18",
-            "center" => [40.980000, -75.968139],
-            "icon" => "<i class='fa fa-building'></i>",
-            "title" => "Real House Luxury Villa",
-            "desc" => "Est St, 77 - Central Park South, NYC",
-            "price" => "€ 230,000",
-            "image" => "images/feature-properties/fp-8.jpg",
-            "link" => "single-property-1.html"
-        ];
-
-        $listing_markers[] = [
-            "id" => "marker-19",
-            "center" => [40.94401669296697, -74.909999],
-            "icon" => "<i class='fa fa-building'></i>",
-            "title" => "Real House Luxury Villa",
-            "desc" => "Est St, 77 - Central Park South, NYC",
-            "price" => "€ 230,000",
-            "image" => "images/feature-properties/fp-9.jpg",
-            "link" => "single-property-1.html"
-        ];
-
-        $listing_markers[] = [
-            "id" => "marker-17",
-            "center" => [41.278000, -72.708139],
-            "icon" => "<i class='fa fa-building'></i>",
-            "title" => "Real House Luxury Villa",
-            "desc" => "Est St, 77 - Central Park South, NYC",
-            "price" => "€ 230,000",
-            "image" => "images/feature-properties/fp-7.jpg",
-            "link" => "single-property-1.html"
-        ];
-
-        $listing_markers[] = [
-            "id" => "marker-18",
-            "center" => [40.980000, -75.968139],
-            "icon" => "<i class='fa fa-building'></i>",
-            "title" => "Real House Luxury Villa",
-            "desc" => "Est St, 77 - Central Park South, NYC",
-            "price" => "€ 230,000",
-            "image" => "images/feature-properties/fp-8.jpg",
-            "link" => "single-property-1.html"
-        ];
-
-        $listing_markers[] = [
-            "id" => "marker-19",
-            "center" => [40.94401669296697, -74.909999],
-            "icon" => "<i class='fa fa-building'></i>",
-            "title" => "Real House Luxury Villa",
-            "desc" => "Est St, 77 - Central Park South, NYC",
-            "price" => "€ 230,000",
-            "image" => "images/feature-properties/fp-9.jpg",
-            "link" => "single-property-1.html"
-        ];
-
         foreach ($query as $key => $row) {
             $name_array = $row->name;
             $query[$key]->displayname = $name_array;
@@ -948,15 +703,27 @@ class webListings extends Controller
             if (isset($query[$key]->favorite_properties_listing_id) && $query[$key]->favorite_properties_listing_id == $query[$key]->id) {
                 $query[$key]->in_favoriteproperties = 1;
             }
-
-            $listing_markers[$key]['id'] = "marker-".$row->id;
-            $listing_markers[$key]['title'] = $query[$key]->displayname;
-            $listing_markers[$key]['desc'] = $location->name;
-            $listing_markers[$key]['price'] = "€".$row->price;
-            $listing_markers[$key]['image'] = $query[$key]->image;
-            $listing_markers[$key]['link'] = 'page/listing-details?index='.$row->id;
-            $query[$key]->listingmarker = $listing_markers[$key];
+            $listing_markers = [
+                    "id" => "marker-1",
+                    "center" => [34.7130838, 33.0879427],//[40.94401669296697, -74.16938781738281],
+                    "icon" => "<i class='fa fa-home'></i>",
+                    "title" => "Real House Luxury Villa",
+                    "desc" => "Est St, 77 - Central Park South, NYC",
+                    "price" => "€ 230,000",
+                    "image" => "images/feature-properties/fp-1.jpg",
+                    "link" => "single-property-1.html"
+                ];
+            $listing_markers['id'] = $row->id;
+            $listing_markers['center'] = [$query[$key]->latitude,$query[$key]->longitude];
+            $listing_markers['title'] = $query[$key]->displayname;
+            $listing_markers['icon'] = "<i class='fa fa-home'></i>";
+            $listing_markers['desc'] = $location->name;
+            $listing_markers['price'] = "€".$row->price;
+            $listing_markers['image'] = $query[$key]->image;
+            $listing_markers['link'] = 'page/listing-details?index='.$row->id;
+            $query[$key]->listingmarker = $listing_markers;
         }
+
         $products = $query;
 
         return response()->json($products);
@@ -1458,9 +1225,105 @@ class webListings extends Controller
                 if($i==0){
                     $result = Listing::where("ext_code",$row->REAL_HOMES_property_id)
                                 ->where("id",$listing_id)
-                                ->update(["image"=>'/'.$imageId.'/conversions'.'/'.$preName.'-thumb.jpg']);
+                                ->update(["image"=>$imageId.'/conversions'.'/'.$preName.'-thumb.jpg']);
                 }
             }
         }
+    }
+    public function get_listings(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'listings' => 'required|array',
+        ]);
+        if ($validator->fails()) {
+            // Return the validation errors
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+        $products = array();
+        $listings =  $request->listings;
+        foreach ($listings as $listing_id) {
+
+            $query = Listing::where('id', '=', $listing_id)->first();;
+    
+            $name_array = $query->name;
+            $query->displayname = $name_array;
+            $description_array = $query->description;
+            $query->displaydescription = $description_array;
+            
+
+            $post = Listing::with('media')->find($query->id);
+            $media = $post->media;
+
+            $images_array = [];
+            foreach ($media as $m) {
+                $images_array[] = env('APP_URL') . '/storage/' . $m->id . '/' . $m->file_name;
+            }
+            $query->images = $images_array;
+
+            $features = DB::table('feature_listing')->where('listing_id', $query->id)->pluck('feature_id');
+            $features_array = Feature::whereIn('id', $features)->orderBy('name', 'asc')->get();
+            $features = [];
+            for ($i = 0; $i < count($features_array); $i++) {
+                $name_array = $features_array[$i]->name;
+                $features[] = $name_array;
+            }
+            $query->features = $features;
+
+            $floor_plan_array = FloorPlan::where('listing_id', $query->id)->get();
+            for ($i = 0; $i < count($floor_plan_array); $i++) {
+                $name_array = $floor_plan_array[$i]->name;
+                $description_array = $floor_plan_array[$i]->description;
+                $floor_plan_array[$i]->displayname = $name_array;
+                $floor_plan_array[$i]->displaydescription = $description_array;
+            }
+            $query->floor_plans = $floor_plan_array;
+
+            $listing_types = DB::table('listing_listing_type')->where('listing_id', $query->id)->pluck('listing_type_id');
+            $listing_types_array = ListingType::whereIn('id', $listing_types)->orderBy('name', 'asc')->get();
+            $listing_types = [];
+            for ($i = 0; $i < count($listing_types_array); $i++) {
+                $name_array = $listing_types_array[$i]->name;
+                $listing_types[] = $name_array;
+            }
+            $query->listing_types = $listing_types;
+
+            $property_type = PropertyType::where('id', $query->property_type_id)->first();
+            $query->property_type = $property_type->name;
+
+            $location = Location::where('id', $query->location_id)->first();
+            $query->location_name = $location->name;
+
+            if ($query->image != '') {
+                $query->image = env('APP_URL') . '/storage/' . $query->image;
+            }
+
+            $query->in_favoriteproperties = 0;
+            if (isset($query->favorite_properties_listing_id) && $query->favorite_properties_listing_id == $query->id) {
+                $query->in_favoriteproperties = 1;
+            }
+            $listing_markers = [
+                    "id" => "marker-1",
+                    "center" => [34.7130838, 33.0879427],//[40.94401669296697, -74.16938781738281],
+                    "icon" => "<i class='fa fa-home'></i>",
+                    "title" => "Real House Luxury Villa",
+                    "desc" => "Est St, 77 - Central Park South, NYC",
+                    "price" => "€ 230,000",
+                    "image" => "images/feature-properties/fp-1.jpg",
+                    "link" => "single-property-1.html"
+                ];
+            $listing_markers['id'] = $query->id;
+            $listing_markers['center'] = [$query->latitude,$query->longitude];
+            $listing_markers['title'] = $query->displayname;
+            $listing_markers['icon'] = "<i class='fa fa-home'></i>";
+            $listing_markers['desc'] = $location->name;
+            $listing_markers['price'] = "€".$query->price;
+            $listing_markers['image'] = $query->image;
+            $listing_markers['link'] = 'page/listing-details?index='.$query->id;
+            $query->listingmarker = $listing_markers;
+            array_push($products, $query);
+        }
+        return response()->json($products);
     }
 }

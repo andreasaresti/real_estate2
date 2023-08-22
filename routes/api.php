@@ -174,6 +174,7 @@ use App\Http\Controllers\webWebsiteController;
     Route::post('activedelivery_times', [webListings::class, 'get_delivery_times']);
     Route::post('savelisting_position', [webListings::class, 'save_position']);
     Route::post('load-xml', [webListings::class, 'load_xml']);
+    Route::post('get-listings', [webListings::class, 'get_listings']);
 
 // webSalesRequestController
     Route::post('salesrequest-closedeal', [webSalesRequestController::class, 'close_deal']);

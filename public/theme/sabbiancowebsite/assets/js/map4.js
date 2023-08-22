@@ -21,7 +21,7 @@ function map_init(valueArray){
 			maxZoom: 20,
 			tap: false,
 			gestureHandling: true,
-			center: [40.90, -73.90]
+			center: valueArray[0].center
 		});
 		var marker_cluster = L.markerClusterGroup();
 
@@ -52,7 +52,7 @@ function map_init(valueArray){
 
 			marker.bindPopup(
 				'<div class="listing-window-image-wrapper">' +
-				'<a href="' + value.link + '">' +
+				'<a href="/' + value.link + '">' +
 				'<div class="listing-window-image" style="background-image: url(' + value.image + ');"></div>' +
 				'<div class="listing-window-content">' +
 				'<div class="info">' +
