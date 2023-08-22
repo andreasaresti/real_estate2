@@ -71,6 +71,7 @@
         user_id = '<?php echo $user_id; ?>';
         const sendData = {
             "popular": 1,
+            "customer_id": user_id,
         };
 		const url = "/api/activelistings";
 		let xhr = new XMLHttpRequest();
@@ -80,7 +81,6 @@
 		xhr.onload = function () {
 			data = JSON.parse(xhr.response);
 			list = data.data;
-           
             if(list.length >= 8){
                 size = 8;
             }else{
@@ -152,7 +152,7 @@
                                                 <a href="/page/listing-details?index=`+list[i].id+`" tabindex="0">€ `+ list[i].price+`</a>
                                             </h3>
                                             <div class="compare">
-                                                <a style="cursor: pointer;" onclick="addFavoritPopularProperties(`+list[i].id+`)"><i id="faHeart`+list[i].id+`" class="fa fa-heart" style="font-size: x-large; ` + favorite + ` "></i></a>
+                                                <a style="cursor: pointer;" onclick="addFavoritPopularProperties(`+list[i].id+`)"><i id="faHeartPopularProperties`+list[i].id+`" class="fa fa-heart" style="font-size: x-large; ` + favorite + ` "></i></a>
                                             </div>
                                         </div>
                                     </div>
@@ -179,7 +179,8 @@
             xhr.setRequestHeader('Content-type', 'application/json');
             xhr.send(JSON.stringify(sendData));
             xhr.onload = function () {
-                var paragraph = document.getElementById("faHeart"+index);
+                console.log(xhr.response);
+                var paragraph = document.getElementById("faHeartPopularProperties"+index);
                 if(paragraph.style.color !== "red"){
                     paragraph.style.color = "red";
                 }else{

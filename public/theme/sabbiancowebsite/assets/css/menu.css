@@ -288,7 +288,7 @@ a.button.border, a.button {
     margin-top: 1px;
 }
 #header.cloned {
-    padding: 18px 18px 0px 0;
+    padding: 18px 18px 15px 0;
 }
 .sticky-logo {
     display: none;

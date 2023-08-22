@@ -175,15 +175,13 @@
                                         <input type="text" name="address" placeholder="Enter Your Address" id="address">
                                     </p>
                                 </div>
-                                <div class="col-lg-4 col-md-12" style="align-self: center;">
-                                    
+                                <div class="col-lg-4 col-md-12" style="align-self: center;margin-top: 23px;display: flex;justify-content: center;">
                                     <div class="rld-single-select" style="margin-bottom: 15px"  style="width: 132px">
                                         <input type="hidden" id="selLocation" name="selLocation" value="">
                                         <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: #ebebeb;">
                                             <ul>
                                                 <li ><a id="location_title">Location</a>
                                                     <ul id="activelocation">
-                                                    
                                                     </ul>
                                                 </li>
                                             </ul>
@@ -191,15 +189,14 @@
                                     </div>
                                     </p>
                                 </div>
-                                <div class="col-lg-4 col-md-12" style="align-self: center;">
+                                <div class="col-lg-4 col-md-12" style="align-self: center;margin-top: 23px;display: flex;justify-content: center;">
                                     <div class="form-group categories">
-                                        <div class="rld-single-select" style="margin-bottom: 15px" >
+                                        <div class="rld-single-select" >
                                             <input type="hidden" id="selActivePropertStatus" name="selActivePropertStatus" value="">
                                             <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: #ebebeb;">
                                                 <ul>
                                                     <li ><a>Delivery Time</a>
                                                         <ul id="activedelivery_times">
-                                                        
                                                         </ul>
                                                     </li>
                                                 </ul>

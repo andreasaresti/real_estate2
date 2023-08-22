@@ -53,6 +53,7 @@
     <script src="/theme/sabbiancowebsite/assets/js/jquery-3.5.1.min.js"></script>
     <script src="/theme/sabbiancowebsite/assets/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.3.5/signature_pad.min.js" integrity="sha512-kw/nRM/BMR2XGArXnOoxKOO5VBHLdITAW00aG8qK4zBzcLVZ4nzg7/oYCaoiwc8U9zrnsO9UHqpyljJ8+iqYiQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 </head>
 <body style="overflow-x: hidden;">
     <div id="wrapper">
@@ -80,7 +81,7 @@
     <script src="/theme/sabbiancowebsite/assets/js/isotope.pkgd.min.js"></script>
     <script src="/theme/sabbiancowebsite/assets/js/smooth-scroll.min.js"></script>
     <script src="/theme/sabbiancowebsite/assets/js/lightcase.js"></script>
-    <script src="/theme/sabbiancowebsite/assets/js/search.js"></script>
+    <!-- <script src="/theme/sabbiancowebsite/assets/js/search.js"></script> -->
     <script src="/theme/sabbiancowebsite/assets/js/owl.carousel.js"></script>
     <script src="/theme/sabbiancowebsite/assets/js/jquery.magnific-popup.min.js"></script>
     <script src="/theme/sabbiancowebsite/assets/js/ajaxchimp.min.js"></script>

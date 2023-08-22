@@ -96,10 +96,10 @@
                     <div class="right-side d-none d-none d-lg-none d-xl-flex sign ml-0">
                         <!-- Header Widget -->
                         <div class="header-widget sign-in">
-                            <div class="show-reg-form" ><a style="color: black;cursor: pointer;" onclick="loginIn()">Sign In</a></div>
+                            <div class="show-reg-form" ><a style="cursor: pointer;" onclick="loginIn()">Sign In</a></div>
                         </div>
                         <div class="header-widget sign-in">
-                            <div class="show-reg-form" ><a style="color: black;cursor: pointer;" onclick="signUp()">Sign Up</a></div>
+                            <div class="show-reg-form" ><a style="cursor: pointer;" onclick="signUp()">Sign Up</a></div>
                         </div>
                         <!-- Header Widget / End -->
                     </div>
@@ -144,7 +144,7 @@
                                         </ul>
                                         <div class="tab-content">
                                             <div class="tab-pane fade show active" id="tabs_1">
-                                                <div class="rld-main-search">
+                                                <div class="rld-main-search" style="display: flex;justify-content: center;">
                                                     <div class="row">
                                                         <div class="rld-single-input">
                                                             <input type="text" placeholder="Enter Keyword..." autocomplete="off" id="search_string">
