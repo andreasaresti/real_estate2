@@ -1220,8 +1220,9 @@ class webListings extends Controller
             $location = Location::where('id', $row->location_id)->first();
             $municipality = Municipality::where('id', $location->municipality_id)->first();
             $district = District::where('id', $municipality->district_id)->first();
+            $country = Country::where('code', $district->country)->first();
             $posts['PropertyCity'] = $location->name;
-            $posts['Address'] = $district->name." > ". $location->name." > ".$location->name;
+            $posts['Address'] = $district->name.", ". $location->name.", ".$location->name. ", ".$country->name;
 
             $property_type = PropertyType::where('id', $row->property_type_id)->first();
             $posts['PropertyStatus'] = $property_type->name;
@@ -1234,8 +1235,13 @@ class webListings extends Controller
             $posts['REAL_HOMES_property_id'] = $row->ext_code;
            
             $posts['Сoordinates'] = $row->latitude . "," . $row->longitude;
-            $posts['Developer'] = $row->name;
-            
+
+            if($row->developer_id > 0){
+                $developers = Developer::where('id', $row->developer_id)->first();
+                $posts['Developer'] = $developers->name;
+            }else{
+                $posts['Developer'] = "";
+            }
             array_push($data,$posts);
         }
         $products['post'] = $data;

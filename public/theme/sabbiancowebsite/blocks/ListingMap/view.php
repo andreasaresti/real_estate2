@@ -184,13 +184,12 @@
                 <div class="row" id="ListingListContent">
                     
                 </div>
+                <nav aria-label="..." style="padding: 20px;display: flex;justify-content: center;">
+                    <ul class="pagination mt-0" id="pagin_content">
+                    </ul>
+                </nav>
             </div>
         </div>
-        <nav aria-label="..." style="padding: 20px;display: flex;justify-content: flex-end;">
-            <ul class="pagination mt-0" id="pagin_content">
-                
-            </ul>
-        </nav>
         <input type="hidden" id="page_index" value="1">
     </div>
 </section>

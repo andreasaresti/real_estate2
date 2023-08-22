@@ -18,7 +18,7 @@
                     
                 </div>
                 <div class="bg-all">
-                    <a href="properties-full-grid-1.html" class="btn btn-outline-light">View More</a>
+                    <a href="/page/listings" class="btn btn-outline-light">View More</a>
                 </div>
             </div>
         </section>

@@ -76,7 +76,7 @@ if(isset($_SESSION["user_role"])){
                     <div class="row" id="ListingListContent">
             
                     </div>
-                    <div class="pagination-container" >
+                    <div class="pagination-container" style="display: flex;justify-content: center;">
                         <nav>
                             <ul class="pagination" id="pagin_content">
                             </ul>
@@ -176,14 +176,13 @@ if(isset($_SESSION["user_role"])){
                                 <a href="/page/listing-details?index=`+list[i].id+`" tabindex="0">€ `+ list[i].price+`</a>
                             </h3>
                             <div class="compare">
-                                <a style="cursor: pointer;" onclick="AddFavoritListingGrid(`+list[i].id+`)"><i id="faHeart`+list[i].id+`" class="fa fa-heart" style="font-size: x-large; ` + favorite + ` "></i></a>
+                                <a style="cursor: pointer;" onclick="addFavoritFavorited(`+list[i].id+`)"><i id="faHeart`+list[i].id+`" class="fa fa-heart" style="font-size: x-large; ` + favorite + ` "></i></a>
                             </div>
                         </div>
                     </div>`;
             }
             document.getElementById("ListingListContent").innerHTML = temp
 
-            
             sendData1 = {
                 "total": data.total,
                 "current_page": data.current_page,
