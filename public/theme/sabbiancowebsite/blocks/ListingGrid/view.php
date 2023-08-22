@@ -199,11 +199,11 @@
 </section>
 </div>
 <script type="text/javascript">
-	// window.addEventListener("load", (event) => {
-		loadActiveFeaturesListingGrid();
-        loadActiveDistrictListingGrid();
-        loadActivePropertTypeListingGrid();
-        loadActivePropertStatusListingGrid();
+    loadActiveFeaturesListingGrid();
+    loadActiveDistrictListingGrid();
+    loadActivePropertTypeListingGrid();
+    loadActivePropertStatusListingGrid();
+	window.addEventListener("load", (event) => {
         if(localStorage.getItem("list_search_data")){
             tempList = JSON.parse(localStorage.getItem("list_search_data"));
             setTimeout(() => {
@@ -228,16 +228,13 @@
                 for(var j=0; j<tempList.locations.length;j++){
                     document.getElementById('locations'+tempList.locations[j]).checked = true;
                 }
-                // for(var j=0; j<tempList.propertStatus.length;j++){
-                //     document.getElementById('propertStatus'+tempList.propertStatus[j]).checked = true;
-                // }
                 for(var j=0; j<tempList.listing_types.length;j++){
                     document.getElementById('propertTypes'+tempList.listing_types[j]).checked = true;
                 }
-            }, 6000);
+            }, 5000);
         }
         loadActivelistingsListingGrid();
-	// });
+	});
     function changeViewModeListingGrid(data){
         if(data == "grid"){
             document.getElementById("view_mode1").className = "change-view-btn lde";

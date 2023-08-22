@@ -88,17 +88,15 @@ if(isset($_SESSION["user_role"])){
     </div>
 </section>
 <script type="text/javascript">
-    // window.addEventListener("load", (event) => {
+    window.addEventListener("load", (event) => {
         user_id = '<?php echo $user_id; ?>';
         if(user_id == ""){
             window.location.href="/page/home";
         }
 		loadActiveListingsListFavorited();
         
-	// });
+	});
     function loadActiveListingsListFavorited(){
-		
-		
         user_id = '<?php echo $user_id; ?>';
         const sendData = {
             "customer_id": user_id,
@@ -126,11 +124,11 @@ if(isset($_SESSION["user_role"])){
                             <div class="project-inner project-head">
                                 <div class="homes">
                                     <a href="/page/listing-details?index=`+list[i].id+`" class="homes-img">`;
-                if(list[i].featured == true){
+                if(list[i].featured == 1){
                     temp +=`<div class="homes-tag button alt featured">Featured</div>`;
                 }
                 temp +=`<div class="homes-tag button alt sale">`+list[i].property_type+`</div>
-                                        <div class="homes-price" style="background:none;-webkit-text-stroke: 2px #415738;font-size: 30px!important;font-weight: bold;">€‎`+ list[i].price+`</div>
+                                        
                                         <img src="`+list[i].image+`" alt="home-1" class="img-responsive">
                                     </a>
                                 </div>
@@ -174,8 +172,13 @@ if(isset($_SESSION["user_role"])){
                             temp +=` </ul>
                         </div>
                         <div class="col-lg-1 col-md-12 homes-content pb-0 mb-44"  style=" display: flex; justify-content: center; align-items: center; flex-wrap: wrap;">
-                        <a style="cursor: pointer;" onclick="addFavoritFavorited(`+list[i].id+`)"><i id="faHeart`+list[i].id+`" class="fa fa-heart" style="font-size: x-large; ` + favorite + ` "></i></a>
-                    </div>
+                            <h3 class="title mt-3">
+                                <a href="/page/listing-details?index=`+list[i].id+`" tabindex="0">€ `+ list[i].price+`</a>
+                            </h3>
+                            <div class="compare">
+                                <a style="cursor: pointer;" onclick="AddFavoritListingGrid(`+list[i].id+`)"><i id="faHeart`+list[i].id+`" class="fa fa-heart" style="font-size: x-large; ` + favorite + ` "></i></a>
+                            </div>
+                        </div>
                     </div>`;
             }
             document.getElementById("ListingListContent").innerHTML = temp

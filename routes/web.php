@@ -36,7 +36,7 @@ use App\Http\Controllers\ListingAdditionalDetailController;
 use App\Http\Controllers\SalesRequestAppointmentController;
 use App\Http\Controllers\PositionModalController;
 use Fosetico\LaravelPageBuilder\LaravelPageBuilder;
-
+use App\Http\Controllers\webListings;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,10 +47,22 @@ use Fosetico\LaravelPageBuilder\LaravelPageBuilder;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// Route::get('/', function () {
+//     $builder = new LaravelPageBuilder(config('pagebuilder'));
+//     $hasPageReturned = $builder->handlePublicRequest();
 
-Route::get('/', function () {
-    return redirect('/page/home');
-})->name('page');
+//     if (request()->path() === '/' && !$hasPageReturned) {
+//         $builder->getWebsiteManager()->renderWelcomePage();
+//     }
+// });
+
+Route::controller(PositionModalController::class)->group(function(){
+    Route::get('positionModal', 'index');
+});
+
+Route::controller(webListings::class)->group(function(){
+    Route::get('/', 'get_active_listings_report');
+});
 
 Route::any('/page/{any}', function () {
 
@@ -65,10 +77,6 @@ Route::any('/page/{any}', function () {
 
 Route::controller(PositionModalController::class)->group(function(){
     Route::get('positionModal', 'index');
-});
-
-Route::get('/', function () {
-    return redirect('/page/home');
 });
 
 Route::middleware(['auth:sanctum', 'verified'])

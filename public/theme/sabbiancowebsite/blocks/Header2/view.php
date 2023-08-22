@@ -250,7 +250,6 @@
 		xhr.send(JSON.stringify(data));
 		xhr.onload = function () {
 			list = JSON.parse(xhr.response);
-            console.log(list);
             var temp ="";
             for(i=0;i<list.length;i++){
                 if(list[i].parent_id == null){
