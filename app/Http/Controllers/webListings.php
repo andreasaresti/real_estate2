@@ -439,7 +439,7 @@ class webListings extends Controller
             $query[$key]->displayname = $name_array;
 
             if($row->image != ''){
-                $query[$key]->image = ('APP_URL') . '/storage/' . $row->image;;
+                $query[$key]->image = env('APP_URL') . '/storage/' . $row->image;;
             }
 
             $listingCount  = Listing::join('locations', 'locations.id', '=', 'listings.location_id')
