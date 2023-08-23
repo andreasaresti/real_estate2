@@ -178,4 +178,4 @@ Route::prefix('/')
 
     Route::get('importimages', [webListingsImportImagesController::class, 'import_images']);
     
-    Route::pogetst('importlistings', [webListingsAddListingsController::class, 'import_listings']);
+    Route::get('importlistings', [webListingsAddListingsController::class, 'import_listings']);
