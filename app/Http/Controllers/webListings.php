@@ -375,7 +375,7 @@ class webListings extends Controller
         // $this->authorize('view-any', Size::class);
 
         $query = ListingType::whereIn('listing_types.id', function ($subquery) {
-            $subquery->select('listings.id')
+            $subquery->select('listing_type_id')
                 ->from('listings')
                 ->join('listing_listing_type', 'listing_listing_type.listing_id', '=', 'listings.id')
                 ->where('listings.published', '=', 1);
@@ -398,15 +398,15 @@ class webListings extends Controller
     {
         // $this->authorize('view-any', Size::class);
 
-        $query = Feature::whereIn('features.id', function ($subquery) {
-            $subquery->select('listings.id')
+        $query = Feature::orderBy('features.name', 'asc');
+        $query = $query->whereIn('features.id', function ($subquery) {
+            $subquery->select('feature_listing.feature_id')
                 ->from('listings')
                 ->join('feature_listing', 'feature_listing.listing_id', '=', 'listings.id')
-                ->where('listings.published', '=', 1);
+                ->where('listings.published', 1);
         });
 
         $query = $query->select('features.*')
-            ->orderBy('features.name', 'asc')
             ->paginate(1000);
 
         foreach ($query as $key => $row) {
@@ -421,7 +421,7 @@ class webListings extends Controller
     public function get_active_district(Request $request)
     {
         $query = District::whereIn('districts.id', function ($subquery) {
-            $subquery->select('location_id')
+            $subquery->select('district_id')
                 ->from('listings')
                 ->join('locations', 'listings.location_id', '=', 'locations.id')
                 ->join('municipalities', 'listings.location_id', '=', 'locations.id')
@@ -689,11 +689,19 @@ class webListings extends Controller
             }
             $query[$key]->listing_types = $listing_types;
 
+            $query[$key]->property_type = '';
             $property_type = PropertyType::where('id', $row->property_type_id)->first();
-            $query[$key]->property_type = $property_type->name;
+            if($property_type){
+                $query[$key]->property_type = $property_type->name;
+            }
+            
 
+            $query[$key]->location_name = '';
             $location = Location::where('id', $row->location_id)->first();
-            $query[$key]->location_name = $location->name;
+            if($location){
+                $query[$key]->location_name = $location->name;
+            }
+            
 
             if ($row->image != '') {
                 $query[$key]->image = env('APP_URL') . '/storage/' . $row->image;
@@ -885,8 +893,6 @@ class webListings extends Controller
         }
 
         $query = Agent::where('active', '=', 1);
-
-        
        
         if ($request->has('id') && $request->id != '') {
             $query = $query->where('id', $request->id);
