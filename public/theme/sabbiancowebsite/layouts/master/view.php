@@ -1,6 +1,4 @@
-<?php
-    $serverUrl = env('APP_URL');
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,7 +57,6 @@
     <div id="wrapper">
         <?= $body ?>
     </div>
-    <input type="hidden" id="server_url" value="<?php echo $serverUrl; ?>">
 
 
     

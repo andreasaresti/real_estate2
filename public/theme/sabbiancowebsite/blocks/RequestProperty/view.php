@@ -1,5 +1,4 @@
 <?php
- $serverUrl = env('APP_URL');
 if(isset($_GET['index'])){
     $sales_request_id = $_GET['index'];
  }else{
@@ -201,7 +200,7 @@ if(isset($_SESSION["user_role"])){
                                                                     <!-- Area Range -->
                                                                     <div class="range-slider">
                                                                         <label>Area Size</label>
-                                                                        <div id="area-range" data-min="0" data-max="1300" data-unit="sq ft"></div>
+                                                                        <div id="area-range" data-min="0" data-max="1300" data-unit="sq meters"></div>
                                                                         <div class="clearfix"></div>
                                                                     </div>
                                                                     <br>
@@ -1092,8 +1091,8 @@ if(isset($_SESSION["user_role"])){
                 document.getElementById("area-range").setAttribute('data-max', detail.maximum_size);
                 document.getElementsByClassName("first-slider-value")[1].value = "€"+detail.minimum_budget;
                 document.getElementsByClassName("second-slider-value")[1].value = "€"+detail.maximum_budget;
-                document.getElementsByClassName("first-slider-value")[0].value = detail.minimum_size+" sq ft";
-                document.getElementsByClassName("second-slider-value")[0].value = detail.maximum_size+" sq ft";
+                document.getElementsByClassName("first-slider-value")[0].value = detail.minimum_size+" sq meters";
+                document.getElementsByClassName("second-slider-value")[0].value = detail.maximum_size+" sq meters";
                 for(var j=0; j<detail.listingTypes.length;j++){
                     document.getElementById('propertyTypes'+detail.listingTypes[j]).checked = true;
                 }

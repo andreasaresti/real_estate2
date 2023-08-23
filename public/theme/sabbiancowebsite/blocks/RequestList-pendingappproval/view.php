@@ -1,5 +1,4 @@
 <?php
- $serverUrl = env('APP_URL');
 if(isset($_SESSION["sales_person_id"])){
     $user_id = $_SESSION["sales_person_id"];
  }else{
