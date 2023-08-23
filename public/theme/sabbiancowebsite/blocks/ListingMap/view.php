@@ -13,8 +13,8 @@
         <div class="row">
             <aside class="col-lg-6 col-md-6 google-maps-left mt-0">
                 <div style="display: flex;align-items: center;margin-left: 15px;margin-bottom:10px">
-                    <input type="number" class="kilometresListMap" name="kilometresListMap" min="0" max="100" placeholder="15" value="15" />&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="range" class="rangeListMap" name="rangeListMap" min="0" max="100" step="1" value="15" />&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="number" class="kilometresListMap" name="kilometresListMap" min="0" max="100" placeholder="5" value="5" />&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="range" class="rangeListMap" name="rangeListMap" min="0" max="100" step="1" value="5" />&nbsp;&nbsp;&nbsp;&nbsp;
                     <a style="height: 40px;width: 130px;padding: 0px 0px 0px 0px;line-height: 40px;" class="btn btn-yellow" id="SearchMap">Search</a>
                 </div>
                 <div id="map-leaflet"></div>
@@ -184,13 +184,12 @@
                 <div class="row" id="ListingListContent">
                     
                 </div>
+                <nav aria-label="..." style="padding: 20px;display: flex;justify-content: center;">
+                    <ul class="pagination mt-0" id="pagin_content">
+                    </ul>
+                </nav>
             </div>
         </div>
-        <nav aria-label="..." style="padding: 20px;display: flex;justify-content: flex-end;">
-            <ul class="pagination mt-0" id="pagin_content">
-                
-            </ul>
-        </nav>
         <input type="hidden" id="page_index" value="1">
     </div>
 </section>
@@ -498,8 +497,12 @@
             var temp ="";
             for(i= 0; i<list.length; i++)
             {
-                valueArray.push(list[i].listingmarker);
+                if(list[i].listingmarker.center[0]>0){
+                    valueArray.push(list[i].listingmarker);    
+                }
+                
             }
+            
             map_init_circle(valueArray);
             for(i= 0; i<list.length; i++)
             {
@@ -572,7 +575,6 @@
             document.getElementById("ListingListContent").innerHTML = temp
             document.getElementById("page_count").innerHTML = data.total+" Search results"
 
-            
             sendData1 = {
                 "total": data.total,
                 "current_page": data.current_page,
@@ -677,7 +679,7 @@
         }
     }
     function map_init_circle(valueArray){
-       
+
         if ($('#map-leaflet').length) {
 
             let curLocation = [0, 0];
@@ -691,14 +693,14 @@
                 map.remove(); // should remove the map from UI and clean the inner children of DOM element
                 circleFlag = 0;
             }
-
-            map = L.map('map-leaflet').setView(valueArray[0].center, 10);
+            // console.log(valueArray[0].center);
+            map = L.map('map-leaflet').setView(valueArray[0].center, 12);
 
             L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
 
             circle = L.circle(curLocation, 0).addTo(map);
 
-            let set = 10;
+            let set = 5;
             var markerArray=[];
             $('.rangeListMap').on('input', function() {
                 set = $(this).val();
@@ -743,10 +745,11 @@
                     icon: icon
                 });
                 map.addLayer(marker);
-                markerArray.push(marker);
+                //markerArray.push(marker);
+                markerArray[value.id] = marker;
                 marker.bindPopup(
                     '<div class="listing-window-image-wrapper">' +
-                    '<a href="' + value.link + '">' +
+                    '<a href="/' + value.link + '">' +
                     '<div class="listing-window-image" style="background-image: url(' + value.image + ');"></div>' +
                     '<div class="listing-window-content">' +
                     '<div class="info">' +
@@ -808,7 +811,8 @@
                 }
             }
             function calculate_point(){
-                markerArray.forEach((value) => {
+                var listingArray = [];
+                markerArray.forEach((value, index) => {
                     flag = 0;
                     if(circleFlag == 1){
                         distance = Math.pow((curLocation.lat-value._latlng.lat),2);
@@ -822,12 +826,101 @@
                     }
                     if(flag == 1){
                         map.addLayer(value);
+                        listingArray.push(index);
                     }else{
                         map.removeLayer(value);
                     }
                 });
+                if(listingArray.length>0){
+                    loadSearchListingsListingMap(listingArray);
+                }
             }
             
+        }
+    }
+    function loadSearchListingsListingMap(listingArray){
+        const url = "/api/get-listings";
+        data = {
+            "listings":listingArray,
+        }
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader('Content-type', 'application/json');
+        xhr.send(JSON.stringify(data));
+        xhr.onload = function () {
+            list = JSON.parse(xhr.response);
+            var temp ="";
+            for(i= 0; i<list.length; i++)
+            {
+                favorite = "";
+                if(list[i].in_favoriteproperties == 1){
+                    favorite = "color: red;";
+                }
+                temp +=`<div class="item col-lg-6 col-md-6 col-xs-12 landscapes sale">
+                            <div class="project-single">
+                                <div class="project-inner project-head">
+                                    <div class="homes">
+                                        <!-- homes img -->
+                                        <a href="/page/listing-details?index=`+list[i].id+`" class="homes-img">`;
+                if(list[i].featured == true){
+                    temp +=`<div class="homes-tag button alt featured">Featured</div>`;
+                }
+                temp +=`<div class="homes-tag button alt sale">`+list[i].property_type+`</div>
+                                            <img src="`+list[i].image+`" alt="home-1" class="img-responsive">
+                                        </a>
+                                    </div>
+                                    <div class="button-effect">
+                                        
+                                    </div>
+                                </div>
+                                <!-- homes content -->
+                                <div class="homes-content">
+                                    <!-- homes address -->
+                                    <h3><a href="/page/listing-details?index=`+list[i].id+`">`+list[i].displayname+`</a></h3>
+                                    <p class="homes-address mb-3">
+                                        <a href="/page/listing-details?index=`+list[i].id+`">
+                                            <i class="fa fa-map-marker"></i><span>`+list[i].location_name+`</span>
+                                        </a>
+                                    </p>
+                                    <!-- homes List -->
+                                    <ul class="homes-list clearfix pb-3">`;
+                if(list[i].number_of_bedrooms > 0 ){
+                    temp +=`<li class="the-icons">
+                                <i class="flaticon-bed mr-2" aria-hidden="true"></i>
+                                <span>`+list[i].number_of_bedrooms+` Bedrooms</span>
+                            </li>`;
+                }
+                if(list[i].number_of_bathrooms > 0 ){
+                    temp +=`<li class="the-icons">
+                                <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
+                                <span>`+list[i].number_of_bathrooms+` Bathrooms</span>
+                            </li>`;
+                }
+                if(list[i].area_size > 0 ){
+                    temp +=`<li class="the-icons">
+                                <i class="flaticon-square mr-2" aria-hidden="true"></i>
+                                <span>`+list[i].area_size+` sqm</span>
+                            </li>`;
+                }
+                if(list[i].number_of_garages_or_parkingpaces > 0 ){
+                    temp +=`<li class="the-icons">
+                                <i class="flaticon-car mr-2" aria-hidden="true"></i>
+                                <span>`+list[i].number_of_garages_or_parkingpaces+` Garages</span>
+                            </li>`;
+                }
+                temp +=` </ul>
+                        <div class="price-properties pt-3 pb-0">
+                            <h3 class="title mt-3">
+                                <a href="/page/listing-details?index=`+list[i].id+`" tabindex="0">€ `+ list[i].price+`</a>
+                            </h3>
+                            <div class="compare">
+                                <a style="cursor: pointer;" onclick="addFavoritListingMap(`+list[i].id+`)"><i id="faHeart`+list[i].id+`" class="fa fa-heart" style="font-size: x-large; ` + favorite + ` "></i></a>
+                            </div>
+                        </div></div></div></div>`;
+            }
+            document.getElementById("ListingListContent").innerHTML = temp
+            document.getElementById("page_count").innerHTML = list.length+" Search results"
+            document.getElementById("pagin_content").innerHTML = "";
         }
     }
 </script>

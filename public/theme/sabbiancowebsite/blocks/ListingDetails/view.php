@@ -270,44 +270,11 @@ if(isset($_GET['index'])){
                 </li>`;
                 }
             document.getElementById("listingULImg").innerHTML = temp;
-            // document.getElementById("google_map_latitude").innerHTML = data.latitude;
-            // document.getElementById("google_map_longitude").innerHTML = data.longitude;
             
             var valueArray = [];
             valueArray.push(data.listingmarker);
-            console.log(valueArray)
             map_init(valueArray);
 
-            // var google_map_marker = null;
-            // var google_map = null;
-            // var latitude = data.latitude;
-            // var longitude = data.longitude;
-            // var zoom = 12;
-            // var LatLng = new google.maps.LatLng(latitude, longitude);
-
-            // var mapOptions = {
-            //     zoom: zoom,
-            //     center: LatLng,
-            //     panControl: false,
-            //     zoomControl: false,
-            //     scaleControl: true,
-            //     mapTypeId: google.maps.MapTypeId.ROADMAP
-            // }
-
-            // google_map = new google.maps.Map(document.getElementById('google_map'), mapOptions);
-            
-            // google_map_marker = new google.maps.Marker({
-            //     position: LatLng,
-            //     map: google_map,
-            //     title: 'Drag Me!',
-            //     draggable: true
-            // });
-
-            // google.maps.event.addListener(google_map_marker, 'dragend', function(google_map_marker) {
-            //     var latLng = google_map_marker.latLng;
-            //     $latitude.value = latLng.lat();
-            //     $longitude.value = latLng.lng();
-            // });
 		}
 	}
     function addFavoritListingDetails(index)
@@ -338,7 +305,6 @@ if(isset($_GET['index'])){
         }
     }
     function loadSimilarListingsListingDetails(){
-		
 		
         index = '<?php echo $index; ?>';
         const sendData = {
@@ -466,7 +432,6 @@ if(isset($_GET['index'])){
                         "sales_request_id": result.salesRequest.id,
                         "listing_id": index,
                     };
-                    console.log(data1);
                     const url1 = "/api/salesrequest-addlisting";
                     let xhr1 = new XMLHttpRequest();
                     xhr1.open('POST', url1, true);

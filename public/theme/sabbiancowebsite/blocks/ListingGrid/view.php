@@ -189,7 +189,7 @@
         <div class="row" id="ListingListContent">
            
         </div>
-        <nav aria-label="..." class="pt-3">
+        <nav aria-label="..." class="pt-3" style="display: flex;justify-content: center;">
             <ul class="pagination mt-0" id="pagin_content">
             </ul>
         </nav>

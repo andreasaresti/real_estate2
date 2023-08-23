@@ -20,7 +20,8 @@
       xhr.setRequestHeader('Content-type', 'application/json');
       xhr.send(JSON.stringify(data));
       xhr.onload = function () {
-         console.log(xhr.response);
+         // console.log(xhr.response);
+         alert(xhr.response);
       }
    }
 </script>

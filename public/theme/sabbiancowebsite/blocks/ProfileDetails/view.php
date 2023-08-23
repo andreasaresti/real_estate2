@@ -11,7 +11,7 @@ if(isset($_SESSION["user_role"])){
 }
 $serverUrl = env('APP_URL');
 ?>
-<div >
+<div class="th-8">
     <section >
         <div >
             <div class="row">
@@ -73,26 +73,25 @@ $serverUrl = env('APP_URL');
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-12 col-xs-12 pl-0 user-dash2" style="display: flex;justify-content: center;">
-                    <div class="widget-boxed" style="width: 650px">
+                    <div class="widget-boxed" style="width: 650px;margin-bottom: 20px;">
                         <div class="widget-boxed-header">
                             <h4>Profile Details</h4>
                         </div>
                         <div class="sidebar-widget author-widget2">
                             
                             <ul class="author__contact" style="margin-left: 40px; margin-top:50px">
-                                <li style="margin-bottom: 20px;display: flex;justify-content: space-between;">
+                                <li style="margin-bottom: 20px;display: flex;justify-content: space-between;align-items: center;">
                                     Name:<input style="width: 430px" type="text" id="up_name"    />
                                 </li>
-                                <li style="margin-bottom: 20px;display: flex;justify-content: space-between;">
+                                <li style="margin-bottom: 20px;display: flex;justify-content: space-between;align-items: center;">
                                     Surname:<input style="width: 430px" type="text" id="up_surname"   />
                                 </li>
-                                <li style="margin-bottom: 20px;display: flex;justify-content: space-between;">
+                                <li style="margin-bottom: 20px;display: flex;justify-content: space-between;align-items: center;">
                                     Company Name:&nbsp; <input style="width: 430px" type="text" id="up_company_name"   />
                                 </li>
                                 <li style="display: flex;">
                                     Country:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <select class="list" id="up_country" style="display: block;width: 452px;height: 40px;">
-                                        
+                                    <select id="up_country" style="display: block;width: 452px;height: 40px;">
                                     </select>
                                 </li>
                                 <li style="display: flex;">
@@ -103,16 +102,16 @@ $serverUrl = env('APP_URL');
                                 <!-- <li style="margin-bottom: 20px;display: flex;justify-content: space-between;">
                                     Postal Code:&nbsp; <input style="width: 430px" type="text" id="up_postal_code"   />
                                 </li> -->
-                                <li style="margin-bottom: 20px;display: flex;justify-content: space-between;">
+                                <li style="margin-bottom: 20px;display: flex;justify-content: space-between;align-items: center;">
                                     Mobile: <input style="width: 430px" type="text" id="up_mobile"   />
                                 </li>
-                                <li style="margin-bottom: 20px;display: flex;justify-content: space-between;">
+                                <li style="margin-bottom: 20px;display: flex;justify-content: space-between;align-items: center;">
                                     Phone: <input style="width: 430px" type="text" id="up_phone"  />
                                 </li>
-                                <li style="margin-bottom: 20px;display: flex;justify-content: space-between;">
+                                <li style="margin-bottom: 20px;display: flex;justify-content: space-between;align-items: center;">
                                     Email: <input style="width: 430px" type="text" id="up_email"  />
                                 </li>
-                                <li style="margin-bottom: 20px;display: flex;justify-content: space-between;">
+                                <li style="margin-bottom: 20px;display: flex;justify-content: space-between;align-items: center;">
                                     Note: <textarea style="width: 430px"  id="up_notes"  ></textarea>
                                 </li>
                             </ul>
@@ -134,6 +133,7 @@ $serverUrl = env('APP_URL');
         }
 		loadCountriesProfileDetails();
         loadProfileProfileDetails();
+        $('select').niceSelect('destroy');
 	// });
     function loadProfileProfileDetails()
     {
@@ -178,9 +178,9 @@ $serverUrl = env('APP_URL');
                 temp += `<option value="`+data[i].code+`">`+data[i].displayname+`</option>`;
             }
             document.getElementById("up_country").innerHTML = temp;
-            document.getElementById("up_country").style.display = "block";
-            selectDiv = document.getElementsByClassName("nice-select list");
-            selectDiv[0].style.display = "none";
+            // document.getElementById("up_country").style.display = "block";
+            // selectDiv = document.getElementsByClassName("nice-select list");
+            // selectDiv[0].style.display = "none";
         }
     }
     function udpateProfileProfileDetails()
