@@ -28,6 +28,7 @@ class webListingsAddListingsController extends Controller
                 $property_number = (int)str_replace('est-', "", $listing->property_id);
                 DB::table('import_listings')->where('id', $listing->id)->update(['property_number' => $property_number]);
             }
+            /*
             if($listing->property_number != ''){
                 $developer_id = null;
                 $developer = Developer::where('ext_code', $listing->developer)->first();
@@ -108,6 +109,7 @@ class webListingsAddListingsController extends Controller
 
                 
             }
+            */
             
         }
 
