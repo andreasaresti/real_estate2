@@ -97,7 +97,8 @@ class Listing extends Resource
 
 					Image::make('Image')
 						->rules('nullable', 'image', 'max:1024')
-						->placeholder('Image'),
+						->placeholder('Image')
+						->sortable(),
 
 					Trix::make('Description')
 						->translatable(DB::table('languages')->select('encoding','name')->orderBy('sequence')->pluck('name', 'encoding')->toArray())
