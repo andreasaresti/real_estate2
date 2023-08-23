@@ -73,5 +73,6 @@ class webListingsImportImagesController extends Controller
 
             
         }
+        echo 'finished<br>';
     }   
 }
