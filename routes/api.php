@@ -176,6 +176,7 @@ use App\Http\Controllers\webWebsiteController;
     Route::post('getsimilarlistings', [webListings::class, 'get_similar_listings']);
     Route::post('activedelivery_times', [webListings::class, 'get_delivery_times']);
     Route::post('savelisting_position', [webListings::class, 'save_position']);
+    Route::post('get-listings', [webListings::class, 'get_listings']);
     Route::post('retrievefromxml', [webListingsRetrieveController::class, 'retrieve_from_xml']);
     Route::post('importlistings', [webListingsAddListingsController::class, 'import_listings']);
     Route::post('importimages', [webListingsImportImagesController::class, 'import_images']);
