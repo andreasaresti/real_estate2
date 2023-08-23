@@ -111,30 +111,14 @@ if(isset($_SESSION["user_role"])){
                     <div class="tabs-content">
                         <section class="properties-list featured portfolio blog active" style="padding: 20px;">
                             <h2>Request Details</h2>
+                            <div class="alert-box success" id="updateRequestDetails_success">Update Ok !!!</div>
+                            <div class="alert-box failure" id="updateRequestDetails_failure">fail!!!</div>
                             <div class="properties-list featured blog" style="margin-left: 20px;  margin-top:50px;">
                                 <div class="banner-search-wrap" style="margin-left: 30px;margin-right:30px;">
                                     <div class="tab-content">
                                         <div class="tab-pane fade show active" id="tabs_1" style="margin-bottom: 5px;">
                                             <div >
                                                 <div class="row">
-                                                    <!-- <div onmouseover="hiddenAdvancedDivRequestProperty();"  class="col-lg-4 col-md-6 col-sm-12 py-2 pr-30" >
-                                                        <div class="range-slider">
-                                                            <h5><b>Name</b></h5>
-                                                            <input type="text" id= "name">
-                                                        </div>
-                                                    </div>
-                                                    <div onmouseover="hiddenAdvancedDivRequestProperty();"  class="col-lg-4 col-md-6 col-sm-12 py-2 pr-30" >
-                                                        <div class="range-slider">
-                                                            <h5><b>Date</b></h5>
-                                                            <input type="text" id= "date">
-                                                        </div>
-                                                    </div>
-                                                    <div onmouseover="hiddenAdvancedDivRequestProperty();"  class="col-lg-12 col-md-6 col-sm-12 py-2 pr-30" >
-                                                        <div class="range-slider">
-                                                            <h5><b>Description</b></h5>
-                                                            <textarea id= "description" style ="width:-webkit-fill-available"></textarea>
-                                                        </div>
-                                                    </div> -->
                                                     <div onmouseover="hiddenAdvancedDivRequestProperty();"  class="col-lg-3 col-md-6 col-sm-12 py-2 pr-30" style="align-self: self-end;" id="searchFormType" >
                                                         <!-- <input type="hidden" id="selActivePropertStatus" name="selActivePropertStatus" value=<?php //echo $sendListingType; ?>> -->
                                                         <nav id="navigation" class="style-1" style="background: white;margin-top:0px;margin-left: 10px!important;margin-right: 10px;border: 1px solid;border-radius: 5px;border-color: #ebebeb;">
@@ -272,9 +256,9 @@ if(isset($_SESSION["user_role"])){
                                 </button>
                             </div>
                             <p>
-                            <div class="text-heading text-left">
+                            <!-- <div class="text-heading text-left">
                                 <p class="font-weight-bold mb-0 mt-3" id="page_count"></p>                        
-                            </div>
+                            </div> -->
                             <div style="margin-left: -20px; margin-bottom:20px;">
                                 <table class="table table-striped" >
                                     <thead>
@@ -440,6 +424,8 @@ if(isset($_SESSION["user_role"])){
         </button>
         </div>
         <div class="modal-body">
+            <div class="alert-box success" id="closeDeal_success">Submit Ok !!!</div>
+            <div class="alert-box failure" id="closeDeal_failure">fail!!!</div>
             <div class="form-group">
                 <label>Status</label>
                 <select class="form-control" name="deal_status" id="deal_status">
@@ -616,7 +602,7 @@ if(isset($_SESSION["user_role"])){
                 temp +=`<tr>
                         <td>` + (i+1) +`</td>
                         <td>`+ list[i].description +`</td>
-                        <td>`+ list[i].created_at +`</td>
+                        <td>`+ (new Date(list[i].created_at)).toISOString().slice(0, 10) +`</td>
                         </tr>`;
             }
             document.getElementById("notes_list_content").innerHTML = temp;
@@ -678,7 +664,7 @@ if(isset($_SESSION["user_role"])){
                 temp +=`<tr>
                         <td>` + (i+1) +`</td>
                         <td style="display: flex;"><img style="width: 100px;" src='`+ list[i].image +`'><span style="margin: 10px;">`+ list[i].listing_name + `</span></td>
-                        <td>`+ list[i].date +`</td>`;
+                        <td>`+ (new Date(list[i].date)).toISOString().slice(0, 10) +`</td>`;
                 if(list[i].signed == 1){
                     temp +=`<td><input class="appointments_list" checked type="checkbox" value="`+list[i].id+`"></td>
                         </tr>`;
@@ -971,7 +957,6 @@ if(isset($_SESSION["user_role"])){
     }
     function closeDealRequestProperty(){
         sales_request_id = '<?php echo $sales_request_id; ?>';
-		//appointment_date
         sendData = {
             "id": sales_request_id,
             "status": document.getElementById('deal_status').value,
@@ -985,10 +970,15 @@ if(isset($_SESSION["user_role"])){
 		xhr.setRequestHeader('Content-type', 'application/json');
 		xhr.send(JSON.stringify(sendData));
 		xhr.onload = function () {
-            if(xhr.status == "201"){
-                window.location.reload();
+            data = JSON.parse(xhr.response);
+            if(data.hasOwnProperty("errors")){
+                Object.keys(data.errors).forEach(function(key) {
+                    $("#closeDeal_failure").html(data.errors[key][0]);
+                })
+                $( "#closeDeal_failure" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
             }else{
-                alert("fail");
+                $( "#closeDeal_success" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
+                window.location.href = "/page/salesequest-open";
             }
 		}
 	}
@@ -1008,7 +998,6 @@ if(isset($_SESSION["user_role"])){
 		xhrClose.onload = function () {
 			data = JSON.parse(xhrClose.response);
 			list = data.data;	
-            console.log(list);
             var temp ="";
             var temp1 ="";
             for(i=0;i<list.length;i++){
@@ -1061,7 +1050,6 @@ if(isset($_SESSION["user_role"])){
     function loadSalesRequestDetailRequestProperty(){
         sales_request_id = '<?php echo $sales_request_id; ?>';
 		
-		
         sendData = {
             "id": sales_request_id,
         }
@@ -1085,9 +1073,9 @@ if(isset($_SESSION["user_role"])){
             document.getElementById("customer_detail").innerHTML = temp;
             setTimeout(() => {
                 document.getElementById("customer_id").value = detail.customer_id;
-                document.getElementById("name").value = detail.name;
-                document.getElementById("date").value = moment(detail.date).utc().format('YYYY-MM-DD');
-                document.getElementById("description").value = detail.description;
+                // document.getElementById("name").value = detail.name;
+                // document.getElementById("date").value = moment(detail.date).utc().format('YYYY-MM-DD');
+                // document.getElementById("description").value = detail.description;
                 document.getElementById("source_id").value = detail.source_id;
                 document.getElementById('propertyStatus'+detail.property_type_id).checked = true;
                 if(detail.minimum_bedrooms>0){
@@ -1130,7 +1118,6 @@ if(isset($_SESSION["user_role"])){
     function updateRequestRequestProperty(){
         hiddenAdvancedDivRequestProperty();
         sales_request_id = '<?php echo $sales_request_id; ?>';
-		console.log("UpdateRequest");
 		
         if(document.getElementById("selBathrooms").value > 0){
             number_of_bathrooms = document.getElementById("selBathrooms").value;
@@ -1209,9 +1196,6 @@ if(isset($_SESSION["user_role"])){
         
         const sendData = {
             "id": sales_request_id,
-            "name": document.getElementById("name").value,
-            "date": document.getElementById("date").value,
-            "description": document.getElementById("description").value,
             "customer_id": document.getElementById("customer_id").value,
             "source_id": document.getElementById("source_id").value,
             "property_type_id": tempPropertStatus,
@@ -1227,18 +1211,20 @@ if(isset($_SESSION["user_role"])){
             "sales_request_municipalities": tempMunicipalitiesArr,
             "sales_request_locations": tempLocationArr,
         };
-        console.log(sendData);
         const url1 = "/api/salesrequest-updatesalesrequest";
 		let xhr = new XMLHttpRequest();
 		xhr.open('POST', url1, true);
 		xhr.setRequestHeader('Content-type', 'application/json');
 		xhr.send(JSON.stringify(sendData));
 		xhr.onload = function () {
-			console.log(xhr.response);
-            if(xhr.status == "201"){
-                alert("Update");
+			data = JSON.parse(xhr.response);
+            if(data.hasOwnProperty("errors")){
+                Object.keys(data.errors).forEach(function(key) {
+                    $("#updateRequestDetails_failure").html(data.errors[key][0]);
+                })
+                $( "#updateRequestDetails_failure" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
             }else{
-                alert("fail");
+                $( "#updateRequestDetails_success" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
             }
 		}
 	}
@@ -1418,7 +1404,6 @@ if(isset($_SESSION["user_role"])){
             </div>`;
             }
             document.getElementById("ListingListContent").innerHTML = temp
-            document.getElementById("page_count").innerHTML = data.total+" Search results"
 
             
             sendData1 = {

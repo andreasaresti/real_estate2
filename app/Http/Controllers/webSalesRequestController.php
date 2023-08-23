@@ -604,8 +604,8 @@ class webSalesRequestController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'id' => 'required|integer|exists:sales_requests,id',
-            'name' => 'required|string',
-            'date' => 'required|date',
+            'name' => 'nullable|string',
+            'date' => 'nullable|date',
             'customer_id' => 'required|integer|exists:customers,id',
             'source_id' => 'required|integer|exists:sources,id',
             'property_type_id' => 'required|integer|exists:property_types,id',
@@ -630,8 +630,8 @@ class webSalesRequestController extends Controller
         }
 
         SalesRequest::where('id', $request->id)->update([
-            'name' => $request->name,
-            'date' => $request->date,
+            // 'name' => $request->name,
+            // 'date' => $request->date,
             'customer_id' => $request->customer_id,
             'source_id' => $request->source_id,
             'property_type_id' => $request->property_type_id,
@@ -641,7 +641,7 @@ class webSalesRequestController extends Controller
             'maximum_size' => $request->maximum_size,
             'minimum_bedrooms' => $request->minimum_bedrooms,
             'minimum_bathrooms' => $request->minimum_bashrooms,
-            'description' => $request->description
+            // 'description' => $request->description
         ]);
 
         SalesRequestDistrict::where('salesRequest_id', $request->id)->delete();

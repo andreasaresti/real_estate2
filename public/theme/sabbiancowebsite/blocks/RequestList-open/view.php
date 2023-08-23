@@ -128,7 +128,7 @@ if(isset($_SESSION["user_role"])){
                 temp +=`<tr>
                         <td>` + (i+1) +`</td>
                         <td>`+ list[i].name + `</td>
-                        <td>`+list[i].date +`</td>
+                        <td>`+ (new Date(list[i].date)).toISOString().slice(0, 10) +`</td>
                         <td>`+list[i].customer_id +`</td>
                         <td>`+list[i].source_id +`</td>`;
                 temp += `<td><a style="color:white;" class="btn btn-secondary" onclick="requestViewRequestListOpen(`+list[i].id+`)"> view </a></td>`;

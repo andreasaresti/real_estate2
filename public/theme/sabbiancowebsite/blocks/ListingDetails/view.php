@@ -118,14 +118,13 @@ if(isset($_GET['index'])){
             </div>
             <aside class="col-lg-4 col-md-12 car">
                 <div class="single widget">
-                    
                     <!-- end author-verified-badge $sales_people['name'] !== "" && -->
                     <div class="sidebar">
                         <div class="widget-boxed mt-33 mt-5">
-                          
                             <div class="widget-boxed-body">
                                 <div class="sidebar-widget author-widget2">
-
+                                    <div class="alert-box success" id="addRequest_success">Submit Ok !!!</div>
+                                    <div class="alert-box failure" id="addRequest_failure">fail!!!</div>
                                     <div class="agent-contact-form-sidebar">
                                         <h4>Request Inquiry</h4>
                                         <form name="contact_form">
@@ -425,8 +424,13 @@ if(isset($_GET['index'])){
             xhr.setRequestHeader('Content-type', 'application/json');
             xhr.send(JSON.stringify(data));
             xhr.onload = function () {
-                console.log(xhr.response);
-                if(xhr.status == "201"){
+                data = JSON.parse(xhr.response);
+                if(data.hasOwnProperty("errors")){
+                    Object.keys(data.errors).forEach(function(key) {
+                        $("#addRequest_failure").html(data.errors[key][0]);
+                    })
+                    $( "#addRequest_failure" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
+                }else{
                     result = JSON.parse(xhr.response);
                     let data1 = {
                         "sales_request_id": result.salesRequest.id,
@@ -438,17 +442,18 @@ if(isset($_GET['index'])){
                     xhr1.setRequestHeader('Content-type', 'application/json');
                     xhr1.send(JSON.stringify(data1));
                     xhr1.onload = function () {
-                        if(xhr1.status == "201"){
-                            alert("Submit OK!");
+                        data1 = JSON.parse(xhr1.response);
+                        if(data1.hasOwnProperty("errors")){
+                            Object.keys(data1.errors).forEach(function(key) {
+                                $("#addRequest_failure").html(data1.errors[key][0]);
+                            })
+                            $( "#addRequest_failure" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
                         }else{
-                            alert("Submit Fail!");
+                            $( "#addRequest_success" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
                         }
                     }
-                }else{
-                    alert("Submit Fail!");
                 }
             }
-            
         }else{
             loginIn();
         }
