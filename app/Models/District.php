@@ -15,7 +15,14 @@ class District extends Model
 	
 	public $translatable = ['name'];
 
-    protected $fillable = ['ext_code', 'country', 'name', 'listingRequest_id'];
+    protected $fillable = [
+        'ext_code', 
+        'country', 
+        'name', 
+        'listingRequest_id', 
+        'longitude', 
+        'latitude'
+    ];
 
     protected $searchableFields = ['*'];
 

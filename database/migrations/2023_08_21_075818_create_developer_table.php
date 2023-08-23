@@ -15,8 +15,24 @@ return new class extends Migration
     {
         Schema::create('developers', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table
+                ->string('ext_code')
+                ->nullable()
+                ->unique();
             $table->string('name');
+            $table->string('email')->nullable();
+            $table->string('mobile')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('image')->nullable();
+            $table->string('address')->nullable();
+            $table->string('postal_code')->nullable();
+            $table->string('city')->nullable();
+            $table->string('country')->nullable();
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
+            $table->longText('notes')->nullable();
             $table->timestamps();
+
         });
     }
 

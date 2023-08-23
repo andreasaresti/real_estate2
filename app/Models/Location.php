@@ -18,8 +18,11 @@ class Location extends Model
     protected $fillable = [
         'municipality_id',
         'name',
+        'ext_code',
         'sequence',
-        'listingRequest_id',
+        'municipality_id',
+        'longitude', 
+        'latitude'
     ];
 
     protected $searchableFields = ['*'];

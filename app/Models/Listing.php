@@ -21,6 +21,7 @@ class Listing extends Model implements HasMedia
 
     protected $fillable = [
         'name',
+        'ext_code',
         'image',
         'parent_id',
         'description',
@@ -33,7 +34,7 @@ class Listing extends Model implements HasMedia
         'area_size_postfix',
         'number_of_bedrooms',
         'number_of_bathrooms',
-        'number_of_garages-or_parkingpaces',
+        'number_of_garages_or_parkingpaces',
         'year_built',
         'featured',
         'published',
@@ -54,6 +55,7 @@ class Listing extends Model implements HasMedia
         'delivery_time_id',
         'internal_status_id',
         'owner_id',
+        'developer_id',
         'listingRequest_id',
         'request_appointment_id',
     ];

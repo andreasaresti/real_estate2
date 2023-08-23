@@ -105,6 +105,9 @@ use App\Http\Controllers\SalesPeopleController;
 use App\Http\Controllers\SalesRequestController;
 use App\Http\Controllers\SalesRequestAppointmentController;
 use App\Http\Controllers\FavoritePropertyController;
+use App\Http\Controllers\Import\webListingsAddListingsController;
+use App\Http\Controllers\Import\webListingsImportImagesController;
+use App\Http\Controllers\Import\webListingsRetrieveController;
 use App\Http\Controllers\webUsersController;
 use App\Http\Controllers\webListings;
 use App\Http\Controllers\webSalesRequestController;
@@ -173,7 +176,9 @@ use App\Http\Controllers\webWebsiteController;
     Route::post('getsimilarlistings', [webListings::class, 'get_similar_listings']);
     Route::post('activedelivery_times', [webListings::class, 'get_delivery_times']);
     Route::post('savelisting_position', [webListings::class, 'save_position']);
-    Route::post('load-xml', [webListings::class, 'load_xml']);
+    Route::post('load-xml', [webListingsRetrieveController::class, 'load_xml']);
+    Route::post('importlistings', [webListingsAddListingsController::class, 'import_listings']);
+    Route::post('importimages', [webListingsImportImagesController::class, 'import_images']);
 
 // webSalesRequestController
     Route::post('salesrequest-closedeal', [webSalesRequestController::class, 'close_deal']);

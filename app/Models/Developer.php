@@ -11,10 +11,30 @@ class Developer extends Model
     use HasFactory;
     use Searchable;
 
-    protected $fillable = ['name'];
+    
+
+    protected $fillable = [
+        'ext_code',
+        'name',
+        'mobile',
+        'phone',
+        'postal_code',
+        'image',
+        'email',
+        'address',
+        'city',
+        'country',
+        'latitude',
+        'longitude'
+    ];
 
     protected $searchableFields = ['*'];
 
     protected $table = 'developers';
+
+    public function listings()
+    {
+        return $this->hasMany(Listing::class, 'developer_id');
+    }
   
 }

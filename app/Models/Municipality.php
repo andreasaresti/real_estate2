@@ -16,10 +16,13 @@ class Municipality extends Model
 	public $translatable = ['name'];
 
     protected $fillable = [
+        'ext_code',
         'district_id',
         'name',
         'sequence',
         'listingRequest_id',
+        'longitude', 
+        'latitude'
     ];
 
     protected $searchableFields = ['*'];

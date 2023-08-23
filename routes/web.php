@@ -30,6 +30,7 @@ use App\Http\Controllers\AgentAgreementController;
 use App\Http\Controllers\SalesLostReasonController;
 use App\Http\Controllers\ListingAttachmentController;
 use App\Http\Controllers\CustomerAgreementController;
+use App\Http\Controllers\Import\webListingsImportImagesController;
 use App\Http\Controllers\SalesRequestListingController;
 use App\Http\Controllers\SalesPeopleAgreementController;
 use App\Http\Controllers\ListingAdditionalDetailController;
@@ -37,6 +38,8 @@ use App\Http\Controllers\SalesRequestAppointmentController;
 use App\Http\Controllers\PositionModalController;
 use Fosetico\LaravelPageBuilder\LaravelPageBuilder;
 use App\Http\Controllers\webListings;
+use App\Http\Controllers\webListingsRetrieve;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -168,3 +171,8 @@ Route::prefix('/')
         Route::resource('banners', BannerController::class);
         Route::resource('banner-images', BannerImageController::class);
     });
+
+    
+    
+
+    Route::get('importimages', [webListingsImportImagesController::class, 'import_images']);

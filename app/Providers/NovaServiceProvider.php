@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Nova\Developer;
 use App\Nova\Marketplace;
 use App\Nova\Listing;
 use App\Nova\Layout;
@@ -67,6 +68,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 ])->icon('briefcase')->collapsable()->collapsedByDefault(),
 
                 MenuSection::make('Users', [
+                    MenuItem::resource(Developer::class),
                     MenuItem::resource(Customer::class),
 					MenuItem::resource(CustomerRole::class),
                     MenuItem::resource(User::class),

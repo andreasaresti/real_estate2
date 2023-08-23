@@ -15,7 +15,12 @@ class Feature extends Model
 	
 	public $translatable = ['name'];
 
-    protected $fillable = ['ext_code', 'image', 'name', 'sequence'];
+    protected $fillable = [
+        'ext_code', 
+        'image', 
+        'name', 
+        'sequence'
+    ];
 
     protected $searchableFields = ['*'];
 
