@@ -60,6 +60,10 @@ use App\Http\Controllers\webListingsRetrieve;
 //     }
 // });
 
+Route::get('/', function () {
+    return redirect('/page/home');
+})->name('page');
+
 Route::controller(PositionModalController::class)->group(function(){
     Route::get('positionModal', 'index');
 });

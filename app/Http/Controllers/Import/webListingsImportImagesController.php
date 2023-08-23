@@ -16,10 +16,9 @@ class webListingsImportImagesController extends Controller
                                 ->join('import_property_images', 'import_property_images.property_id', '=', 'import_listings.property_id')
                                 ->select('import_listings.property_number', 'import_property_images.url', 'import_property_images.id', 'import_property_images.is_main')
                                 ->where('import_property_images.imported', 0)
-                                ->limit(100)
+                                ->limit(50)
                                 ->get();
         foreach($images_query as $imageq){
-            print_r($imageq);
             $ext = explode(".", basename($imageq->url));
             $image = 'data:image/'.$ext[1].';base64,'.base64_encode(file_get_contents($imageq->url));
             $image_parts = explode(";base64", $image);
