@@ -16,7 +16,7 @@ class webListingsImportImagesController extends Controller
                                 ->select('*')
                                 ->where('imported', 0)
                                 ->orderBy('is_main', 'desc')
-                                ->limit(5)
+                                ->limit(100)
                                 ->get();
         foreach($images_query as $imageq){
             $ext = explode(".", basename($imageq->url));
