@@ -60,7 +60,17 @@ use App\Http\Controllers\webListingsRetrieve;
 //     }
 // });
 
+Route::get('', function () {
+    return redirect('/page/home');
+})->name('page');
+// echo 'here<br>';
+//     die;
 Route::get('/', function () {
+    
+    return redirect('/page/home');
+})->name('page');
+
+Route::get('', function () {
     return redirect('/page/home');
 })->name('page');
 
@@ -68,9 +78,9 @@ Route::controller(PositionModalController::class)->group(function(){
     Route::get('positionModal', 'index');
 });
 
-Route::controller(webListings::class)->group(function(){
-    Route::get('/', 'get_active_listings_report');
-});
+// Route::controller(webListings::class)->group(function(){
+//     Route::get('/', 'get_active_listings_report');
+// });
 
 Route::any('/page/{any}', function () {
 
