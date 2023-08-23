@@ -123,13 +123,13 @@ if(isset($_SESSION["user_role"])){
                 temp +=`<tr>
                         <td>` + (i+1) +`</td>
                         <td>`+ list[i].name + `</td>
-                        <td>`+list[i].date +`</td>
+                        <td>`+ (new Date(list[i].date)).toISOString().slice(0, 10)  +`</td>
                         <td>`+list[i].customer_id +`</td>
                         <td>`+list[i].source_id +`</td>`;
                         if(list[i].accepted_status == "yes"){
-                temp += `<td> <a class="btn btn-secondary" onclick="acceptSalesRequestRequestListPendingAppproval(`+list[i].id+`,'no')"> remove </a> </td>`;
+                temp += `<td> <a style="color:white;" class="btn btn-secondary" onclick="acceptSalesRequestRequestListPendingAppproval(`+list[i].id+`,'no')"> remove </a> </td>`;
                 }else{
-                    temp += `<td><a class="btn btn-secondary" onclick="acceptSalesRequestRequestListPendingAppproval(`+list[i].id+`,'yes')"> add </a></td>`;
+                    temp += `<td><a style="color:white;" class="btn btn-secondary" onclick="acceptSalesRequestRequestListPendingAppproval(`+list[i].id+`,'yes')"> add </a></td>`;
                 }
                 temp += `</tr>`;
             }
