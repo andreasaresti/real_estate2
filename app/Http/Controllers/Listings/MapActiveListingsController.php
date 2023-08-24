@@ -74,11 +74,17 @@ class MapActiveListingsController extends Controller
             }
             $query->listing_types = $listing_types;
 
+            $query->property_type = '';
             $property_type = PropertyType::where('id', $query->property_type_id)->first();
-            $query->property_type = $property_type->name;
+            if($property_type){
+                $query->property_type = $property_type->name;
+            }
 
+            $query->location_name = '';
             $location = Location::where('id', $query->location_id)->first();
-            $query->location_name = $location->name;
+            if($location){
+                $query->location_name = $location->name;
+            }
 
             if ($query->image != '') {
                 $query->image = env('APP_IMG_URL') . '/storage/' . $query->image;
@@ -102,7 +108,7 @@ class MapActiveListingsController extends Controller
             $listing_markers['center'] = [$query->latitude,$query->longitude];
             $listing_markers['title'] = $query->displayname;
             $listing_markers['icon'] = "<i class='fa fa-home'></i>";
-            $listing_markers['desc'] = $location->name;
+            $listing_markers['desc'] = $query->address;//$location->name;
             $listing_markers['price'] = "€".$query->price;
             $listing_markers['image'] = $query->image;
             $listing_markers['link'] = 'page/listing-details?index='.$query->id;

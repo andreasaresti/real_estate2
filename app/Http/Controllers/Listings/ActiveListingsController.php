@@ -215,7 +215,7 @@ class ActiveListingsController extends Controller
             $listing_markers['center'] = [$query[$key]->latitude,$query[$key]->longitude];
             $listing_markers['title'] = $query[$key]->displayname;
             $listing_markers['icon'] = "<i class='fa fa-home'></i>";
-            $listing_markers['desc'] = $location->name;
+            $listing_markers['desc'] = $row->address;//$location->name;
             $listing_markers['price'] = "€".$row->price;
             $listing_markers['image'] = $query[$key]->image;
             $listing_markers['link'] = 'page/listing-details?index='.$row->id;

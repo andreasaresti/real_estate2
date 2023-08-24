@@ -11,10 +11,11 @@
         
         <div class="row">
             <aside class="col-lg-6 col-md-6 google-maps-left mt-0">
-                <div style="display: flex;align-items: center;margin-left: 15px;margin-bottom:10px">
-                    <input type="number" class="kilometresListMap" name="kilometresListMap" min="0" max="100" placeholder="5" value="5" />&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="range" class="rangeListMap" name="rangeListMap" min="0" max="100" step="1" value="5" />&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a style="height: 40px;width: 130px;padding: 0px 0px 0px 0px;line-height: 40px;" class="btn btn-yellow" id="SearchMap" onclick="loadActiveListingsCenterListingMap();">Search</a>
+                <div style="display: flex;align-items: center;margin: 10px 0px 0px 60px; position: absolute;z-index: 9;">
+                    <input type="number" class="kilometresListMap" name="kilometresListMap" min="0" max="100" placeholder="80" value="80" />&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="range" class="rangeListMap" name="rangeListMap" min="0" max="100" step="1" value="80" />&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a style="height: 40px;width: 130px;padding: 0px 0px 0px 0px;line-height: 40px;" class="btn btn-yellow" id="SearchMap" onclick="loadActiveListingsCenterListingMap();">Search</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a style="height: 40px;width: 130px;padding: 0px 0px 0px 0px;line-height: 40px;" class="btn btn-yellow" id="Show_Hide">Show/Hdie</a>
                 </div>
                 <div id="map-leaflet"></div>
             </aside>
@@ -266,9 +267,14 @@
             document.getElementById("activePropertType").innerHTML = temp;
 		}
 	}
-    function loadPageListingMap(index){
+    function loadPageListingMap(index,mode){
         document.getElementById("page_index").value = index;
-		loadActiveListingsListingMap();
+        if(mode == "listing"){
+            loadActiveListingsListingMap();
+        }else{
+            loadActiveListingsCenterListingMap();
+        }
+		
 	}
 	function loadActiveFeaturesListingMap(){
 		
@@ -586,7 +592,7 @@
                     if(list1[j].active){
                         flag = "active";
                     }
-                    temp1 += `<li class="page-item `+flag+`"><a class="page-link" onclick="loadPageListingMap(`+list1[j].label+`)">`+list1[j].label+`</a></li>`;
+                    temp1 += `<li class="page-item `+flag+`"><a class="page-link" onclick="loadPageListingMap(`+list1[j].label+`,'listing')">`+list1[j].label+`</a></li>`;
                 }
                 document.getElementById("pagin_content").innerHTML = temp1;
             }
@@ -684,13 +690,13 @@
                 map.remove(); // should remove the map from UI and clean the inner children of DOM element
                 circleFlag = 0;
             }
-            map = L.map('map-leaflet').setView(valueArray[0].center, 12);
+            map = L.map('map-leaflet').setView([34.994003757575776,33.15703828125001], 9);
 
             L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
 
             circle = L.circle(curLocation, 0).addTo(map);
 
-            let set = 5;
+            let set = 80;
             var markerArray=[];
             $('.rangeListMap').on('input', function() {
                 set = $(this).val();
@@ -711,18 +717,31 @@
                 }
             });
 
-            // $( "#SearchMap" ).on('click', function() {
-            //     marker.setLatLng(valueArray[0].center, {
-            //         draggable: 'true'
-            //     }).bindPopup(data.latlng).update();
-            //     curLocation = marker.getLatLng();
-            //     if(map.hasLayer(circle))
-            //         map.removeLayer(circle);
-            //     circle = L.circle(curLocation, 1000*set).addTo(map);
-            //     circle.setLatLng(curLocation);
-            //     circleFlag = 1;
-            //     calculate_point();
-            // });
+            $( "#Show_Hide" ).on('click', function() {
+                if(circleFlag == 1){
+                    marker.setLatLng([0,0], {
+                        draggable: 'true'
+                    }).bindPopup(data.latlng).update();
+                    curLocation = marker.getLatLng();
+                    if(map.hasLayer(circle))
+                        map.removeLayer(circle);
+                    circle = L.circle(curLocation, 0).addTo(map);
+                    circle.setLatLng(curLocation);
+                    circleFlag = 0;
+                    calculate_point();
+                }else{
+                    marker.setLatLng([34.994003757575776,33.19793701171876], {
+                        draggable: 'true'
+                    }).bindPopup(data.latlng).update();
+                    curLocation = marker.getLatLng();
+                    if(map.hasLayer(circle))
+                        map.removeLayer(circle);
+                    circle = L.circle(curLocation,1000*set).addTo(map);
+                    circle.setLatLng(curLocation);
+                    circleFlag = 1;
+                    calculate_point();
+                }
+            });
             
             valueArray.forEach((value) => {
                 var icon = L.divIcon({
@@ -759,6 +778,7 @@
 
             marker.on('dragend', function(event) {
                 curLocation = marker.getLatLng();
+                console.log(curLocation);
                 marker.setLatLng(curLocation, {
                     draggable: 'true'
                 });
@@ -791,7 +811,7 @@
             map.on("click", addMarker);
 
             if(modeFlag){
-                marker.setLatLng(valueArray[0].center, {
+                marker.setLatLng([34.994003757575776,33.15673828125001], {
                     draggable: 'true'
                 }).bindPopup(data.latlng).update();
                 curLocation = marker.getLatLng();
@@ -1055,6 +1075,7 @@
 		xhr.send(JSON.stringify(sendData));
 		xhr.onload = function () {
 			data = JSON.parse(xhr.response);
+           
 			list = data.data;
             var valueArray = [];
             var temp ="";
@@ -1081,7 +1102,7 @@
                     if(list1[j].active){
                         flag = "active";
                     }
-                    temp1 += `<li class="page-item `+flag+`"><a class="page-link" onclick="loadPageListingMap(`+list1[j].label+`)">`+list1[j].label+`</a></li>`;
+                    temp1 += `<li class="page-item `+flag+`"><a class="page-link" onclick="loadPageListingMap(`+list1[j].label+`,'map')">`+list1[j].label+`</a></li>`;
                 }
                 document.getElementById("pagin_content").innerHTML = temp1;
             }
