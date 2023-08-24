@@ -21,6 +21,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use ZiffMedia\NovaSelectPlus\SelectPlus;
 use Laravel\Nova\Fields\FormData;
+use Laravel\Nova\Fields\Select;
 use Trinityrank\GoogleMapWithAutocomplete\TRLocation;
 use NormanHuth\IframePopup\IframePopup;
 
@@ -71,6 +72,48 @@ class Listing extends Resource
                  Tab::make('Basic Information',[
 
 					ID::make('id')->sortable(),
+
+					Select::make('Owner Type')
+						->rules('required', 'max:255', 'string')
+						->options([
+							'individual' => 'Individual',
+							'developer' => 'Developer',
+						])
+						->displayUsingLabels()
+						->placeholder('Select Owner Type')
+						->sortable(),
+
+					BelongsTo::make('Customer', 'customer')
+						->nullable()
+						->dependsOn(
+								['owner_type'],
+								function (BelongsTo $field, NovaRequest $request, FormData $formData) {
+									$field->readonly(true)->rules(['nullable'])->hide();
+									if ($formData->owner_type === 'individual') {
+										$field->readonly(false)->rules(['required'])->show();
+									}
+								}
+							)
+						->hide()
+						->searchable()
+						->sortable()
+						->showCreateRelationButton(),
+
+					BelongsTo::make('Developer', 'developer')
+						->nullable()
+						->dependsOn(
+								['owner_type'],
+								function (BelongsTo $field, NovaRequest $request, FormData $formData) {
+									$field->readonly(true)->rules(['nullable'])->hide();
+									if ($formData->owner_type === 'developer') {
+										$field->readonly(false)->rules(['required'])->show();
+									}
+								}
+							)
+						->hide()
+						->searchable()
+						->sortable()
+						->showCreateRelationButton(),
 					
 
 					Text::make('Ext Code')
@@ -195,11 +238,7 @@ class Listing extends Resource
 						->showCreateRelationButton()
 						->hideFromIndex(),
 
-					BelongsTo::make('Customer', 'customer')
-						->nullable()
-						->showCreateRelationButton()
-						->sortable()
-						->searchable(),
+					
 						
 					SelectPlus::make('Features', 'Featured', Feature::class)->hideFromIndex(),
 					SelectPlus::make('ListingType', 'ListingType', ListingType::class)->hideFromIndex(),

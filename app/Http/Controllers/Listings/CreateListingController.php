@@ -40,7 +40,8 @@ class CreateListingController extends Controller
             'location_id' => 'required|integer|exists:locations,id',
             'property_type_id' => 'required|integer|exists:property_types,id',
             'delivery_time_id' => 'required|integer|exists:delivery_times,id',
-            'owner_id' => 'required|integer|exists:customers,id',
+            'owner_id' => 'nullable|required_with:developer_id|integer|exists:customers,id',
+            'developer_id' => 'nullable|required_with:owner_id|integer|exists:developers,id',
             'listing_type_id' => 'required|integer|exists:listing_types,id',
             'images' => 'nullable|array',
             'features' => 'nullable|array',
@@ -60,6 +61,8 @@ class CreateListingController extends Controller
         $file = base64_decode($image_parts[1]);
         $safeName = 'listing_' . time() . "." . $image_type;
         file_put_contents(public_path('storage') . '/' . $safeName, $file);
+
+        $owner_type = 'individual';
         
         $listing = Listing::create([
             'name' => $request->name,
@@ -88,6 +91,7 @@ class CreateListingController extends Controller
             'location_id' => $request->location_id,
             'property_type_id' => $request->property_type_id,
             'delivery_time_id' => $request->delivery_time_id,
+            'owner_type' => $owner_type,
             'owner_id' => $request->owner_id,
         ]);
         

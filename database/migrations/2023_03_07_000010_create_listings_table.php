@@ -43,6 +43,7 @@ return new class extends Migration {
             $table->string('energy_performance')->nullable();
             $table->string('epc_current_rating')->nullable();
             $table->string('epc_potential_rating')->nullable();
+            $table->string('owner_type')->nullable();
             $table->string('taxes')->nullable();
             $table->string('dues')->nullable();
             $table->longText('notes')->nullable();
@@ -53,6 +54,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('delivery_time_id')->nullable();
             $table->unsignedBigInteger('internal_status_id')->nullable();
             $table->unsignedBigInteger('owner_id')->nullable();
+            $table->unsignedBigInteger('developer_id')->nullable();
             $table->timestamps();
         });
     }

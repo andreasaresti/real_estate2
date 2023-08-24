@@ -123,6 +123,11 @@ class Listing extends Model implements HasMedia
         return $this->belongsTo(Customer::class, 'owner_id');
     }
 
+    public function developer()
+    {
+        return $this->belongsTo(Developer::class, 'developer_id');
+    }
+
     public function listingAttachment()
     {
         return $this->hasMany(ListingAttachment::class);
