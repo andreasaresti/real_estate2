@@ -9,7 +9,6 @@ if(isset($_SESSION["user_role"])){
 }else{
     $user_role = "";
 }
-$serverUrl = env('APP_URL');
 ?>
 <section class="user-page section-padding" style="margin-top: 95px;">
     <div class="container-fluid">

@@ -1,5 +1,4 @@
 <?php
- $serverUrl = env('APP_URL');
  if(isset($_SESSION["user_id"])){
     $user_id = $_SESSION["user_id"];
  }else{
@@ -118,7 +117,7 @@
                                                 <!-- Area Range -->
                                                 <div class="range-slider">
                                                     <label>Area Size</label>
-                                                    <div id="area-range" data-min="0" data-max="1300" data-unit="sq ft"></div>
+                                                    <div id="area-range" data-min="0" data-max="1300" data-unit="sq meters"></div>
                                                     <div class="clearfix"></div>
                                                 </div>
                                                 <br>

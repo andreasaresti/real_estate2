@@ -16,14 +16,14 @@ class webListingsImportImagesController extends Controller
                                 ->select('*')
                                 ->where('imported', 0)
                                 ->orderBy('is_main', 'desc')
-                                ->limit(100)
+                                ->limit(500)
                                 ->get();
         foreach($images_query as $imageq){
-            $ext = explode(".", basename($imageq->url));
-            $image = 'data:image/'.$ext[1].';base64,'.base64_encode(file_get_contents($imageq->url));
-            $image_parts = explode(";base64", $image);
             $extension_array = explode('.', $imageq->url);
             $extension = end($extension_array);
+            $image = 'data:image/'.$extension.';base64,'.base64_encode(file_get_contents($imageq->url));
+            $image_parts = explode(";base64", $image);
+            
             $image_type_aux = explode('image/', $extension);
             $image_type = end($image_type_aux);
             $file = base64_decode($image_parts[1]);
