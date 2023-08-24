@@ -11,11 +11,35 @@
         
         <div class="row">
             <aside class="col-lg-6 col-md-6 google-maps-left mt-0">
-                <div style="display: flex;align-items: center;margin: 10px 0px 0px 60px; position: absolute;z-index: 9;">
-                    <input type="number" class="kilometresListMap" name="kilometresListMap" min="0" max="100" placeholder="80" value="80" />&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="range" class="rangeListMap" name="rangeListMap" min="0" max="100" step="1" value="80" />&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a style="height: 40px;width: 130px;padding: 0px 0px 0px 0px;line-height: 40px;" class="btn btn-yellow" id="SearchMap" onclick="loadActiveListingsCenterListingMap();">Search</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a style="height: 40px;width: 130px;padding: 0px 0px 0px 0px;line-height: 40px;" class="btn btn-yellow" id="Show_Hide">Show/Hdie</a>
+                <div class="row" style="display: flex;align-items: center;margin: 10px 0px 0px 60px; position: absolute;z-index: 9;">
+                    <div class="col-lg-12 col-md-12" style="margin-top: 20px;">
+                        <!-- <input type="number" class="kilometresListMap" name="kilometresListMap" min="0" max="100" placeholder="80" value="80" />&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="range" class="rangeListMap" name="rangeListMap" min="0" max="100" step="1" value="80" />&nbsp;&nbsp;&nbsp;&nbsp; -->
+                        <a style="height: 40px;width: 130px;padding: 0px 0px 0px 0px;line-height: 40px;" class="btn btn-yellow" id="SearchMap" onclick="loadActiveListingsCenterListingMap();">Search</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a style="height: 40px;width: 130px;padding: 0px 0px 0px 0px;line-height: 40px;" class="btn btn-yellow" id="Show_Hide">Show/Hdie</a>
+                    </div>
+                    <div class="col-lg-12 col-md-12" style="margin-top: 20px;display:none" id="circleSize">
+                        <div class="row" style="width: 98%;">
+                            <div class="col-lg-2 col-md-2">
+                                <a style="height: 40px;width: 80px;padding: 0px 0px 0px 0px;line-height: 40px;" class="btn btn-yellow" id="circleSize1" >+ 1 km</a>
+                            </div>
+                            <div class="col-lg-2 col-md-2">
+                                <a style="height: 40px;width: 80px;padding: 0px 0px 0px 0px;line-height: 40px;" class="btn btn-yellow" id="circleSize5" >+ 5 km</a>
+                            </div>
+                            <div class="col-lg-2 col-md-2">
+                                <a style="height: 40px;width: 80px;padding: 0px 0px 0px 0px;line-height: 40px;" class="btn btn-yellow" id="circleSize10" >+ 10 km</a>
+                            </div>
+                            <div class="col-lg-2 col-md-2">
+                                <a style="height: 40px;width: 80px;padding: 0px 0px 0px 0px;line-height: 40px;" class="btn btn-yellow" id="circleSize30" >+ 30 km</a>
+                            </div>
+                            <div class="col-lg-2 col-md-2">
+                                <a style="height: 40px;width: 80px;padding: 0px 0px 0px 0px;line-height: 40px;" class="btn btn-yellow" id="circleSize50" >+ 50 km</a>
+                            </div>
+                            <div class="col-lg-2 col-md-2">
+                                <a style="height: 40px;width: 80px;padding: 0px 0px 0px 0px;line-height: 40px;" class="btn btn-yellow" id="circleSize100" >+ 100 km</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div id="map-leaflet"></div>
             </aside>
@@ -696,19 +720,11 @@
 
             circle = L.circle(curLocation, 0).addTo(map);
 
-            let set = 80;
+            let set = 100;
             var markerArray=[];
-            $('.rangeListMap').on('input', function() {
-                set = $(this).val();
-                $('.kilometresListMap').val(set);
-            });
-
-            $('.kilometresListMap').on('input', function() {
-                set = $(this).val();
-                $('.rangeListMap').val(set);
-            });    
-
-            $( ".rangeListMap, .kilometresListMap" ).on('input', function() {
+            
+            $( "#circleSize1" ).on('click', function() {
+                set = 1;
                 if(map.hasLayer(circle))
                     map.removeLayer(circle);
                 if(circleFlag == 1){
@@ -716,7 +732,51 @@
                     calculate_point();
                 }
             });
-
+            $( "#circleSize5" ).on('click', function() {
+                set = 5;
+                if(map.hasLayer(circle))
+                    map.removeLayer(circle);
+                if(circleFlag == 1){
+                    circle = L.circle(curLocation, 1000*set).addTo(map);
+                    calculate_point();
+                }
+            });
+            $( "#circleSize10" ).on('click', function() {
+                set = 10;
+                if(map.hasLayer(circle))
+                    map.removeLayer(circle);
+                if(circleFlag == 1){
+                    circle = L.circle(curLocation, 1000*set).addTo(map);
+                    calculate_point();
+                }
+            });
+            $( "#circleSize30" ).on('click', function() {
+                set = 30;
+                if(map.hasLayer(circle))
+                    map.removeLayer(circle);
+                if(circleFlag == 1){
+                    circle = L.circle(curLocation, 1000*set).addTo(map);
+                    calculate_point();
+                }
+            });
+            $( "#circleSize50" ).on('click', function() {
+                set = 50;
+                if(map.hasLayer(circle))
+                    map.removeLayer(circle);
+                if(circleFlag == 1){
+                    circle = L.circle(curLocation, 1000*set).addTo(map);
+                    calculate_point();
+                }
+            });
+            $( "#circleSize100" ).on('click', function() {
+                set = 100;
+                if(map.hasLayer(circle))
+                    map.removeLayer(circle);
+                if(circleFlag == 1){
+                    circle = L.circle(curLocation, 1000*set).addTo(map);
+                    calculate_point();
+                }
+            });
             $( "#Show_Hide" ).on('click', function() {
                 if(circleFlag == 1){
                     marker.setLatLng([0,0], {
@@ -728,6 +788,7 @@
                     circle = L.circle(curLocation, 0).addTo(map);
                     circle.setLatLng(curLocation);
                     circleFlag = 0;
+                    document.getElementById("circleSize").style.display = "none";
                     calculate_point();
                 }else{
                     marker.setLatLng([34.994003757575776,33.19793701171876], {
@@ -739,6 +800,7 @@
                     circle = L.circle(curLocation,1000*set).addTo(map);
                     circle.setLatLng(curLocation);
                     circleFlag = 1;
+                    document.getElementById("circleSize").style.display = "block";
                     calculate_point();
                 }
             });
@@ -778,7 +840,6 @@
 
             marker.on('dragend', function(event) {
                 curLocation = marker.getLatLng();
-                console.log(curLocation);
                 marker.setLatLng(curLocation, {
                     draggable: 'true'
                 });
@@ -804,6 +865,7 @@
                 circle = L.circle(curLocation, 1000*set).addTo(map);
                 circle.setLatLng(curLocation);
                 circleFlag = 1;
+                document.getElementById("circleSize").style.display = "block";
                 calculate_point();
                 
             });
@@ -820,6 +882,7 @@
                 circle = L.circle(curLocation, 1000*set).addTo(map);
                 circle.setLatLng(curLocation);
                 circleFlag = 1;
+                document.getElementById("circleSize").style.display = "block";
                 calculate_point();
             }
 
