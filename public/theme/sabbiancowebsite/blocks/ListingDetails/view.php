@@ -417,6 +417,7 @@ if(isset($_GET['index'])){
                 "minimum_bedrooms" : document.getElementById("ListingBedrooms").innerHTML,
                 "minimum_bashrooms" : document.getElementById("ListingBath").innerHTML,
             };
+            console.log(data);
             const url = "/api/salesrequest-addsalesrequest";
             let xhr = new XMLHttpRequest();
             xhr.open('POST', url, true);
@@ -435,6 +436,7 @@ if(isset($_GET['index'])){
                         "sales_request_id": result.salesRequest.id,
                         "listing_id": index,
                     };
+                    console.log(data1);
                     const url1 = "/api/salesrequest-addlisting";
                     let xhr1 = new XMLHttpRequest();
                     xhr1.open('POST', url1, true);

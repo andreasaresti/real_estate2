@@ -806,7 +806,6 @@ if(isset($_SESSION["user_role"])){
 	}
     function loadActiveDistrictRequestProperty(){
 		
-		
 		const url = "/api/activedistrict";
 		let xhr = new XMLHttpRequest();
         let xhr1 = new XMLHttpRequest();
@@ -818,8 +817,8 @@ if(isset($_SESSION["user_role"])){
 			data = list.data;	
             var temp ="";
             for(i=0;i<data.length;i++){
-                temp += `<li><a><input type="checkbox" id="districts`+data[i].id+`" class="district" name="district[]" value="`+data[i].id+`" onchange="changeLocationsRequestProperty('districts','`+data[i].id+`','`+data[i].displayname+`')">`+data[i].displayname+`</a>
-                <ul id="subDistricts`+data[i].id+`"></ul>`;
+                temp += `<li class="parent locationLi" ><a><input type="checkbox" id="districts`+data[i].id+`" class="district" name="district[]" value="`+data[i].id+`" onchange="changeLocationsRequestProperty('districts','`+data[i].id+`','`+data[i].displayname+`')">`+data[i].displayname+`</a>
+                <div class="wrapper"><ul style="transform:none;position:initial; visibility: visible;opacity: 100; overflow-x: hidden; overflow-y: auto; max-height: 600px;" id="subDistricts`+data[i].id+`"></ul></div></li>`;
             }
             document.getElementById("activelocation").innerHTML = temp;
             loadActiveMunicipalityRequestProperty();
@@ -842,8 +841,8 @@ if(isset($_SESSION["user_role"])){
                 temp ="";
                 for(i=0;i<data.length;i++){
                     if(data[i].district_id == districts[j].value){
-                        temp += `<li class="municipalities"><a><input type="checkbox"  id="municipalities`+data[i].id+`"  class="municipality" name="municipality[]" value="`+data[i].id+`" onchange="changeLocationsRequestProperty('municipalities','`+data[i].id+`','`+data[i].displayname+`')">`+data[i].displayname+`</a>
-                        <ul id="subMunicipalities`+data[i].id+`"></ul>`;
+                        temp += `<li class="parent locationLi"><a><input type="checkbox"  id="municipalities`+data[i].id+`"  class="municipality" name="municipality[]" value="`+data[i].id+`" onchange="changeLocationsRequestProperty('municipalities','`+data[i].id+`','`+data[i].displayname+`')">`+data[i].displayname+`</a>
+                        <div class="wrapper"><ul style="visibility: visible;opacity: 100;" id="subMunicipalities`+data[i].id+`"></ul></div></li>`;
                     }
                 }
                 document.getElementById("subDistricts"+districts[j].value).innerHTML = temp;

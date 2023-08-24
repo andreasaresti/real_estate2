@@ -292,14 +292,14 @@
         };
         
         const url = "/api/login-webuser";
-        console.log(url);
-        console.log(data);
         let xhr = new XMLHttpRequest();
         xhr.open('POST', url, true);
         xhr.setRequestHeader('Content-type', 'application/json');
         xhr.send(JSON.stringify(data));
         xhr.onload = function () {
+            console.log(xhr.response);
             data = JSON.parse(xhr.response);
+            
             if(xhr.status == "201"){
                 $( "div.success" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
                 window.location.href="/page/profile";

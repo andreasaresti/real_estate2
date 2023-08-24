@@ -308,13 +308,14 @@
 <script src="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.1.0/esri-leaflet-geocoder.js" crossorigin="anonymous"></script>
     
 <script type="text/javascript">
+    loadActiveFeaturesAddProperty();
+    loadActiveDistrictAddProperty();
 	window.addEventListener("load", (event) => {
         user_id = '<?php echo $user_id; ?>';
         if(user_id == ""){
             window.location.href="/page/home";
         }
-        loadActiveFeaturesAddProperty();
-        loadActiveDistrictAddProperty();
+        
         loadActivePropertTypeAddProperty();
         loadActivePropertStatusAddProperty();
         loadActiveDeliveryTimesAddProperty();
@@ -401,8 +402,8 @@
 			data = list.data;	
             var temp ="";
             for(i=0;i<data.length;i++){
-                temp += `<li><a><input type="radio" id="districts`+data[i].id+`" class="district" name="district" value="`+data[i].id+`" onchange="changeLocationsAddProperty('districts','`+data[i].id+`','`+data[i].displayname+`')">`+data[i].displayname+`</a>
-                <ul id="subDistricts`+data[i].id+`"></ul>`;
+                temp += `<li class="parent locationLi" ><a><input type="checkbox" id="districts`+data[i].id+`" class="district" name="district[]" value="`+data[i].id+`" onchange="changeLocationsAddProperty('districts','`+data[i].id+`','`+data[i].displayname+`')">`+data[i].displayname+`</a>
+                <div class="wrapper"><ul style="transform:none;position:initial; visibility: visible;opacity: 100; overflow-x: hidden; overflow-y: auto; max-height: 600px;" id="subDistricts`+data[i].id+`"></ul></div></li>`;
             }
             document.getElementById("activelocation").innerHTML = temp;
             loadActiveMunicipalityAddProperty();
@@ -423,8 +424,8 @@
                 temp ="";
                 for(i=0;i<data.length;i++){
                     if(data[i].district_id == districts[j].value){
-                        temp += `<li class="municipalities"><a><input type="radio"  id="municipalities`+data[i].id+`"  class="municipality" name="municipality" value="`+data[i].id+`" onchange="changeLocationsAddProperty('municipalities','`+data[i].id+`','`+data[i].displayname+`')">`+data[i].displayname+`</a>
-                        <ul id="subMunicipalities`+data[i].id+`"></ul>`;
+                        temp += `<li class="parent locationLi"><a><input type="checkbox"  id="municipalities`+data[i].id+`"  class="municipality" name="municipality[]" value="`+data[i].id+`" onchange="changeLocationsAddProperty('municipalities','`+data[i].id+`','`+data[i].displayname+`')">`+data[i].displayname+`</a>
+                        <div class="wrapper"><ul style="visibility: visible;opacity: 100;" id="subMunicipalities`+data[i].id+`"></ul></div></li>`;
                     }
                 }
                 document.getElementById("subDistricts"+districts[j].value).innerHTML = temp;
