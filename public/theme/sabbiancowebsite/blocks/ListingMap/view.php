@@ -14,7 +14,7 @@
                 <div style="display: flex;align-items: center;margin-left: 15px;margin-bottom:10px">
                     <input type="number" class="kilometresListMap" name="kilometresListMap" min="0" max="100" placeholder="5" value="5" />&nbsp;&nbsp;&nbsp;&nbsp;
                     <input type="range" class="rangeListMap" name="rangeListMap" min="0" max="100" step="1" value="5" />&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a style="height: 40px;width: 130px;padding: 0px 0px 0px 0px;line-height: 40px;" class="btn btn-yellow" id="SearchMap">Search</a>
+                    <a style="height: 40px;width: 130px;padding: 0px 0px 0px 0px;line-height: 40px;" class="btn btn-yellow" id="SearchMap" onclick="loadActiveListingsCenterListingMap();">Search</a>
                 </div>
                 <div id="map-leaflet"></div>
             </aside>
@@ -212,7 +212,6 @@
     var map = null;
     var circle;
     function searchShowListingMap(){
-        console.log(document.getElementById("SearchShowButton").innerHTML);
         if(document.getElementById("SearchShowButton").innerHTML == "Search Show"){
             document.getElementById("SearchShowButton").innerHTML = "Search Hide";
             document.getElementById("SearchBar").style.display = "block";
@@ -343,8 +342,6 @@
 		}
 	}
     function loadActiveLocationListingMap(){
-		
-		
 		const url = "/api/activelocation";
 		let xhr = new XMLHttpRequest();
 		xhr.open('POST', url, true);
@@ -368,7 +365,6 @@
 	}
     function loadActiveListingsListingMap(){
         hiddenAdvancedDivListingMap();
-		
         customer_id = '<?php echo $user_id; ?>';
         if(document.getElementById("selBathrooms").value > 0){
             number_of_bathrooms = document.getElementById("selBathrooms").value;
@@ -502,7 +498,7 @@
                 
             }
             
-            map_init_circle(valueArray);
+            map_init_circle(valueArray,false);
             for(i= 0; i<list.length; i++)
             {
                 favorite = "";
@@ -677,7 +673,7 @@
             loginIn();
         }
     }
-    function map_init_circle(valueArray){
+    function map_init_circle(valueArray,modeFlag){
 
         if ($('#map-leaflet').length) {
 
@@ -692,7 +688,6 @@
                 map.remove(); // should remove the map from UI and clean the inner children of DOM element
                 circleFlag = 0;
             }
-            // console.log(valueArray[0].center);
             map = L.map('map-leaflet').setView(valueArray[0].center, 12);
 
             L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
@@ -720,19 +715,19 @@
                 }
             });
 
-            $( "#SearchMap" ).on('click', function() {
-                marker.setLatLng(valueArray[0].center, {
-                    draggable: 'true'
-                }).bindPopup(data.latlng).update();
-                curLocation = marker.getLatLng();
-                if(map.hasLayer(circle))
-                    map.removeLayer(circle);
-                circle = L.circle(curLocation, 1000*set).addTo(map);
-                circle.setLatLng(curLocation);
-                circleFlag = 1;
-                calculate_point();
-            });
-
+            // $( "#SearchMap" ).on('click', function() {
+            //     marker.setLatLng(valueArray[0].center, {
+            //         draggable: 'true'
+            //     }).bindPopup(data.latlng).update();
+            //     curLocation = marker.getLatLng();
+            //     if(map.hasLayer(circle))
+            //         map.removeLayer(circle);
+            //     circle = L.circle(curLocation, 1000*set).addTo(map);
+            //     circle.setLatLng(curLocation);
+            //     circleFlag = 1;
+            //     calculate_point();
+            // });
+            
             valueArray.forEach((value) => {
                 var icon = L.divIcon({
                     html: value.icon,
@@ -799,6 +794,19 @@
 
             map.on("click", addMarker);
 
+            if(modeFlag){
+                marker.setLatLng(valueArray[0].center, {
+                    draggable: 'true'
+                }).bindPopup(data.latlng).update();
+                curLocation = marker.getLatLng();
+                if(map.hasLayer(circle))
+                    map.removeLayer(circle);
+                circle = L.circle(curLocation, 1000*set).addTo(map);
+                circle.setLatLng(curLocation);
+                circleFlag = 1;
+                calculate_point();
+            }
+
             function addMarker(e) {
                 if(circleFlag == 1){
                     marker.setLatLng(e.latlng, {
@@ -830,96 +838,265 @@
                         map.removeLayer(value);
                     }
                 });
-                if(listingArray.length>0){
-                    loadSearchListingsListingMap(listingArray);
-                }
+                loadSearchListingsListingMap(listingArray);
             }
             
         }
     }
     function loadSearchListingsListingMap(listingArray){
-        const url = "/api/get-listings";
-        data = {
-            "listings":listingArray,
-        }
-        let xhr = new XMLHttpRequest();
-        xhr.open('POST', url, true);
-        xhr.setRequestHeader('Content-type', 'application/json');
-        xhr.send(JSON.stringify(data));
-        xhr.onload = function () {
-            list = JSON.parse(xhr.response);
-            var temp ="";
-            for(i= 0; i<list.length; i++)
-            {
-                favorite = "";
-                if(list[i].in_favoriteproperties == 1){
-                    favorite = "color: red;";
-                }
-                temp +=`<div class="item col-lg-6 col-md-6 col-xs-12 landscapes sale">
-                            <div class="project-single">
-                                <div class="project-inner project-head">
-                                    <div class="homes">
-                                        <!-- homes img -->
-                                        <a href="/page/listing-details?index=`+list[i].id+`" class="homes-img">`;
-                if(list[i].featured == true){
-                    temp +=`<div class="homes-tag button alt featured">Featured</div>`;
-                }
-                temp +=`<div class="homes-tag button alt sale">`+list[i].property_type+`</div>
-                                            <img src="`+list[i].image+`" alt="home-1" class="img-responsive">
-                                        </a>
-                                    </div>
-                                    <div class="button-effect">
-                                        
-                                    </div>
-                                </div>
-                                <!-- homes content -->
-                                <div class="homes-content">
-                                    <!-- homes address -->
-                                    <h3><a href="/page/listing-details?index=`+list[i].id+`">`+list[i].displayname+`</a></h3>
-                                    <p class="homes-address mb-3">
-                                        <a href="/page/listing-details?index=`+list[i].id+`">
-                                            <i class="fa fa-map-marker"></i><span>`+list[i].location_name+`</span>
-                                        </a>
-                                    </p>
-                                    <!-- homes List -->
-                                    <ul class="homes-list clearfix pb-3">`;
-                if(list[i].number_of_bedrooms > 0 ){
-                    temp +=`<li class="the-icons">
-                                <i class="flaticon-bed mr-2" aria-hidden="true"></i>
-                                <span>`+list[i].number_of_bedrooms+` Bedrooms</span>
-                            </li>`;
-                }
-                if(list[i].number_of_bathrooms > 0 ){
-                    temp +=`<li class="the-icons">
-                                <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
-                                <span>`+list[i].number_of_bathrooms+` Bathrooms</span>
-                            </li>`;
-                }
-                if(list[i].area_size > 0 ){
-                    temp +=`<li class="the-icons">
-                                <i class="flaticon-square mr-2" aria-hidden="true"></i>
-                                <span>`+list[i].area_size+` sqm</span>
-                            </li>`;
-                }
-                if(list[i].number_of_garages_or_parkingpaces > 0 ){
-                    temp +=`<li class="the-icons">
-                                <i class="flaticon-car mr-2" aria-hidden="true"></i>
-                                <span>`+list[i].number_of_garages_or_parkingpaces+` Garages</span>
-                            </li>`;
-                }
-                temp +=` </ul>
-                        <div class="price-properties pt-3 pb-0">
-                            <h3 class="title mt-3">
-                                <a href="/page/listing-details?index=`+list[i].id+`" tabindex="0">€ `+ list[i].price+`</a>
-                            </h3>
-                            <div class="compare">
-                                <a style="cursor: pointer;" onclick="addFavoritListingMap(`+list[i].id+`)"><i id="faHeart`+list[i].id+`" class="fa fa-heart" style="font-size: x-large; ` + favorite + ` "></i></a>
-                            </div>
-                        </div></div></div></div>`;
+        if(listingArray.length>0){
+            const url = "/api/MapActiveListings";
+            data = {
+                "listings":listingArray,
             }
-            document.getElementById("ListingListContent").innerHTML = temp
-            document.getElementById("page_count").innerHTML = list.length+" Search results"
-            document.getElementById("pagin_content").innerHTML = "";
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', url, true);
+            xhr.setRequestHeader('Content-type', 'application/json');
+            xhr.send(JSON.stringify(data));
+            xhr.onload = function () {
+                list = JSON.parse(xhr.response);
+                var temp ="";
+                for(i= 0; i<list.length; i++)
+                {
+                    favorite = "";
+                    if(list[i].in_favoriteproperties == 1){
+                        favorite = "color: red;";
+                    }
+                    temp +=`<div class="item col-lg-6 col-md-6 col-xs-12 landscapes sale">
+                                <div class="project-single">
+                                    <div class="project-inner project-head">
+                                        <div class="homes">
+                                            <!-- homes img -->
+                                            <a href="/page/listing-details?index=`+list[i].id+`" class="homes-img">`;
+                    if(list[i].featured == true){
+                        temp +=`<div class="homes-tag button alt featured">Featured</div>`;
+                    }
+                    temp +=`<div class="homes-tag button alt sale">`+list[i].property_type+`</div>
+                                                <img src="`+list[i].image+`" alt="home-1" class="img-responsive">
+                                            </a>
+                                        </div>
+                                        <div class="button-effect">
+                                            
+                                        </div>
+                                    </div>
+                                    <!-- homes content -->
+                                    <div class="homes-content">
+                                        <!-- homes address -->
+                                        <h3><a href="/page/listing-details?index=`+list[i].id+`">`+list[i].displayname+`</a></h3>
+                                        <p class="homes-address mb-3">
+                                            <a href="/page/listing-details?index=`+list[i].id+`">
+                                                <i class="fa fa-map-marker"></i><span>`+list[i].location_name+`</span>
+                                            </a>
+                                        </p>
+                                        <!-- homes List -->
+                                        <ul class="homes-list clearfix pb-3">`;
+                    if(list[i].number_of_bedrooms > 0 ){
+                        temp +=`<li class="the-icons">
+                                    <i class="flaticon-bed mr-2" aria-hidden="true"></i>
+                                    <span>`+list[i].number_of_bedrooms+` Bedrooms</span>
+                                </li>`;
+                    }
+                    if(list[i].number_of_bathrooms > 0 ){
+                        temp +=`<li class="the-icons">
+                                    <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
+                                    <span>`+list[i].number_of_bathrooms+` Bathrooms</span>
+                                </li>`;
+                    }
+                    if(list[i].area_size > 0 ){
+                        temp +=`<li class="the-icons">
+                                    <i class="flaticon-square mr-2" aria-hidden="true"></i>
+                                    <span>`+list[i].area_size+` sqm</span>
+                                </li>`;
+                    }
+                    if(list[i].number_of_garages_or_parkingpaces > 0 ){
+                        temp +=`<li class="the-icons">
+                                    <i class="flaticon-car mr-2" aria-hidden="true"></i>
+                                    <span>`+list[i].number_of_garages_or_parkingpaces+` Garages</span>
+                                </li>`;
+                    }
+                    temp +=` </ul>
+                            <div class="price-properties pt-3 pb-0">
+                                <h3 class="title mt-3">
+                                    <a href="/page/listing-details?index=`+list[i].id+`" tabindex="0">€ `+ list[i].price+`</a>
+                                </h3>
+                                <div class="compare">
+                                    <a style="cursor: pointer;" onclick="addFavoritListingMap(`+list[i].id+`)"><i id="faHeart`+list[i].id+`" class="fa fa-heart" style="font-size: x-large; ` + favorite + ` "></i></a>
+                                </div>
+                            </div></div></div></div>`;
+                }
+                document.getElementById("ListingListContent").style.height = "auto";
+                document.getElementById("ListingListContent").innerHTML = temp
+                document.getElementById("page_count").innerHTML = list.length+" Search results"
+                // document.getElementById("pagin_content").innerHTML = "";
+            }
+        }else{
+            document.getElementById("ListingListContent").style.height = "400px";
+            document.getElementById("ListingListContent").innerHTML = ""
+            document.getElementById("page_count").innerHTML = listingArray.length+" Search results"
         }
     }
+    function loadActiveListingsCenterListingMap(){
+        hiddenAdvancedDivListingMap();
+        customer_id = '<?php echo $user_id; ?>';
+        if(document.getElementById("selBathrooms").value > 0){
+            number_of_bathrooms = document.getElementById("selBathrooms").value;
+        }else{
+            number_of_bathrooms = "";
+        }
+        if(document.getElementById("selBedrooms").value > 0){
+            number_of_bedrooms = document.getElementById("selBedrooms").value;
+        }else{
+            number_of_bedrooms = "";
+        }
+        var tempFeatures = [];
+        var features = document.getElementsByClassName('featurecheck');
+        for(var j=0; j<features.length;j++){
+            if(features[j].checked){
+                tempFeatures.push(features[j].value);
+            }
+        }
+        var tempDistrictArr = [];
+        var districts = document.getElementsByClassName('district');
+        for(var j=0; j<districts.length;j++){
+            if(districts[j].checked){
+                tempDistrictArr.push(districts[j].value);
+            }
+        }
+        var tempMunicipalitiesArr = [];
+        var municipalities = document.getElementsByClassName('municipality');
+        for(var j=0; j<municipalities.length;j++){
+            if(municipalities[j].checked){
+                tempMunicipalitiesArr.push(municipalities[j].value);
+            }
+        }
+        var tempLocationArr = [];
+        var locations = document.getElementsByClassName('location');
+        for(var j=0; j<locations.length;j++){
+            if(locations[j].checked){
+                tempLocationArr.push(locations[j].value);
+            }
+        }
+        var tempPropertStatus = [];
+        var propertStatus = document.getElementsByClassName('propertStatus');
+        for(var j=0; j<propertStatus.length;j++){
+            if(propertStatus[j].checked){
+                tempPropertStatus.push(propertStatus[j].value);
+            }
+        }
+        var tempPropertTypes = [];
+        var propertTypes = document.getElementsByClassName('propertTypes');
+        for(var j=0; j<propertTypes.length;j++){
+            if(propertTypes[j].checked){
+                tempPropertTypes.push(propertTypes[j].value);
+            }
+        }
+        var price1 = document.getElementsByClassName("first-slider-value")[1].value;
+        var size1 = document.getElementsByClassName("first-slider-value")[0].value;
+        var price2 = document.getElementsByClassName("second-slider-value")[1].value;
+        var size2 = document.getElementsByClassName("second-slider-value")[0].value;
+        size1 = size1.substring(0,size1.length-6);
+        price1 = price1.substring(1);
+        price1 = price1.replace(",","");
+        size2 = size2.substring(0,size2.length-6);
+        price2 = price2.substring(1);
+        price2 = price2.replace(",","");
+        if(price1 == ''){
+            price1 = 0;
+        }
+        if(price2 == ''){
+            price2 = 600000;
+        }
+        if(size1 == ''){
+            size1 = 0;
+        }
+        if(size2 == ''){
+            size2 = 1300;
+        }
+        if(document.getElementById('search_string').value == ""){
+            search_term = "";
+        }else{
+            search_term = document.getElementById('search_string').value;
+        }
+        orderbyName = "";
+        orderbyType = "";
+        switch(document.getElementById("sortby").value){
+            case "1":
+                orderbyName = "updated_at";
+                orderbyType = "desc";
+                break;
+            case "2":
+                orderbyName = "price";
+                orderbyType ="asc";
+                break;
+            case "3":
+                orderbyName = "price";
+                orderbyType ="desc";
+                break;
+        }
+        const sendData = {
+            "number_of_bathrooms": number_of_bathrooms,
+            "number_of_bedrooms": number_of_bedrooms,
+            "listing_types": tempPropertTypes,
+            "features": tempFeatures,
+            "min_area_size": parseInt(size1),
+            "max_area_size": parseInt(size2),
+            "min_price": parseInt(price1),
+            "max_price": parseInt(price2),
+            "districts": tempDistrictArr,
+            "municipalities": tempMunicipalitiesArr,
+            "locations": tempLocationArr,
+            "search_term": search_term,
+            "customer_id": customer_id,
+            "page": document.getElementById("page_index").value,
+            "per_page":1000,
+            "orderbyName": orderbyName,
+            "orderbyType": orderbyType,
+        };
+		const url = "/api/activelistings";
+		let xhr = new XMLHttpRequest();
+		xhr.open('POST', url, true);
+		xhr.setRequestHeader('Content-type', 'application/json');
+		xhr.send(JSON.stringify(sendData));
+		xhr.onload = function () {
+			data = JSON.parse(xhr.response);
+			list = data.data;
+            var valueArray = [];
+            var temp ="";
+            document.getElementById("ListingListContent").innerHTML = "";
+            document.getElementById("ListingListContent").style.height = "400px";
+            document.getElementById("page_count").innerHTML = data.total+" Search results"
+            sendData1 = {
+                "total": data.total,
+                "current_page": data.current_page,
+                "per_page": data.per_page,
+            }
+            const url1 = "/api/getpagination";
+            let xhr1 = new XMLHttpRequest();
+            xhr1.open('POST', url1, true);
+            xhr1.setRequestHeader('Content-type', 'application/json');
+            xhr1.send(JSON.stringify(sendData1));
+            xhr1.onload = function () {
+                data1 = JSON.parse(xhr1.response);
+                list1 = data1.links;
+                temp1 = "";
+                let tempStr = "";
+                for(j=0;j<list1.length;j++){
+                    flag = "";
+                    if(list1[j].active){
+                        flag = "active";
+                    }
+                    temp1 += `<li class="page-item `+flag+`"><a class="page-link" onclick="loadPageListingMap(`+list1[j].label+`)">`+list1[j].label+`</a></li>`;
+                }
+                document.getElementById("pagin_content").innerHTML = temp1;
+            }
+            for(i= 0; i<list.length; i++)
+            {
+                if(list[i].listingmarker.center[0]>0){
+                    valueArray.push(list[i].listingmarker);    
+                }
+                
+            }
+            map_init_circle(valueArray,true);
+		}
+	}
 </script>

@@ -123,6 +123,8 @@ use App\Http\Controllers\Listings\GetAgenciesController;
 use App\Http\Controllers\Listings\GetCountriesController;
 use App\Http\Controllers\Listings\GetSimilarListingsController;
 use App\Http\Controllers\Listings\SaveListingPositionController;
+use App\Http\Controllers\Listings\MapActiveListingsController;
+use App\Http\Controllers\Listings\GetActiveListingsCenterController;
 use App\Http\Controllers\webUsersController;
 use App\Http\Controllers\webListings;
 use App\Http\Controllers\webSalesRequestController;
@@ -177,22 +179,21 @@ use App\Http\Controllers\webWebsiteController;
 
 // webListings
     Route::post('activelistings', [ActiveListingsController::class, 'get_active_listings']);
-    Route::post('activelisting-types', [ActiveListingTypesController::class, 'get_active_listing_types']);
-    Route::post('activeproperty-types', [ActivePropertyTypesController::class, 'get_active_property_types']);
-    Route::post('activefeatures', [ActiveFeaturesController::class, 'get_active_features']);
-    Route::post('activedistrict', [ActiveDistrictController::class, 'get_active_district']);
-    Route::post('activemunicipality', [ActiveMunicipalityController::class, 'get_active_municipality']);
-    Route::post('activelocation', [ActiveLocationController::class, 'get_active_location']);
-    Route::post('get-countries', [GetCountriesController::class, 'get_countries']);
-    Route::post('get-agencies', [GetAgenciesController::class, 'get_agencies']);
+    Route::post('activelisting-types', [webListings::class, 'get_active_listing_types']);
+    Route::post('activeproperty-types', [webListings::class, 'get_active_property_types']);
+    Route::post('activefeatures', [webListings::class, 'get_active_features']);
+    Route::post('activedistrict', [webListings::class, 'get_active_district']);
+    Route::post('activemunicipality', [webListings::class, 'get_active_municipality']);
+    Route::post('activelocation', [webListings::class, 'get_active_location']);
+    Route::post('get-countries', [webListings::class, 'get_countries']);
+    Route::post('get-agencies', [webListings::class, 'get_agencies']);
     Route::post('getpagination', [GetPaginationController::class, 'get_pagination']);
-    Route::post('add-remove-to-favorites', [AddRemoveFromFavoritesController::class, 'add_remove_to_favorites']);
-    Route::post('createlisting', [CreateListingController::class, 'create_listing']);
-    Route::post('getsimilarlistings', [GetSimilarListingsController::class, 'get_similar_listings']);
-    Route::post('activedelivery_times', [ActiveDeliveryTimesController::class, 'get_delivery_times']);
-    Route::post('savelisting_position', [SaveListingPositionController::class, 'save_position']);
-
- // Import   
+    Route::post('add-remove-to-favorites', [webListings::class, 'add_remove_to_favorites']);
+    Route::post('createlisting', [webListings::class, 'create_listing']);
+    Route::post('getsimilarlistings', [webListings::class, 'get_similar_listings']);
+    Route::post('activedelivery_times', [webListings::class, 'get_delivery_times']);
+    Route::post('savelisting_position', [webListings::class, 'save_position']);
+    Route::post('MapActiveListings', [MapActiveListingsController::class, 'get_MapActiveListings']);
     Route::post('retrievefromxml', [webListingsRetrieveController::class, 'retrieve_from_xml']);
     Route::post('importlistings', [webListingsAddListingsController::class, 'import_listings']);
     Route::post('importimages', [webListingsImportImagesController::class, 'import_images']);
