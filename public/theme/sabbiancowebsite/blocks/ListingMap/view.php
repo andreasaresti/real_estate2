@@ -295,8 +295,6 @@
 		}
 	}
     function loadActiveDistrictListingMap(){
-		
-		
 		const url = "/api/activedistrict";
 		let xhr = new XMLHttpRequest();
         let xhr1 = new XMLHttpRequest();
@@ -316,8 +314,6 @@
 		}
 	}
     function loadActiveMunicipalityListingMap(){
-		
-		
 		const url = "/api/activemunicipality";
 		let xhr = new XMLHttpRequest();
 		xhr.open('POST', url, true);

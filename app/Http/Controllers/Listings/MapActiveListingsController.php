@@ -43,7 +43,7 @@ class MapActiveListingsController extends Controller
 
             $images_array = [];
             foreach ($media as $m) {
-                $images_array[] = env('APP_URL') . '/storage/' . $m->id . '/' . $m->file_name;
+                $images_array[] = env('APP_IMG_URL') . '/storage/' . $m->id . '/' . $m->file_name;
             }
             $query->images = $images_array;
 
@@ -81,7 +81,7 @@ class MapActiveListingsController extends Controller
             $query->location_name = $location->name;
 
             if ($query->image != '') {
-                $query->image = env('APP_URL') . '/storage/' . $query->image;
+                $query->image = env('APP_IMG_URL') . '/storage/' . $query->image;
             }
 
             $query->in_favoriteproperties = 0;

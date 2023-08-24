@@ -192,7 +192,7 @@ class webSalesRequestController extends Controller
             $query[$key]->listing_name = $listing->name;
             $query[$key]->image = '';
             if ($listing->image != '') {
-                $query[$key]->image = env('APP_URL') . '/storage/' . $listing->image;
+                $query[$key]->image = env('APP_IMG_URL') . '/storage/' . $listing->image;
             }
 
         }
@@ -248,7 +248,7 @@ class webSalesRequestController extends Controller
             $query[$key]->listing_name = $listing->name;
             $query[$key]->image = '';
             if ($listing->image != '') {
-                $query[$key]->image = env('APP_URL') . '/storage/' . $listing->image;
+                $query[$key]->image = env('APP_IMG_URL') . '/storage/' . $listing->image;
             }
 
         }
