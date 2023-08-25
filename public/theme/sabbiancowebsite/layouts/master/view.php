@@ -51,7 +51,30 @@
     <script src="/theme/sabbiancowebsite/assets/js/jquery-3.5.1.min.js"></script>
     <script src="/theme/sabbiancowebsite/assets/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.3.5/signature_pad.min.js" integrity="sha512-kw/nRM/BMR2XGArXnOoxKOO5VBHLdITAW00aG8qK4zBzcLVZ4nzg7/oYCaoiwc8U9zrnsO9UHqpyljJ8+iqYiQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+    <style>
+        .locationLi {
+            position: static!important;
+            .wrapper {
+                position: absolute;
+                z-index: 10;
+                display: none;
+            }
+            &:hover > .wrapper {
+                display: block;
+            }
+        }
+        .locationLiLeft {
+            position: static!important;
+            .wrapper {
+                position: absolute;
+                z-index: 10;
+                display: none;
+            }
+            &:hover > .wrapper {
+                display: block;
+            }
+        }
+    </style>
 </head>
 <body style="overflow-x: hidden;">
     <div id="wrapper">
@@ -212,6 +235,40 @@
         });
     </script>
 
+    <script>
+        $(function() {
+            // whenever we hover over a menu item that has a submenu
+            $('.locationLi').on('mouseover', function() {
+                console.log("right");
+                var $menuItem = $(this),
+                $submenuWrapper = $('> .wrapper', $menuItem);
+            
+                // grab the menu item's position relative to its positioned parent
+                var menuItemPos = $menuItem.position();
+                
+                console.log(menuItemPos);
+                // place the submenu in the correct position relevant to the menu item
+                $submenuWrapper.css({
+                    top: menuItemPos.top,
+                    left: menuItemPos.left + Math.round($menuItem.outerWidth())
+                });
+            });
+            $('.locationLiLeft').on('mouseover', function() {
+                console.log("left");
+                var $menuItem = $(this),
+                $submenuWrapper = $('> .wrapper', $menuItem);
+            
+                // grab the menu item's position relative to its positioned parent
+                var menuItemPos = $menuItem.position();
+                
+                // place the submenu in the correct position relevant to the menu item
+                $submenuWrapper.css({
+                    top: menuItemPos.top,
+                    left: menuItemPos.left - Math.round($menuItem.outerWidth())
+                });
+            });
+        });
+    </script>
     <!-- MAIN JS -->
     <script src="/theme/sabbiancowebsite/assets/js/script.js"></script>
 

@@ -59,7 +59,7 @@
                                     <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: #ebebeb;">
                                         <ul>
                                             <li ><a id="location_title">Location</a>
-                                                <ul id="activelocation">
+                                                <ul id="activelocation" >
                                                 
                                                 </ul>
                                             </li>
@@ -318,8 +318,8 @@
 			data = list.data;	
             var temp ="";
             for(i=0;i<data.length;i++){
-                temp += `<li><a><input type="checkbox" id="districts`+data[i].id+`" class="district" name="district[]" value="`+data[i].id+`" onchange="changeLocationsListingGrid('districts','`+data[i].id+`','`+data[i].displayname+`')">`+data[i].displayname+`</a>
-                <ul id="subDistricts`+data[i].id+`"></ul>`;
+                temp += `<li class="parent locationLi" ><a><input type="checkbox" id="districts`+data[i].id+`" class="district" name="district[]" value="`+data[i].id+`" onchange="changeLocationsListingGrid('districts','`+data[i].id+`','`+data[i].displayname+`')">`+data[i].displayname+`</a>
+                <div class="wrapper"><ul style="transform:none;position:initial; visibility: visible;opacity: 100; overflow-x: hidden; overflow-y: auto; max-height: 600px;" id="subDistricts`+data[i].id+`"></ul></div></li>`;
             }
             document.getElementById("activelocation").innerHTML = temp;
             loadActiveMunicipalityListingGrid();
@@ -340,8 +340,8 @@
                 temp ="";
                 for(i=0;i<data.length;i++){
                     if(data[i].district_id == districts[j].value){
-                        temp += `<li class="municipalities"><a><input type="checkbox"  id="municipalities`+data[i].id+`"  class="municipality" name="municipality[]" value="`+data[i].id+`" onchange="changeLocationsListingGrid('municipalities','`+data[i].id+`','`+data[i].displayname+`')">`+data[i].displayname+`</a>
-                        <ul id="subMunicipalities`+data[i].id+`"></ul>`;
+                        temp += `<li class="parent locationLi"><a><input type="checkbox"  id="municipalities`+data[i].id+`"  class="municipality" name="municipality[]" value="`+data[i].id+`" onchange="changeLocationsListingGrid('municipalities','`+data[i].id+`','`+data[i].displayname+`')">`+data[i].displayname+`</a>
+                        <div class="wrapper"><ul style="visibility: visible;opacity: 100;" id="subMunicipalities`+data[i].id+`"></ul></div></li>`;
                     }
                 }
                 document.getElementById("subDistricts"+districts[j].value).innerHTML = temp;
@@ -364,7 +364,7 @@
                 temp ="";
                 for(i=0;i<data.length;i++){
                     if(data[i].municipality_id == municipalities[j].value){
-                        temp += `<li><a><input type="checkbox"  id="locations`+data[i].id+`"  class="location" name="location[]" value="`+data[i].id+`" onchange="changeLocationsListingGrid('locations','`+data[i].id+`','`+data[i].displayname+`')">`+data[i].displayname+`</a>`;
+                        temp += `<li><a><input type="checkbox"  id="locations`+data[i].id+`"  class="location" name="location[]" value="`+data[i].id+`" onchange="changeLocationsListingGrid('locations','`+data[i].id+`','`+data[i].displayname+`')">`+data[i].displayname+`</a></li>`;
                     }
                 }
                 document.getElementById("subMunicipalities"+municipalities[j].value).innerHTML = temp;
@@ -741,7 +741,6 @@
             "orderbyName": orderbyName,
             "orderbyType": orderbyType,
         };
-        console.log(sendData);
 		const url = "/api/activelistings";
 		let xhr = new XMLHttpRequest();
 		xhr.open('POST', url, true);
@@ -754,7 +753,6 @@
         }
 		xhr.onload = function () {
 			data = JSON.parse(xhr.response);
-            console.log(data);
 			list = data.data;
             temp = "";
             for(var i= 0; i<list.length; i++)
@@ -842,7 +840,6 @@
             xhr1.onload = function () {
                 data1 = JSON.parse(xhr1.response);
                 list1 = data1.links;
-                console.log(data1);
                 temp1 = "";
                 let tempStr = "";
                 for(j=0;j<list1.length;j++){
@@ -918,13 +915,11 @@
                 "customer_id": customer_id,
                 "listing_id": index,
             };
-            console.log(sendData);
             let xhr = new XMLHttpRequest();
             xhr.open('POST', url, true);
             xhr.setRequestHeader('Content-type', 'application/json');
             xhr.send(JSON.stringify(sendData));
             xhr.onload = function () {
-                console.log(xhr.response);
                 var paragraph = document.getElementById("faHeart"+index);
                 if(paragraph.style.color !== "red"){
                     paragraph.style.color = "red";
