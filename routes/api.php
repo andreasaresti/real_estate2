@@ -187,6 +187,7 @@ use App\Http\Controllers\webWebsiteController;
     Route::post('activelocation', [ActiveLocationController::class, 'get_active_location']);
     Route::post('get-countries', [GetCountriesController::class, 'get_countries']);
     Route::post('get-agencies', [GetAgenciesController::class, 'get_agencies']);
+    Route::post('get-mapAgencies', [GetAgenciesController::class, 'get_mapAgencies']);
     Route::post('getpagination', [GetPaginationController::class, 'get_pagination']);
     Route::post('add-remove-to-favorites', [AddRemoveFromFavoritesController::class, 'add_remove_to_favorites']);
     Route::post('createlisting', [CreateListingController::class, 'create_listing']);

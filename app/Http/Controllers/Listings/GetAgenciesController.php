@@ -60,4 +60,41 @@ class GetAgenciesController extends Controller
 
         return response()->json($result);
     }
+    public function get_mapAgencies(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'agencies' => 'required|array',
+        ]);
+        if ($validator->fails()) {
+            // Return the validation errors
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+        $result = array();
+        $agencies =  $request->agencies;
+        foreach ($agencies as $Agency_id) {
+            
+            $query = Agent::where('id', '=', $Agency_id)->first();;
+        
+            if($query->image != ''){
+                $query->image = env('APP_IMG_URL') . '/storage/' . $query->image;
+            }
+            else{
+                $query->image = '';
+            }
+            if($query->country != ''){
+                $query_country = Country::where('code', $query->country)->first();
+                $query->country = $query_country->name;
+
+            }
+            else{
+                $query->country = '';
+            }
+
+            array_push($result, $query);
+
+        }
+        return response()->json($result);
+    }
 }

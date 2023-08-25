@@ -184,6 +184,12 @@
     </div>
 </div> -->
 <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/main.min.css">
+<style>
+	.menu-item-5114::marker {
+		content: "► ";
+		/* color: hotpink; */
+	}
+</style>
 <div class="rh_sticky_wrapper_footer rh_apply_sticky_wrapper_footer">
 	<footer class="rh_footer rh_footer__before_fix rh_footer_layout_default">
 		<div class="rh_footer__wrap rh_footer__top_wrap rh_footer--alignCenter rh_footer--paddingBottom">
@@ -245,43 +251,13 @@
 								<font style="vertical-align: inherit;">Latest news</font>
 							</font>
 						</h3>
-						<ul>
-							<li>
-								<a href="https://sabbiancoproperties.com/%cf%80%ce%bf%ce%b9%ce%b1-%ce%b1%ce%ba%ce%af%ce%bd%ce%b7%cf%84%ce%b1-%ce%b2%cf%81%ce%af%cf%83%ce%ba%ce%bf%ce%bd%cf%84%ce%b1%ce%b9-%cf%83%ce%b5-%cf%80%cf%81%cf%8e%cf%84%ce%b7-%ce%b6%ce%ae%cf%84%ce%b7/">
-									<font style="vertical-align: inherit;">
-										<font style="vertical-align: inherit;">Which properties are in first demand in Cyprus?</font>
-									</font>
-								</a>
-							</li>
-							<li>
-								<a href="https://sabbiancoproperties.com/%ce%b1%cf%85%ce%be%ce%ae%ce%b8%ce%b7%ce%ba%ce%b1%ce%bd-%ce%ba%ce%b1%cf%84%ce%ac-212-%ce%bf%ce%b9-%ce%ac%ce%b4%ce%b5%ce%b9%ce%b5%cf%82-%ce%bf%ce%b9%ce%ba%ce%bf%ce%b4%ce%bf%ce%bc%ce%ae%cf%82-%cf%84/">
-									<font style="vertical-align: inherit;">
-										<font style="vertical-align: inherit;">Building permits increased by 21.2% in 2021</font>
-									</font>
-								</a>
-							</li>
-							<li>
-								<a href="https://sabbiancoproperties.com/%ce%b1%ce%bd%ce%ad%ce%b2%ce%b1%cf%83%ce%b1%ce%bd-%cf%83%cf%84%cf%81%ce%bf%cf%86%ce%ad%cf%82-%cf%84%ce%b1-%ce%b1%ce%ba%ce%af%ce%bd%ce%b7%cf%84%ce%b1/">
-									<font style="vertical-align: inherit;">
-										<font style="vertical-align: inherit;">Real estate took off</font>
-									</font>
-								</a>
-							</li>
-							<li>
-								<a href="https://sabbiancoproperties.com/%ce%b1%ce%ba%ce%af%ce%bd%ce%b7%cf%84%ce%b1-%cf%83%cf%84%ce%b7%ce%bd-%ce%ba%cf%8d%cf%80%cf%81%ce%bf-%ce%bf%ce%b9-%ce%bc%ce%b5%ce%b3%ce%b1%ce%bb%cf%8d%cf%84%ce%b5%cf%81%ce%b5%cf%82-%ce%bc%ce%b5%ce%b9/">
-									<font style="vertical-align: inherit;">
-										<font style="vertical-align: inherit;">Real estate: In Cyprus the biggest reductions</font>
-									</font>
-								</a>
-							</li>
-							<li>
-								<a href="https://sabbiancoproperties.com/%ce%b3%ce%b9%ce%b1-%ce%b1%ce%b3%ce%bf%cf%81%ce%ac-%ce%b1%ce%ba%ce%b9%ce%bd%ce%ae%cf%84%cf%89%ce%bd-%cf%84%ce%bf-%ce%ba%ce%bf%ce%bc%cf%80%cf%8c%ce%b4%ce%b5%ce%bc%ce%b1-%cf%80%ce%bf%cf%85-%ce%ad%cf%87/">
-									<font style="vertical-align: inherit;">
-										<font style="vertical-align: inherit;">For the purchase of real estate, the conglomerate built by the coronavirus</font>
-									</font>
-								</a>
-							</li>
-						</ul>
+						<div class="textwidget custom-html-widget">
+							<div class="menu-footer-terms-container">
+								<ul class="menu" id="homeBlog1Content">
+									
+								</ul>
+							</div>
+						</div>
 					</section>
 				</div>
 			</div>
@@ -295,28 +271,8 @@
 						</h3>
 						<div class="textwidget custom-html-widget">
 							<div class="menu-footer-terms-container">
-								<ul id="menu-footer-terms" class="menu">
-									<li id="menu-item-5114" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5114">
-										<a href="https://sabbiancoproperties.com/privacy-policy-2/">
-											<font style="vertical-align: inherit;">
-												<font style="vertical-align: inherit;">Privacy Policy</font>
-											</font>
-										</a>
-									</li>
-									<li id="menu-item-5115" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5115">
-										<a href="https://sabbiancoproperties.com/terms-of-use/">
-											<font style="vertical-align: inherit;">
-												<font style="vertical-align: inherit;">Terms of use</font>
-											</font>
-										</a>
-									</li>
-									<li id="menu-item-5199" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5199">
-										<a href="https://sabbiancoproperties.com/gdpr/">
-											<font style="vertical-align: inherit;">
-												<font style="vertical-align: inherit;">GDPR</font>
-											</font>
-										</a>
-									</li>
+								<ul  class="menu" id="homeBlog2Content">
+									
 								</ul>
 							</div>
 						</div>
@@ -325,6 +281,8 @@
 			</div>
 			<div class="rh_footer__widgets columns-4">
 				<div class="rh_widgets">
+					<div class="alert-box success" id="newsLetterFooter_success">Add Ok !!!</div>
+                    <div class="alert-box failure" id="newsLetterFooter_failure">fail!!!</div>
 					<section id="newsletterwidget-2" class="widget clearfix widget_newsletterwidget">
 						<h3 class="title">
 							<font style="vertical-align: inherit;">
@@ -332,35 +290,31 @@
 							</font>
 						</h3>
 						<div class="tnp tnp-widget">
-							<form method="post" action="https://sabbiancoproperties.com/?na=s">
-								<input type="hidden" name="nr" value="widget">
-								<input type="hidden" name="nlang" value="">
-								<div class="tnp-field tnp-field-email" style="display: grid;">
-									<label for="tnp-1">
-										<font style="vertical-align: inherit;">
-											<font style="vertical-align: inherit;color: rgba(245, 255, 255, 0.8);">E-mail</font>
-										</font>
-									</label>
-									<input class="tnp-email" type="email" name="ne" id="tnp-1" value="" required="" style="background-color: white;">
-								</div>
-								<div class="tnp-field tnp-privacy-field">
-									<label>
-										<input type="checkbox" name="ny" required="" class="tnp-privacy">
-										<a target="_blank" href="https://sabbiancoproperties.com/privacy-policy-2/">
-											<font style="vertical-align: inherit;">
-												<font style="vertical-align: inherit;">I would like to be informed about the services and properties of Sabbianco Properties.</font>
-											</font>
-										</a>
-									</label>
-								</div>
-								<div class="tnp-field tnp-field-button">
+							<div class="tnp-field tnp-field-email" style="display: grid;">
+								<label for="tnp-1">
 									<font style="vertical-align: inherit;">
-										<font style="vertical-align: inherit;">
-											<input class="tnp-submit" type="submit" value="Subscribe">
-										</font>
+										<font style="vertical-align: inherit;color: rgba(245, 255, 255, 0.8);">E-mail</font>
 									</font>
-								</div>
-							</form>
+								</label>
+								<input class="tnp-email" type="email" name="ne" id="newsLetterFooter" value="" required="" style="background-color: white;">
+							</div>
+							<div class="tnp-field tnp-privacy-field">
+								<label>
+									<input type="checkbox" id="agreeServiceFooter" required="" class="tnp-privacy">
+									<a target="_blank" href="https://sabbiancoproperties.com/privacy-policy-2/">
+										<font style="vertical-align: inherit;">
+											<font style="vertical-align: inherit;">I would like to be informed about the services and properties of Sabbianco Properties.</font>
+										</font>
+									</a>
+								</label>
+							</div>
+							<div class="tnp-field tnp-field-button">
+								<font style="vertical-align: inherit;">
+									<font style="vertical-align: inherit;">
+										<input style="background-color: #444;color: #fff;width: 100%;padding: 10px;border: 1px solid #ddd;" type="button" onclick="registerNewsLetterFooter();" value="Subscribe">
+									</font>
+								</font>
+							</div>
 						</div>
 					</section>
 					<section id="text-3" class="widget clearfix widget_text">
@@ -393,26 +347,11 @@
 	</footer>
 </div>
 <script type="text/javascript">
-    var countriesFooter = [];
 	window.addEventListener("load", (event) => {
-        loadHomeCountryFooter();
-        
+        loadHomeAgenciesFooter();
+        loadHomeBlog1Footer();
+		loadHomeBlog2Footer();
 	});
-    function loadHomeCountryFooter(){
-        const url = "/api/get-countries";
-		let xhr = new XMLHttpRequest();
-		xhr.open('POST', url, true);
-		xhr.setRequestHeader('Content-type', 'application/json');
-		xhr.send();
-		xhr.onload = function () {
-			data = JSON.parse(xhr.response);
-            list = data.data;
-            for(i=0;i<list.length;i++){
-                countriesFooter.push({"code":list[i].code,"name":list[i].displayname});
-            }
-            loadHomeAgenciesFooter();
-        }
-    }
     function loadHomeAgenciesFooter(){
         const sendData = {
             // "id": id,
@@ -426,8 +365,8 @@
 			data = JSON.parse(xhr.response);
 			list = data.data;
             var temp = "";
-			if(list.length>6){
-				counter = 6;
+			if(list.length>5){
+				counter = 5;
 			}else{
 				counter = list.length;
 			}
@@ -441,18 +380,107 @@
 								</strong>
 								<br>
 								<font style="vertical-align: inherit;">
-									<font style="vertical-align: inherit;">`+list[i].address +" " + list[i].city +" "+ getCountryFooter(list[i].country) + `</font>
+									<font style="vertical-align: inherit;">`+list[i].address +" " + list[i].city +" "+ list[i].country + `</font>
 								</font>
 							</p>`;
             }
             document.getElementById("homeAgencyContent").innerHTML = temp;
 		}
 	}
-    function getCountryFooter(code){
-        for(i=0;i<countriesFooter.length;i++){
-            if(countriesFooter[i].code == code){
-                return countriesFooter[i].name;
+	function loadHomeBlog1Footer(){
+        const sendData = {
+            "id":"",
+			"blog_id":1,
+			"perpage":20,
+			"page":1
+        };
+		const url = "/api/getblogposts";
+		let xhr = new XMLHttpRequest();
+		xhr.open('POST', url, true);
+		xhr.setRequestHeader('Content-type', 'application/json');
+		xhr.send(JSON.stringify(sendData));
+		xhr.onload = function () {
+			data = JSON.parse(xhr.response);
+			list = data.data;
+            var temp = "";
+			if(list.length>5){
+				counter = 5;
+			}else{
+				counter = list.length;
+			}
+            for(i= 0; i<counter; i++)
+            {
+                temp +=` <li style="margin-left: -23px;margin-top: 10px;" id="menu-item-5114" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5114">
+							<a href="/page/blogpost-detail/`+list[i].id+`">
+								<font style="vertical-align: inherit;">
+									<font style="vertical-align: inherit;">`+ list[i].displayname + `</font>
+								</font>
+							</a>
+						</li>`;
             }
-        }
-    }
+            document.getElementById("homeBlog1Content").innerHTML = temp;
+		}
+	}
+	function loadHomeBlog2Footer(){
+        const sendData = {
+            "id":"",
+			"blog_id":2,
+			"perpage":20,
+			"page":1
+        };
+		const url = "/api/getblogposts";
+		let xhr = new XMLHttpRequest();
+		xhr.open('POST', url, true);
+		xhr.setRequestHeader('Content-type', 'application/json');
+		xhr.send(JSON.stringify(sendData));
+		xhr.onload = function () {
+			data = JSON.parse(xhr.response);
+			list = data.data;
+            var temp = "";
+			if(list.length>5){
+				counter = 5;
+			}else{
+				counter = list.length;
+			}
+            for(i= 0; i<counter; i++)
+            {
+                temp +=` <li style="margin-left: -23px;margin-top: 10px;" id="menu-item-5114" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5114">
+							<a href="/page/blogpost-detail/`+list[i].id+`">
+								<font style="vertical-align: inherit;">
+									<font style="vertical-align: inherit;">`+ list[i].displayname + `</font>
+								</font>
+							</a>
+						</li>`;
+            }
+			
+            document.getElementById("homeBlog2Content").innerHTML = temp;
+		}
+	}
+	function registerNewsLetterFooter(){
+		if(document.getElementById("agreeServiceFooter").checked == true){
+			const sendData = {
+				"email":document.getElementById("newsLetterFooter").value,
+				"active":1
+			}
+			const url = "/api/registernewsletter";
+			let xhr = new XMLHttpRequest();
+			xhr.open('POST', url, true);
+			xhr.setRequestHeader('Content-type', 'application/json');
+			xhr.send(JSON.stringify(sendData));
+			xhr.onload = function () {
+				data = JSON.parse(xhr.response);
+				if(data.hasOwnProperty("errors")){
+					Object.keys(data.errors).forEach(function(key) {
+						$("#newsLetterFooter_failure").html(data.errors[key][0]);
+					})
+					$( "#newsLetterFooter_failure" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
+				}else{
+					$( "#newsLetterFooter_success" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
+				}
+			}
+		}else{
+			$("#newsLetterFooter_failure").html("Please check");
+			$( "#newsLetterFooter_failure" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
+		}
+	}
 </script>

@@ -530,7 +530,6 @@ if(isset($_SESSION["user_role"])){
             xhr.setRequestHeader('Content-type', 'application/json');
             xhr.send(JSON.stringify(data));
             xhr.onload = function () {
-                console.log(xhr.response);
                 result = xhr.response;
                 console.log(result);
                 if(result == "ok"){

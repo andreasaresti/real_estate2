@@ -56,7 +56,7 @@ class webUsersController extends Controller
     }
     public function create_user(Request $request)
     {
-        session_start();
+        // session_start();
         // $this->authorize('create', Customer::class);
         $validator = Validator::make($request->all(), [
             'name' => 'required',
@@ -181,7 +181,7 @@ class webUsersController extends Controller
     }
     public function login_user(Request $request)
     {
-        session_start();
+        // session_start();
 
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
@@ -200,8 +200,6 @@ class webUsersController extends Controller
         if (Hash::check($request->password, $customer->password)) {
             // The hashed value matches the input
             // Perform additional logic or return a success response
-
-
 
             $_SESSION["email"] = $customer->email;
             $_SESSION["name"] = $customer->name;
@@ -232,7 +230,7 @@ class webUsersController extends Controller
     }
     public function logout_user(Request $request)
     {
-        session_start();
+        // session_start();
         unset($_SESSION["email"]);
         unset($_SESSION["name"]);
         unset($_SESSION["user_id"]);

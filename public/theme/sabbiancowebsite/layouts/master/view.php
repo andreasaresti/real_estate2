@@ -239,14 +239,12 @@
         $(function() {
             // whenever we hover over a menu item that has a submenu
             $('.locationLi').on('mouseover', function() {
-                console.log("right");
                 var $menuItem = $(this),
                 $submenuWrapper = $('> .wrapper', $menuItem);
             
                 // grab the menu item's position relative to its positioned parent
                 var menuItemPos = $menuItem.position();
                 
-                console.log(menuItemPos);
                 // place the submenu in the correct position relevant to the menu item
                 $submenuWrapper.css({
                     top: menuItemPos.top,
@@ -254,7 +252,6 @@
                 });
             });
             $('.locationLiLeft').on('mouseover', function() {
-                console.log("left");
                 var $menuItem = $(this),
                 $submenuWrapper = $('> .wrapper', $menuItem);
             

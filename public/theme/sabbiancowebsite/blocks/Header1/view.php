@@ -592,8 +592,6 @@
         };
         
         const url = "/api/login-webuser";
-        console.log(url);
-        console.log(data);
         let xhr = new XMLHttpRequest();
         xhr.open('POST', url, true);
         xhr.setRequestHeader('Content-type', 'application/json');
@@ -666,7 +664,6 @@
         xhr.setRequestHeader('Content-type', 'application/json');
         xhr.send();
         xhr.onload = function () {
-            console.log(xhr.response);
             if(xhr.status == "201"){
                 //alert("LogOut Ok");
                 window.location.href="/page/home";
