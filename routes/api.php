@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Accounts\NewsletterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
@@ -193,6 +194,9 @@ use App\Http\Controllers\webWebsiteController;
     Route::post('activedelivery_times', [ActiveDeliveryTimesController::class, 'get_delivery_times']);
     Route::post('savelisting_position', [SaveListingPositionController::class, 'save_position']);
     Route::post('MapActiveListings', [MapActiveListingsController::class, 'get_MapActiveListings']);
+
+
+    Route::post('registernewsletter', [NewsletterController::class, 'register_unregister_newsletter']);
     
     Route::post('retrievefromxml', [webListingsRetrieveController::class, 'retrieve_from_xml']);
     Route::post('importlistings', [webListingsAddListingsController::class, 'import_listings']);

@@ -25,6 +25,7 @@ use App\Nova\Banner;
 use App\Nova\Blog;
 use App\Nova\Customer;
 use App\Nova\CustomerRole;
+use App\Nova\Newsletter;
 use App\Nova\SalesLostReason;
 use App\Nova\SalesRequestAppointment;
 use App\Nova\SalesRequestNoteType;
@@ -72,6 +73,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                     MenuItem::resource(Customer::class),
 					MenuItem::resource(CustomerRole::class),
                     MenuItem::resource(User::class),
+                    MenuItem::resource(Newsletter::class),
                 ])->icon('cog')->collapsable()->collapsedByDefault(),
 
 				MenuSection::make('Sales Module', [
