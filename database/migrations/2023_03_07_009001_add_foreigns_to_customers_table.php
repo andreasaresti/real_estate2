@@ -18,14 +18,6 @@ return new class extends Migration {
                 ->onUpdate('CASCADE')
                 ->onDelete('RESTRICT');
         });
-        Schema::table('customers', function (Blueprint $table) {
-            $table
-                ->foreign('developer_id')
-                ->references('id')
-                ->on('developers')
-                ->onUpdate('CASCADE')
-                ->onDelete('RESTRICT');
-        });
     }
 
     /**
@@ -35,7 +27,6 @@ return new class extends Migration {
     {
         Schema::table('customers', function (Blueprint $table) {
             $table->dropForeign(['customer_role_id']);
-            $table->dropForeign(['developer_id']);
         });
     }
 };

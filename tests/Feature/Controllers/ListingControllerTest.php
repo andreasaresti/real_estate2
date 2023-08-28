@@ -89,7 +89,7 @@ class ListingControllerTest extends TestCase
 
         unset($data['ext_code']);
         unset($data['agent_id']);
-        unset($data['export_all_marketplaces']);
+        unset($data['include_all_feeds']);
         unset($data['popular']);
 
         $data['name'] = $this->castToJson($data['name']);
@@ -177,7 +177,7 @@ class ListingControllerTest extends TestCase
             'published' => $this->faker->boolean,
             'dues' => $this->faker->text(255),
             'notes' => $this->faker->text,
-            'export_all_marketplaces' => $this->faker->boolean,
+            'include_all_feeds' => $this->faker->boolean,
             'popular' => $this->faker->boolean,
             'parent_id' => $listing->id,
             'location_id' => $location->id,
@@ -195,7 +195,7 @@ class ListingControllerTest extends TestCase
 
         unset($data['ext_code']);
         unset($data['agent_id']);
-        unset($data['export_all_marketplaces']);
+        unset($data['include_all_feeds']);
         unset($data['popular']);
 
         $data['id'] = $listing->id;

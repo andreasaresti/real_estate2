@@ -10,16 +10,13 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('marketplaces', function (Blueprint $table) {
+        Schema::create('included_listing_feeds', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            
-            $table->string('export')->nullable();
-            $table->boolean('reissue_key')->default(0);
-            $table->string('feedkey')->nullable();
-            $table->string('feed_type')->nullable();
-            $table->unsignedBigInteger('feed_id')->nullable();
-
+            $table->unsignedBigInteger('feed_id');
+            $table->unsignedBigInteger('listing_id');
+            $table->boolean('schedule')->default(0);
+            $table->date('start_date')->nullable();
+            $table->integer('number_of_days')->nullable();
             $table->boolean('active')->default(0);
 
             $table->timestamps();
@@ -31,6 +28,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('marketplaces');
+        Schema::dropIfExists('included_listing_feeds');
     }
 };

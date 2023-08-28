@@ -117,12 +117,7 @@ class webListings extends Controller
            
             $posts['Сoordinates'] = $row->latitude . "," . $row->longitude;
 
-            if($row->developer_id > 0){
-                $developers = Developer::where('id', $row->developer_id)->first();
-                $posts['Developer'] = $developers->name;
-            }else{
-                $posts['Developer'] = "";
-            }
+            
             array_push($data,$posts);
         }
         $products['post'] = $data;

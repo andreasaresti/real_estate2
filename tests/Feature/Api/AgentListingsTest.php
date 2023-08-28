@@ -64,7 +64,7 @@ class AgentListingsTest extends TestCase
 
         unset($data['ext_code']);
         unset($data['agent_id']);
-        unset($data['export_all_marketplaces']);
+        unset($data['include_all_feeds']);
         unset($data['popular']);
 
         $this->assertDatabaseHas('listings', $data);

@@ -55,7 +55,6 @@ class Listing extends Model implements HasMedia
         'delivery_time_id',
         'internal_status_id',
         'owner_id',
-        'developer_id',
         'listingRequest_id',
         'request_appointment_id',
     ];
@@ -73,11 +72,9 @@ class Listing extends Model implements HasMedia
         return $this->belongsToMany(Feature::class,'feature_listing','listing_id','feature_id');
     }
 
-    public function Marketplaces(){
-        return $this->belongsToMany(Marketplace::class,'listing_marketplace','listing_id','marketplace_id');
+    public function Feed(){
+        return $this->belongsToMany(Feed::class,'listing_feed','listing_id','feed_id');
     }
-
-    
 
     public function ListingType(){
         return $this->belongsToMany(ListingType::class,'listing_listing_type','listing_id','listing_type_id');
@@ -123,11 +120,6 @@ class Listing extends Model implements HasMedia
         return $this->belongsTo(Customer::class, 'owner_id');
     }
 
-    public function developer()
-    {
-        return $this->belongsTo(Developer::class, 'developer_id');
-    }
-
     public function listingAttachment()
     {
         return $this->hasMany(ListingAttachment::class);
@@ -137,6 +129,11 @@ class Listing extends Model implements HasMedia
     {
         return $this->hasMany(FloorPlan::class);
     }
+
+    public function includedListingFeed()
+    {
+        return $this->hasMany(IncludedListingFeed::class);
+    }    
 
     public function listingAdditionalDetail()
     {

@@ -76,10 +76,12 @@ class Customer extends Resource
                 ])
                 ->displayUsingLabels()
                 ->placeholder('Type')
+                ->sortable()
                 ->default('individual'),
 
             Text::make('Name')
                 ->rules('required', 'max:255', 'string')
+                ->sortable()
                 ->placeholder('Name'),
 
             // Text::make('Surname')
@@ -88,11 +90,13 @@ class Customer extends Resource
 
             Text::make('Company Name')
                 ->rules('nullable', 'max:255', 'string')
+                ->sortable()
                 ->placeholder('Company Name'),
 
             Image::make('Image')
                 ->rules('nullable', 'image', 'max:1024')
                 ->placeholder('Image')
+                ->sortable()
                 ->hideFromIndex(),
 
             Text::make('Email')
@@ -102,6 +106,7 @@ class Customer extends Resource
                     'unique:customers,email,{{resourceId}}',
                     'email'
                 )
+                ->sortable()
                 ->placeholder('Email'),
 
             Password::make('Password')
@@ -113,10 +118,12 @@ class Customer extends Resource
 
             Text::make('Mobile')
                 ->rules('nullable', 'max:255', 'string')
+                ->sortable()
                 ->placeholder('Mobile'),
 
             Text::make('Phone')
                 ->rules('nullable', 'max:255', 'string')
+                ->sortable()
                 ->placeholder('Phone')
                 ->hideFromIndex(),
 
@@ -178,7 +185,8 @@ class Customer extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [new Filters\CustomerType(),
+        new Filters\CustomerEmail()];
     }
 
     /**

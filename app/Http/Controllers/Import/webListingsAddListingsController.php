@@ -18,6 +18,41 @@ class webListingsAddListingsController extends Controller
 {
     public function import_listings(Request $request)
     {
+        $listings_array = DB::table('import_listings')
+                            ->select("id","developer")
+                            ->where('developer', 'REGEXP', '[0-9]+')
+                            ->get();
+        foreach($listings_array as $listing){
+            $string = $listing->developer;
+
+            $pattern = '/[0-9 ]+/';
+            preg_match_all($pattern, $string, $matches);
+
+            $numericSubstrings = $matches[0];
+
+            $developer_phone = '';
+
+            foreach($numericSubstrings as $numeric_string){
+                $numeric_string = str_replace(' ', '', $numeric_string);
+                if(strlen($numeric_string) >= 8 && strlen($numeric_string) > strlen($developer_phone)){
+                    $developer_phone = $numeric_string;
+                }
+            }
+
+            DB::table('import_listings')
+                            ->where("id",$listing->id)
+                            ->update(['developer_phone' => $developer_phone]);
+        }
+
+        // $affectedRows = DB::insert("INSERT IGNORE INTO customers(ext_code, type, name, email) 
+        // SELECT developer_phone, 'individual', developer, NULL FROM import_listings t1 WHERE developer_phone IS NOT NULL AND developer_phone <> '' GROUP BY developer_phone");
+
+
+        // $affectedRows = DB::insert("INSERT IGNORE INTO customers(ext_code, type, name, email) 
+        SELECT developer, 'individual', developer, NULL FROM import_listings t1 WHERE developer_phone IS NULL OR developer_phone = '' GROUP BY developer");
+
+        return true;
+        
         $affectedRows = DB::update("UPDATE import_listings SET municipality = district WHERE municipality = ''");
         $affectedRows = DB::update("UPDATE import_listings t1 SET t1.location = t1.municipality WHERE t1.location = ''");
         $affectedRows = DB::update("UPDATE import_listings t1 SET t1.district = 'Limassol District' WHERE t1.district IN ('Agios Ioannis', 'Agios Sylas', 'Arakapas', 'Asomatos Lemesou', 'Avdimou', 'Ayia Fyla', 'Ayios Spyridonas', 'Ayios Tychonas', 'Ayios Tychonas Tourist Area', 'Kolossi', 'Ekali', 'Episkopi Lemesou', 'Erimi', 'Fasoula Lemesou')");
@@ -36,11 +71,7 @@ class webListingsAddListingsController extends Controller
                             ->where('imported', 0)
                             ->get();
         foreach($listings_array as $listing){
-                $developer_id = null;
-                $developer = Developer::where('ext_code', $listing->developer)->first();
-                if($developer){
-                    $developer_id = $developer->id;
-                }
+                
                 $location_id = null;
                 $location = Location::where('ext_code', $listing->location)->first();
                 if($location){
@@ -78,8 +109,6 @@ class webListingsAddListingsController extends Controller
                         'published' => 1,
                         'number_of_garages_or_parkingpaces' => $garage,
                         'address' => $listing->address,
-                        'developer_id' => $listing->address,
-                        'developer_id' => $developer_id,
                         'location_id' => $location_id,
                         'property_type_id' => $property_type_id,
                         'latitude' => $listing->coordinate1,

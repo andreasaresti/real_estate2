@@ -23,4 +23,9 @@ class Marketplace extends Model
     {
         return $this->belongsToMany(Listing::class);
     }
+
+    public function feed()
+    {
+        return $this->belongsTo(Feed::class, 'feed_id');
+    }
 }

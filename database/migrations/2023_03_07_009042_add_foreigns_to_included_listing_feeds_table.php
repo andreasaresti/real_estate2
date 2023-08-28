@@ -10,11 +10,11 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::table('listing_marketplace', function (Blueprint $table) {
+        Schema::table('included_listing_feeds', function (Blueprint $table) {
             $table
-                ->foreign('marketplace_id')
+                ->foreign('feed_id')
                 ->references('id')
-                ->on('marketplaces')
+                ->on('feeds')
                 ->onUpdate('CASCADE')
                 ->onDelete('CASCADE');
 
@@ -32,8 +32,8 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::table('listing_marketplace', function (Blueprint $table) {
-            $table->dropForeign(['marketplace_id']);
+        Schema::table('included_listing_feeds', function (Blueprint $table) {
+            $table->dropForeign(['feed_id']);
             $table->dropForeign(['listing_id']);
         });
     }

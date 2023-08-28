@@ -2,27 +2,17 @@
 
 namespace App\Http\Controllers\Listings;
 
+use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
-use App\Models\DeliveryTime;
 use Illuminate\Http\Request;
 
 class ActiveDeliveryTimesController extends Controller
 {
     public function get_delivery_times(Request $request)
     {
+        $delivery_times_response = Helper::get_delivery_times();       
+        $delivery_times_response = json_decode($delivery_times_response);
 
-        $query = DeliveryTime::select('delivery_times.*')
-            ->orderBy('delivery_times.sequence', 'asc')
-            ->distinct()
-            ->paginate(1000);
-
-        foreach ($query as $key => $row) {
-            $name_array = $row->name;
-            $query[$key]->displayname = $name_array;
-        }
-
-        $result = $query;
-
-        return response()->json($result);
+        return response()->json($delivery_times_response);
     }
 }

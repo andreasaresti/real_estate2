@@ -73,48 +73,11 @@ class Listing extends Resource
 
 					ID::make('id')->sortable(),
 
-					Select::make('Owner Type')
-						->rules('required', 'max:255', 'string')
-						->options([
-							'individual' => 'Individual',
-							'developer' => 'Developer',
-						])
-						->displayUsingLabels()
-						->placeholder('Select Owner Type')
-						->sortable(),
-
 					BelongsTo::make('Customer', 'customer')
-						->nullable()
-						->dependsOn(
-								['owner_type'],
-								function (BelongsTo $field, NovaRequest $request, FormData $formData) {
-									$field->readonly(true)->rules(['nullable'])->hide();
-									if ($formData->owner_type === 'individual') {
-										$field->readonly(false)->rules(['required'])->show();
-									}
-								}
-							)
-						->hide()
+						->required()
 						->searchable()
 						->sortable()
-						->showCreateRelationButton(),
-
-					BelongsTo::make('Developer', 'developer')
-						->nullable()
-						->dependsOn(
-								['owner_type'],
-								function (BelongsTo $field, NovaRequest $request, FormData $formData) {
-									$field->readonly(true)->rules(['nullable'])->hide();
-									if ($formData->owner_type === 'developer') {
-										$field->readonly(false)->rules(['required'])->show();
-									}
-								}
-							)
-						->hide()
-						->searchable()
-						->sortable()
-						->showCreateRelationButton(),
-					
+						->showCreateRelationButton(),					
 
 					Text::make('Ext Code')
 						->creationRules(
@@ -245,24 +208,23 @@ class Listing extends Resource
 
 					
 					
-					Boolean::make('Export All Marketplaces')
+					Boolean::make('Include all Feeds')
 						->rules('nullable', 'boolean')
-						->placeholder('Export All Marketplaces')
+						->placeholder('Include all Feeds')
 						->default(true)
 						->hideFromIndex(),
 
-					SelectPlus::make('Marketplaces', 'Marketplaces', Marketplace::class)
-						->dependsOn(
-							['export_all_marketplaces'],
-							function (SelectPlus $field, NovaRequest $request, FormData $formData) {
-								if ($formData->export_all_marketplaces === true) {
-									$field->show();
-								}
-								else{
-									$field->hide();
-								}
-							}
-						)
+					SelectPlus::make('Feed', 'Feed', Feed::class)
+						->nullable()
+						// ->dependsOn(
+						// 		['include_all_feeds'],
+						// 		function (SelectPlus $field, NovaRequest $request, FormData $formData) {
+						// 			$field->readonly(true)->rules(['nullable'])->hide();
+						// 			if ($formData->include_all_feeds === false) {
+						// 				$field->readonly(false)->rules(['required'])->show();
+						// 			}
+						// 		}
+						// 	)
 						// ->hide()
 						->hideFromIndex(),
 
@@ -363,6 +325,7 @@ class Listing extends Resource
 				]),
 			]),
 			HasMany::make('Listing Attachment', 'listingAttachment'),
+			HasMany::make('Included Listing Feed', 'IncludedListingFeed'),
 			HasMany::make('Floor Plan', 'floorPlan'),
 
 			HasMany::make(

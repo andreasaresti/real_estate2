@@ -4,6 +4,8 @@
  }else{
     $user_id = "";
  }
+
+
 ?>
 <div class="inner-pages homepage-4 agents hp-6 full hd-white">
 <section class="properties-list featured portfolio blog">
@@ -419,13 +421,6 @@
                 tempLocationArr.push(locations[j].value);
             }
         }
-        // var tempListingTypeArr = [];
-        // var listingTypes = document.getElementsByClassName('listingTypes');
-        // for(var j=0; j<listingTypes.length;j++){
-        //     if(listingTypes[j].checked){
-        //         tempListingTypeArr.push(listingTypes[j].value);
-        //     }
-        // }
         var tempPropertStatus = [];
         var propertStatus = document.getElementsByClassName('propertStatus');
         for(var j=0; j<propertStatus.length;j++){

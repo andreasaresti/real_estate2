@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Nova\Developer;
 use App\Nova\Marketplace;
 use App\Nova\Listing;
 use App\Nova\Layout;
@@ -25,6 +24,8 @@ use App\Nova\Banner;
 use App\Nova\Blog;
 use App\Nova\Customer;
 use App\Nova\CustomerRole;
+use App\Nova\Feed;
+use App\Nova\IncludedListingFeed;
 use App\Nova\Newsletter;
 use App\Nova\SalesLostReason;
 use App\Nova\SalesRequestAppointment;
@@ -69,7 +70,6 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 ])->icon('briefcase')->collapsable()->collapsedByDefault(),
 
                 MenuSection::make('Users', [
-                    MenuItem::resource(Developer::class),
                     MenuItem::resource(Customer::class),
 					MenuItem::resource(CustomerRole::class),
                     MenuItem::resource(User::class),
@@ -96,10 +96,15 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                         MenuItem::resource(Theme::class),
                     ])->collapsable()->collapsedByDefault(),
                 ])->icon('trash')->collapsable()->collapsedByDefault(),
+
+                MenuSection::make('Marketing', [
+                    MenuItem::resource(Marketplace::class),
+                    MenuItem::resource(Feed::class),
+                    MenuItem::resource(IncludedListingFeed::class)
+                ])->icon('cog')->collapsable()->collapsedByDefault(),
    
                 MenuSection::make('Settings', [
                     MenuItem::resource(Source::class),
-                    MenuItem::resource(Marketplace::class),
                     MenuItem::resource(Language::class)
                 ])->icon('cog')->collapsable()->collapsedByDefault(),
             ];

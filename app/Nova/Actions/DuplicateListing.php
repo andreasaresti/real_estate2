@@ -59,7 +59,7 @@ class DuplicateListing extends Action
         $Listing->taxes = $models->first()->taxes;
         $Listing->dues = $models->first()->dues;
         $Listing->notes = $models->first()->notes;
-        $Listing->export_all_marketplaces = $models->first()->export_all_marketplaces;
+        $Listing->function = $models->first()->export_all_marketplaces;
         $Listing->location_id = $models->first()->location_id;
         $Listing->property_type_id = $models->first()->property_type_id;
         $Listing->status_id = $models->first()->status_id;

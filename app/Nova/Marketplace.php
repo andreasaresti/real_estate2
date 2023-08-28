@@ -9,6 +9,7 @@ use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Country;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Marketplace extends Resource
@@ -49,6 +50,31 @@ class Marketplace extends Resource
 				->rules('required', 'max:255')
                 ->placeholder('Name')
                 ->sortable(),
+
+            Select::make('Export')
+				->rules('required', 'max:255')
+                ->placeholder('Export')
+                ->options(['xml' => 'XML', 'csv' => 'CSV', 'json' => 'JSON'])
+                ->sortable(),
+
+            Boolean::make('Reissue Key')
+                ->rules('nullable', 'boolean')
+                ->placeholder('Reissue Key')
+                ->default(false)
+                ->sortable(),
+                
+            Text::make('Feedkey')
+				->rules('nullable', 'max:255')
+                ->placeholder('Feedkey')
+                ->sortable(),
+
+            BelongsTo::make('Feed', 'feed')
+                ->nullable()
+                ->showCreateRelationButton()
+                ->display(function ($feed) {
+                    return $feed->name;
+                })
+                ->hideFromIndex(),
 
             Boolean::make('Active')
                 ->rules('nullable', 'boolean')

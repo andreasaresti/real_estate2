@@ -2,33 +2,31 @@
 
 namespace App\Http\Controllers\Listings;
 
+use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
 use App\Models\PropertyType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ActivePropertyTypesController extends Controller
 {
     public function get_active_property_types(Request $request)
     {
-        // $this->authorize('view-any', Size::class);
-
-        $query = PropertyType::whereIn('property_types.id', function ($subquery) {
-            $subquery->select('listings.property_type_id')
-                ->from('listings')
-                ->where('listings.published', '=', 1);
-        });
-
-        $query = $query->select('property_types.*')
-            ->orderBy('property_types.name', 'asc')
-            ->paginate(1000);
-
-        foreach ($query as $key => $row) {
-            $name_array = $row->name;
-            $query[$key]->displayname = $name_array;
+        $validator = Validator::make($request->all(), [
+            'district' => 'nullable|integer|exists:districts,id',
+        ]);
+        if ($validator->fails()) {
+            // Return the validation errors
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
         }
 
-        $listing_types = $query;
+        $postData = [];
 
-        return response()->json($listing_types);
+        $active_property_types_response = Helper::get_active_property_types($postData);       
+        $active_property_types_response = json_decode($active_property_types_response);
+
+        return response()->json($active_property_types_response);
     }
 }

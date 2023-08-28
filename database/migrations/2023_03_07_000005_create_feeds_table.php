@@ -10,9 +10,11 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('listing_marketplace', function (Blueprint $table) {
-            $table->unsignedBigInteger('marketplace_id');
-            $table->unsignedBigInteger('listing_id');
+        Schema::create('feeds', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->string('type');
+            $table->boolean('active')->default(0);
 
             $table->timestamps();
         });
@@ -23,6 +25,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('listing_marketplace');
+        Schema::dropIfExists('feeds');
     }
 };

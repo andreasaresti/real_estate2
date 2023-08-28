@@ -136,7 +136,22 @@ class ActiveListingsController extends Controller
             ->orderBy($orderby, $orderbytype)
             ->paginate($perPage, ['/*'], 'page', $page);
 
+        $listing_markers = [];
         foreach ($query as $key => $row) {
+
+            $listing_marker = [
+                "id" => "marker-1",
+                "center" => [34.7130838, 33.0879427],//[40.94401669296697, -74.16938781738281],
+                "icon" => "<i class='fa fa-home'></i>",
+                "title" => "Real House Luxury Villa",
+                "desc" => "Est St, 77 - Central Park South, NYC",
+                "price" => "€ 230,000",
+                "image" => "images/feature-properties/fp-1.jpg",
+                "link" => "single-property-1.html"
+            ];
+            $listing_markers[] = $listing_marker;
+
+
             $name_array = $row->name;
             $query[$key]->displayname = $name_array;
             $description_array = $row->description;
@@ -219,8 +234,11 @@ class ActiveListingsController extends Controller
             $listing_markers['price'] = "€".$row->price;
             $listing_markers['image'] = $query[$key]->image;
             $listing_markers['link'] = 'page/listing-details?index='.$row->id;
+
+
             $query[$key]->listingmarker = $listing_markers;
         }
+        $query->listing_markers = $listing_markers;
 
         $products = $query;
 

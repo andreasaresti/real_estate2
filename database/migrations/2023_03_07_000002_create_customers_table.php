@@ -21,8 +21,8 @@ return new class extends Migration {
             $table->string('surname')->nullable();
             $table->string('company_name')->nullable();
             $table->string('image')->nullable();
-            $table->string('email')->unique();
-            $table->string('password');
+            $table->string('email')->unique()->nullable();
+            $table->string('password')->nullable();
             $table->string('mobile')->nullable();
             $table->string('phone')->nullable();
             $table->string('address')->nullable();

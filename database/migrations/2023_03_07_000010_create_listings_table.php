@@ -47,14 +47,13 @@ return new class extends Migration {
             $table->string('taxes')->nullable();
             $table->string('dues')->nullable();
             $table->longText('notes')->nullable();
-            $table->binary('export_all_marketplaces')->default(1);
+            $table->binary('include_all_feeds')->default(1);
             $table->unsignedBigInteger('location_id')->nullable();
             $table->unsignedBigInteger('property_type_id')->nullable();
             $table->unsignedBigInteger('status_id')->nullable();
             $table->unsignedBigInteger('delivery_time_id')->nullable();
             $table->unsignedBigInteger('internal_status_id')->nullable();
             $table->unsignedBigInteger('owner_id')->nullable();
-            $table->unsignedBigInteger('developer_id')->nullable();
             $table->timestamps();
         });
     }

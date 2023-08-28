@@ -2,46 +2,36 @@
 
 namespace App\Http\Controllers\Listings;
 
+use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
 use App\Models\Listing;
 use App\Models\Location;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ActiveLocationController extends Controller
 {
     public function get_active_location(Request $request)
     {
-        $query = Location::whereIn('locations.id', function ($subquery) {
-            $subquery->select('location_id')
-                ->from('listings')
-                ->where('published', '=', 1);
-        });
-        if ($request->has('municipality') && $request->municipality != '') {
-            $query = $query->where('municipality_id', '=', $request->municipality);
-        }
-        if ($request->has('district') && $request->district != '') {
-            $query = $query->join('municipalities', 'municipalities.id', '=', 'locations.municipality_id')
-                ->where('municipalities.district_id', '=', $request->district);
-        }
-        $query = $query->select('locations.*')
-            ->orderBy('locations.name', 'asc')
-            ->distinct()
-            ->paginate(1000);
-
-        foreach ($query as $key => $row) {
-            $name_array = $row->name;
-            $query[$key]->displayname = $name_array;
-
-            $listingCount  = Listing::where('published', '=', 1)->where('location_id', $row->id)->count();
-            $query[$key]->listingCount = $listingCount;
-
-            if($row->image != ''){
-                $query[$key]->image = env('APP_IMG_URL') . '/storage/' . $row->image;
-            }
+        $validator = Validator::make($request->all(), [
+            'district' => 'nullable|integer|exists:districts,id',
+            'municipality' => 'nullable|integer|exists:municipalities,id',
+        ]);
+        if ($validator->fails()) {
+            // Return the validation errors
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
         }
 
-        $locations = $query;
+        $postData = [
+            'district' => $request->district,
+            'municipality' => $request->municipality,
+        ];
 
-        return response()->json($locations);
+        $active_location_response = Helper::get_active_location($postData);       
+        $active_location_response = json_decode($active_location_response);
+
+        return response()->json($active_location_response);
     }
 }
