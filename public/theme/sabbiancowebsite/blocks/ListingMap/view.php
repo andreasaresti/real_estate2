@@ -380,9 +380,146 @@
             }
 		}
 	}
-    function loadActiveListingsListingMap(maker_position,set){
-        
-        hiddenAdvancedDivListingMap();
+    function loadActiveListingsListingMarker(maker_position,set){
+        customer_id = '<?php echo $user_id; ?>';
+        if(document.getElementById("selBathrooms").value > 0){
+            number_of_bathrooms = document.getElementById("selBathrooms").value;
+        }else{
+            number_of_bathrooms = "";
+        }
+        if(document.getElementById("selBedrooms").value > 0){
+            number_of_bedrooms = document.getElementById("selBedrooms").value;
+        }else{
+            number_of_bedrooms = "";
+        }
+        var tempFeatures = [];
+        var features = document.getElementsByClassName('featurecheck');
+        for(var j=0; j<features.length;j++){
+            if(features[j].checked){
+                tempFeatures.push(features[j].value);
+            }
+        }
+        var tempDistrictArr = [];
+        var districts = document.getElementsByClassName('district');
+        for(var j=0; j<districts.length;j++){
+            if(districts[j].checked){
+                tempDistrictArr.push(districts[j].value);
+            }
+        }
+        var tempMunicipalitiesArr = [];
+        var municipalities = document.getElementsByClassName('municipality');
+        for(var j=0; j<municipalities.length;j++){
+            if(municipalities[j].checked){
+                tempMunicipalitiesArr.push(municipalities[j].value);
+            }
+        }
+        var tempLocationArr = [];
+        var locations = document.getElementsByClassName('location');
+        for(var j=0; j<locations.length;j++){
+            if(locations[j].checked){
+                tempLocationArr.push(locations[j].value);
+            }
+        }
+        var tempPropertStatus = [];
+        var propertStatus = document.getElementsByClassName('propertStatus');
+        for(var j=0; j<propertStatus.length;j++){
+            if(propertStatus[j].checked){
+                tempPropertStatus.push(propertStatus[j].value);
+            }
+        }
+        var tempPropertTypes = [];
+        var propertTypes = document.getElementsByClassName('propertTypes');
+        for(var j=0; j<propertTypes.length;j++){
+            if(propertTypes[j].checked){
+                tempPropertTypes.push(propertTypes[j].value);
+            }
+        }
+        var price1 = document.getElementsByClassName("first-slider-value")[1].value;
+        var size1 = document.getElementsByClassName("first-slider-value")[0].value;
+        var price2 = document.getElementsByClassName("second-slider-value")[1].value;
+        var size2 = document.getElementsByClassName("second-slider-value")[0].value;
+        size1 = size1.substring(0,size1.length-6);
+        price1 = price1.substring(1);
+        price1 = price1.replace(",","");
+        size2 = size2.substring(0,size2.length-6);
+        price2 = price2.substring(1);
+        price2 = price2.replace(",","");
+        if(price1 == ''){
+            price1 = 0;
+        }
+        if(price2 == ''){
+            price2 = 600000;
+        }
+        if(size1 == ''){
+            size1 = 0;
+        }
+        if(size2 == ''){
+            size2 = 1300;
+        }
+        if(document.getElementById('search_string').value == ""){
+            search_term = "";
+        }else{
+            search_term = document.getElementById('search_string').value;
+        }
+        orderbyName = "";
+        orderbyType = "";
+        switch(document.getElementById("sortby").value){
+            case "1":
+                orderbyName = "updated_at";
+                orderbyType = "desc";
+                break;
+            case "2":
+                orderbyName = "price";
+                orderbyType ="asc";
+                break;
+            case "3":
+                orderbyName = "price";
+                orderbyType ="desc";
+                break;
+        }
+        const sendData = {
+            "number_of_bathrooms": number_of_bathrooms,
+            "number_of_bedrooms": number_of_bedrooms,
+            "listing_types": tempPropertTypes,
+            "features": tempFeatures,
+            "min_area_size": parseInt(size1),
+            "max_area_size": parseInt(size2),
+            "min_price": parseInt(price1),
+            "max_price": parseInt(price2),
+            "districts": tempDistrictArr,
+            "municipalities": tempMunicipalitiesArr,
+            "locations": tempLocationArr,
+            "search_term": search_term,
+            "customer_id": customer_id,
+            "page": 1,
+            "per_page":1000,
+            "orderbyName": orderbyName,
+            "orderbyType": orderbyType,
+            "radius":maker_position,
+            "set":set
+        };
+		const url = "/api/activelistings";
+		let xhr = new XMLHttpRequest();
+		xhr.open('POST', url, true);
+		xhr.setRequestHeader('Content-type', 'application/json');
+		xhr.send(JSON.stringify(sendData));
+		xhr.onload = function () {
+			data = JSON.parse(xhr.response);
+			list = data.data;
+            var valueArray = [];
+            var temp ="";
+            for(i= 0; i<list.length; i++)
+            {
+                if(list[i].listingmarker.center[0]>0){
+                    valueArray.push(list[i].listingmarker);    
+                }
+                
+            }
+            
+            map_init_circle(valueArray,maker_position,set);
+		}
+    }
+    function loadActiveListingsListingGrid(maker_position,set){
         customer_id = '<?php echo $user_id; ?>';
         if(document.getElementById("selBathrooms").value > 0){
             number_of_bathrooms = document.getElementById("selBathrooms").value;
@@ -510,15 +647,7 @@
 			list = data.data;
             var valueArray = [];
             var temp ="";
-            for(i= 0; i<list.length; i++)
-            {
-                if(list[i].listingmarker.center[0]>0){
-                    valueArray.push(list[i].listingmarker);    
-                }
-                
-            }
             
-            map_init_circle(valueArray,maker_position,set);
             for(i= 0; i<list.length; i++)
             {
                 favorite = "";
@@ -644,6 +773,12 @@
                 document.getElementById("pagin_content").innerHTML = temp1;
             }
 		}
+    }
+    function loadActiveListingsListingMap(maker_position,set){
+        hiddenAdvancedDivListingMap();
+        loadActiveListingsListingMarker(maker_position,set);
+        loadActiveListingsListingGrid(maker_position,set);
+        
 	}
     function hiddenAdvancedDivListingMap(){
         document.getElementById('advancedSearch').className = "explore__form-checkbox-list full-filter";
