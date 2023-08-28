@@ -152,7 +152,7 @@ class ActiveListingsController extends Controller
                 $listing_marker['title'] = $querymarkers[$key]->displayname;
                 $listing_marker['icon'] = "<i class='fa fa-home'></i>";
                 $listing_marker['desc'] = $row->address;
-                $listing_marker['price'] = "€".number_format($row->price);
+                $listing_marker['price'] = "€".$row->price;
                 $listing_marker['image'] = $querymarkers[$key]->image;
                 $listing_marker['link'] = 'page/listing-details?index='.$row->id;
 
