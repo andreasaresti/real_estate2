@@ -981,8 +981,6 @@ if(isset($_SESSION["user_role"])){
 	}
     function loadModalGetListingsRequestProperty(){
         sales_request_id = '<?php echo $sales_request_id; ?>';
-		
-		
         sendData = {
             "sales_request_id": sales_request_id,
             "status":null,
@@ -1386,7 +1384,7 @@ if(isset($_SESSION["user_role"])){
                             }
                             temp +=` </ul>
                     </div>
-                    <div class=" col-lg-1 col-md-12 price-properties pt-3 pb-0" style="display: grid">
+                    <div class=" col-lg-1 col-md-12 price-properties pt-3 pb-0" style="display: grid;background:white;">
                         <h3 class="title mt-3">
                             <a href="/page/listing-details?index=`+list[i].id+`" tabindex="0">€ `+ list[i].price+`</a>
                         </h3>
@@ -1394,7 +1392,7 @@ if(isset($_SESSION["user_role"])){
                             <a style="cursor: pointer;" onclick="addFavoritRequestProperty(`+list[i].id+`)"><i id="faHeart`+list[i].id+`" class="fa fa-heart" style="font-size: x-large; ` + favorite + ` "></i></a>
                         </div>
                     </div>
-                    <div class=" col-lg-1 col-md-12 price-properties pt-3 pb-0" style="display: flex;align-items: center;justify-content: center;" id="listing_add_remove`+list[i].id+`">
+                    <div class=" col-lg-1 col-md-12 price-properties pt-3 pb-0" style="background:white;display: flex;align-items: center;justify-content: center;" id="listing_add_remove`+list[i].id+`">
                         <a class="btn btn-secondary" style="color:white" onclick="addRequestListingRequestProperty(`+list[i].id+`)">Add</a>
                     </div>
                 </div>

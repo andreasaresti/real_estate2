@@ -84,16 +84,15 @@
                             
                         </tbody>
                     </table>
-                    <div class="pagination-container" >
-                        <nav style="display: flex;align-items: center;justify-content: center;">
-                            <ul class="pagination" id="pagin_content">
-                            </ul>
-                        </nav>
-                    </div>
+                    <nav aria-label="..." class="pt-3" style="display: flex;justify-content: center;">
+                        <ul class="pagination mt-0" id="pagin_content">
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>
     </div>
+    <input type="hidden" id="page_index" value="1">
 </section>
 <script type="text/javascript">
     window.addEventListener("load", (event) => {
@@ -107,6 +106,7 @@
         user_id = '<?php echo $user_id; ?>';
         const sendData = {
             "owner_id": user_id,
+            "page": document.getElementById("page_index").value,
         };
 		const url = "/api/activelistings";
 		let xhr = new XMLHttpRequest();

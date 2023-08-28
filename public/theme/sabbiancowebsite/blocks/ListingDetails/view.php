@@ -100,7 +100,7 @@ if(isset($_GET['index'])){
                 <div class="property wprt-image-video w50 pro" id="video">
                     <h5>Property Video</h5>
                     <img alt="image" src="/theme/sabbianco/assets/images/slider/home-slider-4.jpg">
-                    <a class="icon-wrap popup-video popup-youtube" href="https://www.youtube.com/watch?v=14semTlwyUY">
+                    <a class="icon-wrap popup-video popup-youtube" href="">
                         <i class="fa fa-play"></i>
                     </a>
                     <div class="iq-waves">
@@ -243,7 +243,7 @@ if(isset($_GET['index'])){
             document.getElementById("amenities").innerHTML = temp;
             // var temp ="";amenities
             // document.getElementById("activefeaturesRight").innerHTML = temp;
-            temp = `<div class="carousel-inner" id ="listingImg">
+            temp = `<div class="carousel-inner" id ="listingImg" style="text-align: center;">
                 <div class="active item carousel-item" data-slide-number="0">
                     <img src="`+data.image+`" class="img-fluid" alt="slider-listing">
                 </div>`;
