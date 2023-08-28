@@ -81,41 +81,38 @@
         <?= $body ?>
     </div>
 
-
+<script src="/theme/sabbiancowebsite/assets/js/rangeSlider.js"></script>
+    <!-- <script src="/theme/sabbiancowebsite/assets/js/tether.min.js"></script> -->
+    <!-- <script src="/theme/sabbiancowebsite/assets/js/moment.js"></script> -->
     
-    <script src="/theme/sabbiancowebsite/assets/js/rangeSlider.js"></script>
-    <script src="/theme/sabbiancowebsite/assets/js/tether.min.js"></script>
-    <script src="/theme/sabbiancowebsite/assets/js/moment.js"></script>
     
-    <script src="/theme/sabbiancowebsite/assets/js/mmenu.min.js"></script>
-    <script src="/theme/sabbiancowebsite/assets/js/mmenu.js"></script>
-    <script src="/theme/sabbiancowebsite/assets/js/aos.js"></script>
-    <script src="/theme/sabbiancowebsite/assets/js/aos2.js"></script>
-    <script src="/theme/sabbiancowebsite/assets/js/animate.js"></script>
-    <script src="/theme/sabbiancowebsite/assets/js/slick.min.js"></script>
-    <script src="/theme/sabbiancowebsite/assets/js/fitvids.js"></script>
-    <script src="/theme/sabbiancowebsite/assets/js/jquery.waypoints.min.js"></script>
-    <script src="/theme/sabbiancowebsite/assets/js/typed.min.js"></script>
-    <script src="/theme/sabbiancowebsite/assets/js/jquery.counterup.min.js"></script>
-    <script src="/theme/sabbiancowebsite/assets/js/imagesloaded.pkgd.min.js"></script>
-    <script src="/theme/sabbiancowebsite/assets/js/isotope.pkgd.min.js"></script>
-    <script src="/theme/sabbiancowebsite/assets/js/smooth-scroll.min.js"></script>
-    <script src="/theme/sabbiancowebsite/assets/js/lightcase.js"></script>
-    <!-- <script src="/theme/sabbiancowebsite/assets/js/search.js"></script> -->
-    <script src="/theme/sabbiancowebsite/assets/js/owl.carousel.js"></script>
-    <script src="/theme/sabbiancowebsite/assets/js/jquery.magnific-popup.min.js"></script>
-    <script src="/theme/sabbiancowebsite/assets/js/ajaxchimp.min.js"></script>
-    <script src="/theme/sabbiancowebsite/assets/js/newsletter.js"></script>
-    <script src="/theme/sabbiancowebsite/assets/js/jquery.form.js"></script>
-    <script src="/theme/sabbiancowebsite/assets/js/jquery.validate.min.js"></script>
-    <script src="/theme/sabbiancowebsite/assets/js/searched.js"></script>
-    <script src="/theme/sabbiancowebsite/assets/js/forms-2.js"></script>
-    <!-- <script src="/theme/sabbiancowebsite/assets/js/map-style2.js"></script> -->
+    <!-- <script src="/theme/sabbiancowebsite/assets/js/mmenu.min.js"></script> -->
+    <!-- <script src="/theme/sabbiancowebsite/assets/js/mmenu.js"></script> -->
+    <!-- <script src="/theme/sabbiancowebsite/assets/js/aos.js"></script> -->
+    <!-- <script src="/theme/sabbiancowebsite/assets/js/aos2.js"></script> -->
+    <!-- <script src="/theme/sabbiancowebsite/assets/js/animate.js"></script> -->
+    <!-- <script src="/theme/sabbiancowebsite/assets/js/slick.min.js"></script> -->
+    <!-- <script src="/theme/sabbiancowebsite/assets/js/fitvids.js"></script> -->
+    <!-- <script src="/theme/sabbiancowebsite/assets/js/jquery.waypoints.min.js"></script> -->
+    <!-- <script src="/theme/sabbiancowebsite/assets/js/typed.min.js"></script> -->
+    <!-- <script src="/theme/sabbiancowebsite/assets/js/jquery.counterup.min.js"></script> -->
+    <!-- <script src="/theme/sabbiancowebsite/assets/js/imagesloaded.pkgd.min.js"></script> -->
+    <!-- <script src="/theme/sabbiancowebsite/assets/js/isotope.pkgd.min.js"></script> -->
+    <!-- <script src="/theme/sabbiancowebsite/assets/js/smooth-scroll.min.js"></script> -->
+    <!-- <script src="/theme/sabbiancowebsite/assets/js/lightcase.js"></script> -->
+    <!-- <script src="/theme/sabbiancowebsite/assets/js/owl.carousel.js"></script> -->
+    <!-- <script src="/theme/sabbiancowebsite/assets/js/jquery.magnific-popup.min.js"></script> -->
+    <!-- <script src="/theme/sabbiancowebsite/assets/js/ajaxchimp.min.js"></script> -->
+    <!-- <script src="/theme/sabbiancowebsite/assets/js/newsletter.js"></script> -->
+    <!-- <script src="/theme/sabbiancowebsite/assets/js/jquery.form.js"></script> -->
+    <!-- <script src="/theme/sabbiancowebsite/assets/js/jquery.validate.min.js"></script> -->
+    <!-- <script src="/theme/sabbiancowebsite/assets/js/searched.js"></script> -->
+    <!-- <script src="/theme/sabbiancowebsite/assets/js/forms-2.js"></script> -->
     <script src="/theme/sabbiancowebsite/assets/js/range.js"></script>
     <script src="/theme/sabbiancowebsite/assets/js/color-switcher.js"></script>
     <script src="/theme/sabbiancowebsite/assets/js/dropzone.js"></script>
     
-    <script>
+    <!-- <script>
         $(window).on('scroll load', function() {
             $("#header.cloned #logo img").attr("src", $('#header #logo img').attr('data-sticky-logo'));
         });
@@ -191,8 +188,8 @@
             }
         });
 
-    </script>
-    <script>
+    </script> -->
+    <!-- <script>
         $('.style2').owlCarousel({
             loop: true,
             margin: 0,
@@ -228,14 +225,14 @@
             }
         });
 
-    </script>
+    </script> -->
     <script>
         $(".dropdown-filter").on('click', function() {
             $(".explore__form-checkbox-list").toggleClass("filter-block");
         });
     </script>
 
-    <script>
+    <!-- <script>
         $(function() {
             // whenever we hover over a menu item that has a submenu
             $('.locationLi').on('mouseover', function() {
@@ -265,9 +262,9 @@
                 });
             });
         });
-    </script>
+    </script>  -->
     <!-- MAIN JS -->
-    <script src="/theme/sabbiancowebsite/assets/js/script.js"></script>
+    <!-- <script src="/theme/sabbiancowebsite/assets/js/script.js"></script> -->
 
 </body>
 

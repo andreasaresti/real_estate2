@@ -270,7 +270,7 @@
             temp = temp.replaceAll("<ul></ul>","");
             // temp += `<li class="d-none d-xl-none d-block d-lg-block mt-5 pb-4 ml-5 border-bottom-0"><a href="/page/add-listings" class="button border btn-lg btn-block text-center">Add Listing<i class="fas fa-laptop-house ml-2"></i></a></li>`;
             document.getElementsByName("menuResponsive")[0].innerHTML = temp;
-            document.getElementsByName("menuResponsive")[1].innerHTML = temp;
+            // document.getElementsByName("menuResponsive")[1].innerHTML = temp;
 		}
 	}
     function loginIn()

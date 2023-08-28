@@ -40,12 +40,13 @@ class RequestType extends Filter
     public function options(NovaRequest $request)
     {
         $result = array();
-        $array = \DB::select('SELECT id, name FROM property_types');
+        $array = DB::select('SELECT id, name FROM property_types');
         for($i=0;$i<count($array);$i++){
             $newarray = json_decode($array[$i]->name,true);
             $first_key = array_key_first($newarray);
             $result = Arr::add($result, $newarray[$first_key] , $array[$i]->id);//$array[$i]->id, );
         }
+        $result = Arr::add($result, 0 , 'No Property Type');
         return $result;
     }
 }

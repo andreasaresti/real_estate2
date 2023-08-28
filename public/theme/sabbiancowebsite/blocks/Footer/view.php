@@ -347,11 +347,11 @@
 	</footer>
 </div>
 <script type="text/javascript">
-	window.addEventListener("load", (event) => {
-        loadHomeAgenciesFooter();
-        loadHomeBlog1Footer();
-		loadHomeBlog2Footer();
-	});
+	// window.addEventListener("load", (event) => {
+        // loadHomeAgenciesFooter();
+        // loadHomeBlog1Footer();
+		// loadHomeBlog2Footer();
+	// });
     function loadHomeAgenciesFooter(){
         const sendData = {
             // "id": id,

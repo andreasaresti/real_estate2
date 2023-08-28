@@ -97,18 +97,6 @@ if(isset($_GET['index'])){
                     <h5>Floor Plans</h5>
                     <img alt="image" id="floorPlans" src="">
                 </div>
-                <div class="property wprt-image-video w50 pro" id="video">
-                    <h5>Property Video</h5>
-                    <img alt="image" src="/theme/sabbianco/assets/images/slider/home-slider-4.jpg">
-                    <a class="icon-wrap popup-video popup-youtube" href="">
-                        <i class="fa fa-play"></i>
-                    </a>
-                    <div class="iq-waves">
-                        <div class="waves wave-1"></div>
-                        <div class="waves wave-2"></div>
-                        <div class="waves wave-3"></div>
-                    </div>
-                </div>
                 <div class="property-location map" style="height: 350px;">
                     <h5>Location</h5>
                     <div class="divider-fade"></div>
@@ -175,6 +163,7 @@ if(isset($_GET['index'])){
 		xhr.send(JSON.stringify(sendData));
 		xhr.onload = function () {
 			list = JSON.parse(xhr.response);
+            list = list.items;
 			data = list.data[0];
             console.log(data);
             if(data.floor_plans.length == 0){
@@ -183,14 +172,14 @@ if(isset($_GET['index'])){
                 document.getElementById("floorPlans").src=""+data.floor_plans[0].image;
             }
             if(data.notes == null){
-                document.getElementById("video").style.display="none";
+                // document.getElementById("video").style.display="none";
             }
             favorite = '';
             if(data.in_favoriteproperties == 1){
                 favorite = "color: red;";
             }
             document.getElementById("listingName").innerHTML = data.displayname + `<span class="mrg-l-5 category-tag">`+data.property_type+`</span>`;
-            document.getElementById("listingPrice").innerHTML = `€‎` + data.price;
+            document.getElementById("listingPrice").innerHTML = `€` + data.price;
             document.getElementById("address_favorit").innerHTML = `<a href="#listing-location" class="listing-address">
                     <i class="fa fa-map-marker pr-2 ti-location-pin mrg-r-5"></i>`+data.location_name+`
                 </a>
