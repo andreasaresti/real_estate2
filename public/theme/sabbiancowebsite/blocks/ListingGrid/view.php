@@ -207,7 +207,8 @@
 	window.addEventListener("load", (event) => {
         if(localStorage.getItem("list_search_data")){
             tempList = JSON.parse(localStorage.getItem("list_search_data"));
-            setTimeout(() => {
+            console.log(tempList);
+            // setTimeout(() => {
                 if(tempList.number_of_bathrooms > 0){
                     document.getElementById("selBathrooms").value = tempList.number_of_bathrooms;
                 }
@@ -232,7 +233,7 @@
                 for(var j=0; j<tempList.listing_types.length;j++){
                     document.getElementById('propertTypes'+tempList.listing_types[j]).checked = true;
                 }
-            }, 5000);
+            // }, 1000);
         }
         loadActivelistingsListingGrid();
 	});
