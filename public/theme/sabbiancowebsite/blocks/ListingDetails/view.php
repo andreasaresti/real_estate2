@@ -112,7 +112,7 @@ if(isset($_GET['index'])){
                 <div class="property-location map" style="height: 350px;">
                     <h5>Location</h5>
                     <div class="divider-fade"></div>
-                    <div id="map-leaflet" class="contact-map" style="height: 270px;"></div>
+                    <div id="map-leaflet" class="contact-map" style="height: 255px; width:685px"></div>
                 </div>
             </div>
             <aside class="col-lg-4 col-md-12 car">
@@ -381,7 +381,7 @@ if(isset($_GET['index'])){
                             </li>`;
                 }
                 temp +=` </ul>
-                        <div class="col-lg-1 col-md-12 homes-content pb-0 mb-44"  style=" display: flex; justify-content: center; align-items: center; flex-wrap: wrap;">
+                        <div class="col-lg-1 col-md-12 homes-content pb-0 mb-44"  style=" display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap;">
                             <h3 class="title mt-3">
                                 <a href="/page/listing-details?index=`+list[i].id+`" tabindex="0">€ `+ list[i].price+`</a>
                             </h3>
@@ -417,7 +417,6 @@ if(isset($_GET['index'])){
                 "minimum_bedrooms" : document.getElementById("ListingBedrooms").innerHTML,
                 "minimum_bashrooms" : document.getElementById("ListingBath").innerHTML,
             };
-            console.log(data);
             const url = "/api/salesrequest-addsalesrequest";
             let xhr = new XMLHttpRequest();
             xhr.open('POST', url, true);

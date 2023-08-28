@@ -46,7 +46,7 @@
             <div class="col-lg-6 col-md-12 google-maps-right" style="padding-left:20px">
                 <!-- Search Form -->
                 <div class="col-12 px-0 parallax-searchs-button">
-                    <a onclick="loadActiveListingsListingMap([0,0],0);" class="btn btn-yellow" id="SearchShowButton" style="margin-top: 20px;height: 41px;padding: 0px;line-height: 39px;">Search Show</a>
+                    <a onclick="searchShowListingMap();" class="btn btn-yellow" id="SearchShowButton" style="margin-top: 20px;height: 41px;padding: 0px;line-height: 39px;">Search Show</a>
                 </div>
                 <div class="col-12 px-0 parallax-searchs" id="SearchBar">
                     <div class="banner-search-wrap">
@@ -608,14 +608,38 @@
             xhr1.onload = function () {
                 data1 = JSON.parse(xhr1.response);
                 list1 = data1.links;
-                temp1 = "";
-                let tempStr = "";
-                for(j=0;j<list1.length;j++){
-                    flag = "";
-                    if(list1[j].active){
-                        flag = "active";
+                temp1 = "";                
+                if(window.innerWidth > 650){
+                    for(j=0;j<list1.length;j++){
+                        tempUrl = list1[j].url;
+                        if(tempUrl == null){
+                            tempIndex = null;
+                        }else{
+                            tempIndex = tempUrl.substring(tempUrl.indexOf("?page=")+6);
+                        }
+                        flag = "";
+                        if(list1[j].active){
+                            flag = "active";
+                        }
+                        temp1 += `<li class="page-item `+flag+`"><a class="page-link" onclick="loadPageListingMap(`+tempIndex+`,`+maker_position[0]+`,`+maker_position[1]+`,`+set+`)">`+list1[j].label+`</a></li>`;
                     }
-                    temp1 += `<li class="page-item `+flag+`"><a class="page-link" onclick="loadPageListingMap(`+list1[j].label+`,`+maker_position[0]+`,`+maker_position[1]+`,`+set+`)">`+list1[j].label+`</a></li>`;
+                }else{
+                    for(j=0;j<list1.length;j++){
+                        tempUrl = list1[j].url;
+                        if(tempUrl == null){
+                            tempIndex = null;
+                        }else{
+                            tempIndex = tempUrl.substring(tempUrl.indexOf("?page=")+6);
+                        }
+                        if(j==0 || j == list1.length-1){
+                            temp1 += `<li class="page-item"><a class="page-link" onclick="loadPageListingMap(`+tempIndex+`,`+maker_position[0]+`,`+maker_position[1]+`,`+set+`)">`+list1[j].label+`</a></li>`;    
+                        }else{
+                            if(list1[j].active){
+                                flag = "active";
+                                temp1 += `<li class="page-item `+flag+`"><a class="page-link" onclick="loadPageListingMap(`+tempIndex+`,`+maker_position[0]+`,`+maker_position[1]+`,`+set+`)">`+list1[j].label+`</a></li>`;
+                            }
+                        }
+                    }
                 }
                 document.getElementById("pagin_content").innerHTML = temp1;
             }

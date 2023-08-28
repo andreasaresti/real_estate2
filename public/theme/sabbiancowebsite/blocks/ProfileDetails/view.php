@@ -114,6 +114,8 @@ if(isset($_SESSION["user_role"])){
                                     Note: <textarea style="width: 430px"  id="up_notes"  ></textarea>
                                 </li>
                             </ul>
+                            <div class="alert-box success" id="profileDetail_success">Update Ok !!!</div>
+                            <div class="alert-box failure" id="profileDetail_failure">fail!!!</div>
                             <div class="agent-contact-form-sidebar" style="display: flex; justify-content: center; color: white">
                                 <a class="btn btn-yellow" onclick="udpateProfileProfileDetails()">Submit</a>
                             </div>
@@ -177,9 +179,6 @@ if(isset($_SESSION["user_role"])){
                 temp += `<option value="`+data[i].code+`">`+data[i].displayname+`</option>`;
             }
             document.getElementById("up_country").innerHTML = temp;
-            // document.getElementById("up_country").style.display = "block";
-            // selectDiv = document.getElementsByClassName("nice-select list");
-            // selectDiv[0].style.display = "none";
         }
     }
     function udpateProfileProfileDetails()
@@ -205,11 +204,16 @@ if(isset($_SESSION["user_role"])){
         xhr.setRequestHeader('Content-type', 'application/json');
         xhr.send(JSON.stringify(data));
         xhr.onload = function () {
-            if(xhr.status == "201"){
-                alert("Update Ok");
-                window.location.reload();
+            data = JSON.parse(xhr.response);
+            if(data.hasOwnProperty("errors")){
+                Object.keys(data.errors).forEach(function(key) {
+                    $("#profileDetail_failure").html(data.errors[key][0]);
+                })
+                $("#profileDetail_failure").fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
             }else{
-                alert("Update Fail");
+                $("#profileDetail_success").html(data.message);
+                $("#profileDetail_success").fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
+                window.location.reload();
             }
         }
     }

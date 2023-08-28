@@ -102,7 +102,7 @@ class webUsersController extends Controller
     }
     public function update_user(Request $request)
     {
-        session_start();
+        // session_start();
         // $this->authorize('create', Customer::class);
         $validator = Validator::make($request->all(), [
             'name' => 'required',
@@ -153,7 +153,7 @@ class webUsersController extends Controller
     }
     public function changepassword_user(Request $request)
     {
-        session_start();
+        // session_start();
         // $this->authorize('create', Customer::class);
         $validator = Validator::make($request->all(), [
             'password' => 'required|min:6',

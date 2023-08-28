@@ -170,7 +170,7 @@ if(isset($_SESSION["user_role"])){
                             }
                             temp +=` </ul>
                         </div>
-                        <div class="col-lg-1 col-md-12 homes-content pb-0 mb-44"  style=" display: flex; justify-content: center; align-items: center; flex-wrap: wrap;">
+                        <div class="col-lg-1 col-md-12 homes-content pb-0 mb-44"  style=" display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap;">
                             <h3 class="title mt-3">
                                 <a href="/page/listing-details?index=`+list[i].id+`" tabindex="0">€ `+ list[i].price+`</a>
                             </h3>
@@ -196,13 +196,37 @@ if(isset($_SESSION["user_role"])){
                 data1 = JSON.parse(xhr1.response);
                 list1 = data1.links;
                 temp1 = "";
-                let tempStr = "";
-                for(j=0;j<list1.length;j++){
-                    flag = "";
-                    if(list1[j].active){
-                        flag = "active";
+                if(window.innerWidth > 650){
+                    for(j=0;j<list1.length;j++){
+                        tempUrl = list1[j].url;
+                        if(tempUrl == null){
+                            tempIndex = null;
+                        }else{
+                            tempIndex = tempUrl.substring(tempUrl.indexOf("?page=")+6);
+                        }
+                        flag = "";
+                        if(list1[j].active){
+                            flag = "active";
+                        }
+                        temp1 += `<li class="page-item `+flag+`"><a class="page-link" onclick="loadPageFavorited(`+tempIndex+`)">`+list1[j].label+`</a></li>`;
                     }
-                    temp1 += `<li class="page-item `+flag+`"><a class="page-link" onclick="loadPage(`+list1[j].label+`)">`+list1[j].label+`</a></li>`;
+                }else{
+                    for(j=0;j<list1.length;j++){
+                        tempUrl = list1[j].url;
+                        if(tempUrl == null){
+                            tempIndex = null;
+                        }else{
+                            tempIndex = tempUrl.substring(tempUrl.indexOf("?page=")+6);
+                        }
+                        if(j==0 || j == list1.length-1){
+                            temp1 += `<li class="page-item"><a class="page-link" onclick="loadPageFavorited(`+tempIndex+`)">`+list1[j].label+`</a></li>`;    
+                        }else{
+                            if(list1[j].active){
+                                flag = "active";
+                                temp1 += `<li class="page-item `+flag+`"><a class="page-link" onclick="loadPageFavorited(`+tempIndex+`)">`+list1[j].label+`</a></li>`;
+                            }
+                        }
+                    }
                 }
                 document.getElementById("pagin_content").innerHTML = temp1;
             }
@@ -236,4 +260,8 @@ if(isset($_SESSION["user_role"])){
             loginIn();
         }
     }
+    function loadPageFavorited(index){
+        document.getElementById("page_index").value = index;
+		loadActiveListingsListFavorited();
+	}
 </script>

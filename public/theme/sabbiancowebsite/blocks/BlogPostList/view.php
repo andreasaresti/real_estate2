@@ -82,25 +82,43 @@
                 data1 = JSON.parse(xhr1.response);
                 list1 = data1.links;
                 temp1 = "";
-                var  tempStr = "";
-                for(j=0;j<list1.length;j++){
-                    flag = "";
-                    if(list1[j].active){
-                        flag = "active";
+                if(window.innerWidth > 650){
+                    for(j=0;j<list1.length;j++){
+                        tempUrl = list1[j].url;
+                        if(tempUrl == null){
+                            tempIndex = null;
+                        }else{
+                            tempIndex = tempUrl.substring(tempUrl.indexOf("?page=")+6);
+                        }
+                        flag = "";
+                        if(list1[j].active){
+                            flag = "active";
+                        }
+                        temp1 += `<li class="page-item `+flag+`"><a class="page-link" onclick="loadPageBlogPost(`+tempIndex+`)">`+list1[j].label+`</a></li>`;
                     }
-                    tempStr = list1[j].url;
-                    if(tempStr == null){
-                        urlIndex = null;
-                    }else{
-                        urlIndex = tempStr.substring(tempStr.indexOf('?page=')+6,tempStr.length);
+                }else{
+                    for(j=0;j<list1.length;j++){
+                        tempUrl = list1[j].url;
+                        if(tempUrl == null){
+                            tempIndex = null;
+                        }else{
+                            tempIndex = tempUrl.substring(tempUrl.indexOf("?page=")+6);
+                        }
+                        if(j==0 || j == list1.length-1){
+                            temp1 += `<li class="page-item"><a class="page-link" onclick="loadPageBlogPost(`+tempIndex+`)">`+list1[j].label+`</a></li>`;    
+                        }else{
+                            if(list1[j].active){
+                                flag = "active";
+                                temp1 += `<li class="page-item `+flag+`"><a class="page-link" onclick="loadPageBlogPost(`+tempIndex+`)">`+list1[j].label+`</a></li>`;
+                            }
+                        }
                     }
-                    temp1 += `<li class="page-item `+flag+`"><a class="page-link" onclick="loadPage(`+urlIndex+`)">`+list1[j].label+`</a></li>`;
                 }
                 document.getElementById("pagin_content").innerHTML = temp1;
             }
 		}
 	}
-    function loadPage(index){
+    function loadPageBlogPost(index){
         document.getElementById("page_index").value = index;
 		load_blogposts();
 	}

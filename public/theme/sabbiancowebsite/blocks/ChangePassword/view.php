@@ -95,6 +95,8 @@ if(isset($_SESSION["user_role"])){
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
+                                    <div class="alert-box success" id="changePassword_success">Update Ok !!!</div>
+                                    <div class="alert-box failure" id="changePassword_failure">fail!!!</div>
                                     <div class="send-btn mt-2">
                                         <button onclick="updatePasswordChangePassword();" class="btn btn-common">Send Changes</button>
                                     </div>
@@ -130,11 +132,16 @@ if(isset($_SESSION["user_role"])){
         xhr.setRequestHeader('Content-type', 'application/json');
         xhr.send(JSON.stringify(data));
         xhr.onload = function () {
-            if(xhr.status == "201"){
-                alert("Update Ok");
-                window.location.reload();
+            data = JSON.parse(xhr.response);
+            if(data.hasOwnProperty("errors")){
+                Object.keys(data.errors).forEach(function(key) {
+                    $("#changePassword_failure").html(data.errors[key][0]);
+                })
+                $("#changePassword_failure").fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
             }else{
-                alert("Update Fail");
+                $("#changePassword_success").html(data.message);
+                $("#changePassword_success").fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
+                window.location.reload();
             }
         }
     }

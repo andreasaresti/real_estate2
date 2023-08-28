@@ -124,7 +124,6 @@ use App\Http\Controllers\Listings\CreateListingController;
 use App\Http\Controllers\Listings\GetAgenciesController;
 use App\Http\Controllers\Listings\GetCountriesController;
 use App\Http\Controllers\Listings\GetSimilarListingsController;
-use App\Http\Controllers\Listings\MapActiveListingsController;
 use App\Http\Controllers\Listings\SaveListingPositionController;
 use App\Http\Controllers\webUsersController;
 use App\Http\Controllers\webListings;
@@ -194,7 +193,6 @@ use App\Http\Controllers\webWebsiteController;
     Route::post('getsimilarlistings', [GetSimilarListingsController::class, 'get_similar_listings']);
     Route::post('activedelivery_times', [ActiveDeliveryTimesController::class, 'get_delivery_times']);
     Route::post('savelisting_position', [SaveListingPositionController::class, 'save_position']);
-    Route::post('MapActiveListings', [MapActiveListingsController::class, 'get_MapActiveListings']);
 
 
     Route::post('registernewsletter', [NewsletterController::class, 'register_unregister_newsletter']);
