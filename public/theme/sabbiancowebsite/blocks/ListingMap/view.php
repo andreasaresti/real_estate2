@@ -239,14 +239,12 @@
         }
         
     }
-	window.addEventListener("load", (event) => {
+	// window.addEventListener("load", (event) => {
         loadActiveListingsListingMap([0,0],0);
         loadActivePropertTypeListingMap();
         loadActivePropertStatusListingMap();
-	});
+	// });
     function loadActivePropertStatusListingMap(){
-		
-		
 		const url = "/api/activeproperty-types";
 		let xhr = new XMLHttpRequest();
 		xhr.open('POST', url, true);
@@ -264,8 +262,6 @@
 		}
 	}
     function loadActivePropertTypeListingMap(){
-		
-		
 		const url = "/api/activelisting-types";
 		let xhr = new XMLHttpRequest();
 		xhr.open('POST', url, true);
@@ -430,28 +426,26 @@
                 tempPropertTypes.push(propertTypes[j].value);
             }
         }
-        var price1 = document.getElementsByClassName("first-slider-value")[1].value;
-        var size1 = document.getElementsByClassName("first-slider-value")[0].value;
-        var price2 = document.getElementsByClassName("second-slider-value")[1].value;
-        var size2 = document.getElementsByClassName("second-slider-value")[0].value;
-        size1 = size1.substring(0,size1.length-6);
-        price1 = price1.substring(1);
-        price1 = price1.replace(",","");
-        size2 = size2.substring(0,size2.length-6);
-        price2 = price2.substring(1);
-        price2 = price2.replace(",","");
-        if(price1 == ''){
-            price1 = 0;
+        var price1 = 0;
+        var size1 = 0;
+        var price2 = 600000;
+        var size2 = 1300;
+
+        if ($('.first-slider-value').length > 0) {
+            var price1 = document.getElementsByClassName("first-slider-value")[1].value;
+            var size1 = document.getElementsByClassName("first-slider-value")[0].value;
+            size1 = size1.substring(0,size1.length-6);
+            price1 = price1.substring(1);
+            price1 = price1.replace(",","");
         }
-        if(price2 == ''){
-            price2 = 600000;
+        if ($('.second-slider-value').length > 0) {
+            var price2 = document.getElementsByClassName("second-slider-value")[1].value;
+            var size2 = document.getElementsByClassName("second-slider-value")[0].value;
+            size2 = size2.substring(0,size2.length-6);
+            price2 = price2.substring(1);
+            price2 = price2.replace(",","");
         }
-        if(size1 == ''){
-            size1 = 0;
-        }
-        if(size2 == ''){
-            size2 = 1300;
-        }
+        
         if(document.getElementById('search_string').value == ""){
             search_term = "";
         }else{
@@ -488,7 +482,7 @@
             "search_term": search_term,
             "customer_id": customer_id,
             "page": 1,
-            "per_page":1000,
+            "per_page":100,
             "orderbyName": orderbyName,
             "orderbyType": orderbyType,
             "radius":maker_position,
@@ -568,28 +562,28 @@
                 tempPropertTypes.push(propertTypes[j].value);
             }
         }
-        var price1 = document.getElementsByClassName("first-slider-value")[1].value;
-        var size1 = document.getElementsByClassName("first-slider-value")[0].value;
-        var price2 = document.getElementsByClassName("second-slider-value")[1].value;
-        var size2 = document.getElementsByClassName("second-slider-value")[0].value;
-        size1 = size1.substring(0,size1.length-6);
-        price1 = price1.substring(1);
-        price1 = price1.replace(",","");
-        size2 = size2.substring(0,size2.length-6);
-        price2 = price2.substring(1);
-        price2 = price2.replace(",","");
-        if(price1 == ''){
-            price1 = 0;
+
+        var price1 = 0;
+        var size1 = 0;
+        var price2 = 600000;
+        var size2 = 1300;
+
+        if ($('.first-slider-value').length > 0) {
+            var price1 = document.getElementsByClassName("first-slider-value")[1].value;
+            var size1 = document.getElementsByClassName("first-slider-value")[0].value;
+            size1 = size1.substring(0,size1.length-6);
+            price1 = price1.substring(1);
+            price1 = price1.replace(",","");
         }
-        if(price2 == ''){
-            price2 = 600000;
+        if ($('.second-slider-value').length > 0) {
+            var price2 = document.getElementsByClassName("second-slider-value")[1].value;
+            var size2 = document.getElementsByClassName("second-slider-value")[0].value;
+            size2 = size2.substring(0,size2.length-6);
+            price2 = price2.substring(1);
+            price2 = price2.replace(",","");
         }
-        if(size1 == ''){
-            size1 = 0;
-        }
-        if(size2 == ''){
-            size2 = 1300;
-        }
+
+
         if(document.getElementById('search_string').value == ""){
             search_term = "";
         }else{
