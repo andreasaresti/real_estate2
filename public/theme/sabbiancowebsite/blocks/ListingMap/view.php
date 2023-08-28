@@ -12,7 +12,7 @@
             <aside class="col-lg-6 col-md-6 google-maps-left mt-0">
                 <div class="row" style="display: flex;align-items: center;margin: 10px 0px 0px 60px; position: absolute;z-index: 9;">
                     <div class="col-lg-12 col-md-12" style="margin-top: 20px;">
-                        <a style="height: 40px;width: 130px;padding: 0px 0px 0px 0px;line-height: 40px;" class="btn btn-yellow" id="Show_Hide" onclick="showHideListingMap();">Show/Hdie</a>
+                        <a style="height: 40px;width: 220px;padding: 0px 0px 0px 0px;line-height: 40px;" class="btn btn-yellow" id="Show_Hide" onclick="showHideListingMap();">Show/Hide Map Select</a>
                     </div>
                     <div class="col-lg-12 col-md-12" style="margin-top: 20px;display:none" id="circleSize">
                         <div class="row" style="width: 98%;">
@@ -874,11 +874,10 @@
                 map.remove(); // should remove the map from UI and clean the inner children of DOM element
             }
             map = L.map('map-leaflet').setView([34.994003757575776,33.15703828125001], 9);
-
-            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
+            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);       
 
             circle = L.circle(curLocation, 1000*set).addTo(map);
-
+            circle.setStyle({color: 'green'});
             var markerArray=[];
             
             valueArray.forEach((value) => {

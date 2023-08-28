@@ -381,7 +381,7 @@ if(isset($_GET['index'])){
                             </li>`;
                 }
                 temp +=` </ul>
-                        <div class="col-lg-1 col-md-12 homes-content pb-0 mb-44"  style=" display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap;">
+                        <div class="col-lg-12 col-md-12 homes-content pb-0 mb-44"  style=" display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;padding: 0px!important;box-shadow: none;">
                             <h3 class="title mt-3">
                                 <a href="/page/listing-details?index=`+list[i].id+`" tabindex="0">€ `+ list[i].price+`</a>
                             </h3>
