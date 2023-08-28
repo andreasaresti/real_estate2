@@ -101,20 +101,21 @@ class ActiveListingsController extends Controller
 
         if ($request->has('radius') && $request->radius[0] != '' && $request->radius[1] != '' && $request->set != 0) {
             $query = $query->whereRaw('(sqrt(pow( ? - latitude, 2) + pow( ? - longitude, 2))) < 0.0090437 * ?', [$request->radius[0], $request->radius[1], $request->set]);
-        }else if ($request->has('locations') && count($request->locations) > 0) {
-            $query = $query->whereIn('location_id', $request->locations);
         }
-        // if ($request->has('locations') && count($request->locations) > 0) {
-        //     $query = $query->whereIn('location_id', $request->locations);
-        // }
-        if ($request->has('municipalities') && count($request->municipalities) > 0) {
-            $query = $query->whereIn('listings.id', function ($subquery) use ($request) {
-                $subquery->select('listings.id')
-                    ->from('listings')
-                    ->join('locations', 'listings.location_id', '=', 'locations.id')
-                    ->whereIn('locations.municipality_id', $request->municipalities);
-            });
+        else {
+            if ($request->has('locations') && count($request->locations) > 0) {
+                $query = $query->whereIn('location_id', $request->locations);
+            }
+            if ($request->has('municipalities') && count($request->municipalities) > 0) {
+                $query = $query->whereIn('listings.id', function ($subquery) use ($request) {
+                    $subquery->select('listings.id')
+                        ->from('listings')
+                        ->join('locations', 'listings.location_id', '=', 'locations.id')
+                        ->whereIn('locations.municipality_id', $request->municipalities);
+                });
+            }
         }
+        
         if ($request->has('listing_types') && count($request->listing_types) > 0) {
             $query = $query->whereIn('listings.id', function ($subquery) use ($request) {
                 $subquery->select('listing_id')

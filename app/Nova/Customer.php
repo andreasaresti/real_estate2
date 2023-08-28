@@ -84,9 +84,10 @@ class Customer extends Resource
                 ->sortable()
                 ->placeholder('Name'),
 
-            // Text::make('Surname')
-            //     ->rules('nullable', 'max:255', 'string')
-            //     ->placeholder('Surname'),
+            Text::make('Surname')
+                ->rules('required', 'max:255', 'string')
+                ->sortable()
+                ->placeholder('Surname'),
 
             Text::make('Company Name')
                 ->rules('nullable', 'max:255', 'string')
