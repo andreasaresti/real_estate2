@@ -286,14 +286,9 @@
             document.getElementById("activePropertType").innerHTML = temp;
 		}
 	}
-    function loadPageListingMap(index,mode){
+    function loadPageListingMap(index,maker_position0,maker_position1,set){
         document.getElementById("page_index").value = index;
-        loadActiveListingsListingMap([0,0],0);
-        // if(mode == "listing"){
-        //     loadActiveListingsListingMap([0,0],0);
-        // }else{
-        //     loadActiveListingsListingMap();
-        // }
+        loadActiveListingsListingMap([maker_position0,maker_position1],set);
 		
 	}
 	function loadActiveFeaturesListingMap(){
@@ -620,7 +615,7 @@
                     if(list1[j].active){
                         flag = "active";
                     }
-                    temp1 += `<li class="page-item `+flag+`"><a class="page-link" onclick="loadPageListingMap(`+list1[j].label+`,'listing')">`+list1[j].label+`</a></li>`;
+                    temp1 += `<li class="page-item `+flag+`"><a class="page-link" onclick="loadPageListingMap(`+list1[j].label+`,`+maker_position[0]+`,`+maker_position[1]+`,`+set+`)">`+list1[j].label+`</a></li>`;
                 }
                 document.getElementById("pagin_content").innerHTML = temp1;
             }
@@ -777,6 +772,7 @@
                     draggable: 'true'
                 });
                 circle.setLatLng(curLocation);
+                document.getElementById("page_index").value = 1;
                 loadActiveListingsListingMap(curLocation,set);
             });
 
@@ -799,6 +795,7 @@
                 circle = L.circle(curLocation, 1000*set).addTo(map);
                 circle.setLatLng(curLocation);
                 document.getElementById("circleSize").style.display = "block";
+                document.getElementById("page_index").value = 1;
                 loadActiveListingsListingMap(curLocation,set);
                 
             });
@@ -813,6 +810,7 @@
                     temp = marker.getLatLng();
                     curLocation = [temp.lat,temp.lng];
                     circle.setLatLng(curLocation);
+                    document.getElementById("page_index").value = 1;
                     loadActiveListingsListingMap(curLocation,set);
                 }
             }
