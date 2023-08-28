@@ -68,9 +68,7 @@ class ActiveListingsController extends Controller
         if ($request->has('id') && $request->id != '') {
             $query = $query->where('listings.id', $request->id);
         }
-        if ($request->has('locations') && count($request->locations) > 0) {
-            $query = $query->whereIn('location_id', $request->locations);
-        }
+        
 
         if ($request->has('number_of_bedrooms') && $request->number_of_bedrooms != '') {
             $query = $query->where('number_of_bedrooms', $request->number_of_bedrooms);
@@ -100,6 +98,15 @@ class ActiveListingsController extends Controller
         if ($request->has('popular') && $request->popular == 1) {
             $query = $query->where('popular', $request->popular);
         }
+
+        if ($request->has('radius') && $request->radius[0] != '' && $request->radius[1] != '' && $request->set != 0) {
+            $query = $query->whereRaw('(sqrt(pow( ? - latitude, 2) + pow( ? - longitude, 2))) < 0.0090437 * ?', [$request->radius[0], $request->radius[1], $request->set]);
+        }else if ($request->has('locations') && count($request->locations) > 0) {
+            $query = $query->whereIn('location_id', $request->locations);
+        }
+        // if ($request->has('locations') && count($request->locations) > 0) {
+        //     $query = $query->whereIn('location_id', $request->locations);
+        // }
         if ($request->has('municipalities') && count($request->municipalities) > 0) {
             $query = $query->whereIn('listings.id', function ($subquery) use ($request) {
                 $subquery->select('listings.id')
@@ -130,7 +137,6 @@ class ActiveListingsController extends Controller
                     ->where('sales_request_id', $request->sales_request_id);
             });
         }
-
         $query = $query
             ->select($select_values_array)
             ->orderBy($orderby, $orderbytype)
