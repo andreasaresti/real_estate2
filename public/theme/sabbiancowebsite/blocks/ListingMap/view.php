@@ -8,14 +8,10 @@
 <div class="inner-pages homepage-4 agents hp-6 full hd-white">
 <section class="properties-right featured portfolio blog google-map-right mp-1">
     <div class="container-fluid">
-        
         <div class="row">
             <aside class="col-lg-6 col-md-6 google-maps-left mt-0">
                 <div class="row" style="display: flex;align-items: center;margin: 10px 0px 0px 60px; position: absolute;z-index: 9;">
                     <div class="col-lg-12 col-md-12" style="margin-top: 20px;">
-                        <!-- <input type="number" class="kilometresListMap" name="kilometresListMap" min="0" max="100" placeholder="80" value="80" />&nbsp;&nbsp;&nbsp;&nbsp;
-                        <input type="range" class="rangeListMap" name="rangeListMap" min="0" max="100" step="1" value="80" />&nbsp;&nbsp;&nbsp;&nbsp; -->
-                        <a style="height: 40px;width: 130px;padding: 0px 0px 0px 0px;line-height: 40px;" class="btn btn-yellow" id="SearchMap" onclick="loadActiveListingsListingMap([34.994003757575776,33.15703828125001],100);">Search</a>&nbsp;&nbsp;&nbsp;&nbsp;
                         <a style="height: 40px;width: 130px;padding: 0px 0px 0px 0px;line-height: 40px;" class="btn btn-yellow" id="Show_Hide" onclick="showHideListingMap();">Show/Hdie</a>
                     </div>
                     <div class="col-lg-12 col-md-12" style="margin-top: 20px;display:none" id="circleSize">
@@ -95,7 +91,7 @@
                                         </div>
                                         <div class="dropdown-filter" style="width: 238px"><span>Advanced Search</span></div>
                                         <div class="col-xl-2 col-lg-2 col-md-4 pl-0" style="width: 150px">
-                                            <a class="btn btn-yellow" onclick="loadActiveListingsListingMap([0,0],0)">Search Now</a>
+                                            <a class="btn btn-yellow" onclick="searchNowListingMap();">Search Now</a>
                                         </div>
                                         <div id="advancedSearch" style="margin-top: 0px;" class="explore__form-checkbox-list full-filter">
                                             <div class="row">
@@ -288,7 +284,7 @@
 	}
     function loadPageListingMap(index,maker_position0,maker_position1,set){
         document.getElementById("page_index").value = index;
-        loadActiveListingsListingMap([maker_position0,maker_position1],set);
+        loadActiveListingsListingGrid([maker_position0,maker_position1],set);
 		
 	}
 	function loadActiveFeaturesListingMap(){
@@ -515,7 +511,6 @@
                 }
                 
             }
-            
             map_init_circle(valueArray,maker_position,set);
 		}
     }
@@ -775,6 +770,7 @@
 		}
     }
     function loadActiveListingsListingMap(maker_position,set){
+        document.getElementById("page_index").value = 1;
         hiddenAdvancedDivListingMap();
         loadActiveListingsListingMarker(maker_position,set);
         loadActiveListingsListingGrid(maker_position,set);
@@ -975,5 +971,9 @@
             }
             
         }
+    }
+    function searchNowListingMap(){
+        document.getElementById("circleSize").style.display = "none";
+        loadActiveListingsListingMap([0,0],0);
     }
 </script>
