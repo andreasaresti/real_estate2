@@ -73,12 +73,6 @@ class Listing extends Resource
 
 					ID::make('id')->sortable(),
 
-					BelongsTo::make('Customer', 'customer')
-						->required()
-						->searchable()
-						->sortable()
-						->showCreateRelationButton(),					
-
 					Text::make('Ext Code')
 						->creationRules(
 							'nullable',
@@ -98,7 +92,8 @@ class Listing extends Resource
 					Text::make('Name')
 						->translatable(DB::table('languages')->select('encoding','name')->orderBy('sequence')->pluck('name', 'encoding')->toArray())
 						->rules('nullable')
-						->placeholder('Name'),
+						->placeholder('Name')
+						->sortable(),
 
 
 					Image::make('Image')
@@ -189,6 +184,14 @@ class Listing extends Resource
 						->nullable()
 						->showCreateRelationButton()
 						->hideFromIndex(),
+
+					BelongsTo::make('Owner', 'owner', Customer::class)
+						->required()
+						->searchable()
+						->sortable()
+						->showCreateRelationButton(),					
+
+					
 
 					BelongsTo::make('DeliveryTime', 'deliveryTime')
 						->nullable()
@@ -360,7 +363,7 @@ class Listing extends Resource
 			new Filters\Price(),
 			new Filters\Number_of_Bedrooms(),
 			new Filters\Number_of_Bathrooms(),
-			new Filters\Owner(),
+			// new Filters\Owner(),
 			new Filters\Status(),
 		];
 

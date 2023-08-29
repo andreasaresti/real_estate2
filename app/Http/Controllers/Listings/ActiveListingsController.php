@@ -102,7 +102,7 @@ class ActiveListingsController extends Controller
         if ($request->has('radius') && $request->radius[0] != '' && $request->radius[1] != '' && $request->set != 0) {
             $query = $query->whereRaw('(sqrt(pow( ? - latitude, 2) + pow( ? - longitude, 2))) < 0.0090437 * ?', [$request->radius[0], $request->radius[1], $request->set]);
         }
-        else {
+        else{
             if ($request->has('locations') && count($request->locations) > 0) {
                 $query = $query->whereIn('location_id', $request->locations);
             }
@@ -138,27 +138,34 @@ class ActiveListingsController extends Controller
                     ->where('sales_request_id', $request->sales_request_id);
             });
         }
+        $querymarkers = $query
+            ->select($select_values_array)
+            ->orderBy($orderby, $orderbytype)
+            ->limit(200)
+            ->get();
+        $listing_markers = [];
+        if ($request->has('retrieve_markers') && $request->retrieve_markers == '1') {
+            foreach ($querymarkers as $key => $row) {
+                $listing_marker  = [];
+                $listing_marker['id'] = $row->id;
+                $listing_marker['center'] = [$querymarkers[$key]->latitude,$querymarkers[$key]->longitude];
+                $listing_marker['title'] = $querymarkers[$key]->displayname;
+                $listing_marker['icon'] = "<i class='fa fa-home'></i>";
+                $listing_marker['desc'] = $row->address;
+                $listing_marker['price'] = "€".$row->price;
+                $listing_marker['image'] = $querymarkers[$key]->image;
+                $listing_marker['link'] = 'page/listing-details?index='.$row->id;
+
+                $listing_markers[]  = $listing_marker;
+            }
+        }
         $query = $query
             ->select($select_values_array)
             ->orderBy($orderby, $orderbytype)
             ->paginate($perPage, ['/*'], 'page', $page);
 
-        $listing_markers = [];
+        
         foreach ($query as $key => $row) {
-
-            $listing_marker = [
-                "id" => "marker-1",
-                "center" => [34.7130838, 33.0879427],//[40.94401669296697, -74.16938781738281],
-                "icon" => "<i class='fa fa-home'></i>",
-                "title" => "Real House Luxury Villa",
-                "desc" => "Est St, 77 - Central Park South, NYC",
-                "price" => "€ 230,000",
-                "image" => "images/feature-properties/fp-1.jpg",
-                "link" => "single-property-1.html"
-            ];
-            $listing_markers[] = $listing_marker;
-
-
             $name_array = $row->name;
             $query[$key]->displayname = $name_array;
             $description_array = $row->description;
@@ -173,6 +180,7 @@ class ActiveListingsController extends Controller
                 $images_array[] = env('APP_IMG_URL') . '/storage/' . $m->id . '/' . $m->file_name;
             }
             $query[$key]->images = $images_array;
+            $query[$key]->price = number_format($row->price);
 
             $features = DB::table('feature_listing')->where('listing_id', $row->id)->pluck('feature_id');
             $features_array = Feature::whereIn('id', $features)->orderBy('name', 'asc')->get();
@@ -223,31 +231,20 @@ class ActiveListingsController extends Controller
             if (isset($query[$key]->favorite_properties_listing_id) && $query[$key]->favorite_properties_listing_id == $query[$key]->id) {
                 $query[$key]->in_favoriteproperties = 1;
             }
-            $listing_markers = [
-                    "id" => "marker-1",
-                    "center" => [34.7130838, 33.0879427],//[40.94401669296697, -74.16938781738281],
-                    "icon" => "<i class='fa fa-home'></i>",
-                    "title" => "Real House Luxury Villa",
-                    "desc" => "Est St, 77 - Central Park South, NYC",
-                    "price" => "€ 230,000",
-                    "image" => "images/feature-properties/fp-1.jpg",
-                    "link" => "single-property-1.html"
-                ];
-            $listing_markers['id'] = $row->id;
-            $listing_markers['center'] = [$query[$key]->latitude,$query[$key]->longitude];
-            $listing_markers['title'] = $query[$key]->displayname;
-            $listing_markers['icon'] = "<i class='fa fa-home'></i>";
-            $listing_markers['desc'] = $row->address;//$location->name;
-            $listing_markers['price'] = "€".$row->price;
-            $listing_markers['image'] = $query[$key]->image;
-            $listing_markers['link'] = 'page/listing-details?index='.$row->id;
-
-
-            $query[$key]->listingmarker = $listing_markers;
+            
         }
-        $query->listing_markers = $listing_markers;
+
+        // Combine paginated data and additional data
+        $responseData = [
+            'items' => $query,
+            'listing_markers' => $listing_markers,
+        ];
+
+        return response()->json($responseData);
 
         $products = $query;
+
+        
 
         return response()->json($products);
     }

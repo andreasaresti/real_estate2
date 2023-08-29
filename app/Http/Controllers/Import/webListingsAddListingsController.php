@@ -19,6 +19,16 @@ class webListingsAddListingsController extends Controller
     public function import_listings(Request $request)
     {
         $listings_array = DB::table('import_listings')
+                            ->limit(2)
+                            ->get();
+        foreach($listings_array as $listing){
+            $name = [];
+            $name['en'] = $listing->title;
+            echo json_encode($name, JSON_UNESCAPED_UNICODE);
+            print_r($listing);
+        }
+        return true;
+        $listings_array = DB::table('import_listings')
                             ->select("id","developer")
                             ->where('developer', 'REGEXP', '[0-9]+')
                             ->get();
@@ -49,7 +59,7 @@ class webListingsAddListingsController extends Controller
 
 
         // $affectedRows = DB::insert("INSERT IGNORE INTO customers(ext_code, type, name, email) 
-        SELECT developer, 'individual', developer, NULL FROM import_listings t1 WHERE developer_phone IS NULL OR developer_phone = '' GROUP BY developer");
+        // SELECT developer, 'individual', developer, NULL FROM import_listings t1 WHERE developer_phone IS NULL OR developer_phone = '' GROUP BY developer");
 
         return true;
         

@@ -204,39 +204,38 @@
     loadActiveDistrictListingGrid();
     loadActivePropertTypeListingGrid();
     loadActivePropertStatusListingGrid();
-	window.addEventListener("load", (event) => {
-        if(localStorage.getItem("list_search_data")){
-            tempList = JSON.parse(localStorage.getItem("list_search_data"));
-            console.log(tempList);
-            // setTimeout(() => {
-                if(tempList.number_of_bathrooms > 0){
-                    document.getElementById("selBathrooms").value = tempList.number_of_bathrooms;
-                }
-                if(tempList.number_of_bedrooms > 0){
-                    document.getElementById("selBedrooms").value = tempList.number_of_bedrooms;
-                }
-                if(tempList.search_term !== ""){
-                    document.getElementById('search_string').value = tempList.search_term;
-                }
-                for(var j=0; j<tempList.features.length;j++){
-                    document.getElementById('featurecheck'+tempList.features[j]).checked = true;
-                }
-                for(var j=0; j<tempList.districts.length;j++){
-                    document.getElementById('districts'+tempList.districts[j]).checked = true;
-                }
-                for(var j=0; j<tempList.municipalities.length;j++){
-                    document.getElementById('municipalities'+tempList.municipalities[j]).checked = true;
-                }
-                for(var j=0; j<tempList.locations.length;j++){
-                    document.getElementById('locations'+tempList.locations[j]).checked = true;
-                }
-                for(var j=0; j<tempList.listing_types.length;j++){
-                    document.getElementById('propertTypes'+tempList.listing_types[j]).checked = true;
-                }
-            // }, 1000);
-        }
+	// window.addEventListener("load", (event) => {
+    //     if(localStorage.getItem("list_search_data")){
+    //         tempList = JSON.parse(localStorage.getItem("list_search_data"));
+    //         setTimeout(() => {
+    //             if(tempList.number_of_bathrooms > 0){
+    //                 document.getElementById("selBathrooms").value = tempList.number_of_bathrooms;
+    //             }
+    //             if(tempList.number_of_bedrooms > 0){
+    //                 document.getElementById("selBedrooms").value = tempList.number_of_bedrooms;
+    //             }
+    //             if(tempList.search_term !== ""){
+    //                 document.getElementById('search_string').value = tempList.search_term;
+    //             }
+    //             for(var j=0; j<tempList.features.length;j++){
+    //                 document.getElementById('featurecheck'+tempList.features[j]).checked = true;
+    //             }
+    //             for(var j=0; j<tempList.districts.length;j++){
+    //                 document.getElementById('districts'+tempList.districts[j]).checked = true;
+    //             }
+    //             for(var j=0; j<tempList.municipalities.length;j++){
+    //                 document.getElementById('municipalities'+tempList.municipalities[j]).checked = true;
+    //             }
+    //             for(var j=0; j<tempList.locations.length;j++){
+    //                 document.getElementById('locations'+tempList.locations[j]).checked = true;
+    //             }
+    //             for(var j=0; j<tempList.listing_types.length;j++){
+    //                 document.getElementById('propertTypes'+tempList.listing_types[j]).checked = true;
+    //             }
+    //         }, 5000);
+    //     }
         loadActivelistingsListingGrid();
-	});
+	// });
     function changeViewModeListingGrid(data){
         if(data == "grid"){
             document.getElementById("view_mode1").className = "change-view-btn lde";
@@ -436,27 +435,24 @@
                 tempPropertTypes.push(propertTypes[j].value);
             }
         }
-        var price1 = document.getElementsByClassName("first-slider-value")[1].value;
-        var size1 = document.getElementsByClassName("first-slider-value")[0].value;
-        var price2 = document.getElementsByClassName("second-slider-value")[1].value;
-        var size2 = document.getElementsByClassName("second-slider-value")[0].value;
-        size1 = size1.substring(0,size1.length-6);
-        price1 = price1.substring(1);
-        price1 = price1.replace(",","");
-        size2 = size2.substring(0,size2.length-6);
-        price2 = price2.substring(1);
-        price2 = price2.replace(",","");
-        if(price1 == ''){
-            price1 = 0;
+        var price1 = 0;
+        var size1 = 0;
+        var price2 = 600000;
+        var size2 = 1300;
+
+        if ($('.first-slider-value').length > 0) {
+            var price1 = document.getElementsByClassName("first-slider-value")[1].value;
+            var size1 = document.getElementsByClassName("first-slider-value")[0].value;
+            size1 = size1.substring(0,size1.length-6);
+            price1 = price1.substring(1);
+            price1 = price1.replace(",","");
         }
-        if(price2 == ''){
-            price2 = 600000;
-        }
-        if(size1 == ''){
-            size1 = 0;
-        }
-        if(size2 == ''){
-            size2 = 1300;
+        if ($('.second-slider-value').length > 0) {
+            var price2 = document.getElementsByClassName("second-slider-value")[1].value;
+            var size2 = document.getElementsByClassName("second-slider-value")[0].value;
+            size2 = size2.substring(0,size2.length-6);
+            price2 = price2.substring(1);
+            price2 = price2.replace(",","");
         }
         if(document.getElementById('search_string').value == ""){
             search_term = "";
@@ -489,6 +485,7 @@
             "min_price": parseInt(price1),
             "max_price": parseInt(price2),
             "districts": tempDistrictArr,
+            "property_type_array": tempPropertStatus,
             "municipalities": tempMunicipalitiesArr,
             "locations": tempLocationArr,
             "search_term": search_term,
@@ -504,8 +501,11 @@
 		xhr.setRequestHeader('Content-type', 'application/json');
 		xhr.send(JSON.stringify(sendData));
 		xhr.onload = function () {
-			data = JSON.parse(xhr.response);
-			list = data.data;
+			list = JSON.parse(xhr.response).items.data;
+			// list = list.data;
+			totalrecords = JSON.parse(xhr.response).items.total;
+			current_page = JSON.parse(xhr.response).items.current_page;
+			per_page = JSON.parse(xhr.response).items.per_page;
             temp = "";
             for(var i= 0; i<list.length; i++)
             {
@@ -578,13 +578,13 @@
                     </div>`;
             }
             document.getElementById("ListingListContent").innerHTML = temp
-            document.getElementById("page_count").innerHTML = data.total+" Search results"
+            document.getElementById("page_count").innerHTML = totalrecords+" Search results"
 
             
             sendData1 = {
-                "total": data.total,
-                "current_page": data.current_page,
-                "per_page": data.per_page,
+                "total": totalrecords,
+                "current_page": current_page,
+                "per_page": per_page,
             }
             const url1 = "/api/getpagination";
             let xhr1 = new XMLHttpRequest();
@@ -693,27 +693,24 @@
                 tempPropertTypes.push(propertTypes[j].value);
             }
         }
-        var price1 = document.getElementsByClassName("first-slider-value")[1].value;
-        var size1 = document.getElementsByClassName("first-slider-value")[0].value;
-        var price2 = document.getElementsByClassName("second-slider-value")[1].value;
-        var size2 = document.getElementsByClassName("second-slider-value")[0].value;
-        size1 = size1.substring(0,size1.length-6);
-        price1 = price1.substring(1);
-        price1 = price1.replace(",","");
-        size2 = size2.substring(0,size2.length-6);
-        price2 = price2.substring(1);
-        price2 = price2.replace(",","");
-        if(price1 == ''){
-            price1 = 0;
+        var price1 = 0;
+        var size1 = 0;
+        var price2 = 600000;
+        var size2 = 1300;
+
+        if ($('.first-slider-value').length > 0) {
+            var price1 = document.getElementsByClassName("first-slider-value")[1].value;
+            var size1 = document.getElementsByClassName("first-slider-value")[0].value;
+            size1 = size1.substring(0,size1.length-6);
+            price1 = price1.substring(1);
+            price1 = price1.replace(",","");
         }
-        if(price2 == ''){
-            price2 = 600000;
-        }
-        if(size1 == ''){
-            size1 = 0;
-        }
-        if(size2 == ''){
-            size2 = 1300;
+        if ($('.second-slider-value').length > 0) {
+            var price2 = document.getElementsByClassName("second-slider-value")[1].value;
+            var size2 = document.getElementsByClassName("second-slider-value")[0].value;
+            size2 = size2.substring(0,size2.length-6);
+            price2 = price2.substring(1);
+            price2 = price2.replace(",","");
         }
         if(document.getElementById('search_string').value == ""){
             search_term = "";
@@ -754,6 +751,7 @@
             "min_price": parseInt(price1),
             "max_price": parseInt(price2),
             "districts": tempDistrictArr,
+            "property_type_array": tempPropertStatus,
             "municipalities": tempMunicipalitiesArr,
             "locations": tempLocationArr,
             "search_term": search_term,
@@ -772,8 +770,11 @@
 		    xhr.send(JSON.stringify(sendData));
         }
 		xhr.onload = function () {
-			data = JSON.parse(xhr.response);
-			list = data.data;
+			list = JSON.parse(xhr.response).items.data;
+			// list = list.data;
+			totalrecords = JSON.parse(xhr.response).items.total;
+			current_page = JSON.parse(xhr.response).items.current_page;
+			per_page = JSON.parse(xhr.response).items.per_page;
             temp = "";
             for(var i= 0; i<list.length; i++)
             {
@@ -844,13 +845,13 @@
                         </div></div></div></div>`;
             }
             document.getElementById("ListingListContent").innerHTML = temp
-            document.getElementById("page_count").innerHTML = data.total+" Search results"
+            document.getElementById("page_count").innerHTML = totalrecords+" Search results"
 
             
             sendData1 = {
-                "total": data.total,
-                "current_page": data.current_page,
-                "per_page": data.per_page,
+                "total": totalrecords,
+                "current_page": current_page,
+                "per_page": per_page,
             }
             const url1 = "/api/getpagination";
             let xhr1 = new XMLHttpRequest();

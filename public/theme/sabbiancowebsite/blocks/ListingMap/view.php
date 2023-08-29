@@ -478,6 +478,7 @@
             "min_price": parseInt(price1),
             "max_price": parseInt(price2),
             "districts": tempDistrictArr,
+            "property_type_array": tempPropertStatus,
             "municipalities": tempMunicipalitiesArr,
             "locations": tempLocationArr,
             "search_term": search_term,
@@ -535,6 +536,7 @@
                 tempDistrictArr.push(districts[j].value);
             }
         }
+        
         var tempMunicipalitiesArr = [];
         var municipalities = document.getElementsByClassName('municipality');
         for(var j=0; j<municipalities.length;j++){
@@ -615,6 +617,7 @@
             "max_area_size": parseInt(size2),
             "min_price": parseInt(price1),
             "max_price": parseInt(price2),
+            "property_type_array": tempPropertStatus,
             "districts": tempDistrictArr,
             "municipalities": tempMunicipalitiesArr,
             "locations": tempLocationArr,
@@ -625,7 +628,8 @@
             "orderbyName": orderbyName,
             "orderbyType": orderbyType,
             "radius":maker_position,
-            "set":set
+            "set":set,
+            "retrieve_markers":1
         };
 		const url = "/api/activelistings";
 		let xhr = new XMLHttpRequest();
@@ -633,9 +637,29 @@
 		xhr.setRequestHeader('Content-type', 'application/json');
 		xhr.send(JSON.stringify(sendData));
 		xhr.onload = function () {
-			data = JSON.parse(xhr.response);
-			list = data.data;
-            var valueArray = [];
+            if(document.getElementById("page_index").value == 1){
+                markers = JSON.parse(xhr.response).listing_markers;
+                var markersArray = [];
+                for(i= 0; i<markers.length; i++)
+                {
+                    console.log('marker: ' + i);
+                    if(markers[i].center[0]>0){
+                        markersArray.push(markers[i]);    
+                    }
+                }
+                map_init_circle(markersArray,maker_position,set);
+            }
+            
+
+
+
+			list = JSON.parse(xhr.response).items.data;
+			// list = list.data;
+			totalrecords = JSON.parse(xhr.response).items.total;
+			current_page = JSON.parse(xhr.response).items.current_page;
+			per_page = JSON.parse(xhr.response).items.per_page;
+            // alrt(total);
+            // var valueArray = [];
             var temp ="";
             
             for(i= 0; i<list.length; i++)
@@ -706,8 +730,8 @@
                             </div>
                         </div></div></div></div>`;
             }
-            document.getElementById("ListingListContent").innerHTML = temp
-            document.getElementById("page_count").innerHTML = data.total+" Search results"
+            document.getElementById("ListingListContent").innerHTML = temp;
+            document.getElementById("page_count").innerHTML = totalrecords+" Search results"
             if(list.length > 0){
                 document.getElementById("ListingListContent").style.height = "auto";
             }else{
@@ -715,9 +739,9 @@
             }
 
             sendData1 = {
-                "total": data.total,
-                "current_page": data.current_page,
-                "per_page": data.per_page,
+                "total": totalrecords,
+                "current_page": current_page,
+                "per_page": per_page,
             }
             const url1 = "/api/getpagination";
             let xhr1 = new XMLHttpRequest();
@@ -761,13 +785,14 @@
                     }
                 }
                 document.getElementById("pagin_content").innerHTML = temp1;
+                
             }
 		}
     }
     function loadActiveListingsListingMap(maker_position,set){
         document.getElementById("page_index").value = 1;
         hiddenAdvancedDivListingMap();
-        loadActiveListingsListingMarker(maker_position,set);
+        // loadActiveListingsListingMarker(maker_position,set);
         loadActiveListingsListingGrid(maker_position,set);
         
 	}

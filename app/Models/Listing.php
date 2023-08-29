@@ -19,6 +19,12 @@ class Listing extends Model implements HasMedia
 	
 	public $translatable = ['name','description'];
 
+    public $translatedAttributes = ['name','description'];
+
+    public $locale = 'el';
+    public $fallbackLocale = 'en'; // Fallback to English if translation not available in Greek
+
+
     protected $fillable = [
         'name',
         'ext_code',
@@ -115,7 +121,7 @@ class Listing extends Model implements HasMedia
         return $this->belongsTo(InternalStatus::class);
     }
 
-    public function customer()
+    public function owner()
     {
         return $this->belongsTo(Customer::class, 'owner_id');
     }
