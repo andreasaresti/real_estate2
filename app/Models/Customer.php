@@ -35,7 +35,7 @@ class Customer extends Model
         'customer_role_id',
     ];
 
-    protected $searchableFields = ['*'];
+    protected $searchableFields = ['name', 'surname', 'email'];
 
     protected $hidden = ['password'];
 

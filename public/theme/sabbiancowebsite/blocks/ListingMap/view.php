@@ -581,7 +581,6 @@ use App\Helpers\Helper;
                 var markersArray = [];
                 for(i= 0; i<markers.length; i++)
                 {
-                    console.log('marker: ' + i);
                     if(markers[i].center[0]>0){
                         markersArray.push(markers[i]);    
                     }

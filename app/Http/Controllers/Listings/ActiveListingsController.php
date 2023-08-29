@@ -71,11 +71,11 @@ class ActiveListingsController extends Controller
         
 
         if ($request->has('number_of_bedrooms') && $request->number_of_bedrooms != '') {
-            $query = $query->where('number_of_bedrooms', $request->number_of_bedrooms);
+            $query = $query->where('number_of_bedrooms', '>=', $request->number_of_bedrooms);
         }
 
         if ($request->has('number_of_bathrooms') && $request->number_of_bathrooms != '') {
-            $query = $query->where('number_of_bathrooms', $request->number_of_bathrooms);
+            $query = $query->where('number_of_bathrooms', '>=', $request->number_of_bathrooms);
         }
         if ($request->has('min_area_size') && $request->min_area_size != '') {
             $query = $query->where('area_size', '>=', $request->min_area_size);

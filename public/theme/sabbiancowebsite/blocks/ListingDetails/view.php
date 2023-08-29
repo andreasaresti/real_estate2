@@ -392,7 +392,9 @@ if(isset($_GET['index'])){
         index = '<?php echo $index; ?>';
         size = document.getElementById("ListingArea").innerHTML;
         price = document.getElementById("listingPrice").innerHTML;
+        
         price = price.substring(2);
+        price = price.replace(',', '');
         size = size.substring(0,size.length-3);
         if(customer_id !== ""){
             let data = {
