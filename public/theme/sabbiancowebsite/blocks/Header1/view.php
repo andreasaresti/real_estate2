@@ -491,13 +491,13 @@ use App\Helpers\Helper;
             var temp ="";
             for(i=0;i<list.length;i++){
                 if(list[i].parent_id == null){
-                    temp += `<li><a style="font-size: 16px;" href="`+list[i].value+`">`+list[i].name+`</a><ul>`;
+                    temp += `<li><a href="`+list[i].value+`">`+list[i].name+`</a><ul>`;
                     for(j=0;j<list.length;j++){
                         if(list[j].parent_id == list[i].id){
-                            temp += `<li><a style="font-size: 16px;" href="`+list[j].value+`">`+list[j].name+`</a><ul>`;
+                            temp += `<li><a href="`+list[j].value+`">`+list[j].name+`</a><ul>`;
                             for(k=0;k<list.length;k++){
                                 if(list[k].parent_id == list[j].id){
-                                    temp += `<li><a style="font-size: 16px;" href="`+list[k].value+`">`+list[k].name+`</a></li>`;
+                                    temp += `<li><a href="`+list[k].value+`">`+list[k].name+`</a></li>`;
                                 }
                             }
                             temp += `</ul></li>`;

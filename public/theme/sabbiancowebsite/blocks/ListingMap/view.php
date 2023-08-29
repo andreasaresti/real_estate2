@@ -8,12 +8,11 @@
     else{
         $user_id = "";
     }
+    $selDistricts = '';
     if(isset($_GET["district"])){
         $selDistricts = $_GET["district"];
     }
-    else{
-        $selDistricts = 0;
-    }
+    // echo 'selDistricts: '.$selDistricts.'<br>';
     
     $active_district_response = Helper::get_active_district();       
     $active_district_response = json_decode($active_district_response);
@@ -42,16 +41,16 @@
             <aside class="col-lg-6 col-md-6 google-maps-left mt-0">
                 <div class="row" style="width:92%;display: flex;align-items: center;margin: 25px 0px 0px 50px; position: absolute;z-index: 9;">
                     <div class="col-xl-5 xsRow" style="display: flex;justify-content: space-around;align-items: center;padding: 0px;">
-                        <a  class="btn btn-map" id="mapSizeListingMap1" onclick="mapSizeListingMap(1);" >+ 1 km</a>
-                        <a  class="btn btn-map" id="mapSizeListingMap5" onclick="mapSizeListingMap(5);" >+ 5 km</a>
-                        <a  class="btn btn-map" id="mapSizeListingMap10" onclick="mapSizeListingMap(10);" >+ 10 km</a>
-                    </div>
-                    <div class="col-xl-5 xsRow" style="display: flex;justify-content: space-around;align-items: center;padding: 0px;">
-                        <a  class="btn btn-map" id="mapSizeListingMap30" onclick="mapSizeListingMap(30);" >+ 30 km</a>
-                        <a  class="btn btn-map" id="mapSizeListingMap50" onclick="mapSizeListingMap(50);" >+ 50 km</a>
-                        <a  class="btn btn-map" id="mapSizeListingMap100" onclick="mapSizeListingMap(100);" >+ 100 km</a>
-                    </div>
-                    <div class="col-xl-2 xsRow" style="display: flex;justify-content: space-around;align-items: center;padding: 0px;">
+                        <a  class="btn btn-map" id="mapSizeListingMap1" onclick="mapSizeListingMap(1);" style="margin-right:5px;">+ 1 km</a>
+                        <a  class="btn btn-map" id="mapSizeListingMap5" onclick="mapSizeListingMap(5);" style="margin-right:5px;">+ 5 km</a>
+                        <a  class="btn btn-map" id="mapSizeListingMap10" onclick="mapSizeListingMap(10);" style="margin-right:5px;">+ 10 km</a>
+                    <!-- </div>
+                    <div class="col-xl-5 xsRow" style="display: flex;justify-content: space-around;align-items: center;padding: 0px;"> -->
+                        <a  class="btn btn-map" id="mapSizeListingMap30" onclick="mapSizeListingMap(30);" style="margin-right:5px;">+ 30 km</a>
+                        <a  class="btn btn-map" id="mapSizeListingMap50" onclick="mapSizeListingMap(50);" style="margin-right:5px;">+ 50 km</a>
+                        <a  class="btn btn-map" id="mapSizeListingMap100" onclick="mapSizeListingMap(100);" style="margin-right:5px;">+ 100 km</a>
+                    <!-- </div>
+                    <div class="col-xl-2 xsRow" style="display: flex;justify-content: space-around;align-items: center;padding: 0px;"> -->
                         <a style="display: flex;justify-content: center;align-items: center;" class="btn btn-map" id="showCircleListingMap" onclick="showCircleListingMap();" ><i class="fa-solid fa-location-crosshairs" style="font-size:30px;"></i></a>
                     </div>
                 </div>
@@ -282,7 +281,6 @@
             </div>
         </div>
         <input type="hidden" id="page_index" value="1">
-        <input type="hidden" id="selDistricts" value="<?php echo $selDistricts; ?>">
     </div>
 </section>
 </div>
@@ -313,37 +311,13 @@
         }
         
     }
-    if(localStorage.getItem("list_search_data")){
-            // alert('we have local storage');
-            tempList = JSON.parse(localStorage.getItem("list_search_data"));
-            // setTimeout(() => {
-                if(tempList.number_of_bathrooms > 0){
-                    document.getElementById("selBathrooms").value = tempList.number_of_bathrooms;
-                }
-                if(tempList.number_of_bedrooms > 0){
-                    document.getElementById("selBedrooms").value = tempList.number_of_bedrooms;
-                }
-                if(tempList.search_term !== ""){
-                    document.getElementById('search_string').value = tempList.search_term;
-                }
-                for(var j=0; j<tempList.features.length;j++){
-                    document.getElementById('fcheck-'+tempList.features[j]).checked = true;
-                }
-                for(var j=0; j<tempList.districts.length;j++){
-                    document.getElementById('districts'+tempList.districts[j]).checked = true;
-                }
-                for(var j=0; j<tempList.municipalities.length;j++){
-                    document.getElementById('municipalities'+tempList.municipalities[j]).checked = true;
-                }
-                for(var j=0; j<tempList.locations.length;j++){
-                    document.getElementById('locations'+tempList.locations[j]).checked = true;
-                }
-                for(var j=0; j<tempList.listing_types.length;j++){
-                    document.getElementById('propertTypes'+tempList.listing_types[j]).checked = true;
-                }
-            // }, 5000);
-        }
 	// window.addEventListener("load", (event) => {
+
+        <?php
+if($selDistricts != ''){
+    echo "$( '#districts".$selDistricts."' ).click();";
+}
+        ?>
     
     
     loadActiveListingsListingMap([0,0],0);
@@ -575,10 +549,6 @@
                 orderbyName = "price";
                 orderbyType ="desc";
                 break;
-        }
-        if(document.getElementById("selDistricts").value>0){
-            tempDistrictArr = [document.getElementById("selDistricts").value];
-            document.getElementById("selDistricts").value = 0;
         }
         const sendData = {
             "number_of_bathrooms": number_of_bathrooms,
@@ -840,10 +810,13 @@
         }
     }
     function mapSizeListingMap(index){
+        if(viewCircleFlag==0){
+            showCircleListingMap(index);
+        }
         if(viewCircleFlag>0){
             viewCircleFlag = index;
-            document.getElementById("mapSizeListingMap1").style.background = "rgb(255, 255, 255)";
-            document.getElementById("mapSizeListingMap1").style.color = "rgb(0, 0, 0)";
+            // document.getElementById("mapSizeListingMap1").style.background = "rgb(255, 255, 255)";
+            // document.getElementById("mapSizeListingMap1").style.color = "rgb(0, 0, 0)";
             document.getElementById("mapSizeListingMap5").style.background = "rgb(255, 255, 255)";
             document.getElementById("mapSizeListingMap5").style.color = "rgb(0, 0, 0)";
             document.getElementById("mapSizeListingMap10").style.background = "rgb(255, 255, 255)";
@@ -975,7 +948,7 @@
     function searchNowListingMap(){
         loadActiveListingsListingMap([0,0],0);
     }
-    function showCircleListingMap(){
+    function showCircleListingMap(radius=100){
         document.getElementById("mapSizeListingMap1").style.background = "rgb(255, 255, 255)";
         document.getElementById("mapSizeListingMap1").style.color = "rgb(0, 0, 0)";
         document.getElementById("mapSizeListingMap5").style.background = "rgb(255, 255, 255)";
@@ -996,11 +969,12 @@
             document.getElementById("showCircleListingMap").style.color = "rgb(0, 0, 0)";
             viewCircleFlag = 0;
             loadActiveListingsListingMap(curLocation,0);
-        }else{
-            viewCircleFlag = 100;
+        }
+        else{
+            viewCircleFlag = radius;
             curLocation = [34.994003757575776,33.19793701171876];
-            document.getElementById("mapSizeListingMap100").style.background = "rgb(34, 150, 67)";
-            document.getElementById("mapSizeListingMap100").style.color = "rgb(255, 255, 255)";
+            document.getElementById("mapSizeListingMap"+radius).style.background = "rgb(34, 150, 67)";
+            document.getElementById("mapSizeListingMap"+radius).style.color = "rgb(255, 255, 255)";
             document.getElementById("showCircleListingMap").style.background = "rgb(34, 150, 67)";
             document.getElementById("showCircleListingMap").style.color = "rgb(255, 255, 255)";
             loadActiveListingsListingMap(curLocation,100);
