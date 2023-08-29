@@ -134,7 +134,7 @@
                                     </h3>
                                     <p>
                                         <font style="vertical-align: inherit;">
-                                            <font style="vertical-align: inherit;">Emai: `+list[i].email +`</font>
+                                            <font style="vertical-align: inherit;">Email: `+list[i].email +`</font>
                                         </font>
                                     </p>
                                     <p>

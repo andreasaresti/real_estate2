@@ -109,6 +109,7 @@ if(isset($_SESSION["user_role"])){
             "sales_people_id": user_id,
             "accepted_status": "no",
         }
+        alert(user_id);
 		const url = "/api/salesrequest-getsalesrequest";
 		let xhr = new XMLHttpRequest();
 		xhr.open('POST', url, true);

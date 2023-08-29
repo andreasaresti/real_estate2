@@ -57,7 +57,7 @@
                                 <div class="news-item-text">
                                     <a href="`+list[i].link+`"><h3>`+ list[i].displayname + `</h3></a>
                                     <div class="news-item-descr" style="height:105px !important;">
-                                        <p>`+ list[i].short_description +`</p>
+                                        <p>`+ list[i].displayshortdescription +`</p>
                                     </div>
                                     <div class="news-item-bottom">
                                         <a href="`+list[i].link+`" class="news-link">Read more...</a>

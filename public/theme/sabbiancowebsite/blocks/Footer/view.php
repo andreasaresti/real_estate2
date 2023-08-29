@@ -317,21 +317,6 @@
 							</div>
 						</div>
 					</section>
-					<section id="text-3" class="widget clearfix widget_text">
-						<div class="textwidget">
-							<p>&nbsp;</p>
-							<p>&nbsp;</p>
-							<p>&nbsp;</p>
-						</div>
-					</section>
-					<section id="media_image-2" class="widget clearfix widget_media_image">
-						<a href="https://www.instagram.com/wom_entertainment/" target="_blank" rel="noopener">
-							<img width="300" height="71" alt="" decoding="async" style="max-width: 100%; height: auto; visibility: visible;" data-srcset="https://sabbiancoproperties.com/wp-content/uploads/2022/03/text-2-300x71.png 300w, https://sabbiancoproperties.com/wp-content/uploads/2022/03/text-2-150x36.png 150w, https://sabbiancoproperties.com/wp-content/uploads/2022/03/text-2.png 454w" data-src="https://sabbiancoproperties.com/wp-content/uploads/2022/03/text-2-300x71.png" data-sizes="(max-width: 300px) 100vw, 300px" class="image wp-image-49661  attachment-medium size-medium ls-is-cached lazyloaded" src="https://sabbiancoproperties.com/wp-content/uploads/2022/03/text-2-300x71.png" data-xblocker="passed" sizes="(max-width: 300px) 100vw, 300px" srcset="https://sabbiancoproperties.com/wp-content/uploads/2022/03/text-2-300x71.png 300w, https://sabbiancoproperties.com/wp-content/uploads/2022/03/text-2-150x36.png 150w, https://sabbiancoproperties.com/wp-content/uploads/2022/03/text-2.png 454w">
-							<noscript>
-								<img width="300" height="71" src="https://sabbiancoproperties.com/wp-content/uploads/2022/03/text-2-300x71.png" class="image wp-image-49661  attachment-medium size-medium" alt="" decoding="async" style="max-width: 100%; height: auto;" srcset="https://sabbiancoproperties.com/wp-content/uploads/2022/03/text-2-300x71.png 300w, https://sabbiancoproperties.com/wp-content/uploads/2022/03/text-2-150x36.png 150w, https://sabbiancoproperties.com/wp-content/uploads/2022/03/text-2.png 454w" sizes="(max-width: 300px) 100vw, 300px" />
-							</noscript>
-						</a>
-					</section>
 				</div>
 			</div>
 		</div>
