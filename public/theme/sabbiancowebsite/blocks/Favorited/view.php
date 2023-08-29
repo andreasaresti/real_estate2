@@ -86,14 +86,14 @@ if(isset($_SESSION["user_role"])){
     <input type="hidden" id="page_index" value="1">
 </section>
 <script type="text/javascript">
-    window.addEventListener("load", (event) => {
+    // window.addEventListener("load", (event) => {
         user_id = '<?php echo $user_id; ?>';
         if(user_id == ""){
             window.location.href="/page/home";
         }
 		loadActiveListingsListFavorited();
         
-	});
+	// });
     function loadActiveListingsListFavorited(){
         user_id = '<?php echo $user_id; ?>';
         const sendData = {
@@ -107,8 +107,7 @@ if(isset($_SESSION["user_role"])){
 		xhr.setRequestHeader('Content-type', 'application/json');
 		xhr.send(JSON.stringify(sendData));
 		xhr.onload = function () {
-			data = JSON.parse(xhr.response);
-			list = data.data;
+			list = JSON.parse(xhr.response).items.data;
             temp = "";
             for(var i= 0; i<list.length; i++)
             {
