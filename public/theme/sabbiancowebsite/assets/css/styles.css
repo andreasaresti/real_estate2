@@ -24958,4 +24958,8 @@ section.ui-element {
 .inner-pages.hp-6.full .btn.btn-map {
   background: #ffffff;
   color: black;
+  height: 40px;
+  width: 76px;
+  padding: 0px 0px 0px 0px;
+  line-height: 40px;
 }
