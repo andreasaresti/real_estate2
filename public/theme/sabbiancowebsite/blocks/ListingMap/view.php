@@ -33,31 +33,16 @@ use App\Helpers\Helper;
     <div class="container-fluid">
         <div class="row">
             <aside class="col-lg-6 col-md-6 google-maps-left mt-0">
-                <div class="row" style="display: flex;align-items: center;margin: 10px 0px 0px 60px; position: absolute;z-index: 9;">
-                    <div class="col-lg-12 col-md-12" style="margin-top: 20px;">
-                        <a style="height: 40px;width: 220px;padding: 0px 0px 0px 0px;line-height: 40px;" class="btn btn-yellow" id="Show_Hide" onclick="showHideListingMap();">Show/Hide Map Select</a>
+                <div class="row" style="width:82%;display: flex;align-items: center;margin: 25px 0px 0px 60px; position: absolute;z-index: 9;">
+                    <div class="col-xl-6 xsRow" style="display: flex;justify-content: space-around;align-items: center;padding: 0px;">
+                        <a style="height: 40px;width: 80px;padding: 0px 0px 0px 0px;line-height: 40px;" class="btn btn-map" id="mapSizeListingMap1" onclick="mapSizeListingMap(1);" >+ 1 km</a>
+                        <a style="height: 40px;width: 80px;padding: 0px 0px 0px 0px;line-height: 40px;" class="btn btn-map" id="mapSizeListingMap5" onclick="mapSizeListingMap(5);" >+ 5 km</a>
+                        <a style="height: 40px;width: 80px;padding: 0px 0px 0px 0px;line-height: 40px;" class="btn btn-map" id="mapSizeListingMap10" onclick="mapSizeListingMap(10);" >+ 10 km</a>
                     </div>
-                    <div class="col-lg-12 col-md-12" style="margin-top: 20px;display:none" id="circleSize">
-                        <div class="row" style="width: 98%;">
-                            <div class="col-lg-2 col-md-2">
-                                <a style="height: 40px;width: 80px;padding: 0px 0px 0px 0px;line-height: 40px;" class="btn btn-yellow" onclick="mapSizeListingMap(1);" >+ 1 km</a>
-                            </div>
-                            <div class="col-lg-2 col-md-2">
-                                <a style="height: 40px;width: 80px;padding: 0px 0px 0px 0px;line-height: 40px;" class="btn btn-yellow" onclick="mapSizeListingMap(5);" >+ 5 km</a>
-                            </div>
-                            <div class="col-lg-2 col-md-2">
-                                <a style="height: 40px;width: 80px;padding: 0px 0px 0px 0px;line-height: 40px;" class="btn btn-yellow" onclick="mapSizeListingMap(10);" >+ 10 km</a>
-                            </div>
-                            <div class="col-lg-2 col-md-2">
-                                <a style="height: 40px;width: 80px;padding: 0px 0px 0px 0px;line-height: 40px;" class="btn btn-yellow" onclick="mapSizeListingMap(30);" >+ 30 km</a>
-                            </div>
-                            <div class="col-lg-2 col-md-2">
-                                <a style="height: 40px;width: 80px;padding: 0px 0px 0px 0px;line-height: 40px;" class="btn btn-yellow" onclick="mapSizeListingMap(50);" >+ 50 km</a>
-                            </div>
-                            <div class="col-lg-2 col-md-2">
-                                <a style="height: 40px;width: 80px;padding: 0px 0px 0px 0px;line-height: 40px;" class="btn btn-yellow" onclick="mapSizeListingMap(100);" >+ 100 km</a>
-                            </div>
-                        </div>
+                    <div class="col-xl-6 xsRow" style="display: flex;justify-content: space-around;align-items: center;padding: 0px;">
+                        <a style="height: 40px;width: 80px;padding: 0px 0px 0px 0px;line-height: 40px;" class="btn btn-map" id="mapSizeListingMap30" onclick="mapSizeListingMap(30);" >+ 30 km</a>
+                        <a style="height: 40px;width: 80px;padding: 0px 0px 0px 0px;line-height: 40px;" class="btn btn-map" id="mapSizeListingMap50" onclick="mapSizeListingMap(50);" >+ 50 km</a>
+                        <a style="height: 40px;width: 80px;padding: 0px 0px 0px 0px;line-height: 40px;" class="btn btn-map" id="mapSizeListingMap100" onclick="mapSizeListingMap(100);" >+ 100 km</a>
                     </div>
                 </div>
                 <div id="map-leaflet"></div>
@@ -304,6 +289,7 @@ use App\Helpers\Helper;
     var map = null;
     var circle;
     var curLocation = [0,0];
+    var viewCircleFlag = 0;
     // loadActiveFeaturesListingMap();
     // loadActiveDistrictListingMap();
     function searchShowListingMap(){
@@ -786,7 +772,6 @@ use App\Helpers\Helper;
     }
     function addFavoritListingMap(index)
     {
-        
         customer_id = '<?php echo $user_id; ?>';
         if(customer_id !== ""){
             const url = "/api/add-remove-to-favorites";
@@ -811,21 +796,35 @@ use App\Helpers\Helper;
         }
     }
     function mapSizeListingMap(index){
-        loadActiveListingsListingMap(curLocation,index);
-    }
-    function showHideListingMap(){
-        if(document.getElementById("circleSize").style.display == "block"){
-            document.getElementById("circleSize").style.display = "none";
-            loadActiveListingsListingMap([0,0],0);
+        document.getElementById("mapSizeListingMap1").style.background = "rgb(255, 255, 255)";
+        document.getElementById("mapSizeListingMap1").style.color = "rgb(0, 0, 0)";
+        document.getElementById("mapSizeListingMap5").style.background = "rgb(255, 255, 255)";
+        document.getElementById("mapSizeListingMap5").style.color = "rgb(0, 0, 0)";
+        document.getElementById("mapSizeListingMap10").style.background = "rgb(255, 255, 255)";
+        document.getElementById("mapSizeListingMap10").style.color = "rgb(0, 0, 0)";
+        document.getElementById("mapSizeListingMap30").style.background = "rgb(255, 255, 255)";
+        document.getElementById("mapSizeListingMap30").style.color = "rgb(0, 0, 0)";
+        document.getElementById("mapSizeListingMap50").style.background = "rgb(255, 255, 255)";
+        document.getElementById("mapSizeListingMap50").style.color = "rgb(0, 0, 0)";
+        document.getElementById("mapSizeListingMap100").style.background = "rgb(255, 255, 255)";
+        document.getElementById("mapSizeListingMap100").style.color = "rgb(0, 0, 0)";
+        if(viewCircleFlag == index){
+            viewCircleFlag = 0;
+            curLocation = [0,0];
+            document.getElementById("mapSizeListingMap"+index).style.background = "rgb(255, 255, 255)";
+            document.getElementById("mapSizeListingMap"+index).style.color = "rgb(0, 0, 0)";
+            loadActiveListingsListingMap(curLocation,0);
         }else{
-            document.getElementById("circleSize").style.display = "block";
-            loadActiveListingsListingMap([34.994003757575776,33.19793701171876],100);
+            viewCircleFlag = index;
+            curLocation = [34.994003757575776,33.19793701171876];
+            document.getElementById("mapSizeListingMap"+index).style.background = "rgb(34, 150, 67)";
+            document.getElementById("mapSizeListingMap"+index).style.color = "rgb(255, 255, 255)";
+            loadActiveListingsListingMap(curLocation,index);
         }
+        
     }
     function map_init_circle(valueArray,maker_position,set){
-        if(set>0){
-            document.getElementById("circleSize").style.display = "block";
-        }
+        
         if ($('#map-leaflet').length) {
             curLocation = maker_position;
             var container = L.DomUtil.get('map');
@@ -915,7 +914,6 @@ use App\Helpers\Helper;
                 map.removeLayer(circle);
                 circle = L.circle(curLocation, 1000*set).addTo(map);
                 circle.setLatLng(curLocation);
-                document.getElementById("circleSize").style.display = "block";
                 document.getElementById("page_index").value = 1;
                 loadActiveListingsListingMap(curLocation,set);
                 
@@ -939,7 +937,6 @@ use App\Helpers\Helper;
         }
     }
     function searchNowListingMap(){
-        document.getElementById("circleSize").style.display = "none";
         loadActiveListingsListingMap([0,0],0);
     }
 </script>

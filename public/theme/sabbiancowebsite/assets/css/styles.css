@@ -8067,7 +8067,7 @@ html input[disabled] {
     margin-top: 30px;
   }
 
-  .hp-6 .btn.btn-yellow {
+  .hp-6 .btn.btn-map {
     margin-top: 20px;
   }
 
@@ -24948,4 +24948,14 @@ section.ui-element {
     background-color: #fcf8e3;
     border-color: #faebcc;
     display: none;
+}
+
+.inner-pages.hp-6.full .btn.btn-map:hover {
+  background: #229643;
+  color: white;
+}
+
+.inner-pages.hp-6.full .btn.btn-map {
+  background: #ffffff;
+  color: black;
 }

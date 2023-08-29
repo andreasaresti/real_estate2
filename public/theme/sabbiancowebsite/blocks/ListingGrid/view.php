@@ -297,7 +297,7 @@ use App\Helpers\Helper;
                     document.getElementById('search_string').value = tempList.search_term;
                 }
                 for(var j=0; j<tempList.features.length;j++){
-                    document.getElementById('featurecheck'+tempList.features[j]).checked = true;
+                    document.getElementById('fcheck-'+tempList.features[j]).checked = true;
                 }
                 for(var j=0; j<tempList.districts.length;j++){
                     document.getElementById('districts'+tempList.districts[j]).checked = true;
