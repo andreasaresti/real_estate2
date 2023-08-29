@@ -222,6 +222,7 @@
 <script src="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.1.0/esri-leaflet-geocoder.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/leaflet.markercluster/1.0.0-beta.2.0/leaflet.markercluster.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/leaflet.markercluster/1.0.0-beta.2.0/leaflet.markercluster-src.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/gh/Falke-Design/L.Donut@latest/src/L.Donut.js"></script>
 
 <script type="text/javascript">
     var map = null;
@@ -874,10 +875,20 @@
                 map.remove(); // should remove the map from UI and clean the inner children of DOM element
             }
             map = L.map('map-leaflet').setView([34.994003757575776,33.15703828125001], 9);
-            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);       
+            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);      
 
-            circle = L.circle(curLocation, 1000*set).addTo(map);
-            circle.setStyle({color: 'green'});
+            if(set>0){
+                var donut = L.donut(curLocation,{
+                    radius: 20000000000000,
+                    innerRadius: 1000*set,
+                    innerRadiusAsPercent: false,
+                    color: '#000',
+                    weight: 2,
+                }).addTo(map);
+                circle = L.circle(curLocation, 1000*set).addTo(map);
+                circle.setStyle({color: 'green',  opacity:0.5});
+            }
+            
             var markerArray=[];
             
             valueArray.forEach((value) => {
