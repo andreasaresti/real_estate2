@@ -70,38 +70,6 @@
                                         <div class="rld-single-input" onmouseover="hiddenAdvancedDivListingMap();" style="width: 190px">
                                             <input type="text" placeholder="Enter Keyword..." autocomplete="off" id="search_string">
                                         </div>
-                                        <div class="rld-single-select" style="margin-bottom: 15px" onmouseover="hiddenAdvancedDivListingMap();">
-                                            <input type="hidden" id="selActivePropertStatus" name="selActivePropertStatus" value="">
-                                            <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: #ebebeb;">
-                                                <ul>
-                                                    <li ><a>Property Status</a>
-                                                    <ul id="activePropertStatus">
-                                                <?php
-                                                    foreach($active_property_types_response->data as $property_type){
-                                                        echo '<li><a><input type="checkbox" class="propertStatus" value="'.$property_type->id.'" id="propertStatus'.$property_type->id.'" >'.$property_type->displayname.'</a></li>';
-                                                    }
-                                                    ?> 
-                                                </ul>
-                                                    </li>
-                                                </ul>
-                                            </nav>
-                                        </div>
-                                        <div class="rld-single-select" style="margin-bottom: 15px" onmouseover="hiddenAdvancedDivListingMap();">
-                                            <input type="hidden" id="selActivePropertType" name="selActivePropertType" value="">
-                                            <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: #ebebeb;">
-                                                <ul>
-                                                    <li ><a>Property Type</a>
-                                                    <ul id="activePropertType">
-                                                        <?php
-                                                        foreach($active_listing_types_response->data as $listing_type){
-                                                            echo '<li><a><input type="checkbox" class="propertTypes" name="property_types[]" value="'.$listing_type->id.'" id="propertTypes'.$listing_type->id.'">'.$listing_type->displayname.'</a></li>';
-                                                        }
-                                                        ?>                                                
-                                                    </ul>
-                                                    </li>
-                                                </ul>
-                                            </nav>
-                                        </div>
                                         <div class="rld-single-select" style="margin-bottom: 15px" onmouseover="hiddenAdvancedDivListingMap();" style="width: 132px">
                                             <input type="hidden" id="selLocation" name="selLocation" value="">
                                             <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: #ebebeb;">
@@ -144,6 +112,40 @@
                                                 </ul>
                                             </nav>
                                         </div>
+                                        <div class="rld-single-select" style="margin-bottom: 15px" onmouseover="hiddenAdvancedDivListingMap();">
+                                            <input type="hidden" id="selActivePropertStatus" name="selActivePropertStatus" value="">
+                                            <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: #ebebeb;">
+                                                <ul>
+                                                    <li ><a>Property Status</a>
+                                                    <ul id="activePropertStatus">
+                                                <?php
+                                                    foreach($active_property_types_response->data as $property_type){
+                                                        echo '<li><a><input type="checkbox" class="propertStatus" value="'.$property_type->id.'" id="propertStatus'.$property_type->id.'" >'.$property_type->displayname.'</a></li>';
+                                                    }
+                                                    ?> 
+                                                </ul>
+                                                    </li>
+                                                </ul>
+                                            </nav>
+                                        </div>
+                                        
+                                        <div class="rld-single-select" style="margin-bottom: 15px" onmouseover="hiddenAdvancedDivListingMap();">
+                                            <input type="hidden" id="selActivePropertType" name="selActivePropertType" value="">
+                                            <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: #ebebeb;">
+                                                <ul>
+                                                    <li ><a>Property Type</a>
+                                                    <ul id="activePropertType">
+                                                        <?php
+                                                        foreach($active_listing_types_response->data as $listing_type){
+                                                            echo '<li><a><input type="checkbox" class="propertTypes" name="property_types[]" value="'.$listing_type->id.'" id="propertTypes'.$listing_type->id.'">'.$listing_type->displayname.'</a></li>';
+                                                        }
+                                                        ?>                                                
+                                                    </ul>
+                                                    </li>
+                                                </ul>
+                                            </nav>
+                                        </div>
+                                        
                                         <div class="dropdown-filter" style="margin-bottom: 15px; width: 238px"><span>Advanced Search</span></div>
                                         <div class="col-xl-2 col-lg-2 col-md-4 pl-0" style="width: 150px">
                                             <a class="btn btn-yellow" onclick="searchNowListingMap();">Search Now</a>
