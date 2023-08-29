@@ -1,9 +1,32 @@
 <?php
- if(isset($_SESSION["user_id"])){
-    $user_id = $_SESSION["user_id"];
- }else{
-    $user_id = "";
- }
+
+use App\Helpers\Helper;
+
+    if(isset($_SESSION["user_id"])){
+        $user_id = $_SESSION["user_id"];
+    }
+    else{
+        $user_id = "";
+    }
+
+    $active_district_response = Helper::get_active_district();       
+    $active_district_response = json_decode($active_district_response);
+
+    $active_municipality_response = Helper::get_active_municipality();       
+    $active_municipality_response = json_decode($active_municipality_response);
+
+    $active_location_response = Helper::get_active_location();       
+    $active_location_response = json_decode($active_location_response);
+
+    $active_features_response = Helper::get_active_features();       
+    $active_features_response = json_decode($active_features_response);
+    $active_features = $active_features_response->data;
+
+    $active_listing_types_response = Helper::get_active_listing_types();       
+    $active_listing_types_response = json_decode($active_listing_types_response);
+
+    $active_property_types_response = Helper::get_active_property_types();       
+    $active_property_types_response = json_decode($active_property_types_response);
 ?>
 <div class="inner-pages homepage-4 agents hp-6 full hd-white">
 <section class="properties-right featured portfolio blog google-map-right mp-1">
@@ -58,9 +81,13 @@
                                             <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: #ebebeb;">
                                                 <ul>
                                                     <li ><a>Property Status</a>
-                                                        <ul id="activePropertStatus">
-                                                        
-                                                        </ul>
+                                                    <ul id="activePropertStatus">
+                                                <?php
+                                                    foreach($active_property_types_response->data as $property_type){
+                                                        echo '<li><a><input type="checkbox" class="propertStatus" value="'.$property_type->id.'" id="propertStatus'.$property_type->id.'" >'.$property_type->displayname.'</a></li>';
+                                                    }
+                                                    ?> 
+                                                </ul>
                                                     </li>
                                                 </ul>
                                             </nav>
@@ -70,9 +97,13 @@
                                             <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: #ebebeb;">
                                                 <ul>
                                                     <li ><a>Property Type</a>
-                                                        <ul id="activePropertType">
-                                                        
-                                                        </ul>
+                                                    <ul id="activePropertType">
+                                                        <?php
+                                                        foreach($active_listing_types_response->data as $listing_type){
+                                                            echo '<li><a><input type="checkbox" class="propertTypes" name="property_types[]" value="'.$listing_type->id.'" id="propertTypes'.$listing_type->id.'">'.$listing_type->displayname.'</a></li>';
+                                                        }
+                                                        ?>                                                
+                                                    </ul>
                                                     </li>
                                                 </ul>
                                             </nav>
@@ -83,6 +114,36 @@
                                                 <ul>
                                                     <li ><a id="location_title">Location</a>
                                                         <ul id="activelocation">
+                                                            <?php
+                                                                foreach($active_district_response->data as $district){
+                                                                    echo '<li class="parent locationLi">
+                                                                            <a><input type="checkbox" id="districts'.$district->id.'" class="district" name="district[]" value="'.$district->id.'" onchange="changeLocationsListingMap(\'districts\',\''.$district->id.'\',\''.$district->displayname.'\')">'.$district->displayname.' </a>
+                                                                            <div class="wrapper" style="top: 0px; left: 208px;">
+                                                                                <ul style="transform:none;position:initial; visibility: visible;opacity: 100; overflow-x: hidden; overflow-y: auto; max-height: 600px;" id="subDistricts'.$district->id.'">';
+                                                                                    foreach($active_municipality_response->data as $municipality){
+                                                                                        if($district->id == $municipality->district_id){
+                                                                                            echo '<li class="parent locationLi">
+                                                                                                <a><input type="checkbox" id="municipalities'.$municipality->id.'" class="municipality" name="municipality[]" value="'.$municipality->id.'" onchange="changeLocationsListingMap(\'municipalities\',\''.$municipality->id.'\',\''.$municipality->displayname.'\')">'.$municipality->displayname.'</a>
+                                                                                                <div class="wrapper">
+                                                                                                    <ul style="visibility: visible;opacity: 100;" id="subMunicipalities'.$municipality->id.'">';
+                                                                                                    foreach($active_location_response->data as $location){
+                                                                                                        if($location->municipality_id == $municipality->id){
+                                                                                                            echo '<li>
+                                                                                                                <a>
+                                                                                                                <input type="checkbox" id="locations'.$location->id.'" class="location" name="location[]" value="'.$location->id.'" onchange="changeLocationsListingMap(\'locations',''.$location->id.'',''.$location->displayname.'\')">'.$location->displayname.'</a>
+                                                                                                            </li>';
+                                                                                                        }
+                                                                                                    }
+                                                                                                    echo '</ul>
+                                                                                                </div>
+                                                                                            </li>';
+                                                                                        }                                                                                                    
+                                                                                    }                                                                                                
+                                                                                echo '</ul>
+                                                                            </div>
+                                                                        </li>';
+                                                                }
+                                                            ?>
                                                         
                                                         </ul>
                                                     </li>
@@ -151,14 +212,29 @@
                                                 <div class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30">
                                                     <!-- Checkboxes -->
                                                     <div class="checkboxes one-in-row margin-bottom-10 ch-1" id="activefeaturesLeft">
-                                                        
+                                                        <?php
+                                                            foreach($active_features as $key=>$feature){
+                                                                if($key <= count($active_features) / 2){
+                                                                    echo '<input id="fcheck-'.$feature->id.'" type="checkbox" class="featurecheck" value="'.$feature->id.'" name="features[]"">
+                                                                    <label for="fcheck-'.$feature->id.'" >'.$feature->displayname.'</label>';
+                                                                }
+                                                                
+                                                            }
+                                                        ?>
                                                     </div>
                                                     <!-- Checkboxes / End -->
                                                 </div>
                                                 <div class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30">
                                                     <!-- Checkboxes -->
                                                     <div class="checkboxes one-in-row margin-bottom-10 ch-2" id="activefeaturesRight">
-                                                        
+                                                        <?php
+                                                            foreach($active_features as $key=>$feature){
+                                                                if($key > count($active_features) / 2){
+                                                                    echo '<input id="fcheck-'.$feature->id.'" type="checkbox" class="featurecheck" value = "'.$feature->id.'">
+                                                                    <label for="fcheck-'.$feature->id.'">'.$feature->displayname.'</label>';
+                                                                }
+                                                            }
+                                                        ?>
                                                     </div>
                                                     <!-- Checkboxes / End -->
                                                 </div>
@@ -227,8 +303,8 @@
     var map = null;
     var circle;
     var curLocation = [0,0];
-    loadActiveFeaturesListingMap();
-    loadActiveDistrictListingMap();
+    // loadActiveFeaturesListingMap();
+    // loadActiveDistrictListingMap();
     function searchShowListingMap(){
         if(document.getElementById("SearchShowButton").innerHTML == "Search Show"){
             document.getElementById("SearchShowButton").innerHTML = "Search Hide";
@@ -241,8 +317,8 @@
     }
 	// window.addEventListener("load", (event) => {
         loadActiveListingsListingMap([0,0],0);
-        loadActivePropertTypeListingMap();
-        loadActivePropertStatusListingMap();
+        // loadActivePropertTypeListingMap();
+        // loadActivePropertStatusListingMap();
 	// });
     function loadActivePropertStatusListingMap(){
 		const url = "/api/activeproperty-types";

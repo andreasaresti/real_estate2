@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helper;
 use App\Models\Language;
 use App\Models\Blog;
 use App\Models\BlogPost;
@@ -31,22 +32,18 @@ class webWebsiteController extends Controller
             ], 422);
         }
 
-        $query = DB::table('nova_menu_menu_items')
-                    ->join('nova_menu_menus', 'nova_menu_menu_items.menu_id', '=', 'nova_menu_menus.id')
-                    ->where('nova_menu_menus.slug', $request->slug)
-                    ->where('nova_menu_menu_items.locale', $request->locale)
-                    ->where('nova_menu_menu_items.enabled', true);
+        $postData = [
+                        'slug'=>$request->slug,
+                        'parent_id'=>$request->parent_id,
+                        'locale'=>$request->locale,
+                    ];
 
-        if ($request->has('parent_id') && $request->parent_id != '') {
-            $query = $query->where('nova_menu_menu_items.parent_id', $request->parent_id);
-        }
+        $menu_response = Helper::get_menu($postData);       
+        $menu_response = json_decode($menu_response);
 
-        $query = $query
-                    ->select('nova_menu_menu_items.*')
-                    ->orderBy('order', 'asc')->get();
-        $menus = $query; 
+        return response()->json($menu_response);
 
-        return response()->json($menus);
+        
     }
     public function get_languages(Request $request)
     {       

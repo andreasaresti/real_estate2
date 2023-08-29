@@ -136,6 +136,26 @@ class Helper {
 
         return json_encode($locations);
     }
+	public static function get_menu($post_data = [])
+    {
+
+        $query = DB::table('nova_menu_menu_items')
+                    ->join('nova_menu_menus', 'nova_menu_menu_items.menu_id', '=', 'nova_menu_menus.id')
+                    ->where('nova_menu_menus.slug', $post_data['slug'])
+                    ->where('nova_menu_menu_items.locale', $post_data['locale'])
+                    ->where('nova_menu_menu_items.enabled', true);
+
+        if (isset($post_data['parent_id']) && $post_data['parent_id'] != '') {
+            $query = $query->where('nova_menu_menu_items.parent_id', $post_data['parent_id']);
+        }
+
+        $query = $query
+                    ->select('nova_menu_menu_items.*')
+                    ->orderBy('order', 'asc')->get();
+        $menus = $query; 
+
+        return json_encode($menus);
+    }
 	public static function get_active_property_types($post_data = [])
 	{
 		// $this->authorize('view-any', Size::class);

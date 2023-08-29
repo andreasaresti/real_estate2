@@ -22,7 +22,7 @@ class ActivePropertyTypesController extends Controller
             ], 422);
         }
 
-        $postData = [];
+        $postData = ['district'=>$request->district];
 
         $active_property_types_response = Helper::get_active_property_types($postData);       
         $active_property_types_response = json_decode($active_property_types_response);

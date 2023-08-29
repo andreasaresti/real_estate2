@@ -1,5 +1,7 @@
-
 <?php
+
+use App\Helpers\Helper;
+
     if(isset($_SESSION["user_id"])){
         $user_id = $_SESSION["user_id"];
     }else{
@@ -21,6 +23,36 @@
     }else{
         $name = "";
     }
+
+    $active_district_response = Helper::get_active_district();       
+    $active_district_response = json_decode($active_district_response);
+
+    $active_municipality_response = Helper::get_active_municipality();       
+    $active_municipality_response = json_decode($active_municipality_response);
+
+    $active_location_response = Helper::get_active_location();       
+    $active_location_response = json_decode($active_location_response);
+
+    $active_features_response = Helper::get_active_features();       
+    $active_features_response = json_decode($active_features_response);
+    $active_features = $active_features_response->data;
+
+    $active_listing_types_response = Helper::get_active_listing_types();       
+    $active_listing_types_response = json_decode($active_listing_types_response);
+
+    $active_listing_types_response = Helper::get_active_listing_types();       
+    $active_listing_types_response = json_decode($active_listing_types_response);
+
+    // $postData = [
+    //     'slug'=>"menu",
+    //     'locale'=>"en_US",
+    // ];
+
+    // $menu_response = Helper::get_menu($postData);       
+    // $menu_response = json_decode($menu_response);
+    // echo '<pre>';
+    // print_r($menu_response);
+    // echo '</pre>';
 ?>
 <div class="homepage-9 hp-6 homepage-1 mh" style="z-index: 9999;position: relative;">
     <div id="wrapper">
@@ -131,120 +163,172 @@
                                 </div>
                                 <!--/ End Welcome Text -->
                                 <!-- Search Form -->
-                                <div class="col-12">
-                                    <div class="banner-search-wrap">
-                                        <ul class="nav nav-tabs rld-banner-tab">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" data-toggle="tab" href="#tabs_1">For Sale</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-toggle="tab" href="#tabs_2">For Rent</a>
-                                            </li>
-                                        </ul>
-                                        <div class="tab-content">
-                                            <div class="tab-pane fade show active" id="tabs_1">
-                                                <div class="rld-main-search" style="display: flex;justify-content: center;">
-                                                    <div class="row">
-                                                        <div class="rld-single-input">
-                                                            <input type="text" placeholder="Enter Keyword..." autocomplete="off" id="search_string">
-                                                        </div>
-                                                        <div class="rld-single-select" style="margin-bottom: 15px"  onmouseover="hiddenAdvancedDivHeader1();">
-                                                            <input type="hidden" id="selActivePropertType" name="selActivePropertType" value="">
-                                                            <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: #ebebeb;">
-                                                                <ul>
-                                                                    <li ><a>Property Type</a>
-                                                                        <ul id="activePropertType">
-                                                                        
-                                                                        </ul>
-                                                                    </li>
-                                                                </ul>
-                                                            </nav>
-                                                        </div>
-                                                        <div class="rld-single-select" style="margin-bottom: 15px" onmouseover="hiddenAdvancedDivHeader1();">
-                                                            <input type="hidden" id="selLocation" name="selLocation" value="">
-                                                            <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: #ebebeb;">
-                                                                <ul>
-                                                                    <li ><a id="location_title">Location</a>
-                                                                        <ul id="activelocation">
-                                                                        
-                                                                        </ul>
-                                                                    </li>
-                                                                </ul>
-                                                            </nav>
-                                                        </div>
-                                                        <div class="dropdown-filter"><span>Advanced Search</span></div>
-                                                        <div class="col-xl-2 col-lg-2 col-md-4 pl-0">
-                                                            <a class="btn btn-yellow" onclick="lists_view();">Search Now</a>
-                                                        </div>
-                                                        <div id="advancedSearch" class="explore__form-checkbox-list full-filter">
-                                                            <div class="row">
-                                                                
-                                                                <div class="col-lg-4 col-md-6 py-1 pr-30 pl-0 ">
-                                                                    <!-- Form Bedrooms -->
-                                                                    <div class="form-group beds" style="display: flex;"  id="searchFormBedrooms">
-                                                                        <i class="fa fa-bed" aria-hidden="true" style="align-self: center;width: 20px;"></i>
-                                                                        <select class="select single-select"  id="selBedrooms">
-                                                                            <option value="0">Bedrooms</option>
-                                                                            <?php for($i= 1; $i<=10; $i++)
-                                                                            {
-                                                                            ?>
-                                                                            <option value="<?php echo $i;?>"><?php echo $i;?></option>
+                                    <div class="col-12">
+                                        <div class="banner-search-wrap">
+                                            <ul class="nav nav-tabs rld-banner-tab">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" data-toggle="tab" href="#tabs_1">For Sale</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-toggle="tab" href="#tabs_2">For Rent</a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content">
+                                                <div class="tab-pane fade show active" id="tabs_1">
+                                                    <div class="rld-main-search" style="display: flex;justify-content: center;">
+                                                        <div class="row">
+                                                            <div class="rld-single-input">
+                                                                <input type="text" placeholder="Enter Keyword..." autocomplete="off" id="search_string">
+                                                            </div>
+                                                            <div class="rld-single-select" style="margin-bottom: 15px"  onmouseover="hiddenAdvancedDivHeader1();">
+                                                                <input type="hidden" id="selActivePropertType" name="selActivePropertType" value="">
+                                                                <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: #ebebeb;">
+                                                                    <ul>
+                                                                        <li ><a>Property Type</a>
+                                                                            <ul id="activePropertType">
+                                                                                <?php
+                                                                                foreach($active_listing_types_response->data as $listing_type){
+                                                                                    echo '<li><a><input type="checkbox" class="propertTypes" name="property_types[]" value="'.$listing_type->id.'" id="propertTypes'.$listing_type->id.'">'.$listing_type->displayname.'</a></li>';
+                                                                                }
+                                                                                ?>
+                                                                            
+                                                                            </ul>
+                                                                        </li>
+                                                                    </ul>
+                                                                </nav>
+                                                            </div>
+                                                            <div class="rld-single-select" style="margin-bottom: 15px" onmouseover="hiddenAdvancedDivHeader1();">
+                                                                <input type="hidden" id="selLocation" name="selLocation" value="">
+                                                                <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: #ebebeb;">
+                                                                    <ul>
+                                                                        <li ><a id="location_title">Location</a>
+                                                                            <ul id="activelocation">
+                                                                                <?php
+                                                                                    foreach($active_district_response->data as $district){
+                                                                                        echo '<li class="parent locationLi">
+                                                                                                <a><input type="checkbox" id="districts'.$district->id.'" class="district" name="district[]" value="'.$district->id.'" onchange="changeLocationsHeader1(\'districts\',\''.$district->id.'\',\''.$district->displayname.'\')">'.$district->displayname.' </a>
+                                                                                                <div class="wrapper" style="top: 0px; left: 208px;">
+                                                                                                    <ul style="transform:none;position:initial; visibility: visible;opacity: 100; overflow-x: hidden; overflow-y: auto; max-height: 600px;" id="subDistricts'.$district->id.'">';
+                                                                                                        foreach($active_municipality_response->data as $municipality){
+                                                                                                            if($district->id == $municipality->district_id){
+                                                                                                                echo '<li class="parent locationLi">
+                                                                                                                    <a><input type="checkbox" id="municipalities'.$municipality->id.'" class="municipality" name="municipality[]" value="'.$municipality->id.'" onchange="changeLocationsHeader1(\'municipalities\',\''.$municipality->id.'\',\''.$municipality->displayname.'\')">'.$municipality->displayname.'</a>
+                                                                                                                    <div class="wrapper">
+                                                                                                                        <ul style="visibility: visible;opacity: 100;" id="subMunicipalities'.$municipality->id.'">';
+                                                                                                                        foreach($active_location_response->data as $location){
+                                                                                                                            if($location->municipality_id == $municipality->id){
+                                                                                                                                echo '<li>
+                                                                                                                                    <a>
+                                                                                                                                    <input type="checkbox" id="locations'.$location->id.'" class="location" name="location[]" value="'.$location->id.'" onchange="changeLocationsHeader1(\'locations',''.$location->id.'',''.$location->displayname.'\')">'.$location->displayname.'</a>
+                                                                                                                                </li>';
+                                                                                                                            }
+                                                                                                                        }
+                                                                                                                        echo '</ul>
+                                                                                                                    </div>
+                                                                                                                </li>';
+                                                                                                            }                                                                                                    
+                                                                                                        }                                                                                                
+                                                                                                    echo '</ul>
+                                                                                                </div>
+                                                                                            </li>';
+                                                                                    }
+                                                                                ?>
+                                                                            
+                                                                            </ul>
+                                                                        </li>
+                                                                    </ul>
+                                                                </nav>
+                                                            </div>
+                                                            <div class="dropdown-filter"><span>Advanced Search</span></div>
+                                                            <div class="col-xl-2 col-lg-2 col-md-4 pl-0">
+                                                                <a class="btn btn-yellow" onclick="lists_view();">Search Now</a>
+                                                            </div>
+                                                            <div id="advancedSearch" class="explore__form-checkbox-list full-filter">
+                                                                <div class="row">
+                                                                    
+                                                                    <div class="col-lg-4 col-md-6 py-1 pr-30 pl-0 ">
+                                                                        <!-- Form Bedrooms -->
+                                                                        <div class="form-group beds" style="display: flex;"  id="searchFormBedrooms">
+                                                                            <i class="fa fa-bed" aria-hidden="true" style="align-self: center;width: 20px;"></i>
+                                                                            <select class="select single-select"  id="selBedrooms">
+                                                                                <option value="0">Bedrooms</option>
+                                                                                <?php for($i= 1; $i<=10; $i++)
+                                                                                {
+                                                                                ?>
+                                                                                <option value="<?php echo $i;?>"><?php echo $i;?></option>
+                                                                                <?php
+                                                                                }
+                                                                                ?>
+                                                                            </select>
+                                                                        </div>
+                                                                        <!--/ End Form Bedrooms -->
+                                                                    </div>
+                                                                    <div class="col-lg-4 col-md-6 py-1 pr-30 pl-0">
+                                                                        <!-- Form Bathrooms -->
+                                                                        <div class="form-group bath" style="display: flex;" id="searchFormBathrooms">
+                                                                            <i class="fa fa-bath" aria-hidden="true" style="align-self: center;width: 20px;"></i>
+                                                                            <select class="select single-select" id="selBathrooms">
+                                                                                <option value="0">Bathrooms</option>
+                                                                                <?php for($i= 1; $i<=10; $i++)
+                                                                                {
+                                                                                ?>
+                                                                                <option value="<?php echo $i;?>"><?php echo $i;?></option>
+                                                                                <?php
+                                                                                }
+                                                                                ?>
+                                                                            </select>
+                                                                            
+                                                                        </div>
+                                                                        <!--/ End Form Bathrooms -->
+                                                                    </div>
+                                                                    <div class="col-lg-5 col-md-12 col-sm-12 py-1 pr-30 mr-5 sld ">
+                                                                        <!-- Price Fields -->
+                                                                        <div class="main-search-field-2">
+                                                                            <!-- Area Range -->
+                                                                            <div class="range-slider">
+                                                                                <label>Area Size</label>
+                                                                                <div id="area-range" data-min="0" data-max="1300" data-unit="sq meters"></div>
+                                                                                <div class="clearfix"></div>
+                                                                            </div>
+                                                                            <br>
+                                                                            <!-- Price Range -->
+                                                                            <div class="range-slider">
+                                                                                <label>Price Range</label>
+                                                                                <div id="price-range" data-min="0" data-max="600000" data-unit="$"></div>
+                                                                                <div class="clearfix"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30 ">
+                                                                        <!-- Checkboxes -->
+                                                                        <div class="checkboxes one-in-row margin-bottom-10 ch-1" id="activefeaturesLeft">
                                                                             <?php
+                                                                            foreach($active_features as $key=>$feature){
+                                                                                if($key <= count($active_features) / 2){
+                                                                                    echo '<input id="fcheck-'.$key.'" type="checkbox" class="featurecheck" value="'.$feature->id.'" name="features[]"">
+                                                                                    <label for="fcheck-'.$key.'" >'.$feature->displayname.'</label>';
+                                                                                }
+                                                                                
                                                                             }
                                                                             ?>
-                                                                        </select>
+                                                        
+                                                                        </div>
+                                                                        <!-- Checkboxes / End -->
                                                                     </div>
-                                                                    <!--/ End Form Bedrooms -->
-                                                                </div>
-                                                                <div class="col-lg-4 col-md-6 py-1 pr-30 pl-0">
-                                                                    <!-- Form Bathrooms -->
-                                                                    <div class="form-group bath" style="display: flex;" id="searchFormBathrooms">
-                                                                        <i class="fa fa-bath" aria-hidden="true" style="align-self: center;width: 20px;"></i>
-                                                                        <select class="select single-select" id="selBathrooms">
-                                                                            <option value="0">Bathrooms</option>
-                                                                            <?php for($i= 1; $i<=10; $i++)
-                                                                            {
-                                                                            ?>
-                                                                            <option value="<?php echo $i;?>"><?php echo $i;?></option>
-                                                                            <?php
+                                                                    <div class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30 ">
+                                                                        <!-- Checkboxes -->
+                                                                        <div class="checkboxes one-in-row margin-bottom-10 ch-1" id="activefeaturesRight">
+                                                                        <?php
+                                                                            foreach($active_features as $key=>$feature){
+                                                                                if($key > count($active_features) / 2){
+                                                                                    echo '<input id="fcheck-'.$key.'" type="checkbox" class="featurecheck" value = "'.$feature->id.'">
+                                                                                    <label for="fcheck-'.$key.'">'.$feature->displayname.'</label>';
+                                                                                }
                                                                             }
                                                                             ?>
-                                                                        </select>
-                                                                        
-                                                                    </div>
-                                                                    <!--/ End Form Bathrooms -->
-                                                                </div>
-                                                                <div class="col-lg-5 col-md-12 col-sm-12 py-1 pr-30 mr-5 sld ">
-                                                                    <!-- Price Fields -->
-                                                                    <div class="main-search-field-2">
-                                                                        <!-- Area Range -->
-                                                                        <div class="range-slider">
-                                                                            <label>Area Size</label>
-                                                                            <div id="area-range" data-min="0" data-max="1300" data-unit="sq meters"></div>
-                                                                            <div class="clearfix"></div>
                                                                         </div>
-                                                                        <br>
-                                                                        <!-- Price Range -->
-                                                                        <div class="range-slider">
-                                                                            <label>Price Range</label>
-                                                                            <div id="price-range" data-min="0" data-max="600000" data-unit="$"></div>
-                                                                            <div class="clearfix"></div>
-                                                                        </div>
+                                                                        <!-- Checkboxes / End -->
                                                                     </div>
-                                                                </div>
-                                                                <div class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30 ">
-                                                                    <!-- Checkboxes -->
-                                                                    <div class="checkboxes one-in-row margin-bottom-10 ch-1" id="activefeaturesLeft">
-                                                    
-                                                                    </div>
-                                                                    <!-- Checkboxes / End -->
-                                                                </div>
-                                                                <div class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30 ">
-                                                                    <!-- Checkboxes -->
-                                                                    <div class="checkboxes one-in-row margin-bottom-10 ch-1" id="activefeaturesRight">
-                                                    
-                                                                    </div>
-                                                                    <!-- Checkboxes / End -->
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -253,8 +337,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!--/ End Search Form -->
+                                    <!--/ End Search Form -->
                             </div>
                         </div>
                     </div>
@@ -346,9 +429,9 @@
 	// window.addEventListener("load", (event) => {
         loadMenuHeader1();
         loadLangHeader1();
-		loadActiveFeaturesHeader1();
-        loadActiveDistrictHeader1();
-        loadActivePropertTypeHeader1();
+		// loadActiveFeaturesHeader1();
+        // loadActiveDistrictHeader1();
+        // loadActivePropertTypeHeader1();
 	// });
     function loadLangHeader1(){
         data = {
@@ -570,7 +653,6 @@
                     }
                 }
             }
-            
         }
     }
     function loginIn()
@@ -727,6 +809,8 @@
                 tempPropertTypes.push(propertTypes[j].value);
             }
         }
+        
+
         var price1 = document.getElementsByClassName("first-slider-value")[1].value;
         var size1 = document.getElementsByClassName("first-slider-value")[0].value;
         var price2 = document.getElementsByClassName("second-slider-value")[1].value;
