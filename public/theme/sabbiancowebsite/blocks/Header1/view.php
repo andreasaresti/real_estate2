@@ -868,7 +868,7 @@ use App\Helpers\Helper;
         };
         console.log(sendData);
         localStorage.setItem("list_search_data", JSON.stringify(sendData));
-        window.location.href = "/page/listings";
+        window.location.href = "/page/listings-map";
 	}
     function showAddListingHeader1(){
         user_id = '<?php echo $user_id; ?>';

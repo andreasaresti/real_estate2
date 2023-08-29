@@ -306,6 +306,36 @@ use App\Helpers\Helper;
         }
         
     }
+    if(localStorage.getItem("list_search_data")){
+            // alert('we have local storage');
+            tempList = JSON.parse(localStorage.getItem("list_search_data"));
+            // setTimeout(() => {
+                if(tempList.number_of_bathrooms > 0){
+                    document.getElementById("selBathrooms").value = tempList.number_of_bathrooms;
+                }
+                if(tempList.number_of_bedrooms > 0){
+                    document.getElementById("selBedrooms").value = tempList.number_of_bedrooms;
+                }
+                if(tempList.search_term !== ""){
+                    document.getElementById('search_string').value = tempList.search_term;
+                }
+                for(var j=0; j<tempList.features.length;j++){
+                    document.getElementById('fcheck-'+tempList.features[j]).checked = true;
+                }
+                for(var j=0; j<tempList.districts.length;j++){
+                    document.getElementById('districts'+tempList.districts[j]).checked = true;
+                }
+                for(var j=0; j<tempList.municipalities.length;j++){
+                    document.getElementById('municipalities'+tempList.municipalities[j]).checked = true;
+                }
+                for(var j=0; j<tempList.locations.length;j++){
+                    document.getElementById('locations'+tempList.locations[j]).checked = true;
+                }
+                for(var j=0; j<tempList.listing_types.length;j++){
+                    document.getElementById('propertTypes'+tempList.listing_types[j]).checked = true;
+                }
+            // }, 5000);
+        }
 	// window.addEventListener("load", (event) => {
         loadActiveListingsListingMap([0,0],0);
         // loadActivePropertTypeListingMap();
