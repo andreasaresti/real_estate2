@@ -54,6 +54,18 @@ use App\Helpers\Helper;
     // print_r($menu_response);
     // echo '</pre>';
 ?>
+    <style>
+    .parallax-searchs.home15 {
+        height: 100vh;
+        display:block;
+    }
+    @media only screen and (max-width: 1024px){
+        .parallax-searchs.home15 .hero-inner {
+            padding: 0px 0;
+        }
+    }
+
+</style>
 <div class="homepage-9 hp-6 homepage-1 mh" style="z-index: 9999;position: relative;">
     <div id="wrapper">
         <header id="header-container" class="header head-tr">
