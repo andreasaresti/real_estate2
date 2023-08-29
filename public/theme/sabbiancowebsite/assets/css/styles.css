@@ -5144,7 +5144,7 @@ element.style {
 }
 
 .hero-main {
-  padding: 152px 0;
+  padding: 0 0;
 }
 
 
@@ -7823,7 +7823,7 @@ html input[disabled] {
 
 .hp-6 .dropdown-filter span {
   width: 180px !important;
-  padding: 15px 34px 15px 34px;
+  padding: 15px 19px 15px 15px;
   border-radius: 8px;
   line-height: 47px;
   margin: 0 15px 0 15px;

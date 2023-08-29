@@ -1,6 +1,6 @@
 <?php
 
-use App\Helpers\Helper;
+    use App\Helpers\Helper;
 
     if(isset($_SESSION["user_id"])){
         $user_id = $_SESSION["user_id"];
@@ -8,7 +8,13 @@ use App\Helpers\Helper;
     else{
         $user_id = "";
     }
-
+    if(isset($_GET["district"])){
+        $selDistricts = $_GET["district"];
+    }
+    else{
+        $selDistricts = 0;
+    }
+    
     $active_district_response = Helper::get_active_district();       
     $active_district_response = json_decode($active_district_response);
 
@@ -276,6 +282,7 @@ use App\Helpers\Helper;
             </div>
         </div>
         <input type="hidden" id="page_index" value="1">
+        <input type="hidden" id="selDistricts" value="<?php echo $selDistricts; ?>">
     </div>
 </section>
 </div>
@@ -337,7 +344,9 @@ use App\Helpers\Helper;
             // }, 5000);
         }
 	// window.addEventListener("load", (event) => {
-        loadActiveListingsListingMap([0,0],0);
+    
+    
+    loadActiveListingsListingMap([0,0],0);
         // loadActivePropertTypeListingMap();
         // loadActivePropertStatusListingMap();
 	// });
@@ -567,6 +576,10 @@ use App\Helpers\Helper;
                 orderbyType ="desc";
                 break;
         }
+        if(document.getElementById("selDistricts").value>0){
+            tempDistrictArr = [document.getElementById("selDistricts").value];
+            document.getElementById("selDistricts").value = 0;
+        }
         const sendData = {
             "number_of_bathrooms": number_of_bathrooms,
             "number_of_bedrooms": number_of_bedrooms,
@@ -608,9 +621,6 @@ use App\Helpers\Helper;
                 map_init_circle(markersArray,maker_position,set);
             }
             
-
-
-
 			list = JSON.parse(xhr.response).items.data;
 			// list = list.data;
 			totalrecords = JSON.parse(xhr.response).items.total;

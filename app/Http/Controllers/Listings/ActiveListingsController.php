@@ -114,6 +114,15 @@ class ActiveListingsController extends Controller
                         ->whereIn('locations.municipality_id', $request->municipalities);
                 });
             }
+            if ($request->has('districts') && count($request->districts) > 0) {
+                $query = $query->whereIn('listings.id', function ($subquery) use ($request) {
+                    $subquery->select('listings.id')
+                        ->from('listings')
+                        ->join('locations', 'listings.location_id', '=', 'locations.id')
+                        ->join('municipalities', 'locations.municipality_id', '=', 'municipalities.id')
+                        ->whereIn('municipalities.district_id', $request->districts);
+                });
+            }
         }
         
         if ($request->has('listing_types') && count($request->listing_types) > 0) {

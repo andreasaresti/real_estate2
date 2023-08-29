@@ -27,9 +27,10 @@
 		xhr.onload = function () {
 			data = JSON.parse(xhr.response);
             list = data.data;
+            console.log(list);
             var temp ="";
-            if(list.length >8){
-                counter = 8;
+            if(list.length > 6){
+                counter = 6;
             }else{
                 counter = list.length;
             }
@@ -37,10 +38,10 @@
                 temp += `<div class="col-xl-4 col-lg-6 col-sm-6" >
                         <div class="small-category-2">
                             <div class="small-category-2-thumb img-1">
-                                <a href=""><img src="`+list[i].image+`" alt=""></a>
+                                <a href="/page/listings-map?district=`+list[i].id+`"><img src="`+list[i].image+`" alt=""></a>
                             </div>
                             <div class="sc-2-detail">
-                                <h4 class="sc-jb-title"><a href="">`+list[i].displayname+`</a></h4>
+                                <h4 class="sc-jb-title"><a href="/page/listings-map?district=`+list[i].id+`">`+list[i].displayname+`</a></h4>
                                 <span>`+list[i].listingCount+` Properties</span>
                             </div>
                         </div>
