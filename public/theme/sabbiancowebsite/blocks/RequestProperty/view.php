@@ -817,7 +817,7 @@ if(isset($_SESSION["user_role"])){
             var temp ="";
             for(i=0;i<data.length;i++){
                 temp += `<li class="parent locationLi" ><a><input type="checkbox" id="districts`+data[i].id+`" class="district" name="district[]" value="`+data[i].id+`" onchange="changeLocationsRequestProperty('districts','`+data[i].id+`','`+data[i].displayname+`')">`+data[i].displayname+`</a>
-                <div class="wrapper"><ul style="transform:none;position:initial; visibility: visible;opacity: 100; overflow-x: hidden; overflow-y: auto; max-height: 600px;" id="subDistricts`+data[i].id+`"></ul></div></li>`;
+                <div class="wrapper"><ul style="transform:none;position:initial; visibility: visible;opacity: 100; overflow-x: hidden; overflow-y: auto; max-height: 500px;" id="subDistricts`+data[i].id+`"></ul></div></li>`;
             }
             document.getElementById("activelocation").innerHTML = temp;
             loadActiveMunicipalityRequestProperty();

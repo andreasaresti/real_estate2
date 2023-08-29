@@ -378,7 +378,7 @@ a.button.border, a.button {
 }
 #navigation ul ul li {
     float: none;
-    width: 208px;
+    width: 170px;
 }
 #navigation ul ul ul {
     top: 0;
@@ -451,7 +451,7 @@ a.button.border, a.button {
 #navigation ul li:hover ul a,
 #navigation ul ul a {
     line-height: 27px !important;
-    padding: 10px 30px 10px 15px !important;
+    padding: 10px 5px 6px 10px !important;
     color: #707070 !important;
 }
 #navigation ul ul li:hover {
@@ -513,7 +513,7 @@ a.button.border, a.button {
     color: #707070 ;
 }
 #navigation.style-1 ul a {
-    font-size: 16px;
+    font-size: 14px;
     text-transform: capitalize;
     text-align: -webkit-left;
     line-height: 32px;

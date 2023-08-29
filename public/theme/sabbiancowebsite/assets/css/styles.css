@@ -8299,6 +8299,10 @@ html input[disabled] {
 }
 
 @media only screen and (max-width: 1024px) {
+  .hp-6 .btn.btn-map {
+    margin-top: 20px;
+  }
+  
   .parallax-search .trip-search .form-group {
     margin-top: 15px;
     margin-right: 20px;

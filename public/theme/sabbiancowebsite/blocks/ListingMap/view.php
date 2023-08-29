@@ -108,7 +108,7 @@ use App\Helpers\Helper;
                                                                     echo '<li class="parent locationLi">
                                                                             <a><input type="checkbox" id="districts'.$district->id.'" class="district" name="district[]" value="'.$district->id.'" onchange="changeLocationsListingMap(\'districts\',\''.$district->id.'\',\''.$district->displayname.'\')">'.$district->displayname.' </a>
                                                                             <div class="wrapper" style="top: 0px; left: 208px;">
-                                                                                <ul style="transform:none;position:initial; visibility: visible;opacity: 100; overflow-x: hidden; overflow-y: auto; max-height: 600px;" id="subDistricts'.$district->id.'">';
+                                                                                <ul style="transform:none;position:initial; visibility: visible;opacity: 100; overflow-x: hidden; overflow-y: auto; max-height: 500px;" id="subDistricts'.$district->id.'">';
                                                                                     foreach($active_municipality_response->data as $municipality){
                                                                                         if($district->id == $municipality->district_id){
                                                                                             echo '<li class="parent locationLi">
@@ -387,7 +387,7 @@ use App\Helpers\Helper;
             var temp ="";
             for(i=0;i<data.length;i++){
                 temp += `<li class="parent locationLiLeft" ><a><input type="checkbox" id="districts`+data[i].id+`" class="district" name="district[]" value="`+data[i].id+`" onchange="changeLocationsListingMap('districts','`+data[i].id+`','`+data[i].displayname+`')">`+data[i].displayname+`</a>
-                <div class="wrapper"><ul style="transform:none;position:initial; visibility: visible;opacity: 100; overflow-x: hidden; overflow-y: auto; max-height: 600px;" id="subDistricts`+data[i].id+`"></ul></div></li>`;
+                <div class="wrapper"><ul style="transform:none;position:initial; visibility: visible;opacity: 100; overflow-x: hidden; overflow-y: auto; max-height: 500px;" id="subDistricts`+data[i].id+`"></ul></div></li>`;
             }
             document.getElementById("activelocation").innerHTML = temp;
             loadActiveMunicipalityListingMap();
