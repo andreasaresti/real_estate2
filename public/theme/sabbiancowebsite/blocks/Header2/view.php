@@ -31,11 +31,11 @@
     <div id="wrapper">
         <header id="header-container" class="header ">
             <div id="header" class="head-tr bottom cloned sticky">
+                <div id="logo" style="position: absolute;width: 100%;text-align: center;">
+                    <a href="/page/home"><img src="/theme/sabbiancowebsite/assets/images/logosabbianco.png" data-sticky-logo="/theme/sabbiancowebsite/assets/images/logosabbianco.png" alt=""></a>
+                </div>
                 <div class="container container-header">
                     <div class="left-side">
-                        <div id="logo">
-                            <a href="/page/home"><img src="/theme/sabbiancowebsite/assets/images/logosabbianco.png" data-sticky-logo="/theme/sabbiancowebsite/assets/images/logosabbianco.png" alt=""></a>
-                        </div>
                         <div class="mmenu-trigger">
                             <button class="hamburger hamburger--collapse" type="button">
                                 <span class="hamburger-box">
