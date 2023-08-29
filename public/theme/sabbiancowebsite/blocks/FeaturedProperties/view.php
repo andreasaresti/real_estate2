@@ -41,8 +41,7 @@
 		xhr.setRequestHeader('Content-type', 'application/json');
 		xhr.send(JSON.stringify(sendData));
 		xhr.onload = function () {
-			data = JSON.parse(xhr.response);
-			list = data.data;
+			list = JSON.parse(xhr.response).items.data;
             temp = "";
             if(list.length >= 6){
                 size = 6;
@@ -67,11 +66,6 @@
                                     temp +=`<div class="homes-tag button sale rent">`+list[i].property_type+`</div>
                                             <img src="`+list[i].image+`" alt="home-1" class="img-responsive">
                                         </a>
-                                    </div>
-                                    <div class="button-effect">
-                                        <a href="/page/listing-details?index=`+list[i].id+`" class="btn"><i class="fa fa-link"></i></a>
-                                        <a href="https://www.youtube.com/watch?v=14semTlwyUY" class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
-                                        <a href="single-property-2.html" class="img-poppu btn"><i class="fa fa-photo"></i></a>
                                     </div>
                                 </div>
                                 <!-- homes content -->

@@ -114,8 +114,7 @@
 		xhr.setRequestHeader('Content-type', 'application/json');
 		xhr.send(JSON.stringify(sendData));
 		xhr.onload = function () {
-			data = JSON.parse(xhr.response);
-			list = data.data;
+			list = JSON.parse(xhr.response).items.data;
             temp = "";
             for(var i= 0; i<list.length; i++)
             {

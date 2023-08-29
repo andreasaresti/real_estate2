@@ -162,10 +162,10 @@ if(isset($_GET['index'])){
 		xhr.setRequestHeader('Content-type', 'application/json');
 		xhr.send(JSON.stringify(sendData));
 		xhr.onload = function () {
+
 			list = JSON.parse(xhr.response);
             list = list.items;
 			data = list.data[0];
-            console.log(data);
             if(data.floor_plans.length == 0){
                 document.getElementById("floorPlansDiv").style.display="none";
             }else{
@@ -257,9 +257,13 @@ if(isset($_GET['index'])){
                 </li>`;
                 }
             document.getElementById("listingULImg").innerHTML = temp;
+
+            markers = JSON.parse(xhr.response).listing_markers[0];
+            console.log(markers);
+            markers = markers.center;
             
             var valueArray = [];
-            valueArray.push(data.listingmarker);
+            valueArray.push(markers);
             map_init(valueArray);
 
 		}
