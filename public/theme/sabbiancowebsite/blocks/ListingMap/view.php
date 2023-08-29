@@ -41,7 +41,7 @@
             <aside class="col-lg-6 col-md-6 google-maps-left mt-0">
                 <div class="row" style="width:92%;display: flex;align-items: center;margin: 25px 0px 0px 50px; position: absolute;z-index: 9;">
                     <div class="col-xl-5 xsRow" style="display: flex;justify-content: space-around;align-items: center;padding: 0px;">
-                        <a  class="btn btn-map" id="mapSizeListingMap1" onclick="mapSizeListingMap(1);" style="margin-right:5px;">+ 1 km</a>
+                        <!-- <a  class="btn btn-map" id="mapSizeListingMap1" onclick="mapSizeListingMap(1);" style="margin-right:5px;">+ 1 km</a> -->
                         <a  class="btn btn-map" id="mapSizeListingMap5" onclick="mapSizeListingMap(5);" style="margin-right:5px;">+ 5 km</a>
                         <a  class="btn btn-map" id="mapSizeListingMap10" onclick="mapSizeListingMap(10);" style="margin-right:5px;">+ 10 km</a>
                     <!-- </div>
@@ -951,8 +951,8 @@ if($selDistricts != ''){
         loadActiveListingsListingMap([0,0],0);
     }
     function showCircleListingMap(radius=100){
-        document.getElementById("mapSizeListingMap1").style.background = "rgb(255, 255, 255)";
-        document.getElementById("mapSizeListingMap1").style.color = "rgb(0, 0, 0)";
+        // document.getElementById("mapSizeListingMap1").style.background = "rgb(255, 255, 255)";
+        // document.getElementById("mapSizeListingMap1").style.color = "rgb(0, 0, 0)";
         document.getElementById("mapSizeListingMap5").style.background = "rgb(255, 255, 255)";
         document.getElementById("mapSizeListingMap5").style.color = "rgb(0, 0, 0)";
         document.getElementById("mapSizeListingMap10").style.background = "rgb(255, 255, 255)";

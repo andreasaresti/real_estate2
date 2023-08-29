@@ -155,13 +155,23 @@ class ActiveListingsController extends Controller
         $listing_markers = [];
         if ($request->has('retrieve_markers') && $request->retrieve_markers == '1') {
             foreach ($querymarkers as $key => $row) {
+                if ($row->image != '') {
+                    $querymarkers[$key]->image = env('APP_IMG_URL') . '/storage/' . $row->image;
+                }
+                $querymarkers[$key]->location_name = '';
+                $location = Location::where('id', $row->location_id)->first();
+                if($location){
+                    $querymarkers[$key]->location_name = $location->name;
+                }
+                $name_array = $row->name;
+                $querymarkers[$key]->displayname = $name_array;
                 $listing_marker  = [];
                 $listing_marker['id'] = $row->id;
                 $listing_marker['center'] = [$querymarkers[$key]->latitude,$querymarkers[$key]->longitude];
                 $listing_marker['title'] = $querymarkers[$key]->displayname;
                 $listing_marker['icon'] = "<i class='fa fa-home'></i>";
-                $listing_marker['desc'] = $row->address;
-                $listing_marker['price'] = "€".$row->price;
+                $listing_marker['desc'] = $querymarkers[$key]->location_name;
+                $listing_marker['price'] = "€".number_format($row->price);
                 $listing_marker['image'] = $querymarkers[$key]->image;
                 $listing_marker['link'] = 'page/listing-details?index='.$row->id;
 
