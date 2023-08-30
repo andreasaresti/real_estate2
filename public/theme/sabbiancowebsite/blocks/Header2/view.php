@@ -1,4 +1,7 @@
 <?php
+
+use App\Helpers\Helper;
+
     if(isset($_SESSION["user_id"])){
         $user_id = $_SESSION["user_id"];
     }else{
@@ -26,6 +29,15 @@
     }else{
         $name = "";
     }
+
+    $postData = [
+        'slug'=>"menu",
+        'locale'=>"en_US",
+        'menu_id'=>"1",
+    ];
+
+    $menu_response = Helper::get_menu($postData);       
+    $menu_response = json_decode($menu_response);
 ?>
 <div class="homepage-9 hp-6 homepage-1 mh">
     <div id="wrapper">
@@ -45,6 +57,29 @@
                         </div>
                         <nav id="navigation" class="style-1 head-tr" style="border:none;">
                             <ul name="menuResponsive"  class="menu_style">
+<?php
+                                foreach($menu_response as $menu){
+                                    if($menu->parent_id == null){
+                                        $sub_children_menu = []; 
+                                        foreach($menu_response as $submenu){
+                                            if($submenu->parent_id == $menu->id){
+                                                $sub_children_menu[] = $submenu; 
+                                            }
+                                        }
+                                        echo '<li><a href="'.$menu->value.'">'.$menu->name.'</a>';
+                                        if(count($sub_children_menu) > 0){
+                                            echo '<ul>';
+                                            foreach($sub_children_menu as $submenu){
+                                                echo '<li><a href="'.$submenu->value.'">'.$submenu->name.'</a></li>';
+                                            }
+                                            echo '</ul>';
+                                        }
+                                        
+                                        echo '</li>';
+
+                                    }
+                                }
+?>
                             </ul>
                         </nav>
                     </div>
@@ -204,7 +239,7 @@
 </div>
 <script type="text/javascript">
 	// window.addEventListener("load", (event) => {
-        loadMenuHeader2();
+        // loadMenuHeader2();
         loadLangHeader2();
 	// });
     function loadLangHeader2(){

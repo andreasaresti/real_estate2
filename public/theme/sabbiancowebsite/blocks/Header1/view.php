@@ -43,13 +43,13 @@ use App\Helpers\Helper;
     $active_listing_types_response = Helper::get_active_listing_types();       
     $active_listing_types_response = json_decode($active_listing_types_response);
 
-    // $postData = [
-    //     'slug'=>"menu",
-    //     'locale'=>"en_US",
-    // ];
+    $postData = [
+        'slug'=>"menu",
+        'locale'=>"en_US",
+    ];
 
-    // $menu_response = Helper::get_menu($postData);       
-    // $menu_response = json_decode($menu_response);
+    $menu_response = Helper::get_menu($postData);       
+    $menu_response = json_decode($menu_response);
     // echo '<pre>';
     // print_r($menu_response);
     // echo '</pre>';
@@ -64,6 +64,10 @@ use App\Helpers\Helper;
             padding: 0px 0;
         }
     }
+    .parallax-searchs.home15 .hero-inner {
+    text-align: center;
+    padding: 150px 0;
+}
 
 </style>
 <div class="homepage-9 hp-6 homepage-1 mh" style="z-index: 9999;position: relative;">
@@ -84,6 +88,29 @@ use App\Helpers\Helper;
                         </div>
                         <nav id="navigation" class="style-1 head-tr">
                             <ul name="menuResponsive" class="menu_style">
+                            <?php
+                                foreach($menu_response as $menu){
+                                    if($menu->parent_id == null){
+                                        $sub_children_menu = []; 
+                                        foreach($menu_response as $submenu){
+                                            if($submenu->parent_id == $menu->id){
+                                                $sub_children_menu[] = $submenu; 
+                                            }
+                                        }
+                                        echo '<li><a href="'.$menu->value.'">'.$menu->name.'</a>';
+                                        if(count($sub_children_menu) > 0){
+                                            echo '<ul>';
+                                            foreach($sub_children_menu as $submenu){
+                                                echo '<li><a href="'.$submenu->value.'">'.$submenu->name.'</a></li>';
+                                            }
+                                            echo '</ul>';
+                                        }
+                                        
+                                        echo '</li>';
+
+                                    }
+                                }
+?>
                             </ul>
                         </nav>
                     </div>
@@ -439,7 +466,7 @@ use App\Helpers\Helper;
 </div>
 <script type="text/javascript">
 	// window.addEventListener("load", (event) => {
-        loadMenuHeader1();
+        // loadMenuHeader1();
         loadLangHeader1();
 		// loadActiveFeaturesHeader1();
         // loadActiveDistrictHeader1();
