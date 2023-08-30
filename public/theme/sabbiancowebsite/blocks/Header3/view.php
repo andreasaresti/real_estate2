@@ -467,6 +467,9 @@ use App\Helpers\Helper;
         // loadActiveDistrictHeader1();
         // loadActivePropertTypeHeader1();
 	// });
+
+    
+
     function loadLangHeader1(){
         data = {
             "slug":"menu",
