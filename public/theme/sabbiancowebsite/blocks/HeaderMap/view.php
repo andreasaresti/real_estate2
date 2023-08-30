@@ -46,13 +46,13 @@ use App\Helpers\Helper;
     $active_property_types_response = Helper::get_active_property_types();       
     $active_property_types_response = json_decode($active_property_types_response);
 
-    // $postData = [
-    //     'slug'=>"menu",
-    //     'locale'=>"en_US",
-    // ];
+    $postData = [
+        'slug'=>"menu",
+        'locale'=>"en_US",
+    ];
 
-    // $menu_response = Helper::get_menu($postData);       
-    // $menu_response = json_decode($menu_response);
+    $menu_response = Helper::get_menu($postData);       
+    $menu_response = json_decode($menu_response);
     // echo '<pre>';
     // print_r($menu_response);
     // echo '</pre>';
@@ -69,6 +69,8 @@ use App\Helpers\Helper;
     }
 
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 <div class="homepage-9 google-maps hp-6 homepage-1 mh" style="z-index: 9999;position: relative;">
     <div id="wrapper" style="height: 100vh;">
         <header id="header-container" class="header head-tr">
@@ -86,7 +88,30 @@ use App\Helpers\Helper;
                             </button>
                         </div>
                         <nav id="navigation" class="style-1 head-tr">
-                            <ul name="menuResponsive" class="menu_style">
+                        <ul name="menuResponsive" class="menu_style">
+                            <?php
+                                foreach($menu_response as $menu){
+                                    if($menu->parent_id == null){
+                                        $sub_children_menu = []; 
+                                        foreach($menu_response as $submenu){
+                                            if($submenu->parent_id == $menu->id){
+                                                $sub_children_menu[] = $submenu; 
+                                            }
+                                        }
+                                        echo '<li><a href="'.$menu->value.'">'.$menu->name.'</a>';
+                                        if(count($sub_children_menu) > 0){
+                                            echo '<ul>';
+                                            foreach($sub_children_menu as $submenu){
+                                                echo '<li><a href="'.$submenu->value.'">'.$submenu->name.'</a></li>';
+                                            }
+                                            echo '</ul>';
+                                        }
+                                        
+                                        echo '</li>';
+
+                                    }
+                                }
+?>
                             </ul>
                         </nav>
                     </div>
@@ -161,6 +186,17 @@ use App\Helpers\Helper;
                 </div>
             </div>
         </header>
+        <div class="row" style="display: flex;align-items: center;margin: 25px 0px 0px 50px; position: absolute;z-index: 9; bottom:40px;">
+            <div class="col-xl-12 xsRow" style="display: flex;justify-content: space-around;align-items: center;padding: 0px;">
+                <a  class="btn btn-map" id="mapSizeListingMap5" onclick="mapSizeListingMap(5);" style="margin-right:5px;background: rgb(255, 255, 255); color: rgb(0, 0, 0);">+ 5 km</a>
+                <a  class="btn btn-map" id="mapSizeListingMap10" onclick="mapSizeListingMap(10);" style="margin-right:5px;background: rgb(255, 255, 255); color: rgb(0, 0, 0);">+ 10 km</a>
+                <a  class="btn btn-map" id="mapSizeListingMap30" onclick="mapSizeListingMap(30);" style="margin-right:5px;background: rgb(255, 255, 255); color: rgb(0, 0, 0);">+ 30 km</a>
+                <a  class="btn btn-map" id="mapSizeListingMap50" onclick="mapSizeListingMap(50);" style="margin-right:5px;background: rgb(255, 255, 255); color: rgb(0, 0, 0);">+ 50 km</a>
+                <a  class="btn btn-map" id="mapSizeListingMap100" onclick="mapSizeListingMap(100);" style="margin-right:5px;background: rgb(255, 255, 255); color: rgb(0, 0, 0);">+ 100 km</a>
+                <a style="display: flex;justify-content: center;align-items: center;background: rgb(255, 255, 255); color: rgb(0, 0, 0);" class="btn btn-map" id="showCircleListingMap" onclick="showCircleListingMap();" ><i class="fa-solid fa-location-crosshairs" style="font-size:30px;"></i></a>
+            </div>
+        </div>
+        
         <div id="map-leaflet" style="position: absolute;height: 100vh;"></div>
         <div class="filter">
             <div class="filter-toggle d-lg-none d-sm-flex"><i class="fa fa-search"></i>
@@ -287,11 +323,6 @@ use App\Helpers\Helper;
                     <input type="number" name="areaMax" id="areaMax" class="area-filter mb-3" placeholder="Max">
                     <div class="clear"></div>
                 </div>
-                <div class="filter-item">
-                    <label>Distances</label>
-                    <input type="number" name="distances" id="distances" class="slider_amount m-t-lg-30 m-t-xs-0 m-t-sm-10 mb-3">
-                    <div class="clear"></div>
-                </div>
                 
                 <div class="filter-item">
                     <label class="label-submit p-0 m-0">Submit</label>
@@ -390,17 +421,25 @@ use App\Helpers\Helper;
 <script src="https://cdn.jsdelivr.net/gh/Falke-Design/L.Donut@latest/src/L.Donut.js"></script>
 <script type="text/javascript">
     var map = null;
+    var circle;
+    var curLocation = [0,0];
+    var viewCircleFlag = 0;
+    var page_index = 0;
+
+
 	// window.addEventListener("load", (event) => {
-        loadMenuHeaderMap();
+        // loadMenuHeaderMap();
         loadLangHeaderMap();
 		// loadActiveFeaturesHeaderMap();
         // loadActiveDistrictHeaderMap();
         // loadActivePropertTypeHeaderMap();
 	// });
-    loadActiveListingsListingGrid();
-    function loadActiveListingsListingGrid(){
+    loadActiveListingsListingGrid([0,0],0);
+    function loadActiveListingsListingGrid(maker_position = '',set= ''){
         const sendData = {
-            "retrieve_markers":1
+            "retrieve_markers":1,
+            "radius":maker_position,
+            "set":set
         };
 		const url = "/api/activelistings";
 		let xhr = new XMLHttpRequest();
@@ -416,8 +455,121 @@ use App\Helpers\Helper;
                     markersArray.push(markers[i]);    
                 }
             }
-            map_init(markersArray);
+            // map_init(markersArray);
+            map_init_circle(markersArray,maker_position,set);
 		}
+    }
+    function map_init_circle(valueArray,maker_position,set){
+        
+        if ($('#map-leaflet').length) {
+            curLocation = maker_position;
+            var container = L.DomUtil.get('map');
+            if(container != null){
+                container._leaflet_id = null;
+            }
+            
+            if (map !== undefined && map !== null) {
+                map.remove(); // should remove the map from UI and clean the inner children of DOM element
+            }
+            map = L.map('map-leaflet').setView([34.994003757575776,33.15703828125001], 9);
+            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);      
+
+            if(set>0){
+                var donut = L.donut(curLocation,{
+                    radius: 20000000000000,
+                    innerRadius: 1000*set,
+                    innerRadiusAsPercent: false,
+                    color: '#000',
+                    weight: 2,
+                }).addTo(map);
+                circle = L.circle(curLocation, 1000*set).addTo(map);
+                circle.setStyle({color: 'green',  opacity:0.5});
+            }
+            
+            var markerArray=[];
+            
+            valueArray.forEach((value) => {
+                var icon = L.divIcon({
+                    html: value.icon,
+                    iconSize: [50, 50],
+                    iconAnchor: [50, 50],
+                    popupAnchor: [-20, -42]
+                });
+                var marker = L.marker(value.center, {
+                    icon: icon
+                });
+                map.addLayer(marker);
+                //markerArray.push(marker);
+                markerArray[value.id] = marker;
+                marker.bindPopup(
+                    '<div class="listing-window-image-wrapper">' +
+                    '<a href="/' + value.link + '">' +
+                    '<div class="listing-window-image" style="background-image: url(' + value.image + ');"></div>' +
+                    '<div class="listing-window-content">' +
+                    '<div class="info">' +
+                    '<h2>' + value.title + '</h2>' +
+                    '<p>' + value.desc + '</p>' +
+                    '<h3>' + value.price + '</h3>' +
+                    '</div>' +
+                    '</div>' +
+                    '</a>' +
+                    '</div>'
+                );  
+            })
+
+            let marker = new L.marker(curLocation, {
+                draggable: 'true'
+            });
+
+            marker.on('dragend', function(event) {
+                temp = marker.getLatLng();
+                curLocation = [temp.lat,temp.lng];
+                marker.setLatLng(curLocation, {
+                    draggable: 'true'
+                });
+                circle.setLatLng(curLocation);
+                document.getElementById("page_index").value = 1;
+                loadActiveListingsListingMap(curLocation,set);
+            });
+
+            map.addLayer(marker);
+            
+            var arcgisOnline = L.esri.Geocoding.arcgisOnlineProvider();
+
+            var searchControl = L.esri.Geocoding.geosearch({
+                providers: [arcgisOnline]
+            }).addTo(map);
+
+            searchControl.on('results', function(data){
+                marker.setLatLng(data.latlng, {
+                    draggable: 'true'
+                }).bindPopup(data.latlng).update();
+                temp = marker.getLatLng();
+                curLocation = [temp.lat,temp.lng];
+                if(map.hasLayer(circle))
+                map.removeLayer(circle);
+                circle = L.circle(curLocation, 1000*set).addTo(map);
+                circle.setLatLng(curLocation);
+                document.getElementById("page_index").value = 1;
+                loadActiveListingsListingMap(curLocation,set);
+                
+            });
+
+            map.on("click", addMarker);
+
+            function addMarker(e) {
+                if(set>0){
+                    marker.setLatLng(e.latlng, {
+                        draggable: 'true'
+                    }).bindPopup(e.latlng).update();
+                    temp = marker.getLatLng();
+                    curLocation = [temp.lat,temp.lng];
+                    circle.setLatLng(curLocation);
+                    document.getElementById("page_index").value = 1;
+                    loadActiveListingsListingMap(curLocation,set);
+                }
+            }
+        }
     }
     function map_init(valueArray){
         
@@ -800,7 +952,6 @@ use App\Helpers\Helper;
         customer_id = '<?php echo $user_id; ?>';
         number_of_bathrooms = document.getElementById("property-baths").value;
         number_of_bedrooms = document.getElementById("property-beds").value;
-        distances = document.getElementById("distances").value;
         var tempFeatures = [];
         var features = document.getElementsByClassName('featurecheck');
         for(var j=0; j<features.length;j++){
@@ -860,17 +1011,73 @@ use App\Helpers\Helper;
             "features": tempFeatures,
             "min_area_size": parseInt(size1),
             "max_area_size": parseInt(size2),
-            "min_price": parseInt(price1),
-            "max_price": parseInt(price2),
+            // "min_price": parseInt(price1),
+            // "max_price": parseInt(price2),
             "districts": tempDistrictArr,
             "municipalities": tempMunicipalitiesArr,
             "locations": tempLocationArr,
             "search_term": "",
-            "customer_id": customer_id,
-            "distances":distances
+            "customer_id": customer_id
         };
 
         localStorage.setItem("list_search_data", JSON.stringify(sendData));
         window.location.href = "/page/listings-map";
+	}
+    function showCircleListingMap(radius=100){
+        document.getElementById("mapSizeListingMap5").style.background = "rgb(255, 255, 255)";
+        document.getElementById("mapSizeListingMap5").style.color = "rgb(0, 0, 0)";
+        document.getElementById("mapSizeListingMap10").style.background = "rgb(255, 255, 255)";
+        document.getElementById("mapSizeListingMap10").style.color = "rgb(0, 0, 0)";
+        document.getElementById("mapSizeListingMap30").style.background = "rgb(255, 255, 255)";
+        document.getElementById("mapSizeListingMap30").style.color = "rgb(0, 0, 0)";
+        document.getElementById("mapSizeListingMap50").style.background = "rgb(255, 255, 255)";
+        document.getElementById("mapSizeListingMap50").style.color = "rgb(0, 0, 0)";
+        document.getElementById("mapSizeListingMap100").style.background = "rgb(255, 255, 255)";
+        document.getElementById("mapSizeListingMap100").style.color = "rgb(0, 0, 0)";
+        if(viewCircleFlag > 0 ){
+            curLocation = [0,0];
+            document.getElementById("mapSizeListingMap"+viewCircleFlag).style.background = "rgb(255, 255, 255)";
+            document.getElementById("mapSizeListingMap"+viewCircleFlag).style.color = "rgb(0, 0, 0)";
+            document.getElementById("showCircleListingMap").style.background = "rgb(255, 255, 255)";
+            document.getElementById("showCircleListingMap").style.color = "rgb(0, 0, 0)";
+            viewCircleFlag = 0;
+            loadActiveListingsListingMap(curLocation,0);
+        }
+        else{
+            viewCircleFlag = radius;
+            curLocation = [34.994003757575776,33.19793701171876];
+            document.getElementById("mapSizeListingMap"+radius).style.background = "rgb(34, 150, 67)";
+            document.getElementById("mapSizeListingMap"+radius).style.color = "rgb(255, 255, 255)";
+            document.getElementById("showCircleListingMap").style.background = "rgb(34, 150, 67)";
+            document.getElementById("showCircleListingMap").style.color = "rgb(255, 255, 255)";
+            loadActiveListingsListingMap(curLocation,100);
+        }
+        
+    }
+    function mapSizeListingMap(index){
+        if(viewCircleFlag==0){
+            showCircleListingMap(index);
+        }
+        if(viewCircleFlag>0){
+            viewCircleFlag = index;
+            document.getElementById("mapSizeListingMap5").style.background = "rgb(255, 255, 255)";
+            document.getElementById("mapSizeListingMap5").style.color = "rgb(0, 0, 0)";
+            document.getElementById("mapSizeListingMap10").style.background = "rgb(255, 255, 255)";
+            document.getElementById("mapSizeListingMap10").style.color = "rgb(0, 0, 0)";
+            document.getElementById("mapSizeListingMap30").style.background = "rgb(255, 255, 255)";
+            document.getElementById("mapSizeListingMap30").style.color = "rgb(0, 0, 0)";
+            document.getElementById("mapSizeListingMap50").style.background = "rgb(255, 255, 255)";
+            document.getElementById("mapSizeListingMap50").style.color = "rgb(0, 0, 0)";
+            document.getElementById("mapSizeListingMap100").style.background = "rgb(255, 255, 255)";
+            document.getElementById("mapSizeListingMap100").style.color = "rgb(0, 0, 0)";
+            document.getElementById("mapSizeListingMap"+index).style.background = "rgb(34, 150, 67)";
+            document.getElementById("mapSizeListingMap"+index).style.color = "rgb(255, 255, 255)";
+            loadActiveListingsListingMap(curLocation,index);
+        }
+    }
+    function loadActiveListingsListingMap(maker_position,set){
+        page_index = 1;
+        loadActiveListingsListingGrid(maker_position,set);
+        
 	}
 </script>
