@@ -6,15 +6,11 @@ function map_init(valueArray){
 		if(container != null){
 		container._leaflet_id = null;
 		}
-		console.log('hi2');
 
 		console.log(map); // should output the object that represents instance of Leaflet
 		if (map !== undefined && map !== null) {
-			console.log('hi2');
 			map.remove(); // should remove the map from UI and clean the inner children of DOM element
-		console.log(map); // nothing should actually happen to the value of mymap
 		}
-		console.log('hi4');
 
 		var map = L.map('map-leaflet', {
 			zoom: 9,

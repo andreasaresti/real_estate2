@@ -39,6 +39,13 @@ use App\Helpers\Helper;
     $menu_response = Helper::get_menu($postData);       
     $menu_response = json_decode($menu_response);
 ?>
+<style>
+    
+    #header.cloned.sticky ul li a:hover {
+    color: #707070 !important;
+}
+</style>
+
 <div class="homepage-9 hp-6 homepage-1 mh">
     <div id="wrapper">
         <header id="header-container" class="header ">

@@ -157,6 +157,7 @@ if(isset($_GET['index'])){
 		let xhr = new XMLHttpRequest();
         sendData = {
             "id": index,
+            "retrieve_markers": 1
         }
 		xhr.open('POST', url, true);
 		xhr.setRequestHeader('Content-type', 'application/json');
@@ -258,12 +259,12 @@ if(isset($_GET['index'])){
                 }
             document.getElementById("listingULImg").innerHTML = temp;
 
-            markers = JSON.parse(xhr.response).listing_markers[0];
-            console.log(markers);
-            markers = markers.center;
+            markers = JSON.parse(xhr.response).listing_markers;
             
             var valueArray = [];
-            valueArray.push(markers);
+            if(markers[0].center[0]>0){
+                valueArray.push(markers[0]);
+            }
             map_init(valueArray);
 
 		}

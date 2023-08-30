@@ -43,6 +43,9 @@ use App\Helpers\Helper;
     $active_listing_types_response = Helper::get_active_listing_types();       
     $active_listing_types_response = json_decode($active_listing_types_response);
 
+    $active_property_types_response = Helper::get_active_property_types();       
+    $active_property_types_response = json_decode($active_property_types_response);
+
     $postData = [
         'slug'=>"menu",
         'locale'=>"en_US",
@@ -72,6 +75,13 @@ use App\Helpers\Helper;
         background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.3)), to(rgba(0, 0, 0, 0.3))), url(<?php echo $block->setting('backgroundimage'); ?>) cover center top !important;background-size: cover !important;
         background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(<?php echo $block->setting('backgroundimage'); ?>) cover center top !important;background-size: cover !important;
     }
+    .parallax-searchs.home15 {
+        height: 350px;
+        display: block;
+    }
+    #header.cloned.sticky ul li a:hover {
+    color: #707070 !important;
+}
 </style>
 <div class="homepage-9 hp-6 homepage-1 mh" style="z-index: 9999;position: relative;">
     <div id="wrapper">
@@ -195,26 +205,8 @@ use App\Helpers\Helper;
                     <div class="row">
                         <div class="col-12">
                             <div class="hero-inner">
-                                <!-- Welcome Text -->
-                                <div class="welcome-text">
-                                    <h1 class="h1"><?php echo $block->setting('text1'); ?>
-                                    <br class="d-md-none">
-                                    <span class="typed border-bottom"></span>
-                                </h1>
-                                    <p class="mt-4"><?php echo $block->setting('text2'); ?></p>
-                                </div>
-                                <!--/ End Welcome Text -->
-                                <!-- Search Form -->
                                     <div class="col-12">
                                         <div class="banner-search-wrap">
-                                            <ul class="nav nav-tabs rld-banner-tab">
-                                                <li class="nav-item">
-                                                    <a class="nav-link active" data-toggle="tab" href="#tabs_1">For Sale</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" data-toggle="tab" href="#tabs_2">For Rent</a>
-                                                </li>
-                                            </ul>
                                             <div class="tab-content">
                                                 <div class="tab-pane fade show active" id="tabs_1">
                                                     <div class="rld-main-search" style="display: flex;justify-content: center;">

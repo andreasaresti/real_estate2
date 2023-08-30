@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'title' => 'Header1',
+    'title' => 'Header3',
     'category' => 'Headers',
     'icon' => 'fa fa-sitemap',
     "settings" => [
