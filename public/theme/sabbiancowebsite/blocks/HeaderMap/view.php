@@ -99,8 +99,8 @@ use App\Helpers\Helper;
                     </div>
                     <?php if($email != ''){?>
                     <div class="header-user-menu user-menu add">
-                        <div class="header-user-name">
-                            <!-- <a href="/page/profile"> -->
+                        <div class=" header-user-name">
+                            <!-- <a href="/page/profile">topMenu -->
                             
                             Hi, <?php echo $name; ?>
                             <!-- </a> -->
@@ -281,16 +281,22 @@ use App\Helpers\Helper;
                     </select>
                 </div>
                 <div class="clear"></div>
-                <div class="filter-item">
+                <div class="filter-item ">
                     <label>Area</label>
-                    <input type="number" name="areaMin" id="areaMin" class="area-filter filter-1 mb-0" placeholder="Min">
-                    <input type="number" name="areaMax" id="areaMax" class="area-filter mb-0" placeholder="Max">
+                    <input type="number" name="areaMin" id="areaMin" class="area-filter filter-1 mb-3" placeholder="Min">
+                    <input type="number" name="areaMax" id="areaMax" class="area-filter mb-3" placeholder="Max">
                     <div class="clear"></div>
                 </div>
                 <div class="filter-item">
+                    <label>Distances</label>
+                    <input type="number" name="distances" id="distances" class="slider_amount m-t-lg-30 m-t-xs-0 m-t-sm-10 mb-3">
+                    <div class="clear"></div>
+                </div>
+                
+                <div class="filter-item">
                     <label class="label-submit p-0 m-0">Submit</label>
                     <br>
-                    <input style="text-align: center;" onclick="lists_view();" class="button alt mb-0" value="SEARCH PROPERTY">
+                    <input style="text-align: center;" onclick="listsViewHeaderMap();" class="button alt mb-0" value="SEARCH PROPERTY">
                 </div>
             </form>
         </div>
@@ -478,7 +484,7 @@ use App\Helpers\Helper;
                 temp = `<div class="show-lang"><span><i class="fas fa-globe-americas"></i><strong name="activeLang">`+list[0].name+`</strong></span><i class="fa fa-caret-down arrlan"></i></div>
                             <ul class="lang-tooltip lang-action no-list-style" name="activeLangList">`;
                 for(i=0;i<list.length;i++){
-                    temp += `<li><a style="color: black;" onclick="changeLangHeaderMap('`+list[i].name+`')">`+list[i].name+`</a></li>`;
+                    temp += `<li><a class="topMenu" style="color: black;" onclick="changeLangHeaderMap('`+list[i].name+`')">`+list[i].name+`</a></li>`;
                 }
                 temp += `</ul>`;
             }
@@ -506,13 +512,13 @@ use App\Helpers\Helper;
             var temp ="";
             for(i=0;i<list.length;i++){
                 if(list[i].parent_id == null){
-                    temp += `<li><a href="`+list[i].value+`">`+list[i].name+`</a><ul>`;
+                    temp += `<li><a class="topMenu" href="`+list[i].value+`">`+list[i].name+`</a><ul>`;
                     for(j=0;j<list.length;j++){
                         if(list[j].parent_id == list[i].id){
-                            temp += `<li><a href="`+list[j].value+`">`+list[j].name+`</a><ul>`;
+                            temp += `<li><a class="topMenu" href="`+list[j].value+`">`+list[j].name+`</a><ul>`;
                             for(k=0;k<list.length;k++){
                                 if(list[k].parent_id == list[j].id){
-                                    temp += `<li><a href="`+list[k].value+`">`+list[k].name+`</a></li>`;
+                                    temp += `<li><a class="topMenu" href="`+list[k].value+`">`+list[k].name+`</a></li>`;
                                 }
                             }
                             temp += `</ul></li>`;
@@ -790,10 +796,11 @@ use App\Helpers\Helper;
             loginIn()
         }
 	}
-    function lists_view(){
+    function listsViewHeaderMap(){
         customer_id = '<?php echo $user_id; ?>';
         number_of_bathrooms = document.getElementById("property-baths").value;
         number_of_bedrooms = document.getElementById("property-beds").value;
+        distances = document.getElementById("distances").value;
         var tempFeatures = [];
         var features = document.getElementsByClassName('featurecheck');
         for(var j=0; j<features.length;j++){
@@ -849,6 +856,7 @@ use App\Helpers\Helper;
             "number_of_bathrooms": number_of_bathrooms,
             "number_of_bedrooms": number_of_bedrooms,
             "listing_types": tempPropertTypes,
+            "listing_status": tempPropertStatus,
             "features": tempFeatures,
             "min_area_size": parseInt(size1),
             "max_area_size": parseInt(size2),
@@ -859,9 +867,9 @@ use App\Helpers\Helper;
             "locations": tempLocationArr,
             "search_term": "",
             "customer_id": customer_id,
+            "distances":distances
         };
 
-        console.log(sendData);
         localStorage.setItem("list_search_data", JSON.stringify(sendData));
         window.location.href = "/page/listings-map";
 	}

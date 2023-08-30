@@ -10623,7 +10623,7 @@ a.button {
 
 .homepage-1 .header-user-name,
 .homepage-1 .header-user-name:before {
-  color: #fff;
+  color: #000;
 }
 
 .homepage-1 .agents-grid .project-single {
@@ -22990,7 +22990,7 @@ form label.error {
 /** FILTER GOOGLE MAPS **/
 .google-maps .filter {
   padding: 20px;
-  margin-top: 135px;
+  margin-top: 120px;
   margin-right: 50px;
   width: 30%;
   position: relative;
@@ -23019,7 +23019,7 @@ form label.error {
     width: 50%;
     text-align: center;
     padding: 0;
-    margin-top: 136px;
+    margin-top: 120px;
     position: relative;
     z-index: 20;
     margin-right: 0px;

@@ -299,6 +299,10 @@ a.button.border, a.button {
 #navigation.style-1.head-tr ul li a {
     color: #fff;
 }
+#navigation.style-1.head-tr .topMenu{
+    color: #000;
+    font-size: 16px;
+}
 #navigation.style-2.cloned .sticky-logo {
     display: inline-block;
     float: left;
