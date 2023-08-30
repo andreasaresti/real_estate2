@@ -43,13 +43,16 @@ use App\Helpers\Helper;
     $active_listing_types_response = Helper::get_active_listing_types();       
     $active_listing_types_response = json_decode($active_listing_types_response);
 
-    $postData = [
-        'slug'=>"menu",
-        'locale'=>"en_US",
-    ];
+    $active_property_types_response = Helper::get_active_property_types();       
+    $active_property_types_response = json_decode($active_property_types_response);
 
-    $menu_response = Helper::get_menu($postData);       
-    $menu_response = json_decode($menu_response);
+    // $postData = [
+    //     'slug'=>"menu",
+    //     'locale'=>"en_US",
+    // ];
+
+    // $menu_response = Helper::get_menu($postData);       
+    // $menu_response = json_decode($menu_response);
     // echo '<pre>';
     // print_r($menu_response);
     // echo '</pre>';
@@ -64,17 +67,10 @@ use App\Helpers\Helper;
             padding: 0px 0;
         }
     }
-    .parallax-searchs.home15 .hero-inner {
-        text-align: center;
-        padding: 150px 0;
-    }
-    .parallax-searchs.thome-1 {
-        background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.3)), to(rgba(0, 0, 0, 0.3))), url(<?php echo $block->setting('backgroundimage'); ?>) cover center top !important;background-size: cover !important;
-        background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(<?php echo $block->setting('backgroundimage'); ?>) cover center top !important;background-size: cover !important;
-    }
+
 </style>
-<div class="homepage-9 hp-6 homepage-1 mh" style="z-index: 9999;position: relative;">
-    <div id="wrapper">
+<div class="homepage-9 google-maps hp-6 homepage-1 mh" style="z-index: 9999;position: relative;">
+    <div id="wrapper" style="height: 100vh;">
         <header id="header-container" class="header head-tr">
             <div id="header" class="head-tr bottom">
                 <div id="logo" style="position: absolute;width: 100%;text-align: center;">
@@ -91,36 +87,13 @@ use App\Helpers\Helper;
                         </div>
                         <nav id="navigation" class="style-1 head-tr">
                             <ul name="menuResponsive" class="menu_style">
-                            <?php
-                                foreach($menu_response as $menu){
-                                    if($menu->parent_id == null){
-                                        $sub_children_menu = []; 
-                                        foreach($menu_response as $submenu){
-                                            if($submenu->parent_id == $menu->id){
-                                                $sub_children_menu[] = $submenu; 
-                                            }
-                                        }
-                                        echo '<li><a href="'.$menu->value.'">'.$menu->name.'</a>';
-                                        if(count($sub_children_menu) > 0){
-                                            echo '<ul>';
-                                            foreach($sub_children_menu as $submenu){
-                                                echo '<li><a href="'.$submenu->value.'">'.$submenu->name.'</a></li>';
-                                            }
-                                            echo '</ul>';
-                                        }
-                                        
-                                        echo '</li>';
-
-                                    }
-                                }
-?>
                             </ul>
                         </nav>
                     </div>
                     <div class="right-side d-none d-lg-none d-xl-flex">
                         <!-- Header Widget -->
                         <div class="header-widget">
-                            <a onclick="showAddListingHeader1();" class="button border">Add Listing<i class="fas fa-laptop-house ml-2"></i></a>
+                            <a onclick="showAddListingHeaderMap();" class="button border">Add Listing<i class="fas fa-laptop-house ml-2"></i></a>
                         </div>
                         <!-- Header Widget / End -->
                     </div>
@@ -188,204 +161,139 @@ use App\Helpers\Helper;
                 </div>
             </div>
         </header>
-        <div class="clearfix"></div>
-        <section id="hero-area" class="parallax-searchs home15 overlay thome-7 thome-1" data-stellar-background-ratio="0.5">
-            <div class="hero-main">
-                <div class="container" data-aos="zoom-in">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="hero-inner">
-                                <!-- Welcome Text -->
-                                <div class="welcome-text">
-                                    <h1 class="h1"><?php echo $block->setting('text1'); ?>
-                                    <br class="d-md-none">
-                                    <span class="typed border-bottom"></span>
-                                </h1>
-                                    <p class="mt-4"><?php echo $block->setting('text2'); ?></p>
-                                </div>
-                                <!--/ End Welcome Text -->
-                                <!-- Search Form -->
-                                    <div class="col-12">
-                                        <div class="banner-search-wrap">
-                                            <ul class="nav nav-tabs rld-banner-tab">
-                                                <li class="nav-item">
-                                                    <a class="nav-link active" data-toggle="tab" href="#tabs_1">For Sale</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" data-toggle="tab" href="#tabs_2">For Rent</a>
-                                                </li>
-                                            </ul>
-                                            <div class="tab-content">
-                                                <div class="tab-pane fade show active" id="tabs_1">
-                                                    <div class="rld-main-search" style="display: flex;justify-content: center;">
-                                                        <div class="row">
-                                                            <div class="rld-single-input">
-                                                                <input type="text" placeholder="Enter Keyword..." autocomplete="off" id="search_string">
-                                                            </div>
-                                                            <div class="rld-single-select" style="margin-bottom: 15px"  onmouseover="hiddenAdvancedDivHeader1();">
-                                                                <input type="hidden" id="selActivePropertType" name="selActivePropertType" value="">
-                                                                <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: #ebebeb;">
-                                                                    <ul>
-                                                                        <li ><a>Property Type</a>
-                                                                            <ul id="activePropertType">
-                                                                                <?php
-                                                                                foreach($active_listing_types_response->data as $listing_type){
-                                                                                    echo '<li><a><input type="checkbox" class="propertTypes" name="property_types[]" value="'.$listing_type->id.'" id="propertTypes'.$listing_type->id.'">'.$listing_type->displayname.'</a></li>';
-                                                                                }
-                                                                                ?>
-                                                                            
-                                                                            </ul>
-                                                                        </li>
-                                                                    </ul>
-                                                                </nav>
-                                                            </div>
-                                                            <div class="rld-single-select" style="margin-bottom: 15px" onmouseover="hiddenAdvancedDivHeader1();">
-                                                                <input type="hidden" id="selLocation" name="selLocation" value="">
-                                                                <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: #ebebeb;">
-                                                                    <ul>
-                                                                        <li ><a id="location_title">Location</a>
-                                                                            <ul id="activelocation">
-                                                                                <?php
-                                                                                    foreach($active_district_response->data as $district){
-                                                                                        echo '<li class="parent locationLi">
-                                                                                                <a><input type="checkbox" id="districts'.$district->id.'" class="district" name="district[]" value="'.$district->id.'" onchange="changeLocationsHeader1(\'districts\',\''.$district->id.'\',\''.$district->displayname.'\')">'.$district->displayname.' </a>
-                                                                                                <div class="wrapper" style="top: 0px; left: 208px;">
-                                                                                                    <ul style="transform:none;position:initial; visibility: visible;opacity: 100; overflow-x: hidden; overflow-y: auto; max-height: 500px;" id="subDistricts'.$district->id.'">';
-                                                                                                        foreach($active_municipality_response->data as $municipality){
-                                                                                                            if($district->id == $municipality->district_id){
-                                                                                                                echo '<li class="parent locationLi">
-                                                                                                                    <a><input type="checkbox" id="municipalities'.$municipality->id.'" class="municipality" name="municipality[]" value="'.$municipality->id.'" onchange="changeLocationsHeader1(\'municipalities\',\''.$municipality->id.'\',\''.$municipality->displayname.'\')">'.$municipality->displayname.'</a>
-                                                                                                                    <div class="wrapper">
-                                                                                                                        <ul style="visibility: visible;opacity: 100;" id="subMunicipalities'.$municipality->id.'">';
-                                                                                                                        foreach($active_location_response->data as $location){
-                                                                                                                            if($location->municipality_id == $municipality->id){
-                                                                                                                                echo '<li>
-                                                                                                                                    <a>
-                                                                                                                                    <input type="checkbox" id="locations'.$location->id.'" class="location" name="location[]" value="'.$location->id.'" onchange="changeLocationsHeader1(\'locations',''.$location->id.'',''.$location->displayname.'\')">'.$location->displayname.'</a>
-                                                                                                                                </li>';
-                                                                                                                            }
-                                                                                                                        }
-                                                                                                                        echo '</ul>
-                                                                                                                    </div>
-                                                                                                                </li>';
-                                                                                                            }                                                                                                    
-                                                                                                        }                                                                                                
-                                                                                                    echo '</ul>
-                                                                                                </div>
-                                                                                            </li>';
-                                                                                    }
-                                                                                ?>
-                                                                            
-                                                                            </ul>
-                                                                        </li>
-                                                                    </ul>
-                                                                </nav>
-                                                            </div>
-                                                            <div class="dropdown-filter"><span>Advanced Search</span></div>
-                                                            <div class="col-xl-2 col-lg-2 col-md-4 pl-0">
-                                                                <a class="btn btn-yellow" onclick="lists_view();">Search Now</a>
-                                                            </div>
-                                                            <div id="advancedSearch" class="explore__form-checkbox-list full-filter">
-                                                                <div class="row">
-                                                                    
-                                                                    <div class="col-lg-4 col-md-6 py-1 pr-30 pl-0 ">
-                                                                        <!-- Form Bedrooms -->
-                                                                        <div class="form-group beds" style="display: flex;"  id="searchFormBedrooms">
-                                                                            <i class="fa fa-bed" aria-hidden="true" style="align-self: center;width: 20px;"></i>
-                                                                            <select class="select single-select"  id="selBedrooms">
-                                                                                <option value="0">Bedrooms</option>
-                                                                                <?php for($i= 1; $i<=10; $i++)
-                                                                                {
-                                                                                ?>
-                                                                                <option value="<?php echo $i;?>"><?php echo $i;?></option>
-                                                                                <?php
-                                                                                }
-                                                                                ?>
-                                                                            </select>
-                                                                        </div>
-                                                                        <!--/ End Form Bedrooms -->
-                                                                    </div>
-                                                                    <div class="col-lg-4 col-md-6 py-1 pr-30 pl-0">
-                                                                        <!-- Form Bathrooms -->
-                                                                        <div class="form-group bath" style="display: flex;" id="searchFormBathrooms">
-                                                                            <i class="fa fa-bath" aria-hidden="true" style="align-self: center;width: 20px;"></i>
-                                                                            <select class="select single-select" id="selBathrooms">
-                                                                                <option value="0">Bathrooms</option>
-                                                                                <?php for($i= 1; $i<=10; $i++)
-                                                                                {
-                                                                                ?>
-                                                                                <option value="<?php echo $i;?>"><?php echo $i;?></option>
-                                                                                <?php
-                                                                                }
-                                                                                ?>
-                                                                            </select>
-                                                                            
-                                                                        </div>
-                                                                        <!--/ End Form Bathrooms -->
-                                                                    </div>
-                                                                    <div class="col-lg-5 col-md-12 col-sm-12 py-1 pr-30 mr-5 sld ">
-                                                                        <!-- Price Fields -->
-                                                                        <div class="main-search-field-2">
-                                                                            <!-- Area Range -->
-                                                                            <div class="range-slider">
-                                                                                <label>Area Size</label>
-                                                                                <div id="area-range" data-min="0" data-max="1300" data-unit="sq meters"></div>
-                                                                                <div class="clearfix"></div>
-                                                                            </div>
-                                                                            <br>
-                                                                            <!-- Price Range -->
-                                                                            <div class="range-slider">
-                                                                                <label>Price Range</label>
-                                                                                <div id="price-range" data-min="0" data-max="600000" data-unit="$"></div>
-                                                                                <div class="clearfix"></div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30 ">
-                                                                        <!-- Checkboxes -->
-                                                                        <div class="checkboxes one-in-row margin-bottom-10 ch-1" id="activefeaturesLeft">
-                                                                            <?php
-                                                                            foreach($active_features as $key=>$feature){
-                                                                                if($key <= count($active_features) / 2){
-                                                                                    echo '<input id="fcheck-'.$key.'" type="checkbox" class="featurecheck" value="'.$feature->id.'" name="features[]"">
-                                                                                    <label for="fcheck-'.$key.'" >'.$feature->displayname.'</label>';
-                                                                                }
-                                                                                
-                                                                            }
-                                                                            ?>
-                                                        
-                                                                        </div>
-                                                                        <!-- Checkboxes / End -->
-                                                                    </div>
-                                                                    <div class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30 ">
-                                                                        <!-- Checkboxes -->
-                                                                        <div class="checkboxes one-in-row margin-bottom-10 ch-1" id="activefeaturesRight">
-                                                                        <?php
-                                                                            foreach($active_features as $key=>$feature){
-                                                                                if($key > count($active_features) / 2){
-                                                                                    echo '<input id="fcheck-'.$key.'" type="checkbox" class="featurecheck" value = "'.$feature->id.'">
-                                                                                    <label for="fcheck-'.$key.'">'.$feature->displayname.'</label>';
-                                                                                }
-                                                                            }
-                                                                            ?>
-                                                                        </div>
-                                                                        <!-- Checkboxes / End -->
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--/ End Search Form -->
-                            </div>
-                        </div>
-                    </div>
+        <div id="map-leaflet" style="position: absolute;height: 100vh;"></div>
+        <div class="filter">
+            <div class="filter-toggle d-lg-none d-sm-flex"><i class="fa fa-search"></i>
+                <h6>START SEARCHING</h6></div>
+            <form method="get">
+                <div class="filter-item">
+                    <label>Property Status</label>
+                    <input type="hidden" id="selActivePropertStatus" name="selActivePropertStatus" value="">
+                    <nav id="navigation" class="style-1" style="background: white;margin:0px 5px 15px 5px;border: 1px solid;border-radius: 5px;border-color: #ebebeb;width: 100%;">
+                        <ul style="width: 100%;">
+                            <li style="width: 100%;"><a>Property Status</a>
+                            <ul id="activePropertStatus" style="width: 100%;">
+                        <?php
+                            foreach($active_property_types_response->data as $property_type){
+                                echo '<li style="width: 95%;"><a style="width: 95%;"><input type="checkbox" class="propertStatus" value="'.$property_type->id.'" id="propertStatus'.$property_type->id.'" >'.$property_type->displayname.'</a></li>';
+                            }
+                            ?> 
+                        </ul>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
-            </div>
-        </section>
+                <div class="filter-item">
+                    <label>Property Type</label>
+                        <input type="hidden" id="selActivePropertType" name="selActivePropertType" value="">
+                        <nav id="navigation" class="style-1" style="width: 100%;background: white; margin:0px 5px 15px 5px;border: 1px solid;border-radius: 5px;border-color: #ebebeb;">
+                            <ul style="width: 100%;">
+                                <li style="width: 100%;"><a>Property Type</a>
+                                <ul id="activePropertType" style="width: 100%;">
+                                    <?php
+                                    foreach($active_listing_types_response->data as $listing_type){
+                                        echo '<li style="width: 95%;"><a style="width: 95%;"><input type="checkbox" class="propertTypes" name="property_types[]" value="'.$listing_type->id.'" id="propertTypes'.$listing_type->id.'">'.$listing_type->displayname.'</a></li>';
+                                    }
+                                    ?>                                                
+                                </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                </div>
+                <div class="filter-item">
+                    <label>Location</label>
+                    <input type="hidden" id="selLocation" name="selLocation" value="">
+                    <nav id="navigation" class="style-1" style="width: 100%;background: white; margin:0px 5px 15px 5px;border: 1px solid;border-radius: 5px;border-color: #ebebeb;">
+                        <ul>
+                            <li ><a id="location_title">Location</a>
+                                <ul id="activelocation">
+                                    <?php
+                                        foreach($active_district_response->data as $district){
+                                            echo '<li class="parent locationLi">
+                                                    <a><input type="checkbox" id="districts'.$district->id.'" class="district" name="district[]" value="'.$district->id.'" onchange="changeLocationsHeaderMap(\'districts\',\''.$district->id.'\',\''.$district->displayname.'\')">'.$district->displayname.' </a>
+                                                    <div class="wrapper" style="top: 0px; left: 208px;">
+                                                        <ul style="transform:none;position:initial; visibility: visible;opacity: 100; overflow-x: hidden; overflow-y: auto; max-height: 500px;" id="subDistricts'.$district->id.'">';
+                                                            foreach($active_municipality_response->data as $municipality){
+                                                                if($district->id == $municipality->district_id){
+                                                                    echo '<li class="parent locationLi">
+                                                                        <a><input type="checkbox" id="municipalities'.$municipality->id.'" class="municipality" name="municipality[]" value="'.$municipality->id.'" onchange="changeLocationsHeaderMap(\'municipalities\',\''.$municipality->id.'\',\''.$municipality->displayname.'\')">'.$municipality->displayname.'</a>
+                                                                        <div class="wrapper">
+                                                                            <ul style="visibility: visible;opacity: 100;" id="subMunicipalities'.$municipality->id.'">';
+                                                                            foreach($active_location_response->data as $location){
+                                                                                if($location->municipality_id == $municipality->id){
+                                                                                    echo '<li>
+                                                                                        <a>
+                                                                                        <input type="checkbox" id="locations'.$location->id.'" class="location" name="location[]" value="'.$location->id.'" onchange="changeLocationsHeaderMap(\'locations',''.$location->id.'',''.$location->displayname.'\')">'.$location->displayname.'</a>
+                                                                                    </li>';
+                                                                                }
+                                                                            }
+                                                                            echo '</ul>
+                                                                        </div>
+                                                                    </li>';
+                                                                }                                                                                                    
+                                                            }                                                                                                
+                                                        echo '</ul>
+                                                    </div>
+                                                </li>';
+                                        }
+                                    ?>
+                                
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="filter-item mb-3">
+                    <label>Price</label>
+                    <input type="text" disabled="" id="price" class="slider_amount m-t-lg-30 m-t-xs-0 m-t-sm-10 mb-3">
+                    <div class="slider-range mt-2 ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"><div class="ui-slider-range ui-corner-all ui-widget-header" style="left: 28.2051%; width: 35.8974%;"></div><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 28.2051%;"></span><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 64.1026%;"></span></div>
+                </div>
+                <div class="filter-item filter-half mt-3">
+                    <label>Beds</label>
+                    <select name="beds" id="property-beds">
+                        <option value="">Any</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                </div>
+                <div class="filter-item filter-half filter-half-last mt-3">
+                    <label>Baths</label>
+                    <select name="baths" id="property-baths">
+                        <option value="">Any</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                </div>
+                <div class="clear"></div>
+                <div class="filter-item">
+                    <label>Area</label>
+                    <input type="number" name="areaMin" id="areaMin" class="area-filter filter-1 mb-0" placeholder="Min">
+                    <input type="number" name="areaMax" id="areaMax" class="area-filter mb-0" placeholder="Max">
+                    <div class="clear"></div>
+                </div>
+                <div class="filter-item">
+                    <label class="label-submit p-0 m-0">Submit</label>
+                    <br>
+                    <input style="text-align: center;" onclick="lists_view();" class="button alt mb-0" value="SEARCH PROPERTY">
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 <a href="#signup"  data-toggle="modal" data-target=".log-sign" id="loginModal"></a>
@@ -467,15 +375,93 @@ use App\Helpers\Helper;
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/leaflet/1.0.0-rc.1/leaflet-src.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/leaflet.esri/2.0.0/esri-leaflet.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.1.0/esri-leaflet-geocoder.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/leaflet.markercluster/1.0.0-beta.2.0/leaflet.markercluster.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/leaflet.markercluster/1.0.0-beta.2.0/leaflet.markercluster-src.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/gh/Falke-Design/L.Donut@latest/src/L.Donut.js"></script>
 <script type="text/javascript">
+    var map = null;
 	// window.addEventListener("load", (event) => {
-        // loadMenuHeader1();
-        loadLangHeader1();
-		// loadActiveFeaturesHeader1();
-        // loadActiveDistrictHeader1();
-        // loadActivePropertTypeHeader1();
+        loadMenuHeaderMap();
+        loadLangHeaderMap();
+		// loadActiveFeaturesHeaderMap();
+        // loadActiveDistrictHeaderMap();
+        // loadActivePropertTypeHeaderMap();
 	// });
-    function loadLangHeader1(){
+    loadActiveListingsListingGrid();
+    function loadActiveListingsListingGrid(){
+        const sendData = {
+            "retrieve_markers":1
+        };
+		const url = "/api/activelistings";
+		let xhr = new XMLHttpRequest();
+		xhr.open('POST', url, true);
+		xhr.setRequestHeader('Content-type', 'application/json');
+		xhr.send(JSON.stringify(sendData));
+		xhr.onload = function () {
+            markers = JSON.parse(xhr.response).listing_markers;
+            var markersArray = [];
+            for(i= 0; i<markers.length; i++)
+            {
+                if(markers[i].center[0]>0){
+                    markersArray.push(markers[i]);    
+                }
+            }
+            map_init(markersArray);
+		}
+    }
+    function map_init(valueArray){
+        
+        if ($('#map-leaflet').length) {
+            var container = L.DomUtil.get('map');
+            if(container != null){
+                container._leaflet_id = null;
+            }
+            
+            if (map !== undefined && map !== null) {
+                map.remove(); // should remove the map from UI and clean the inner children of DOM element
+            }
+            // map = L.map('map-leaflet').setView([34.994003757575776,33.15703828125001], 10, scrollWheelZoom: false);
+            map = L.map('map-leaflet', {scrollWheelZoom: false}).setView([34.994003757575776,33.15703828125001], 10);
+            map.zoomControl.setPosition('bottomright');
+            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);      
+
+            var markerArray=[];
+            
+            valueArray.forEach((value) => {
+                var icon = L.divIcon({
+                    html: value.icon,
+                    iconSize: [50, 50],
+                    iconAnchor: [50, 50],
+                    popupAnchor: [-20, -42]
+                });
+                var marker = L.marker(value.center, {
+                    icon: icon
+                });
+                map.addLayer(marker);
+                //markerArray.push(marker);
+                markerArray[value.id] = marker;
+                marker.bindPopup(
+                    '<div class="listing-window-image-wrapper">' +
+                    '<a href="/' + value.link + '">' +
+                    '<div class="listing-window-image" style="background-image: url(' + value.image + ');"></div>' +
+                    '<div class="listing-window-content">' +
+                    '<div class="info">' +
+                    '<h2>' + value.title + '</h2>' +
+                    '<p>' + value.desc + '</p>' +
+                    '<h3>' + value.price + '</h3>' +
+                    '</div>' +
+                    '</div>' +
+                    '</a>' +
+                    '</div>'
+                );  
+            })
+        }
+    }
+    function loadLangHeaderMap(){
         data = {
             "slug":"menu",
             "locale":"en_US",
@@ -492,7 +478,7 @@ use App\Helpers\Helper;
                 temp = `<div class="show-lang"><span><i class="fas fa-globe-americas"></i><strong name="activeLang">`+list[0].name+`</strong></span><i class="fa fa-caret-down arrlan"></i></div>
                             <ul class="lang-tooltip lang-action no-list-style" name="activeLangList">`;
                 for(i=0;i<list.length;i++){
-                    temp += `<li><a style="color: black;" onclick="changeLangHeader1('`+list[i].name+`')">`+list[i].name+`</a></li>`;
+                    temp += `<li><a style="color: black;" onclick="changeLangHeaderMap('`+list[i].name+`')">`+list[i].name+`</a></li>`;
                 }
                 temp += `</ul>`;
             }
@@ -501,11 +487,11 @@ use App\Helpers\Helper;
             //document.getElementById("").innerHTML = temp;
 		}
 	}
-    function changeLangHeader1(data){
+    function changeLangHeaderMap(data){
         document.getElementsByName("activeLang")[0].innerHTML = data;
         document.getElementsByName("activeLang")[1].innerHTML = data;
     }
-    function loadMenuHeader1(){
+    function loadMenuHeaderMap(){
         data = {
             "slug":"menu",
             "locale":"en_US",
@@ -517,7 +503,6 @@ use App\Helpers\Helper;
 		xhr.send(JSON.stringify(data));
 		xhr.onload = function () {
 			list = JSON.parse(xhr.response);
-            console.log(list);
             var temp ="";
             for(i=0;i<list.length;i++){
                 if(list[i].parent_id == null){
@@ -542,7 +527,7 @@ use App\Helpers\Helper;
             // document.getElementsByName("menuResponsive")[1].innerHTML = temp;
 		}
 	}
-    function loadActivePropertTypeHeader1(){
+    function loadActivePropertTypeHeaderMap(){
 		const url = "/api/activelisting-types";
 		let xhr = new XMLHttpRequest();
 		xhr.open('POST', url, true);
@@ -559,7 +544,7 @@ use App\Helpers\Helper;
             document.getElementById("activePropertType").innerHTML = temp;
 		}
 	}
-	function loadActiveFeaturesHeader1(){
+	function loadActiveFeaturesHeaderMap(){
 		const url = "/api/activefeatures";
 		let xhr = new XMLHttpRequest();
 		xhr.open('POST', url, true);
@@ -582,7 +567,7 @@ use App\Helpers\Helper;
             document.getElementById("activefeaturesRight").innerHTML = temp;
 		}
 	}
-    function loadActiveDistrictHeader1(){
+    function loadActiveDistrictHeaderMap(){
 		const url = "/api/activedistrict";
 		let xhr = new XMLHttpRequest();
         let xhr1 = new XMLHttpRequest();
@@ -594,14 +579,14 @@ use App\Helpers\Helper;
 			data = list.data;	
             var temp ="";
             for(i=0;i<data.length;i++){
-                temp += `<li class="parent locationLi" ><a><input type="checkbox" id="districts`+data[i].id+`" class="district" name="district[]" value="`+data[i].id+`" onchange="changeLocationsHeader1('districts','`+data[i].id+`','`+data[i].displayname+`')">`+data[i].displayname+`</a>
+                temp += `<li class="parent locationLi" ><a><input type="checkbox" id="districts`+data[i].id+`" class="district" name="district[]" value="`+data[i].id+`" onchange="changeLocationsHeaderMap('districts','`+data[i].id+`','`+data[i].displayname+`')">`+data[i].displayname+`</a>
                 <div class="wrapper"><ul style="transform:none;position:initial; visibility: visible;opacity: 100; overflow-x: hidden; overflow-y: auto; max-height: 500px;" id="subDistricts`+data[i].id+`"></ul></div></li>`;
             }
             document.getElementById("activelocation").innerHTML = temp;
-            loadActiveMunicipalityHeader1();
+            loadActiveMunicipalityHeaderMap();
 		}
 	}
-    function loadActiveMunicipalityHeader1(){
+    function loadActiveMunicipalityHeaderMap(){
 		const url = "/api/activemunicipality";
 		let xhr = new XMLHttpRequest();
 		xhr.open('POST', url, true);
@@ -616,16 +601,16 @@ use App\Helpers\Helper;
                 temp ="";
                 for(i=0;i<data.length;i++){
                     if(data[i].district_id == districts[j].value){
-                        temp += `<li class="parent locationLi"><a><input type="checkbox"  id="municipalities`+data[i].id+`"  class="municipality" name="municipality[]" value="`+data[i].id+`" onchange="changeLocationsHeader1('municipalities','`+data[i].id+`','`+data[i].displayname+`')">`+data[i].displayname+`</a>
+                        temp += `<li class="parent locationLi"><a><input type="checkbox"  id="municipalities`+data[i].id+`"  class="municipality" name="municipality[]" value="`+data[i].id+`" onchange="changeLocationsHeaderMap('municipalities','`+data[i].id+`','`+data[i].displayname+`')">`+data[i].displayname+`</a>
                         <div class="wrapper"><ul style="visibility: visible;opacity: 100;" id="subMunicipalities`+data[i].id+`"></ul></div></li>`;
                     }
                 }
                 document.getElementById("subDistricts"+districts[j].value).innerHTML = temp;
-                loadActiveLocationHeader1();
+                loadActiveLocationHeaderMap();
             }
 		}
 	}
-    function loadActiveLocationHeader1(){
+    function loadActiveLocationHeaderMap(){
 		const url = "/api/activelocation";
 		let xhr = new XMLHttpRequest();
 		xhr.open('POST', url, true);
@@ -640,17 +625,17 @@ use App\Helpers\Helper;
                 temp ="";
                 for(i=0;i<data.length;i++){
                     if(data[i].municipality_id == municipalities[j].value){
-                        temp += `<li><a><input type="checkbox"  id="locations`+data[i].id+`"  class="location" name="location[]" value="`+data[i].id+`" onchange="changeLocationsHeader1('locations','`+data[i].id+`','`+data[i].displayname+`')">`+data[i].displayname+`</a>`;
+                        temp += `<li><a><input type="checkbox"  id="locations`+data[i].id+`"  class="location" name="location[]" value="`+data[i].id+`" onchange="changeLocationsHeaderMap('locations','`+data[i].id+`','`+data[i].displayname+`')">`+data[i].displayname+`</a>`;
                     }
                 }
                 document.getElementById("subMunicipalities"+municipalities[j].value).innerHTML = temp;
             }
 		}
 	}
-    function hiddenAdvancedDivHeader1(){
+    function hiddenAdvancedDivHeaderMap(){
         document.getElementById('advancedSearch').className = "explore__form-checkbox-list full-filter";
     }
-    function changeLocationsHeader1(flag,id,name)
+    function changeLocationsHeaderMap(flag,id,name)
     {
         //insert_location(flag,id,name,"");
         if(flag == "districts"){
@@ -797,19 +782,18 @@ use App\Helpers\Helper;
             }
         }
     }
+    function showAddListingHeaderMap(){
+        user_id = '<?php echo $user_id; ?>';
+        if(user_id !== ""){
+            window.location.href="/page/add-listings";
+        }else{
+            loginIn()
+        }
+	}
     function lists_view(){
-        hiddenAdvancedDivHeader1();
         customer_id = '<?php echo $user_id; ?>';
-        if(document.getElementById("selBathrooms").value > 0){
-            number_of_bathrooms = document.getElementById("selBathrooms").value;
-        }else{
-            number_of_bathrooms = "";
-        }
-        if(document.getElementById("selBedrooms").value > 0){
-            number_of_bedrooms = document.getElementById("selBedrooms").value;
-        }else{
-            number_of_bedrooms = "";
-        }
+        number_of_bathrooms = document.getElementById("property-baths").value;
+        number_of_bedrooms = document.getElementById("property-beds").value;
         var tempFeatures = [];
         var features = document.getElementsByClassName('featurecheck');
         for(var j=0; j<features.length;j++){
@@ -852,35 +836,15 @@ use App\Helpers\Helper;
                 tempPropertTypes.push(propertTypes[j].value);
             }
         }
-        
+        var size2 = document.getElementById("areaMax").value;
+        var size1 = document.getElementById("areaMin").value;
 
-        var price1 = document.getElementsByClassName("first-slider-value")[1].value;
-        var size1 = document.getElementsByClassName("first-slider-value")[0].value;
-        var price2 = document.getElementsByClassName("second-slider-value")[1].value;
-        var size2 = document.getElementsByClassName("second-slider-value")[0].value;
-        size1 = size1.substring(0,size1.length-6);
-        price1 = price1.substring(1);
-        price1 = price1.replace(",","");
-        size2 = size2.substring(0,size2.length-6);
-        price2 = price2.substring(1);
-        price2 = price2.replace(",","");
-        if(price1 == ''){
-            price1 = 0;
-        }
-        if(price2 == ''){
-            price2 = 600000;
-        }
-        if(size1 == ''){
-            size1 = 0;
-        }
-        if(size2 == ''){
-            size2 = 1300;
-        }
-        if(document.getElementById('search_string').value == ""){
-            search_term = "";
-        }else{
-            search_term = document.getElementById('search_string').value;
-        }
+        var price = document.getElementById("price").value;
+        
+        price = price.replaceAll(",","");
+        price1 = price.substring(1,price.indexOf(" - €"));
+        price2 = price.substring(price.indexOf(" - €")+4);
+        
         const sendData = {
             "number_of_bathrooms": number_of_bathrooms,
             "number_of_bedrooms": number_of_bedrooms,
@@ -893,18 +857,12 @@ use App\Helpers\Helper;
             "districts": tempDistrictArr,
             "municipalities": tempMunicipalitiesArr,
             "locations": tempLocationArr,
-            "search_term": search_term,
+            "search_term": "",
             "customer_id": customer_id,
         };
+
+        console.log(sendData);
         localStorage.setItem("list_search_data", JSON.stringify(sendData));
         window.location.href = "/page/listings-map";
-	}
-    function showAddListingHeader1(){
-        user_id = '<?php echo $user_id; ?>';
-        if(user_id !== ""){
-            window.location.href="/page/add-listings";
-        }else{
-            loginIn()
-        }
 	}
 </script>

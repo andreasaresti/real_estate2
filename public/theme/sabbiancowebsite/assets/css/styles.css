@@ -22990,7 +22990,8 @@ form label.error {
 /** FILTER GOOGLE MAPS **/
 .google-maps .filter {
   padding: 20px;
-  margin-top: 40px;
+  margin-top: 135px;
+  margin-right: 50px;
   width: 30%;
   position: relative;
   z-index: 100;
@@ -23018,9 +23019,10 @@ form label.error {
     width: 50%;
     text-align: center;
     padding: 0;
-    margin-top: 16px;
+    margin-top: 136px;
     position: relative;
     z-index: 20;
+    margin-right: 0px;
   }
 
   .google-maps .filter form {

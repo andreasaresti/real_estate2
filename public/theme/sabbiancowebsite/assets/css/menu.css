@@ -386,7 +386,7 @@ a.button.border, a.button {
     margin: 0 0 0 1px;
 }
 #navigation ul ul {
-    margin: 10px 0 0 0;
+    margin: 3px 0 0 0;
 }
 #navigation ul ul ul:after {
     content: "";
