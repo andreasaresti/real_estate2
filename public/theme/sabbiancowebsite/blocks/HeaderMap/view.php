@@ -186,7 +186,7 @@ use App\Helpers\Helper;
                 </div>
             </div>
         </header>
-        <div class="row" style="display: flex;align-items: center;margin: 25px 0px 0px 50px; position: absolute;z-index: 9; bottom:40px;">
+        <div class="row" style="display: flex;align-items: center;margin: 25px 0px 0px 5px; position: absolute;z-index: 9; bottom:40px;">
             <div class="col-xl-12 xsRow" style="display: flex;justify-content: space-around;align-items: center;padding: 0px;">
                 <a  class="btn btn-map" id="mapSizeListingMap5" onclick="mapSizeListingMap(5);" style="margin-right:5px;background: rgb(255, 255, 255); color: rgb(0, 0, 0);">+ 5 km</a>
                 <a  class="btn btn-map" id="mapSizeListingMap10" onclick="mapSizeListingMap(10);" style="margin-right:5px;background: rgb(255, 255, 255); color: rgb(0, 0, 0);">+ 10 km</a>
