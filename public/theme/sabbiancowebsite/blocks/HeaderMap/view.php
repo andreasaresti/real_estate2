@@ -186,7 +186,7 @@ use App\Helpers\Helper;
                 </div>
             </div>
         </header>
-        <div class="row" style="display: flex;align-items: center;margin: 25px 0px 0px 5px; position: absolute;z-index: 9; bottom:80px;">
+        <div class="row" style="display: flex;align-items: center;margin: 25px 0px 0px 5px; position: absolute;z-index: 9; bottom:80px;max-width:50%">
             <div class="col-xl-12 xsRow" style="display: flex;justify-content: space-around;align-items: center;padding: 0px;">
                 <a  class="btn btn-map" id="mapSizeListingMap5" onclick="mapSizeListingMap(5);" style="margin-right:5px;background: rgb(255, 255, 255); color: rgb(0, 0, 0);">+ 5 km</a>
                 <a  class="btn btn-map" id="mapSizeListingMap10" onclick="mapSizeListingMap(10);" style="margin-right:5px;background: rgb(255, 255, 255); color: rgb(0, 0, 0);">+ 10 km</a>
@@ -528,7 +528,7 @@ use App\Helpers\Helper;
                     draggable: 'true'
                 });
                 circle.setLatLng(curLocation);
-                document.getElementById("page_index").value = 1;
+                page_index = 1;
                 loadActiveListingsListingMap(curLocation,set);
             });
 
@@ -550,7 +550,7 @@ use App\Helpers\Helper;
                 map.removeLayer(circle);
                 circle = L.circle(curLocation, 1000*set).addTo(map);
                 circle.setLatLng(curLocation);
-                document.getElementById("page_index").value = 1;
+                page_index = 1;
                 loadActiveListingsListingMap(curLocation,set);
                 
             });
@@ -565,7 +565,7 @@ use App\Helpers\Helper;
                     temp = marker.getLatLng();
                     curLocation = [temp.lat,temp.lng];
                     circle.setLatLng(curLocation);
-                    document.getElementById("page_index").value = 1;
+                    page_index = 1;
                     loadActiveListingsListingMap(curLocation,set);
                 }
             }
