@@ -53,9 +53,6 @@ use App\Helpers\Helper;
 
     $menu_response = Helper::get_menu($postData);       
     $menu_response = json_decode($menu_response);
-    // echo '<pre>';
-    // print_r($menu_response);
-    // echo '</pre>';
 ?>
     <style>
     .parallax-searchs.home15 {
@@ -65,6 +62,11 @@ use App\Helpers\Helper;
     @media only screen and (max-width: 1024px){
         .parallax-searchs.home15 .hero-inner {
             padding: 0px 0;
+        }
+    }
+    @media only screen and (max-width: 800px){
+        .parallax-searchs.home15 .hero-inner {
+            padding: 0px 0px 0px 0px;
         }
     }
     .parallax-searchs.home15 .hero-inner {
@@ -80,12 +82,28 @@ use App\Helpers\Helper;
         display: block;
     }
     #header.cloned.sticky ul li a:hover {
-    color: #707070 !important;
+        color: #707070 !important;
+    }
+    #sideBar {
+    position: fixed;
+    display: block;
+    top: 50%;
+    left: 10px;
+    margin: -100px 0 0 0;
+    height: 200px;
+    display:none;
+    z-index:1000;
 }
-.aos-animate {
-    transition-delay: .5s !important;
-}
+
 </style>
+<!-- <div id="sideBar">
+    <div id="showmapbutton" class="col-xl-12 xsRow" style="z-index:1000;background:green; color:white;display: flex;justify-content: space-around;align-items: center;padding: 0px;">
+        <a  class="btn btn-map" onclick="alert('hi');show_map();" style="margin-right:5px;">Show Map</a>
+    </div>
+    <div id="showlistingbutton" class="col-xl-12 xsRow" style="z-index:1000;background:green; color:white;display: flex;justify-content: space-around;align-items: center;padding: 0px;">
+        <a  class="btn btn-map" onclick="show_map();" style="margin-right:5px;">Show Listing</a>
+    </div>
+</div> -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <div class="homepage-9 hp-6 homepage-1 mh" style="z-index: 9999;position: relative;">
@@ -206,10 +224,10 @@ use App\Helpers\Helper;
         <div class="clearfix"></div>
         <section id="hero-area" style="height:auto;" class="parallax-searchs home15 overlay thome-7 thome-1" data-stellar-background-ratio="0.5">
             <div class="hero-main">
-                <div class="container" data-aos="zoom-in">
+                <div class="container">
                     <div class="row">
                         <div class="col-12">
-                            <div class="hero-inner" style="padding: 120px 0px 100px 0px;">
+                            <div class="hero-inner">
                                     <div class="col-12">
                                         <div class="banner-search-wrap">
                                             <div class="tab-content">
@@ -385,26 +403,17 @@ use App\Helpers\Helper;
         </section>
     </div>
 </div>
-<div id="searchcontentdiv" style="display:none;">
+
+<div id="searchcontentdiv" style="display:none; padding-top:20px">
     <div class="inner-pages homepage-4 agents hp-6 full hd-white">
         <section class="properties-right featured portfolio blog  mp-1">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-6 col-md-6 mt-0">
-                        <div class="row" style="display: flex;align-items: center;margin: 25px 0px 0px 50px; position: absolute;z-index: 9;">
-                            <div class="col-xl-12 xsRow" style="display: flex;justify-content: space-around;align-items: center;padding: 0px;">
-                                <a  class="btn btn-map" id="mapSizeListingMap1" onclick="mapSizeListingMap(1);" style="margin-right:5px;">+ 1 km</a>
-                                <a  class="btn btn-map" id="mapSizeListingMap5" onclick="mapSizeListingMap(5);" style="margin-right:5px;">+ 5 km</a>
-                                <a  class="btn btn-map" id="mapSizeListingMap10" onclick="mapSizeListingMap(10);" style="margin-right:5px;">+ 10 km</a>
-                                <a  class="btn btn-map" id="mapSizeListingMap30" onclick="mapSizeListingMap(30);" style="margin-right:5px;">+ 30 km</a>
-                                <a  class="btn btn-map" id="mapSizeListingMap50" onclick="mapSizeListingMap(50);" style="margin-right:5px;">+ 50 km</a>
-                                <a  class="btn btn-map" id="mapSizeListingMap100" onclick="mapSizeListingMap(100);" style="margin-right:5px;">+ 100 km</a>
-                                <a style="display: flex;justify-content: center;align-items: center;" class="btn btn-map" id="showCircleListingMap" onclick="showCircleListingMap();" ><i class="fa-solid fa-location-crosshairs" style="font-size:30px;"></i></a>
-                            </div>
-                        </div>
-                        <div id="map-leaflet"></div>
+                    <div class="col-lg-6 col-md-6 mt-0" id="mapdiv">
+                        <div id="map-leaflet" style="height:100vh"></div>
                     </div>
-                    <div class="col-lg-6 col-md-12 " style="padding-left:20px">
+                    
+                    <div class="col-lg-6 col-md-12 " style="padding-left:20px" id="listingsdiv">
                         <section class="headings-2 pt-0">
                             <div class="pro-wrapper">
                                 <div class="detail-wrapper-body">
@@ -449,6 +458,7 @@ use App\Helpers\Helper;
         </section>
     </div>
 </div>
+
 <a href="#signup"  data-toggle="modal" data-target=".log-sign" id="loginModal"></a>
 <div class="modal fade bs-modal-sm log-sign" style="z-index:9999" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm" style="margin-top: 200px;">
@@ -553,7 +563,68 @@ use App\Helpers\Helper;
     var curLocation = [0,0];
     var viewCircleFlag = 0;
 
+    var desktop = 1;
+
+    var newScreenWidth = $(window).width();
+
+    if(newScreenWidth < 700){
+        desktop = 0;
+        show_mobile_view();
+    }
+
     
+
+    function show_list(){
+        $('#mapdiv').hide();
+        $('#listingsdiv').show();
+    }
+    function show_map(){
+        alert('here');
+        $('#mapdiv').show();
+        $('#listingsdiv').hide();
+    }
+    function show_mobile_view(){
+        $('#mapdiv').hide();
+        $('#listingsdiv').show();
+        $('#showlistbutton').show();        
+        $('#showmapbutton').show();  
+        $('#sideBar').show();  
+    }
+    function show_desktop_view(){
+        $('#mapdiv').show();
+        $('#listingsdiv').show();        
+        $('#showlistbutton').hide();        
+        $('#showmapbutton').hide();        
+        $('#sideBar').hide();        
+    }
+
+    // window.onscroll = function (e) {
+    //     console.log('scroll');
+    //     $('#showmapbutton').css({ position: "absolute", marginLeft: 0, marginTop: 0, top: 'calc(80vh - (100px / 2))', left: 0}); 
+    //     $('#showlistbutton').css({ position: "absolute", marginLeft: 0, marginTop: 0, top: 'calc(80vh - (100px / 2))', left: 0}); 
+
+    // }
+
+    $(document).ready(function() {
+      $(window).scroll(function() {
+        $('#showmapbutton').css('top', '90vh');
+        $('#showlistbutton').css('top', '90vh');
+      });
+    });
+
+    $(window).resize(function() {
+        var newScreenWidth = $(window).width();
+        if(newScreenWidth < 700 && desktop == 1){
+            desktop = 0;
+            show_mobile_view();
+        }
+        else if(newScreenWidth >= 700 && desktop == 0){
+            desktop = 1;
+            show_desktop_view();
+        }
+        
+        // Perform any other actions with the newScreenWidth value
+      });
 
     function loadLangHeader3(){
         data = {
@@ -916,7 +987,7 @@ use App\Helpers\Helper;
                 if(list[i].in_favoriteproperties == 1){
                     favorite = "color: red;";
                 }
-                temp +=`<div class="item col-lg-6 col-md-6 col-xs-12 landscapes sale">
+                temp +=`<div class="item col-lg-6 col-md-6 col-xs-6 landscapes sale">
                             <div class="project-single">
                                 <div class="project-inner project-head">
                                     <div class="homes">
@@ -1207,4 +1278,29 @@ use App\Helpers\Helper;
             loadActiveListingsListingMap(curLocation,index);
         }
     }
+    $(window).scroll(function(){
+    if($(window).scrollTop() >= 200){
+        $('anchor3').css({
+            "margin-top": "80px"
+        })
+        $('icon').css({
+            "margin-top": "10px"
+        })
+        $('oldurl').css({
+            "margin-top": "296px"
+        })
+    }
+    else{
+        $('anchor3').css({
+            "margin-top": 300 - $(window).scrollTop()
+        })
+        $('icon').css({
+            "margin-top": 230 - $(window).scrollTop()
+        })
+        $('oldurl').css({
+            "margin-top": 516 - $(window).scrollTop()
+        })
+    }    
+})
 </script>
+
