@@ -387,10 +387,10 @@ use App\Helpers\Helper;
 </div>
 <div id="searchcontentdiv" style="display:none;">
     <div class="inner-pages homepage-4 agents hp-6 full hd-white">
-        <section class="properties-right featured portfolio blog google-map-right mp-1">
+        <section class="properties-right featured portfolio blog  mp-1">
             <div class="container-fluid">
                 <div class="row">
-                    <aside class="col-lg-6 col-md-6 google-maps-left mt-0">
+                    <div class="col-lg-6 col-md-6 mt-0">
                         <div class="row" style="display: flex;align-items: center;margin: 25px 0px 0px 50px; position: absolute;z-index: 9;">
                             <div class="col-xl-12 xsRow" style="display: flex;justify-content: space-around;align-items: center;padding: 0px;">
                                 <a  class="btn btn-map" id="mapSizeListingMap1" onclick="mapSizeListingMap(1);" style="margin-right:5px;">+ 1 km</a>
@@ -403,8 +403,8 @@ use App\Helpers\Helper;
                             </div>
                         </div>
                         <div id="map-leaflet"></div>
-                    </aside>
-                    <div class="col-lg-6 col-md-12 google-maps-right" style="padding-left:20px">
+                    </div>
+                    <div class="col-lg-6 col-md-12 " style="padding-left:20px">
                         <section class="headings-2 pt-0">
                             <div class="pro-wrapper">
                                 <div class="detail-wrapper-body">
@@ -1150,5 +1150,38 @@ use App\Helpers\Helper;
             }
             
         }
+    }
+    function showCircleListingMap(radius=100){
+        // document.getElementById("mapSizeListingMap1").style.background = "rgb(255, 255, 255)";
+        // document.getElementById("mapSizeListingMap1").style.color = "rgb(0, 0, 0)";
+        document.getElementById("mapSizeListingMap5").style.background = "rgb(255, 255, 255)";
+        document.getElementById("mapSizeListingMap5").style.color = "rgb(0, 0, 0)";
+        document.getElementById("mapSizeListingMap10").style.background = "rgb(255, 255, 255)";
+        document.getElementById("mapSizeListingMap10").style.color = "rgb(0, 0, 0)";
+        document.getElementById("mapSizeListingMap30").style.background = "rgb(255, 255, 255)";
+        document.getElementById("mapSizeListingMap30").style.color = "rgb(0, 0, 0)";
+        document.getElementById("mapSizeListingMap50").style.background = "rgb(255, 255, 255)";
+        document.getElementById("mapSizeListingMap50").style.color = "rgb(0, 0, 0)";
+        document.getElementById("mapSizeListingMap100").style.background = "rgb(255, 255, 255)";
+        document.getElementById("mapSizeListingMap100").style.color = "rgb(0, 0, 0)";
+        if(viewCircleFlag > 0 ){
+            curLocation = [0,0];
+            document.getElementById("mapSizeListingMap"+viewCircleFlag).style.background = "rgb(255, 255, 255)";
+            document.getElementById("mapSizeListingMap"+viewCircleFlag).style.color = "rgb(0, 0, 0)";
+            document.getElementById("showCircleListingMap").style.background = "rgb(255, 255, 255)";
+            document.getElementById("showCircleListingMap").style.color = "rgb(0, 0, 0)";
+            viewCircleFlag = 0;
+            loadActiveListingsListingMap(curLocation,0);
+        }
+        else{
+            viewCircleFlag = radius;
+            curLocation = [34.994003757575776,33.19793701171876];
+            document.getElementById("mapSizeListingMap"+radius).style.background = "rgb(34, 150, 67)";
+            document.getElementById("mapSizeListingMap"+radius).style.color = "rgb(255, 255, 255)";
+            document.getElementById("showCircleListingMap").style.background = "rgb(34, 150, 67)";
+            document.getElementById("showCircleListingMap").style.color = "rgb(255, 255, 255)";
+            loadActiveListingsListingMap(curLocation,100);
+        }
+        
     }
 </script>
