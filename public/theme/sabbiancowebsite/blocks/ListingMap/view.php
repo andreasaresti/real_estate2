@@ -39,6 +39,7 @@
         <div class="container-fluid">
             <div class="row">
                 <aside class="col-lg-6 col-md-6 google-maps-left mt-0">
+                    <div class="alert-box success" id="map_success" style="position: absolute;z-index: 9;width: 100%;margin-top: 80px;">Click on the map select center and radius</div>
                     <div class="row" style="margin: 25px 0px 0px 0px;position: absolute;z-index: 9;width: 100%;">
                         <div class="col-xl-12 xsRow" style="display: flex;justify-content: flex-end;margin-right: 10px;">
                             <a style="display: flex;justify-content: center;align-items: center;margin-right:20px;" class="btn btn-map" id="redrawCircleListingMap" onclick="redrawCircleListingMap();" >Re-draw</a>
@@ -927,7 +928,9 @@
                     circle.setLatLng(event.latlng);
                     circle.setRadius(0);
                     viewCircleFlag = 2;
+                    map.scrollWheelZoom.disable();
                 }else if(viewCircleFlag == 2){
+                    map.scrollWheelZoom.enable();
                     temp = marker.getLatLng();
                     distance = Math.sqrt(Math.pow( event.latlng.lat - temp.lat, 2) + Math.pow( event.latlng.lng - temp.lng, 2))
                     circle.setRadius(distance*1000/0.011);
@@ -954,6 +957,8 @@
     function showCircleListingMap(){
         if(viewCircleFlag > 0 ){
             viewCircleFlag = 0;
+            document.getElementById("redrawCircleListingMap").style.background = "rgb(255, 255, 255)";
+            document.getElementById("redrawCircleListingMap").style.color = "rgb(0, 0, 0)";
             document.getElementById("showCircleListingMap").style.background = "rgb(255, 255, 255)";
             document.getElementById("showCircleListingMap").style.color = "rgb(0, 0, 0)";
             document.getElementById("showCircleListingMap").innerHTML = "Draw";
@@ -961,14 +966,17 @@
         }
         else{
             viewCircleFlag = 1;
+            $( "#map_success" ).fadeIn( 300 ).delay( 5000 ).fadeOut( 400 );
             document.getElementById("showCircleListingMap").style.background = "rgb(34, 150, 67)";
             document.getElementById("showCircleListingMap").style.color = "rgb(255, 255, 255)";
             document.getElementById("showCircleListingMap").innerHTML = "Clear";
             document.getElementById("redrawCircleListingMap").style.background = "rgb(34, 150, 67)";
             document.getElementById("redrawCircleListingMap").style.color = "rgb(255, 255, 255)";
+            
         }
     }
     function redrawCircleListingMap(){
+        $( "#map_success" ).fadeIn( 300 ).delay( 5000 ).fadeOut( 400 );
         viewCircleFlag = 1;
         document.getElementById("redrawCircleListingMap").style.background = "rgb(34, 150, 67)";
         document.getElementById("redrawCircleListingMap").style.color = "rgb(255, 255, 255)";
