@@ -1184,4 +1184,27 @@ use App\Helpers\Helper;
         }
         
     }
+    function mapSizeListingMap(index){
+        if(viewCircleFlag==0){
+            showCircleListingMap(index);
+        }
+        if(viewCircleFlag>0){
+            viewCircleFlag = index;
+            // document.getElementById("mapSizeListingMap1").style.background = "rgb(255, 255, 255)";
+            // document.getElementById("mapSizeListingMap1").style.color = "rgb(0, 0, 0)";
+            document.getElementById("mapSizeListingMap5").style.background = "rgb(255, 255, 255)";
+            document.getElementById("mapSizeListingMap5").style.color = "rgb(0, 0, 0)";
+            document.getElementById("mapSizeListingMap10").style.background = "rgb(255, 255, 255)";
+            document.getElementById("mapSizeListingMap10").style.color = "rgb(0, 0, 0)";
+            document.getElementById("mapSizeListingMap30").style.background = "rgb(255, 255, 255)";
+            document.getElementById("mapSizeListingMap30").style.color = "rgb(0, 0, 0)";
+            document.getElementById("mapSizeListingMap50").style.background = "rgb(255, 255, 255)";
+            document.getElementById("mapSizeListingMap50").style.color = "rgb(0, 0, 0)";
+            document.getElementById("mapSizeListingMap100").style.background = "rgb(255, 255, 255)";
+            document.getElementById("mapSizeListingMap100").style.color = "rgb(0, 0, 0)";
+            document.getElementById("mapSizeListingMap"+index).style.background = "rgb(34, 150, 67)";
+            document.getElementById("mapSizeListingMap"+index).style.color = "rgb(255, 255, 255)";
+            loadActiveListingsListingMap(curLocation,index);
+        }
+    }
 </script>
