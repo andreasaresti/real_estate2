@@ -35,200 +35,201 @@
 ?>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <div class="inner-pages homepage-4 agents hp-6 full hd-white">
-<section class="properties-right featured portfolio blog google-map-right mp-1">
-    <div class="container-fluid">
-        <div class="row">
-            <aside class="col-lg-6 col-md-6 google-maps-left mt-0">
-                <div class="row" style="display: flex;align-items: center;margin: 25px 0px 0px 50px; position: absolute;z-index: 9;">
-                    <div class="col-xl-12 xsRow" style="display: flex;justify-content: space-around;align-items: center;padding: 0px;">
-                        <a  class="btn btn-map" id="mapSizeListingMap1" onclick="mapSizeListingMap(1);" style="margin-right:5px;">+ 1 km</a>
-                        <a  class="btn btn-map" id="mapSizeListingMap5" onclick="mapSizeListingMap(5);" style="margin-right:5px;">+ 5 km</a>
-                        <a  class="btn btn-map" id="mapSizeListingMap10" onclick="mapSizeListingMap(10);" style="margin-right:5px;">+ 10 km</a>
-                        <a  class="btn btn-map" id="mapSizeListingMap30" onclick="mapSizeListingMap(30);" style="margin-right:5px;">+ 30 km</a>
-                        <a  class="btn btn-map" id="mapSizeListingMap50" onclick="mapSizeListingMap(50);" style="margin-right:5px;">+ 50 km</a>
-                        <a  class="btn btn-map" id="mapSizeListingMap100" onclick="mapSizeListingMap(100);" style="margin-right:5px;">+ 100 km</a>
-                        <a style="display: flex;justify-content: center;align-items: center;" class="btn btn-map" id="showCircleListingMap" onclick="showCircleListingMap();" ><i class="fa-solid fa-location-crosshairs" style="font-size:30px;"></i></a>
+    <section class="properties-right featured portfolio blog google-map-right mp-1">
+        <div class="container-fluid">
+            <div class="row">
+                <aside class="col-lg-6 col-md-6 google-maps-left mt-0">
+                    <div class="row" style="display: flex;align-items: center;margin: 25px 0px 0px 50px; position: absolute;z-index: 9;">
+                        <div class="col-xl-12 xsRow" style="display: flex;justify-content: space-around;align-items: center;padding: 0px;">
+                            <a  class="btn btn-map" id="mapSizeListingMap1" onclick="mapSizeListingMap(1);" style="margin-right:5px;">+ 1 km</a>
+                            <a  class="btn btn-map" id="mapSizeListingMap5" onclick="mapSizeListingMap(5);" style="margin-right:5px;">+ 5 km</a>
+                            <a  class="btn btn-map" id="mapSizeListingMap10" onclick="mapSizeListingMap(10);" style="margin-right:5px;">+ 10 km</a>
+                            <a  class="btn btn-map" id="mapSizeListingMap30" onclick="mapSizeListingMap(30);" style="margin-right:5px;">+ 30 km</a>
+                            <a  class="btn btn-map" id="mapSizeListingMap50" onclick="mapSizeListingMap(50);" style="margin-right:5px;">+ 50 km</a>
+                            <a  class="btn btn-map" id="mapSizeListingMap100" onclick="mapSizeListingMap(100);" style="margin-right:5px;">+ 100 km</a>
+                            <a style="display: flex;justify-content: center;align-items: center;" class="btn btn-map" id="showCircleListingMap" onclick="showCircleListingMap();" ><i class="fa-solid fa-location-crosshairs" style="font-size:30px;"></i></a>
+                        </div>
                     </div>
-                </div>
-                <div id="map-leaflet"></div>
-            </aside>
-            <div class="col-lg-6 col-md-12 google-maps-right" style="padding-left:20px">
-                <!-- Search Form -->
-                <div class="col-12 px-0 parallax-searchs-button">
-                    <a onclick="searchShowListingMap();" class="btn btn-yellow" id="SearchShowButton" style="margin-top: 20px;height: 41px;padding: 0px;line-height: 39px;">Search Show</a>
-                </div>
-                <div class="col-12 px-0 parallax-searchs" id="SearchBar">
-                    <div class="banner-search-wrap">
-                        <div class="tab-content">
-                            <div class="tab-pane fade show active" id="tabs_1">
-                                <div class="rld-main-search">
-                                    <div class="row">
-                                        <div class="rld-single-input" onmouseover="hiddenAdvancedDivListingMap();" style="width: 190px">
-                                            <input type="text" placeholder="Enter Keyword..." autocomplete="off" id="search_string">
-                                        </div>
-                                        <div class="rld-single-select" style="margin-bottom: 15px" onmouseover="hiddenAdvancedDivListingMap();" style="width: 132px">
-                                            <input type="hidden" id="selLocation" name="selLocation" value="">
-                                            <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: #ebebeb;">
-                                                <ul>
-                                                    <li ><a id="location_title">Location</a>
-                                                        <ul id="activelocation">
-                                                            <?php
-                                                                foreach($active_district_response->data as $district){
-                                                                    echo '<li class="parent locationLi">
-                                                                            <a><input type="checkbox" id="districts'.$district->id.'" class="district" name="district[]" value="'.$district->id.'" onchange="changeLocationsListingMap(\'districts\',\''.$district->id.'\',\''.$district->displayname.'\')">'.$district->displayname.' </a>
-                                                                            <div class="wrapper" style="top: 0px; left: 208px;">
-                                                                                <ul style="transform:none;position:initial; visibility: visible;opacity: 100; overflow-x: hidden; overflow-y: auto; max-height: 500px;" id="subDistricts'.$district->id.'">';
-                                                                                    foreach($active_municipality_response->data as $municipality){
-                                                                                        if($district->id == $municipality->district_id){
-                                                                                            echo '<li class="parent locationLi">
-                                                                                                <a><input type="checkbox" id="municipalities'.$municipality->id.'" class="municipality" name="municipality[]" value="'.$municipality->id.'" onchange="changeLocationsListingMap(\'municipalities\',\''.$municipality->id.'\',\''.$municipality->displayname.'\')">'.$municipality->displayname.'</a>
-                                                                                                <div class="wrapper">
-                                                                                                    <ul style="visibility: visible;opacity: 100;" id="subMunicipalities'.$municipality->id.'">';
-                                                                                                    foreach($active_location_response->data as $location){
-                                                                                                        if($location->municipality_id == $municipality->id){
-                                                                                                            echo '<li>
-                                                                                                                <a>
-                                                                                                                <input type="checkbox" id="locations'.$location->id.'" class="location" name="location[]" value="'.$location->id.'" onchange="changeLocationsListingMap(\'locations',''.$location->id.'',''.$location->displayname.'\')">'.$location->displayname.'</a>
-                                                                                                            </li>';
+                    <div id="map-leaflet"></div>
+                </aside>
+                <div class="col-lg-6 col-md-12 google-maps-right" style="padding-left:20px">
+                    <!-- Search Form -->
+                    <div class="col-12 px-0 parallax-searchs-button">
+                        <a onclick="searchShowListingMap();" class="btn btn-yellow" id="SearchShowButton" style="margin-top: 20px;height: 41px;padding: 0px;line-height: 39px;">Search Show</a>
+                    </div>
+                    <div class="col-12 px-0 parallax-searchs" id="SearchBar">
+                        <div class="banner-search-wrap">
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="tabs_1">
+                                    <div class="rld-main-search">
+                                        <div class="row">
+                                            <div class="rld-single-input" onmouseover="hiddenAdvancedDivListingMap();" style="width: 190px">
+                                                <input type="text" placeholder="Enter Keyword..." autocomplete="off" id="search_string">
+                                            </div>
+                                            <div class="rld-single-select" style="margin-bottom: 15px" onmouseover="hiddenAdvancedDivListingMap();" style="width: 132px">
+                                                <input type="hidden" id="selLocation" name="selLocation" value="">
+                                                <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: #ebebeb;">
+                                                    <ul>
+                                                        <li ><a id="location_title">Location</a>
+                                                            <ul id="activelocation">
+                                                                <?php
+                                                                    foreach($active_district_response->data as $district){
+                                                                        echo '<li class="parent locationLi">
+                                                                                <a><input type="checkbox" id="districts'.$district->id.'" class="district" name="district[]" value="'.$district->id.'" onchange="changeLocationsListingMap(\'districts\',\''.$district->id.'\',\''.$district->displayname.'\')">'.$district->displayname.' </a>
+                                                                                <div class="wrapper" style="top: 0px; left: 208px;">
+                                                                                    <ul style="transform:none;position:initial; visibility: visible;opacity: 100; overflow-x: hidden; overflow-y: auto; max-height: 500px;" id="subDistricts'.$district->id.'">';
+                                                                                        foreach($active_municipality_response->data as $municipality){
+                                                                                            if($district->id == $municipality->district_id){
+                                                                                                echo '<li class="parent locationLi">
+                                                                                                    <a><input type="checkbox" id="municipalities'.$municipality->id.'" class="municipality" name="municipality[]" value="'.$municipality->id.'" onchange="changeLocationsListingMap(\'municipalities\',\''.$municipality->id.'\',\''.$municipality->displayname.'\')">'.$municipality->displayname.'</a>
+                                                                                                    <div class="wrapper">
+                                                                                                        <ul style="visibility: visible;opacity: 100;" id="subMunicipalities'.$municipality->id.'">';
+                                                                                                        foreach($active_location_response->data as $location){
+                                                                                                            if($location->municipality_id == $municipality->id){
+                                                                                                                echo '<li>
+                                                                                                                    <a>
+                                                                                                                    <input type="checkbox" id="locations'.$location->id.'" class="location" name="location[]" value="'.$location->id.'" onchange="changeLocationsListingMap(\'locations',''.$location->id.'',''.$location->displayname.'\')">'.$location->displayname.'</a>
+                                                                                                                </li>';
+                                                                                                            }
                                                                                                         }
-                                                                                                    }
-                                                                                                    echo '</ul>
-                                                                                                </div>
-                                                                                            </li>';
-                                                                                        }                                                                                                    
-                                                                                    }                                                                                                
-                                                                                echo '</ul>
-                                                                            </div>
-                                                                        </li>';
-                                                                }
-                                                            ?>
-                                                        
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                            </nav>
-                                        </div>
-                                        <div class="rld-single-select" style="margin-bottom: 15px" onmouseover="hiddenAdvancedDivListingMap();">
-                                            <input type="hidden" id="selActivePropertStatus" name="selActivePropertStatus" value="">
-                                            <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: #ebebeb;">
-                                                <ul>
-                                                    <li ><a>Property Status</a>
-                                                    <ul id="activePropertStatus">
-                                                <?php
-                                                    foreach($active_property_types_response->data as $property_type){
-                                                        echo '<li><a><input type="checkbox" class="propertStatus" value="'.$property_type->id.'" id="propertStatus'.$property_type->id.'" >'.$property_type->displayname.'</a></li>';
-                                                    }
-                                                    ?> 
-                                                </ul>
-                                                    </li>
-                                                </ul>
-                                            </nav>
-                                        </div>
-                                        
-                                        <div class="rld-single-select" style="margin-bottom: 15px" onmouseover="hiddenAdvancedDivListingMap();">
-                                            <input type="hidden" id="selActivePropertType" name="selActivePropertType" value="">
-                                            <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: #ebebeb;">
-                                                <ul>
-                                                    <li ><a>Property Type</a>
-                                                    <ul id="activePropertType">
-                                                        <?php
-                                                        foreach($active_listing_types_response->data as $listing_type){
-                                                            echo '<li><a><input type="checkbox" class="propertTypes" name="property_types[]" value="'.$listing_type->id.'" id="propertTypes'.$listing_type->id.'">'.$listing_type->displayname.'</a></li>';
-                                                        }
-                                                        ?>                                                
+                                                                                                        echo '</ul>
+                                                                                                    </div>
+                                                                                                </li>';
+                                                                                            }                                                                                                    
+                                                                                        }                                                                                                
+                                                                                    echo '</ul>
+                                                                                </div>
+                                                                            </li>';
+                                                                    }
+                                                                ?>
+                                                            
+                                                            </ul>
+                                                        </li>
                                                     </ul>
-                                                    </li>
-                                                </ul>
-                                            </nav>
-                                        </div>
-                                        
-                                        <div class="dropdown-filter" style="margin-bottom: 15px; width: 238px"><span>Advanced Search</span></div>
-                                        <div class="col-xl-2 col-lg-2 col-md-4 pl-0" style="width: 150px">
-                                            <a class="btn btn-yellow" onclick="searchNowListingMap();">Search Now</a>
-                                        </div>
-                                        <div id="advancedSearch" style="margin-top: 0px;" class="explore__form-checkbox-list full-filter">
-                                            <div class="row">
-                                                <div class="col-lg-4 col-md-6 py-1 pr-30 pl-0 ">
-                                                    <!-- Form Bedrooms -->
-                                                    <div class="form-group beds" style="display: flex;"  id="searchFormBedrooms">
-                                                        <i class="fa fa-bed" aria-hidden="true" style="align-self: center;width: 20px;"></i>
-                                                        <select class="select single-select"  id="selBedrooms">
-                                                            <option value="0">Bedrooms</option>
-                                                            <?php for($i= 1; $i<=10; $i++)
-                                                            {
-                                                            ?>
-                                                            <option value="<?php echo $i;?>"><?php echo $i;?></option>
+                                                </nav>
+                                            </div>
+                                            <div class="rld-single-select" style="margin-bottom: 15px" onmouseover="hiddenAdvancedDivListingMap();">
+                                                <input type="hidden" id="selActivePropertStatus" name="selActivePropertStatus" value="">
+                                                <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: #ebebeb;">
+                                                    <ul>
+                                                        <li ><a>Property Status</a>
+                                                        <ul id="activePropertStatus">
+                                                    <?php
+                                                        foreach($active_property_types_response->data as $property_type){
+                                                            echo '<li><a><input type="checkbox" class="propertStatus" value="'.$property_type->id.'" id="propertStatus'.$property_type->id.'" >'.$property_type->displayname.'</a></li>';
+                                                        }
+                                                        ?> 
+                                                    </ul>
+                                                        </li>
+                                                    </ul>
+                                                </nav>
+                                            </div>
+                                            
+                                            <div class="rld-single-select" style="margin-bottom: 15px" onmouseover="hiddenAdvancedDivListingMap();">
+                                                <input type="hidden" id="selActivePropertType" name="selActivePropertType" value="">
+                                                <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: #ebebeb;">
+                                                    <ul>
+                                                        <li ><a>Property Type</a>
+                                                        <ul id="activePropertType">
                                                             <?php
+                                                            foreach($active_listing_types_response->data as $listing_type){
+                                                                echo '<li><a><input type="checkbox" class="propertTypes" name="property_types[]" value="'.$listing_type->id.'" id="propertTypes'.$listing_type->id.'">'.$listing_type->displayname.'</a></li>';
                                                             }
-                                                            ?>
-                                                        </select>
+                                                            ?>                                                
+                                                        </ul>
+                                                        </li>
+                                                    </ul>
+                                                </nav>
+                                            </div>
+                                            
+                                            <div class="dropdown-filter" style="margin-bottom: 15px; width: 238px"><span>Advanced Search</span></div>
+                                            <div class="col-xl-2 col-lg-2 col-md-4 pl-0" style="width: 150px">
+                                                <a class="btn btn-yellow" onclick="searchNowListingMap();">Search Now</a>
+                                            </div>
+                                            <div id="advancedSearch" style="margin-top: 0px;" class="explore__form-checkbox-list full-filter">
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-6 py-1 pr-30 pl-0 ">
+                                                        <!-- Form Bedrooms -->
+                                                        <div class="form-group beds" style="display: flex;"  id="searchFormBedrooms">
+                                                            <i class="fa fa-bed" aria-hidden="true" style="align-self: center;width: 20px;"></i>
+                                                            <select class="select single-select"  id="selBedrooms">
+                                                                <option value="0">Bedrooms</option>
+                                                                <?php for($i= 1; $i<=10; $i++)
+                                                                {
+                                                                ?>
+                                                                <option value="<?php echo $i;?>"><?php echo $i;?></option>
+                                                                <?php
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                        <!--/ End Form Bedrooms -->
                                                     </div>
-                                                    <!--/ End Form Bedrooms -->
-                                                </div>
-                                                <div class="col-lg-4 col-md-6 py-1 pl-0 pr-0">
-                                                    <!-- Form Bathrooms -->
-                                                    <div class="form-group bath" style="display: flex;" id="searchFormBathrooms">
-                                                        <i class="fa fa-bath" aria-hidden="true" style="align-self: center;width: 20px;"></i>
-                                                        <select class="select single-select" id="selBathrooms">
-                                                            <option value="0">Bathrooms</option>
-                                                            <?php for($i= 1; $i<=10; $i++)
-                                                            {
-                                                            ?>
-                                                            <option value="<?php echo $i;?>"><?php echo $i;?></option>
+                                                    <div class="col-lg-4 col-md-6 py-1 pl-0 pr-0">
+                                                        <!-- Form Bathrooms -->
+                                                        <div class="form-group bath" style="display: flex;" id="searchFormBathrooms">
+                                                            <i class="fa fa-bath" aria-hidden="true" style="align-self: center;width: 20px;"></i>
+                                                            <select class="select single-select" id="selBathrooms">
+                                                                <option value="0">Bathrooms</option>
+                                                                <?php for($i= 1; $i<=10; $i++)
+                                                                {
+                                                                ?>
+                                                                <option value="<?php echo $i;?>"><?php echo $i;?></option>
+                                                                <?php
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                            
+                                                        </div>
+                                                        <!--/ End Form Bathrooms -->
+                                                    </div>
+                                                    <div class="col-lg-5 col-md-12 col-sm-12 py-1 pr-30 mr-5 sld">
+                                                        <!-- Price Fields -->
+                                                        <div class="main-search-field-2">
+                                                            <!-- Area Range -->
+                                                            <div class="range-slider">
+                                                                <label>Area Size</label>
+                                                                <div id="area-range" data-min="0" data-max="1300" data-unit="sq meters"></div>
+                                                                <div class="clearfix"></div>
+                                                            </div>
+                                                            <br>
+                                                            <!-- Price Range -->
+                                                            <div class="range-slider">
+                                                                <label>Price Range</label>
+                                                                <div id="price-range" data-min="0" data-max="600000" data-unit="€"></div>
+                                                                <div class="clearfix"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30">
+                                                        <!-- Checkboxes -->
+                                                        <div class="checkboxes one-in-row margin-bottom-10 ch-1" id="activefeaturesLeft">
                                                             <?php
-                                                            }
+                                                                foreach($active_features as $key=>$feature){
+                                                                    if($key <= count($active_features) / 2){
+                                                                        echo '<input id="fcheck-'.$feature->id.'" type="checkbox" class="featurecheck" value="'.$feature->id.'" name="features[]"">
+                                                                        <label for="fcheck-'.$feature->id.'" >'.$feature->displayname.'</label>';
+                                                                    }
+                                                                    
+                                                                }
                                                             ?>
-                                                        </select>
-                                                        
-                                                    </div>
-                                                    <!--/ End Form Bathrooms -->
-                                                </div>
-                                                <div class="col-lg-5 col-md-12 col-sm-12 py-1 pr-30 mr-5 sld">
-                                                    <!-- Price Fields -->
-                                                    <div class="main-search-field-2">
-                                                        <!-- Area Range -->
-                                                        <div class="range-slider">
-                                                            <label>Area Size</label>
-                                                            <div id="area-range" data-min="0" data-max="1300" data-unit="sq meters"></div>
-                                                            <div class="clearfix"></div>
                                                         </div>
-                                                        <br>
-                                                        <!-- Price Range -->
-                                                        <div class="range-slider">
-                                                            <label>Price Range</label>
-                                                            <div id="price-range" data-min="0" data-max="600000" data-unit="€"></div>
-                                                            <div class="clearfix"></div>
+                                                        <!-- Checkboxes / End -->
+                                                    </div>
+                                                    <div class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30">
+                                                        <!-- Checkboxes -->
+                                                        <div class="checkboxes one-in-row margin-bottom-10 ch-2" id="activefeaturesRight">
+                                                            <?php
+                                                                foreach($active_features as $key=>$feature){
+                                                                    if($key > count($active_features) / 2){
+                                                                        echo '<input id="fcheck-'.$feature->id.'" type="checkbox" class="featurecheck" value = "'.$feature->id.'">
+                                                                        <label for="fcheck-'.$feature->id.'">'.$feature->displayname.'</label>';
+                                                                    }
+                                                                }
+                                                            ?>
                                                         </div>
+                                                        <!-- Checkboxes / End -->
                                                     </div>
-                                                </div>
-                                                <div class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30">
-                                                    <!-- Checkboxes -->
-                                                    <div class="checkboxes one-in-row margin-bottom-10 ch-1" id="activefeaturesLeft">
-                                                        <?php
-                                                            foreach($active_features as $key=>$feature){
-                                                                if($key <= count($active_features) / 2){
-                                                                    echo '<input id="fcheck-'.$feature->id.'" type="checkbox" class="featurecheck" value="'.$feature->id.'" name="features[]"">
-                                                                    <label for="fcheck-'.$feature->id.'" >'.$feature->displayname.'</label>';
-                                                                }
-                                                                
-                                                            }
-                                                        ?>
-                                                    </div>
-                                                    <!-- Checkboxes / End -->
-                                                </div>
-                                                <div class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30">
-                                                    <!-- Checkboxes -->
-                                                    <div class="checkboxes one-in-row margin-bottom-10 ch-2" id="activefeaturesRight">
-                                                        <?php
-                                                            foreach($active_features as $key=>$feature){
-                                                                if($key > count($active_features) / 2){
-                                                                    echo '<input id="fcheck-'.$feature->id.'" type="checkbox" class="featurecheck" value = "'.$feature->id.'">
-                                                                    <label for="fcheck-'.$feature->id.'">'.$feature->displayname.'</label>';
-                                                                }
-                                                            }
-                                                        ?>
-                                                    </div>
-                                                    <!-- Checkboxes / End -->
                                                 </div>
                                             </div>
                                         </div>
@@ -237,50 +238,49 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <!--/ End Search Form -->
-                <section class="headings-2 pt-0">
-                    <div class="pro-wrapper">
-                        <div class="detail-wrapper-body">
-                            <div class="listing-title-bar">
-                                <div class="text-heading text-left">
-                                    <p class="font-weight-bold mb-0 mt-3" id="page_count"></p>                        
+                    <!--/ End Search Form -->
+                    <section class="headings-2 pt-0">
+                        <div class="pro-wrapper">
+                            <div class="detail-wrapper-body">
+                                <div class="listing-title-bar">
+                                    <div class="text-heading text-left">
+                                        <p class="font-weight-bold mb-0 mt-3" id="page_count"></p>                        
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="cod-pad single detail-wrapper mr-2 mt-0 d-flex justify-content-md-end align-items-center">
-                            <div class="input-group border rounded input-group-lg w-auto mr-4">
-                                <select class="form-control border-0 bg-transparent shadow-none p-0 selectpicker sortby"  id="paginSize" onchange="loadActiveListingsListingMap([0,0],0)" name="paginSize">
-                                    <option selected value="20">20</option>
-                                    <option value="40">40</option>
-                                    <option value="60">60</option>
-                                    <option value="80">80</option>
-                                </select>
+                            <div class="cod-pad single detail-wrapper mr-2 mt-0 d-flex justify-content-md-end align-items-center">
+                                <div class="input-group border rounded input-group-lg w-auto mr-4">
+                                    <select class="form-control border-0 bg-transparent shadow-none p-0 selectpicker sortby"  id="paginSize" onchange="loadActiveListingsListingMap([0,0],0)" name="paginSize">
+                                        <option selected value="20">20</option>
+                                        <option value="40">40</option>
+                                        <option value="60">60</option>
+                                        <option value="80">80</option>
+                                    </select>
+                                </div>
+                                <div class="input-group border rounded input-group-lg w-auto mr-4">
+                                    <label class="input-group-text bg-transparent border-0 text-uppercase letter-spacing-093 pr-1 pl-3" for="inputGroupSelect01"><i class="fas fa-align-left fs-16 pr-2"></i>Sortby:</label>
+                                    <select class="form-control border-0 bg-transparent shadow-none p-0 selectpicker sortby"  onchange="loadActiveListingsListingMap([0,0],0)"  data-style="bg-transparent border-0 font-weight-600 btn-lg pl-0 pr-3" id="sortby" name="sortby">
+                                        <option value="1">Latest</option>
+                                        <option value="2">Price(low to high)</option>
+                                        <option value="3">Price(high to low)</option>
+                                    </select>
+                                </div>
+                            
                             </div>
-                            <div class="input-group border rounded input-group-lg w-auto mr-4">
-                                <label class="input-group-text bg-transparent border-0 text-uppercase letter-spacing-093 pr-1 pl-3" for="inputGroupSelect01"><i class="fas fa-align-left fs-16 pr-2"></i>Sortby:</label>
-                                <select class="form-control border-0 bg-transparent shadow-none p-0 selectpicker sortby"  onchange="loadActiveListingsListingMap([0,0],0)"  data-style="bg-transparent border-0 font-weight-600 btn-lg pl-0 pr-3" id="sortby" name="sortby">
-                                    <option value="1">Latest</option>
-                                    <option value="2">Price(low to high)</option>
-                                    <option value="3">Price(high to low)</option>
-                                </select>
-                            </div>
-                           
                         </div>
+                    </section>
+                    <div class="row" id="ListingListContent">
+                        
                     </div>
-                </section>
-                <div class="row" id="ListingListContent">
-                    
+                    <nav aria-label="..." style="padding: 20px;display: flex;justify-content: center;">
+                        <ul class="pagination mt-0" id="pagin_content">
+                        </ul>
+                    </nav>
                 </div>
-                <nav aria-label="..." style="padding: 20px;display: flex;justify-content: center;">
-                    <ul class="pagination mt-0" id="pagin_content">
-                    </ul>
-                </nav>
             </div>
+            <input type="hidden" id="page_index" value="1">
         </div>
-        <input type="hidden" id="page_index" value="1">
-    </div>
-</section>
+    </section>
 </div>
 
 

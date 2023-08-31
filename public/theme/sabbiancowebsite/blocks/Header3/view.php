@@ -86,6 +86,8 @@ use App\Helpers\Helper;
     transition-delay: .5s !important;
 }
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 <div class="homepage-9 hp-6 homepage-1 mh" style="z-index: 9999;position: relative;">
     <div id="wrapper">
         <header id="header-container" class="header head-tr">
@@ -207,7 +209,7 @@ use App\Helpers\Helper;
                 <div class="container" data-aos="zoom-in">
                     <div class="row">
                         <div class="col-12">
-                            <div class="hero-inner" style="padding: 250px 0px 100px 0px;">
+                            <div class="hero-inner" style="padding: 120px 0px 100px 0px;">
                                     <div class="col-12">
                                         <div class="banner-search-wrap">
                                             <div class="tab-content">
@@ -278,7 +280,7 @@ use App\Helpers\Helper;
                                                             </div>
                                                             <div class="dropdown-filter"><span>Advanced Search</span></div>
                                                             <div class="col-xl-2 col-lg-2 col-md-4 pl-0">
-                                                                <a class="btn btn-yellow" onclick="listsViewHome3();">Search Now</a>
+                                                                <a class="btn btn-yellow" onclick="loadActiveListingsListingMap([0,0],0);">Search Now</a>
                                                             </div>
                                                             <div id="advancedSearch" class="explore__form-checkbox-list full-filter">
                                                                 <div class="row">
@@ -380,17 +382,69 @@ use App\Helpers\Helper;
                     </div>
                 </div>
             </div>
-            <div class="inner-pages homepage-4 agents hp-6 full hd-white" style="width: 100%;background: white;display: flex;justify-content: center;">
-                <section class="properties-list featured portfolio blog" style="width: 90%;background: white;padding: 40px 0px 0px 0px;">
-                    <div class="row" id="ListingListContent">
-                
+        </section>
+    </div>
+</div>
+<div id="searchcontentdiv" style="display:none;">
+    <div class="inner-pages homepage-4 agents hp-6 full hd-white">
+        <section class="properties-right featured portfolio blog google-map-right mp-1">
+            <div class="container-fluid">
+                <div class="row">
+                    <aside class="col-lg-6 col-md-6 google-maps-left mt-0">
+                        <div class="row" style="display: flex;align-items: center;margin: 25px 0px 0px 50px; position: absolute;z-index: 9;">
+                            <div class="col-xl-12 xsRow" style="display: flex;justify-content: space-around;align-items: center;padding: 0px;">
+                                <a  class="btn btn-map" id="mapSizeListingMap1" onclick="mapSizeListingMap(1);" style="margin-right:5px;">+ 1 km</a>
+                                <a  class="btn btn-map" id="mapSizeListingMap5" onclick="mapSizeListingMap(5);" style="margin-right:5px;">+ 5 km</a>
+                                <a  class="btn btn-map" id="mapSizeListingMap10" onclick="mapSizeListingMap(10);" style="margin-right:5px;">+ 10 km</a>
+                                <a  class="btn btn-map" id="mapSizeListingMap30" onclick="mapSizeListingMap(30);" style="margin-right:5px;">+ 30 km</a>
+                                <a  class="btn btn-map" id="mapSizeListingMap50" onclick="mapSizeListingMap(50);" style="margin-right:5px;">+ 50 km</a>
+                                <a  class="btn btn-map" id="mapSizeListingMap100" onclick="mapSizeListingMap(100);" style="margin-right:5px;">+ 100 km</a>
+                                <a style="display: flex;justify-content: center;align-items: center;" class="btn btn-map" id="showCircleListingMap" onclick="showCircleListingMap();" ><i class="fa-solid fa-location-crosshairs" style="font-size:30px;"></i></a>
+                            </div>
+                        </div>
+                        <div id="map-leaflet"></div>
+                    </aside>
+                    <div class="col-lg-6 col-md-12 google-maps-right" style="padding-left:20px">
+                        <section class="headings-2 pt-0">
+                            <div class="pro-wrapper">
+                                <div class="detail-wrapper-body">
+                                    <div class="listing-title-bar">
+                                        <div class="text-heading text-left">
+                                            <p class="font-weight-bold mb-0 mt-3" id="page_count"></p>                        
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cod-pad single detail-wrapper mr-2 mt-0 d-flex justify-content-md-end align-items-center">
+                                    <div class="input-group border rounded input-group-lg w-auto mr-4">
+                                        <select class="form-control border-0 bg-transparent shadow-none p-0 selectpicker sortby"  id="paginSize" onchange="loadActiveListingsListingMap([0,0],0)" name="paginSize">
+                                            <option selected value="20">20</option>
+                                            <option value="40">40</option>
+                                            <option value="60">60</option>
+                                            <option value="80">80</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-group border rounded input-group-lg w-auto mr-4">
+                                        <label class="input-group-text bg-transparent border-0 text-uppercase letter-spacing-093 pr-1 pl-3" for="inputGroupSelect01"><i class="fas fa-align-left fs-16 pr-2"></i>Sortby:</label>
+                                        <select class="form-control border-0 bg-transparent shadow-none p-0 selectpicker sortby"  onchange="loadActiveListingsListingMap([0,0],0)"  data-style="bg-transparent border-0 font-weight-600 btn-lg pl-0 pr-3" id="sortby" name="sortby">
+                                            <option value="1">Latest</option>
+                                            <option value="2">Price(low to high)</option>
+                                            <option value="3">Price(high to low)</option>
+                                        </select>
+                                    </div>
+                                
+                                </div>
+                            </div>
+                        </section>
+                        <div class="row" id="ListingListContent">
+                            
+                        </div>
+                        <nav aria-label="..." style="padding: 20px;display: flex;justify-content: center;">
+                            <ul class="pagination mt-0" id="pagin_content">
+                            </ul>
+                        </nav>
                     </div>
-                    <nav aria-label="..." class="pt-3" style="display: flex;justify-content: center;">
-                        <ul class="pagination mt-0" id="pagin_content">
-                        </ul>
-                    </nav>
-                    <input type="hidden" id="page_index" value="1">
-                </section>
+                </div>
+                <input type="hidden" id="page_index" value="1">
             </div>
         </section>
     </div>
@@ -474,6 +528,17 @@ use App\Helpers\Helper;
         </div>
     </div>
 </div>
+
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/leaflet/1.0.0-rc.1/leaflet-src.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/leaflet.esri/2.0.0/esri-leaflet.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.1.0/esri-leaflet-geocoder.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/leaflet.markercluster/1.0.0-beta.2.0/leaflet.markercluster.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/leaflet.markercluster/1.0.0-beta.2.0/leaflet.markercluster-src.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/gh/Falke-Design/L.Donut@latest/src/L.Donut.js"></script>
+
+
 <script type="text/javascript">
 	// window.addEventListener("load", (event) => {
         // loadMenuHeader3();
@@ -482,6 +547,11 @@ use App\Helpers\Helper;
         // loadActiveDistrictHeader3();
         // loadActivePropertTypeHeader3();
 	// });
+
+    var map = null;
+    var circle;
+    var curLocation = [0,0];
+    var viewCircleFlag = 0;
 
     
 
@@ -515,148 +585,10 @@ use App\Helpers\Helper;
         document.getElementsByName("activeLang")[0].innerHTML = data;
         document.getElementsByName("activeLang")[1].innerHTML = data;
     }
-    function loadMenuHeader3(){
-        data = {
-            "slug":"menu",
-            "locale":"en_US",
-        }
-		const url = "/api/getmenu";
-		let xhr = new XMLHttpRequest();
-		xhr.open('POST', url, true);
-		xhr.setRequestHeader('Content-type', 'application/json');
-		xhr.send(JSON.stringify(data));
-		xhr.onload = function () {
-			list = JSON.parse(xhr.response);
-            console.log(list);
-            var temp ="";
-            for(i=0;i<list.length;i++){
-                if(list[i].parent_id == null){
-                    temp += `<li><a href="`+list[i].value+`">`+list[i].name+`</a><ul>`;
-                    for(j=0;j<list.length;j++){
-                        if(list[j].parent_id == list[i].id){
-                            temp += `<li><a href="`+list[j].value+`">`+list[j].name+`</a><ul>`;
-                            for(k=0;k<list.length;k++){
-                                if(list[k].parent_id == list[j].id){
-                                    temp += `<li><a href="`+list[k].value+`">`+list[k].name+`</a></li>`;
-                                }
-                            }
-                            temp += `</ul></li>`;
-                        }
-                    }
-                    temp += `</ul></li>`;
-                }
-            }
-            temp = temp.replaceAll("<ul></ul>","");
-            // temp += `<li class="d-none d-xl-none d-block d-lg-block mt-5 pb-4 ml-5 border-bottom-0"><a href="/page/add-listings" class="button border btn-lg btn-block text-center">Add Listing<i class="fas fa-laptop-house ml-2"></i></a></li>`;
-            document.getElementsByName("menuResponsive")[0].innerHTML = temp;
-            // document.getElementsByName("menuResponsive")[1].innerHTML = temp;
-		}
-	}
-    function loadActivePropertTypeHeader3(){
-		const url = "/api/activelisting-types";
-		let xhr = new XMLHttpRequest();
-		xhr.open('POST', url, true);
-		xhr.setRequestHeader('Content-type', 'application/json');
-		xhr.send();
-		xhr.onload = function () {
-			list = JSON.parse(xhr.response);
-			data = list.data;	
-            var temp ="";
-            for(i=0;i<data.length;i++){
-                temp += `<li><a><input type="checkbox" class="propertTypes" value="`+data[i].id+`" id="propertTypes`+data[i].id+`" >`+data[i].displayname+`</a>
-                        </li>`;
-            }
-            document.getElementById("activePropertType").innerHTML = temp;
-		}
-	}
-	function loadActiveFeaturesHeader3(){
-		const url = "/api/activefeatures";
-		let xhr = new XMLHttpRequest();
-		xhr.open('POST', url, true);
-		xhr.setRequestHeader('Content-type', 'application/json');
-		xhr.send();
-		xhr.onload = function () {
-			list = JSON.parse(xhr.response);
-			data = list.data;	
-            var temp ="";
-            for(i=0;i<Math.round(data.length/2);i++){
-                temp += `<input id="fcheck-`+i+`" type="checkbox" class="featurecheck" value = "`+data[i].id+`">
-                <label for="fcheck-`+i+`">`+data[i].displayname+`</label>`;
-            }
-            document.getElementById("activefeaturesLeft").innerHTML = temp;
-            temp ="";
-            for(i=Math.round(data.length/2);i<data.length;i++){
-                temp += `<input id="fcheck-`+i+`" type="checkbox" class="featurecheck" value = "`+data[i].id+`">
-                <label for="fcheck-`+i+`">`+data[i].displayname+`</label>`;
-            }
-            document.getElementById("activefeaturesRight").innerHTML = temp;
-		}
-	}
-    function loadActiveDistrictHeader3(){
-		const url = "/api/activedistrict";
-		let xhr = new XMLHttpRequest();
-        let xhr1 = new XMLHttpRequest();
-		xhr.open('POST', url, true);
-		xhr.setRequestHeader('Content-type', 'application/json');
-		xhr.send();
-		xhr.onload = function () {
-			list = JSON.parse(xhr.response);
-			data = list.data;	
-            var temp ="";
-            for(i=0;i<data.length;i++){
-                temp += `<li class="parent locationLi" ><a><input type="checkbox" id="districts`+data[i].id+`" class="district" name="district[]" value="`+data[i].id+`" onchange="changeLocationsHeader3('districts','`+data[i].id+`','`+data[i].displayname+`')">`+data[i].displayname+`</a>
-                <div class="wrapper"><ul style="transform:none;position:initial; visibility: visible;opacity: 100; overflow-x: hidden; overflow-y: auto; max-height: 500px;" id="subDistricts`+data[i].id+`"></ul></div></li>`;
-            }
-            document.getElementById("activelocation").innerHTML = temp;
-            loadActiveMunicipalityHeader3();
-		}
-	}
-    function loadActiveMunicipalityHeader3(){
-		const url = "/api/activemunicipality";
-		let xhr = new XMLHttpRequest();
-		xhr.open('POST', url, true);
-		xhr.setRequestHeader('Content-type', 'application/json');
-		xhr.send();
-		xhr.onload = function () {
-			list = JSON.parse(xhr.response);
-			data = list.data;
-            districts = document.getElementsByClassName("district");
-            for(j=0;j<districts.length;j++)
-            {
-                temp ="";
-                for(i=0;i<data.length;i++){
-                    if(data[i].district_id == districts[j].value){
-                        temp += `<li class="parent locationLi"><a><input type="checkbox"  id="municipalities`+data[i].id+`"  class="municipality" name="municipality[]" value="`+data[i].id+`" onchange="changeLocationsHeader3('municipalities','`+data[i].id+`','`+data[i].displayname+`')">`+data[i].displayname+`</a>
-                        <div class="wrapper"><ul style="visibility: visible;opacity: 100;" id="subMunicipalities`+data[i].id+`"></ul></div></li>`;
-                    }
-                }
-                document.getElementById("subDistricts"+districts[j].value).innerHTML = temp;
-                loadActiveLocationHeader3();
-            }
-		}
-	}
-    function loadActiveLocationHeader3(){
-		const url = "/api/activelocation";
-		let xhr = new XMLHttpRequest();
-		xhr.open('POST', url, true);
-		xhr.setRequestHeader('Content-type', 'application/json');
-		xhr.send();
-		xhr.onload = function () {
-			list = JSON.parse(xhr.response);
-			data = list.data;
-            municipalities = document.getElementsByClassName("municipality");
-            for(j=0;j<municipalities.length;j++)
-            {
-                temp ="";
-                for(i=0;i<data.length;i++){
-                    if(data[i].municipality_id == municipalities[j].value){
-                        temp += `<li><a><input type="checkbox"  id="locations`+data[i].id+`"  class="location" name="location[]" value="`+data[i].id+`" onchange="changeLocationsHeader3('locations','`+data[i].id+`','`+data[i].displayname+`')">`+data[i].displayname+`</a>`;
-                    }
-                }
-                document.getElementById("subMunicipalities"+municipalities[j].value).innerHTML = temp;
-            }
-		}
-	}
+    
+	
+    
+    
     function hiddenAdvancedDivHeader3(){
         document.getElementById('advancedSearch').className = "explore__form-checkbox-list full-filter";
     }
@@ -807,8 +739,29 @@ use App\Helpers\Helper;
             }
         }
     }
-    function listsViewHome3(){
-        hiddenAdvancedDivHeader3();
+    
+    function showAddListingHeader3(){
+        user_id = '<?php echo $user_id; ?>';
+        if(user_id !== ""){
+            window.location.href="/page/add-listings";
+        }else{
+            loginIn()
+        }
+	}
+    
+    
+
+    function loadActiveListingsListingMap(maker_position,set){
+        $('#searchcontentdiv').css("display", "block");
+        document.getElementById("page_index").value = 1;
+        hiddenAdvancedDivListingMap();
+        loadActiveListingsListingGrid(maker_position,set);
+        
+	}
+    function hiddenAdvancedDivListingMap(){
+        document.getElementById('advancedSearch').className = "explore__form-checkbox-list full-filter";
+    }
+    function loadActiveListingsListingGrid(maker_position,set){
         customer_id = '<?php echo $user_id; ?>';
         if(document.getElementById("selBathrooms").value > 0){
             number_of_bathrooms = document.getElementById("selBathrooms").value;
@@ -834,6 +787,7 @@ use App\Helpers\Helper;
                 tempDistrictArr.push(districts[j].value);
             }
         }
+        
         var tempMunicipalitiesArr = [];
         var municipalities = document.getElementsByClassName('municipality');
         for(var j=0; j<municipalities.length;j++){
@@ -862,42 +816,50 @@ use App\Helpers\Helper;
                 tempPropertTypes.push(propertTypes[j].value);
             }
         }
-        var price1 = document.getElementsByClassName("first-slider-value")[1].value;
-        var size1 = document.getElementsByClassName("first-slider-value")[0].value;
-        var price2 = document.getElementsByClassName("second-slider-value")[1].value;
-        var size2 = document.getElementsByClassName("second-slider-value")[0].value;
-        size1 = size1.substring(0,size1.length-6);
-        price1 = price1.substring(1);
-        price1 = price1.replace(",","");
-        size2 = size2.substring(0,size2.length-6);
-        price2 = price2.substring(1);
-        price2 = price2.replace(",","");
-        if(price1 == ''){
-            price1 = 0;
+
+        var price1 = 0;
+        var size1 = 0;
+        var price2 = 600000;
+        var size2 = 1300;
+
+        if ($('.first-slider-value').length > 0) {
+            var price1 = document.getElementsByClassName("first-slider-value")[1].value;
+            var size1 = document.getElementsByClassName("first-slider-value")[0].value;
+            size1 = size1.substring(0,size1.length-6);
+            price1 = price1.substring(1);
+            price1 = price1.replace(",","");
         }
-        if(price2 == ''){
-            price2 = 600000;
+        if ($('.second-slider-value').length > 0) {
+            var price2 = document.getElementsByClassName("second-slider-value")[1].value;
+            var size2 = document.getElementsByClassName("second-slider-value")[0].value;
+            size2 = size2.substring(0,size2.length-6);
+            price2 = price2.substring(1);
+            price2 = price2.replace(",","");
         }
-        if(size1 == ''){
-            size1 = 0;
-        }
-        if(size2 == ''){
-            size2 = 1300;
-        }
+
+
         if(document.getElementById('search_string').value == ""){
             search_term = "";
         }else{
             search_term = document.getElementById('search_string').value;
         }
-        if(document.getElementById("page_index").value){
-            page = Number(document.getElementById("page_index").value);
+        orderbyName = "";
+        orderbyType = "";
+        switch(document.getElementById("sortby").value){
+            case "1":
+                orderbyName = "updated_at";
+                orderbyType = "desc";
+                break;
+            case "2":
+                orderbyName = "price";
+                orderbyType ="asc";
+                break;
+            case "3":
+                orderbyName = "price";
+                orderbyType ="desc";
+                break;
         }
-        // if(document.getElementById("paginSize").value){
-        //     per_page = Number(document.getElementById("paginSize").value);
-        // }
         const sendData = {
-            "page": page,
-            "per_page":6,
             "number_of_bathrooms": number_of_bathrooms,
             "number_of_bedrooms": number_of_bedrooms,
             "listing_types": tempPropertTypes,
@@ -906,33 +868,54 @@ use App\Helpers\Helper;
             "max_area_size": parseInt(size2),
             "min_price": parseInt(price1),
             "max_price": parseInt(price2),
+            "property_type_array": tempPropertStatus,
             "districts": tempDistrictArr,
             "municipalities": tempMunicipalitiesArr,
             "locations": tempLocationArr,
             "search_term": search_term,
             "customer_id": customer_id,
+            "page": document.getElementById("page_index").value,
+            "per_page":document.getElementById("paginSize").value,
+            "orderbyName": orderbyName,
+            "orderbyType": orderbyType,
+            "radius":maker_position,
+            "set":set,
+            "retrieve_markers":1
         };
-        console.log(sendData);
         const url = "/api/activelistings";
 		let xhr = new XMLHttpRequest();
 		xhr.open('POST', url, true);
 		xhr.setRequestHeader('Content-type', 'application/json');
 		xhr.send(JSON.stringify(sendData));
 		xhr.onload = function () {
+            if(document.getElementById("page_index").value == 1){
+                markers = JSON.parse(xhr.response).listing_markers;
+                var markersArray = [];
+                for(i= 0; i<markers.length; i++)
+                {
+                    if(markers[i].center[0]>0){
+                        markersArray.push(markers[i]);    
+                    }
+                }
+                map_init_circle(markersArray,maker_position,set);
+            }
+            
 			list = JSON.parse(xhr.response).items.data;
-            console.log(list);
 			// list = list.data;
 			totalrecords = JSON.parse(xhr.response).items.total;
 			current_page = JSON.parse(xhr.response).items.current_page;
 			per_page = JSON.parse(xhr.response).items.per_page;
-            temp = "";
-            for(var i= 0; i<list.length; i++)
+            // alrt(total);
+            // var valueArray = [];
+            var temp ="";
+            
+            for(i= 0; i<list.length; i++)
             {
                 favorite = "";
                 if(list[i].in_favoriteproperties == 1){
                     favorite = "color: red;";
                 }
-                temp +=`<div class="item col-lg-4 col-md-6 col-xs-12 landscapes sale">
+                temp +=`<div class="item col-lg-6 col-md-6 col-xs-12 landscapes sale">
                             <div class="project-single">
                                 <div class="project-inner project-head">
                                     <div class="homes">
@@ -985,17 +968,23 @@ use App\Helpers\Helper;
                             </li>`;
                 }
                 temp +=` </ul>
-                            <div class="price-properties pt-3 pb-0">
+                        <div class="price-properties pt-3 pb-0">
                             <h3 class="title mt-3">
                                 <a href="/page/listing-details?index=`+list[i].id+`" tabindex="0">€ `+ list[i].price+`</a>
                             </h3>
                             <div class="compare">
-                                <a style="cursor: pointer;" onclick="AddFavoritListingGrid(`+list[i].id+`)"><i id="faHeart`+list[i].id+`" class="fa fa-heart" style="font-size: x-large; ` + favorite + ` "></i></a>
+                                <a style="cursor: pointer;" onclick="addFavoritListingMap(`+list[i].id+`)"><i id="faHeart`+list[i].id+`" class="fa fa-heart" style="font-size: x-large; ` + favorite + ` "></i></a>
                             </div>
                         </div></div></div></div>`;
             }
-            document.getElementById("ListingListContent").innerHTML = temp
-            
+            document.getElementById("ListingListContent").innerHTML = temp;
+            document.getElementById("page_count").innerHTML = totalrecords+" Search results"
+            if(list.length > 0){
+                document.getElementById("ListingListContent").style.height = "auto";
+            }else{
+                document.getElementById("ListingListContent").style.height = "500px";
+            }
+
             sendData1 = {
                 "total": totalrecords,
                 "current_page": current_page,
@@ -1009,7 +998,7 @@ use App\Helpers\Helper;
             xhr1.onload = function () {
                 data1 = JSON.parse(xhr1.response);
                 list1 = data1.links;
-                temp1 = "";
+                temp1 = "";                
                 if(window.innerWidth > 650){
                     for(j=0;j<list1.length;j++){
                         tempUrl = list1[j].url;
@@ -1022,7 +1011,7 @@ use App\Helpers\Helper;
                         if(list1[j].active){
                             flag = "active";
                         }
-                        temp1 += `<li class="page-item `+flag+`"><a class="page-link" onclick="loadPageHeader3(`+tempIndex+`)">`+list1[j].label+`</a></li>`;
+                        temp1 += `<li class="page-item `+flag+`"><a class="page-link" onclick="loadPageListingMap(`+tempIndex+`,`+maker_position[0]+`,`+maker_position[1]+`,`+set+`)">`+list1[j].label+`</a></li>`;
                     }
                 }else{
                     for(j=0;j<list1.length;j++){
@@ -1033,29 +1022,132 @@ use App\Helpers\Helper;
                             tempIndex = tempUrl.substring(tempUrl.indexOf("?page=")+6);
                         }
                         if(j==0 || j == list1.length-1){
-                            temp1 += `<li class="page-item"><a class="page-link" onclick="loadPageHeader3(`+tempIndex+`)">`+list1[j].label+`</a></li>`;    
+                            temp1 += `<li class="page-item"><a class="page-link" onclick="loadPageListingMap(`+tempIndex+`,`+maker_position[0]+`,`+maker_position[1]+`,`+set+`)">`+list1[j].label+`</a></li>`;    
                         }else{
                             if(list1[j].active){
                                 flag = "active";
-                                temp1 += `<li class="page-item `+flag+`"><a class="page-link" onclick="loadPageHeader3(`+tempIndex+`)">`+list1[j].label+`</a></li>`;
+                                temp1 += `<li class="page-item `+flag+`"><a class="page-link" onclick="loadPageListingMap(`+tempIndex+`,`+maker_position[0]+`,`+maker_position[1]+`,`+set+`)">`+list1[j].label+`</a></li>`;
                             }
                         }
                     }
                 }
                 document.getElementById("pagin_content").innerHTML = temp1;
+                
             }
 		}
-	}
-    function showAddListingHeader3(){
-        user_id = '<?php echo $user_id; ?>';
-        if(user_id !== ""){
-            window.location.href="/page/add-listings";
-        }else{
-            loginIn()
+    }
+    function map_init_circle(valueArray,maker_position,set){
+        
+        
+        if ($('#map-leaflet').length) {
+            curLocation = maker_position;
+            var container = L.DomUtil.get('map');
+            if(container != null){
+                container._leaflet_id = null;
+            }
+            
+            if (map !== undefined && map !== null) {
+                map.remove(); // should remove the map from UI and clean the inner children of DOM element
+            }
+            map = L.map('map-leaflet').setView([34.994003757575776,33.15703828125001], 9);
+            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);      
+
+            if(set>0){
+                var donut = L.donut(curLocation,{
+                    radius: 20000000000000,
+                    innerRadius: 1000*set,
+                    innerRadiusAsPercent: false,
+                    color: '#000',
+                    weight: 2,
+                }).addTo(map);
+                circle = L.circle(curLocation, 1000*set).addTo(map);
+                circle.setStyle({color: 'green',  opacity:0.5});
+            }
+            
+            var markerArray=[];
+            
+            valueArray.forEach((value) => {
+                var icon = L.divIcon({
+                    html: value.icon,
+                    iconSize: [50, 50],
+                    iconAnchor: [50, 50],
+                    popupAnchor: [-20, -42]
+                });
+                var marker = L.marker(value.center, {
+                    icon: icon
+                });
+                map.addLayer(marker);
+                //markerArray.push(marker);
+                markerArray[value.id] = marker;
+                marker.bindPopup(
+                    '<div class="listing-window-image-wrapper">' +
+                    '<a href="/' + value.link + '">' +
+                    '<div class="listing-window-image" style="background-image: url(' + value.image + ');"></div>' +
+                    '<div class="listing-window-content">' +
+                    '<div class="info">' +
+                    '<h2>' + value.title + '</h2>' +
+                    '<p>' + value.desc + '</p>' +
+                    '<h3>' + value.price + '</h3>' +
+                    '</div>' +
+                    '</div>' +
+                    '</a>' +
+                    '</div>'
+                );  
+            });
+
+            let marker = new L.marker(curLocation, {
+                draggable: 'true'
+            });
+
+            marker.on('dragend', function(event) {
+                temp = marker.getLatLng();
+                curLocation = [temp.lat,temp.lng];
+                marker.setLatLng(curLocation, {
+                    draggable: 'true'
+                });
+                circle.setLatLng(curLocation);
+                document.getElementById("page_index").value = 1;
+                loadActiveListingsListingMap(curLocation,set);
+            });
+
+            map.addLayer(marker);
+            
+            var arcgisOnline = L.esri.Geocoding.arcgisOnlineProvider();
+
+            var searchControl = L.esri.Geocoding.geosearch({
+                providers: [arcgisOnline]
+            }).addTo(map);
+
+            searchControl.on('results', function(data){
+                marker.setLatLng(data.latlng, {
+                    draggable: 'true'
+                }).bindPopup(data.latlng).update();
+                temp = marker.getLatLng();
+                curLocation = [temp.lat,temp.lng];
+                if(map.hasLayer(circle))
+                map.removeLayer(circle);
+                circle = L.circle(curLocation, 1000*set).addTo(map);
+                circle.setLatLng(curLocation);
+                document.getElementById("page_index").value = 1;
+                loadActiveListingsListingMap(curLocation,set);
+                
+            });
+
+            map.on("click", addMarker);
+
+            function addMarker(e) {
+                if(set>0){
+                    marker.setLatLng(e.latlng, {
+                        draggable: 'true'
+                    }).bindPopup(e.latlng).update();
+                    temp = marker.getLatLng();
+                    curLocation = [temp.lat,temp.lng];
+                    circle.setLatLng(curLocation);
+                    document.getElementById("page_index").value = 1;
+                    loadActiveListingsListingMap(curLocation,set);
+                }
+            }
+            
         }
-	}
-    function loadPageHeader3(index){
-        document.getElementById("page_index").value = index;
-		listsViewHome3();
-	}
+    }
 </script>
