@@ -753,6 +753,7 @@ use App\Helpers\Helper;
 
     function loadActiveListingsListingMap(maker_position,set){
         $('#searchcontentdiv').css("display", "block");
+        document.getElementById('searchcontentdiv').scrollIntoView();
         document.getElementById("page_index").value = 1;
         hiddenAdvancedDivListingMap();
         loadActiveListingsListingGrid(maker_position,set);
