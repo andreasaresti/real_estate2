@@ -123,14 +123,14 @@ use App\Helpers\Helper;
 
                                     }
                                 }
-?>
+                            ?>
                             </ul>
                         </nav>
                     </div>
                     <div class="right-side d-none d-lg-none d-xl-flex">
                         <!-- Header Widget -->
                         <div class="header-widget">
-                            <a onclick="showAddListingHeader1();" class="button border">Add Listing<i class="fas fa-laptop-house ml-2"></i></a>
+                            <a onclick="showAddListingHeader3();" class="button border">Add Listing<i class="fas fa-laptop-house ml-2"></i></a>
                         </div>
                         <!-- Header Widget / End -->
                     </div>
@@ -199,12 +199,12 @@ use App\Helpers\Helper;
             </div>
         </header>
         <div class="clearfix"></div>
-        <section id="hero-area" class="parallax-searchs home15 overlay thome-7 thome-1" data-stellar-background-ratio="0.5">
+        <section id="hero-area" style="height:auto;" class="parallax-searchs home15 overlay thome-7 thome-1" data-stellar-background-ratio="0.5">
             <div class="hero-main">
                 <div class="container" data-aos="zoom-in">
                     <div class="row">
                         <div class="col-12">
-                            <div class="hero-inner">
+                            <div class="hero-inner" style="padding: 250px 0px 100px 0px;">
                                     <div class="col-12">
                                         <div class="banner-search-wrap">
                                             <div class="tab-content">
@@ -214,7 +214,7 @@ use App\Helpers\Helper;
                                                             <div class="rld-single-input">
                                                                 <input type="text" placeholder="Enter Keyword..." autocomplete="off" id="search_string">
                                                             </div>
-                                                            <div class="rld-single-select" style="margin-bottom: 15px"  onmouseover="hiddenAdvancedDivHeader1();">
+                                                            <div class="rld-single-select" style="margin-bottom: 15px"  onmouseover="hiddenAdvancedDivHeader3();">
                                                                 <input type="hidden" id="selActivePropertType" name="selActivePropertType" value="">
                                                                 <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: #ebebeb;">
                                                                     <ul>
@@ -231,7 +231,7 @@ use App\Helpers\Helper;
                                                                     </ul>
                                                                 </nav>
                                                             </div>
-                                                            <div class="rld-single-select" style="margin-bottom: 15px" onmouseover="hiddenAdvancedDivHeader1();">
+                                                            <div class="rld-single-select" style="margin-bottom: 15px" onmouseover="hiddenAdvancedDivHeader3();">
                                                                 <input type="hidden" id="selLocation" name="selLocation" value="">
                                                                 <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: #ebebeb;">
                                                                     <ul>
@@ -240,20 +240,20 @@ use App\Helpers\Helper;
                                                                                 <?php
                                                                                     foreach($active_district_response->data as $district){
                                                                                         echo '<li class="parent locationLi">
-                                                                                                <a><input type="checkbox" id="districts'.$district->id.'" class="district" name="district[]" value="'.$district->id.'" onchange="changeLocationsHeader1(\'districts\',\''.$district->id.'\',\''.$district->displayname.'\')">'.$district->displayname.' </a>
+                                                                                                <a><input type="checkbox" id="districts'.$district->id.'" class="district" name="district[]" value="'.$district->id.'" onchange="changeLocationsHeader3(\'districts\',\''.$district->id.'\',\''.$district->displayname.'\')">'.$district->displayname.' </a>
                                                                                                 <div class="wrapper" style="top: 0px; left: 208px;">
                                                                                                     <ul style="transform:none;position:initial; visibility: visible;opacity: 100; overflow-x: hidden; overflow-y: auto; max-height: 500px;" id="subDistricts'.$district->id.'">';
                                                                                                         foreach($active_municipality_response->data as $municipality){
                                                                                                             if($district->id == $municipality->district_id){
                                                                                                                 echo '<li class="parent locationLi">
-                                                                                                                    <a><input type="checkbox" id="municipalities'.$municipality->id.'" class="municipality" name="municipality[]" value="'.$municipality->id.'" onchange="changeLocationsHeader1(\'municipalities\',\''.$municipality->id.'\',\''.$municipality->displayname.'\')">'.$municipality->displayname.'</a>
+                                                                                                                    <a><input type="checkbox" id="municipalities'.$municipality->id.'" class="municipality" name="municipality[]" value="'.$municipality->id.'" onchange="changeLocationsHeader3(\'municipalities\',\''.$municipality->id.'\',\''.$municipality->displayname.'\')">'.$municipality->displayname.'</a>
                                                                                                                     <div class="wrapper">
                                                                                                                         <ul style="visibility: visible;opacity: 100;" id="subMunicipalities'.$municipality->id.'">';
                                                                                                                         foreach($active_location_response->data as $location){
                                                                                                                             if($location->municipality_id == $municipality->id){
                                                                                                                                 echo '<li>
                                                                                                                                     <a>
-                                                                                                                                    <input type="checkbox" id="locations'.$location->id.'" class="location" name="location[]" value="'.$location->id.'" onchange="changeLocationsHeader1(\'locations',''.$location->id.'',''.$location->displayname.'\')">'.$location->displayname.'</a>
+                                                                                                                                    <input type="checkbox" id="locations'.$location->id.'" class="location" name="location[]" value="'.$location->id.'" onchange="changeLocationsHeader3(\'locations',''.$location->id.'',''.$location->displayname.'\')">'.$location->displayname.'</a>
                                                                                                                                 </li>';
                                                                                                                             }
                                                                                                                         }
@@ -275,7 +275,7 @@ use App\Helpers\Helper;
                                                             </div>
                                                             <div class="dropdown-filter"><span>Advanced Search</span></div>
                                                             <div class="col-xl-2 col-lg-2 col-md-4 pl-0">
-                                                                <a class="btn btn-yellow" onclick="lists_view();">Search Now</a>
+                                                                <a class="btn btn-yellow" onclick="listsViewHome3();">Search Now</a>
                                                             </div>
                                                             <div id="advancedSearch" class="explore__form-checkbox-list full-filter">
                                                                 <div class="row">
@@ -377,6 +377,18 @@ use App\Helpers\Helper;
                     </div>
                 </div>
             </div>
+            <div class="inner-pages homepage-4 agents hp-6 full hd-white" style="width: 100%;background: white;display: flex;justify-content: center;">
+                <section class="properties-list featured portfolio blog" style="width: 90%;background: white;padding: 40px 0px 0px 0px;">
+                    <div class="row" id="ListingListContent">
+                
+                    </div>
+                    <nav aria-label="..." class="pt-3" style="display: flex;justify-content: center;">
+                        <ul class="pagination mt-0" id="pagin_content">
+                        </ul>
+                    </nav>
+                    <input type="hidden" id="page_index" value="1">
+                </section>
+            </div>
         </section>
     </div>
 </div>
@@ -461,16 +473,16 @@ use App\Helpers\Helper;
 </div>
 <script type="text/javascript">
 	// window.addEventListener("load", (event) => {
-        // loadMenuHeader1();
-        loadLangHeader1();
-		// loadActiveFeaturesHeader1();
-        // loadActiveDistrictHeader1();
-        // loadActivePropertTypeHeader1();
+        // loadMenuHeader3();
+        loadLangHeader3();
+		// loadActiveFeaturesHeader3();
+        // loadActiveDistrictHeader3();
+        // loadActivePropertTypeHeader3();
 	// });
 
     
 
-    function loadLangHeader1(){
+    function loadLangHeader3(){
         data = {
             "slug":"menu",
             "locale":"en_US",
@@ -487,7 +499,7 @@ use App\Helpers\Helper;
                 temp = `<div class="show-lang"><span><i class="fas fa-globe-americas"></i><strong name="activeLang">`+list[0].name+`</strong></span><i class="fa fa-caret-down arrlan"></i></div>
                             <ul class="lang-tooltip lang-action no-list-style" name="activeLangList">`;
                 for(i=0;i<list.length;i++){
-                    temp += `<li><a style="color: black;" onclick="changeLangHeader1('`+list[i].name+`')">`+list[i].name+`</a></li>`;
+                    temp += `<li><a style="color: black;" onclick="changeLangHeader3('`+list[i].name+`')">`+list[i].name+`</a></li>`;
                 }
                 temp += `</ul>`;
             }
@@ -496,11 +508,11 @@ use App\Helpers\Helper;
             //document.getElementById("").innerHTML = temp;
 		}
 	}
-    function changeLangHeader1(data){
+    function changeLangHeader3(data){
         document.getElementsByName("activeLang")[0].innerHTML = data;
         document.getElementsByName("activeLang")[1].innerHTML = data;
     }
-    function loadMenuHeader1(){
+    function loadMenuHeader3(){
         data = {
             "slug":"menu",
             "locale":"en_US",
@@ -537,7 +549,7 @@ use App\Helpers\Helper;
             // document.getElementsByName("menuResponsive")[1].innerHTML = temp;
 		}
 	}
-    function loadActivePropertTypeHeader1(){
+    function loadActivePropertTypeHeader3(){
 		const url = "/api/activelisting-types";
 		let xhr = new XMLHttpRequest();
 		xhr.open('POST', url, true);
@@ -554,7 +566,7 @@ use App\Helpers\Helper;
             document.getElementById("activePropertType").innerHTML = temp;
 		}
 	}
-	function loadActiveFeaturesHeader1(){
+	function loadActiveFeaturesHeader3(){
 		const url = "/api/activefeatures";
 		let xhr = new XMLHttpRequest();
 		xhr.open('POST', url, true);
@@ -577,7 +589,7 @@ use App\Helpers\Helper;
             document.getElementById("activefeaturesRight").innerHTML = temp;
 		}
 	}
-    function loadActiveDistrictHeader1(){
+    function loadActiveDistrictHeader3(){
 		const url = "/api/activedistrict";
 		let xhr = new XMLHttpRequest();
         let xhr1 = new XMLHttpRequest();
@@ -589,14 +601,14 @@ use App\Helpers\Helper;
 			data = list.data;	
             var temp ="";
             for(i=0;i<data.length;i++){
-                temp += `<li class="parent locationLi" ><a><input type="checkbox" id="districts`+data[i].id+`" class="district" name="district[]" value="`+data[i].id+`" onchange="changeLocationsHeader1('districts','`+data[i].id+`','`+data[i].displayname+`')">`+data[i].displayname+`</a>
+                temp += `<li class="parent locationLi" ><a><input type="checkbox" id="districts`+data[i].id+`" class="district" name="district[]" value="`+data[i].id+`" onchange="changeLocationsHeader3('districts','`+data[i].id+`','`+data[i].displayname+`')">`+data[i].displayname+`</a>
                 <div class="wrapper"><ul style="transform:none;position:initial; visibility: visible;opacity: 100; overflow-x: hidden; overflow-y: auto; max-height: 500px;" id="subDistricts`+data[i].id+`"></ul></div></li>`;
             }
             document.getElementById("activelocation").innerHTML = temp;
-            loadActiveMunicipalityHeader1();
+            loadActiveMunicipalityHeader3();
 		}
 	}
-    function loadActiveMunicipalityHeader1(){
+    function loadActiveMunicipalityHeader3(){
 		const url = "/api/activemunicipality";
 		let xhr = new XMLHttpRequest();
 		xhr.open('POST', url, true);
@@ -611,16 +623,16 @@ use App\Helpers\Helper;
                 temp ="";
                 for(i=0;i<data.length;i++){
                     if(data[i].district_id == districts[j].value){
-                        temp += `<li class="parent locationLi"><a><input type="checkbox"  id="municipalities`+data[i].id+`"  class="municipality" name="municipality[]" value="`+data[i].id+`" onchange="changeLocationsHeader1('municipalities','`+data[i].id+`','`+data[i].displayname+`')">`+data[i].displayname+`</a>
+                        temp += `<li class="parent locationLi"><a><input type="checkbox"  id="municipalities`+data[i].id+`"  class="municipality" name="municipality[]" value="`+data[i].id+`" onchange="changeLocationsHeader3('municipalities','`+data[i].id+`','`+data[i].displayname+`')">`+data[i].displayname+`</a>
                         <div class="wrapper"><ul style="visibility: visible;opacity: 100;" id="subMunicipalities`+data[i].id+`"></ul></div></li>`;
                     }
                 }
                 document.getElementById("subDistricts"+districts[j].value).innerHTML = temp;
-                loadActiveLocationHeader1();
+                loadActiveLocationHeader3();
             }
 		}
 	}
-    function loadActiveLocationHeader1(){
+    function loadActiveLocationHeader3(){
 		const url = "/api/activelocation";
 		let xhr = new XMLHttpRequest();
 		xhr.open('POST', url, true);
@@ -635,17 +647,17 @@ use App\Helpers\Helper;
                 temp ="";
                 for(i=0;i<data.length;i++){
                     if(data[i].municipality_id == municipalities[j].value){
-                        temp += `<li><a><input type="checkbox"  id="locations`+data[i].id+`"  class="location" name="location[]" value="`+data[i].id+`" onchange="changeLocationsHeader1('locations','`+data[i].id+`','`+data[i].displayname+`')">`+data[i].displayname+`</a>`;
+                        temp += `<li><a><input type="checkbox"  id="locations`+data[i].id+`"  class="location" name="location[]" value="`+data[i].id+`" onchange="changeLocationsHeader3('locations','`+data[i].id+`','`+data[i].displayname+`')">`+data[i].displayname+`</a>`;
                     }
                 }
                 document.getElementById("subMunicipalities"+municipalities[j].value).innerHTML = temp;
             }
 		}
 	}
-    function hiddenAdvancedDivHeader1(){
+    function hiddenAdvancedDivHeader3(){
         document.getElementById('advancedSearch').className = "explore__form-checkbox-list full-filter";
     }
-    function changeLocationsHeader1(flag,id,name)
+    function changeLocationsHeader3(flag,id,name)
     {
         //insert_location(flag,id,name,"");
         if(flag == "districts"){
@@ -792,8 +804,8 @@ use App\Helpers\Helper;
             }
         }
     }
-    function lists_view(){
-        hiddenAdvancedDivHeader1();
+    function listsViewHome3(){
+        hiddenAdvancedDivHeader3();
         customer_id = '<?php echo $user_id; ?>';
         if(document.getElementById("selBathrooms").value > 0){
             number_of_bathrooms = document.getElementById("selBathrooms").value;
@@ -847,8 +859,6 @@ use App\Helpers\Helper;
                 tempPropertTypes.push(propertTypes[j].value);
             }
         }
-        
-
         var price1 = document.getElementsByClassName("first-slider-value")[1].value;
         var size1 = document.getElementsByClassName("first-slider-value")[0].value;
         var price2 = document.getElementsByClassName("second-slider-value")[1].value;
@@ -876,7 +886,15 @@ use App\Helpers\Helper;
         }else{
             search_term = document.getElementById('search_string').value;
         }
+        if(document.getElementById("page_index").value){
+            page = Number(document.getElementById("page_index").value);
+        }
+        // if(document.getElementById("paginSize").value){
+        //     per_page = Number(document.getElementById("paginSize").value);
+        // }
         const sendData = {
+            "page": page,
+            "per_page":6,
             "number_of_bathrooms": number_of_bathrooms,
             "number_of_bedrooms": number_of_bedrooms,
             "listing_types": tempPropertTypes,
@@ -892,15 +910,149 @@ use App\Helpers\Helper;
             "customer_id": customer_id,
         };
         console.log(sendData);
-        localStorage.setItem("list_search_data", JSON.stringify(sendData));
-        window.location.href = "/page/listings-map";
+        const url = "/api/activelistings";
+		let xhr = new XMLHttpRequest();
+		xhr.open('POST', url, true);
+		xhr.setRequestHeader('Content-type', 'application/json');
+		xhr.send(JSON.stringify(sendData));
+		xhr.onload = function () {
+			list = JSON.parse(xhr.response).items.data;
+            console.log(list);
+			// list = list.data;
+			totalrecords = JSON.parse(xhr.response).items.total;
+			current_page = JSON.parse(xhr.response).items.current_page;
+			per_page = JSON.parse(xhr.response).items.per_page;
+            temp = "";
+            for(var i= 0; i<list.length; i++)
+            {
+                favorite = "";
+                if(list[i].in_favoriteproperties == 1){
+                    favorite = "color: red;";
+                }
+                temp +=`<div class="item col-lg-4 col-md-6 col-xs-12 landscapes sale">
+                            <div class="project-single">
+                                <div class="project-inner project-head">
+                                    <div class="homes">
+                                        <!-- homes img -->
+                                        <a href="/page/listing-details?index=`+list[i].id+`" class="homes-img">`;
+                if(list[i].featured == true){
+                    temp +=`<div class="homes-tag button alt featured">Featured</div>`;
+                }
+                temp +=`<div class="homes-tag button alt sale">`+list[i].property_type+`</div>
+                                            <img src="`+list[i].image+`" alt="home-1" class="img-responsive">
+                                        </a>
+                                    </div>
+                                    <div class="button-effect">
+                                        
+                                    </div>
+                                </div>
+                                <!-- homes content -->
+                                <div class="homes-content">
+                                    <!-- homes address -->
+                                    <h3><a href="/page/listing-details?index=`+list[i].id+`">`+list[i].displayname+`</a></h3>
+                                    <p class="homes-address mb-3">
+                                        <a href="/page/listing-details?index=`+list[i].id+`">
+                                            <i class="fa fa-map-marker"></i><span>`+list[i].location_name+`</span>
+                                        </a>
+                                    </p>
+                                    <!-- homes List -->
+                                    <ul class="homes-list clearfix pb-3">`;
+                if(list[i].number_of_bedrooms > 0 ){
+                    temp +=`<li class="the-icons">
+                                <i class="flaticon-bed mr-2" aria-hidden="true"></i>
+                                <span>`+list[i].number_of_bedrooms+` Bedrooms</span>
+                            </li>`;
+                }
+                if(list[i].number_of_bathrooms > 0 ){
+                    temp +=`<li class="the-icons">
+                                <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
+                                <span>`+list[i].number_of_bathrooms+` Bathrooms</span>
+                            </li>`;
+                }
+                if(list[i].area_size > 0 ){
+                    temp +=`<li class="the-icons">
+                                <i class="flaticon-square mr-2" aria-hidden="true"></i>
+                                <span>`+list[i].area_size+` sqm</span>
+                            </li>`;
+                }
+                if(list[i].number_of_garages_or_parkingpaces > 0 ){
+                    temp +=`<li class="the-icons">
+                                <i class="flaticon-car mr-2" aria-hidden="true"></i>
+                                <span>`+list[i].number_of_garages_or_parkingpaces+` Garages</span>
+                            </li>`;
+                }
+                temp +=` </ul>
+                            <div class="price-properties pt-3 pb-0">
+                            <h3 class="title mt-3">
+                                <a href="/page/listing-details?index=`+list[i].id+`" tabindex="0">€ `+ list[i].price+`</a>
+                            </h3>
+                            <div class="compare">
+                                <a style="cursor: pointer;" onclick="AddFavoritListingGrid(`+list[i].id+`)"><i id="faHeart`+list[i].id+`" class="fa fa-heart" style="font-size: x-large; ` + favorite + ` "></i></a>
+                            </div>
+                        </div></div></div></div>`;
+            }
+            document.getElementById("ListingListContent").innerHTML = temp
+            
+            sendData1 = {
+                "total": totalrecords,
+                "current_page": current_page,
+                "per_page": per_page,
+            }
+            const url1 = "/api/getpagination";
+            let xhr1 = new XMLHttpRequest();
+            xhr1.open('POST', url1, true);
+            xhr1.setRequestHeader('Content-type', 'application/json');
+            xhr1.send(JSON.stringify(sendData1));
+            xhr1.onload = function () {
+                data1 = JSON.parse(xhr1.response);
+                list1 = data1.links;
+                temp1 = "";
+                if(window.innerWidth > 650){
+                    for(j=0;j<list1.length;j++){
+                        tempUrl = list1[j].url;
+                        if(tempUrl == null){
+                            tempIndex = null;
+                        }else{
+                            tempIndex = tempUrl.substring(tempUrl.indexOf("?page=")+6);
+                        }
+                        flag = "";
+                        if(list1[j].active){
+                            flag = "active";
+                        }
+                        temp1 += `<li class="page-item `+flag+`"><a class="page-link" onclick="loadPageHeader3(`+tempIndex+`)">`+list1[j].label+`</a></li>`;
+                    }
+                }else{
+                    for(j=0;j<list1.length;j++){
+                        tempUrl = list1[j].url;
+                        if(tempUrl == null){
+                            tempIndex = null;
+                        }else{
+                            tempIndex = tempUrl.substring(tempUrl.indexOf("?page=")+6);
+                        }
+                        if(j==0 || j == list1.length-1){
+                            temp1 += `<li class="page-item"><a class="page-link" onclick="loadPageHeader3(`+tempIndex+`)">`+list1[j].label+`</a></li>`;    
+                        }else{
+                            if(list1[j].active){
+                                flag = "active";
+                                temp1 += `<li class="page-item `+flag+`"><a class="page-link" onclick="loadPageHeader3(`+tempIndex+`)">`+list1[j].label+`</a></li>`;
+                            }
+                        }
+                    }
+                }
+                document.getElementById("pagin_content").innerHTML = temp1;
+            }
+		}
 	}
-    function showAddListingHeader1(){
+    function showAddListingHeader3(){
         user_id = '<?php echo $user_id; ?>';
         if(user_id !== ""){
             window.location.href="/page/add-listings";
         }else{
             loginIn()
         }
+	}
+    function loadPageHeader3(index){
+        document.getElementById("page_index").value = index;
+		listsViewHome3();
 	}
 </script>
