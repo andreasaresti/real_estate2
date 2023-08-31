@@ -64,11 +64,6 @@ use App\Helpers\Helper;
             padding: 0px 0;
         }
     }
-    @media only screen and (max-width: 800px){
-        .parallax-searchs.home15 .hero-inner {
-            padding: 0px 0px 0px 0px;
-        }
-    }
     .parallax-searchs.home15 .hero-inner {
         text-align: center;
         padding: 150px 0;
@@ -77,10 +72,10 @@ use App\Helpers\Helper;
         background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.3)), to(rgba(0, 0, 0, 0.3))), url(<?php echo $block->setting('backgroundimage'); ?>) cover center top !important;background-size: cover !important;
         background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(<?php echo $block->setting('backgroundimage'); ?>) cover center top !important;background-size: cover !important;
     }
-    .parallax-searchs.home15 {
+    /* .parallax-searchs.home15 {
         height: 350px !important;
         display: block;
-    }
+    } */
     #header.cloned.sticky ul li a:hover {
         color: #707070 !important;
     }
