@@ -408,7 +408,7 @@ use App\Helpers\Helper;
                         <div class="alert-box success" id="map_success" style="position: absolute;z-index: 9;width: 100%;margin-top: 80px;">Click on the map select center and radius</div>
                         <div class="row" style="padding: 25px 0px 0px 0px;position: absolute;z-index: 9;width: 50%;left: 50%;">
                             <div class="col-xl-12 xsRow" style="display: flex;justify-content: flex-end;margin-right: 10px;">
-                                <a style="display: flex;justify-content: center;align-items: center;margin-right:20px;" class="btn btn-map" id="redrawCircleHeader3" onclick="redrawCircleHeader3();" >Re-draw</a>
+                                <a style="display: none;justify-content: center;align-items: center;margin-right:20px;" class="btn btn-map" id="redrawCircleHeader3" onclick="redrawCircleHeader3();" >Re-draw</a>
                                 <a style="display: flex;justify-content: center;align-items: center;" class="btn btn-map" id="showCircleHeader3" onclick="showCircleHeader3();" >Draw</a>
                             </div>
                         </div>
@@ -1227,8 +1227,7 @@ use App\Helpers\Helper;
     function showCircleHeader3(){
         if(viewCircleFlag > 0 ){
             viewCircleFlag = 0;
-            document.getElementById("redrawCircleHeader3").style.background = "rgb(255, 255, 255)";
-            document.getElementById("redrawCircleHeader3").style.color = "rgb(0, 0, 0)";
+            document.getElementById("redrawCircleHeader3").style.display = "none";
             document.getElementById("showCircleHeader3").style.background = "rgb(255, 255, 255)";
             document.getElementById("showCircleHeader3").style.color = "rgb(0, 0, 0)";
             document.getElementById("showCircleHeader3").innerHTML = "Draw";
@@ -1239,6 +1238,7 @@ use App\Helpers\Helper;
             document.getElementById("showCircleHeader3").style.background = "rgb(34, 150, 67)";
             document.getElementById("showCircleHeader3").style.color = "rgb(255, 255, 255)";
             document.getElementById("showCircleHeader3").innerHTML = "Clear";
+            document.getElementById("redrawCircleHeader3").style.display = "flex";
             document.getElementById("redrawCircleHeader3").style.background = "rgb(34, 150, 67)";
             document.getElementById("redrawCircleHeader3").style.color = "rgb(255, 255, 255)";
             
