@@ -246,7 +246,7 @@
                             </div>
                             <div class="cod-pad single detail-wrapper mr-2 mt-0 d-flex justify-content-md-end align-items-center">
                                 <div class="input-group border rounded input-group-lg w-auto mr-4">
-                                    <select class="form-control border-0 bg-transparent shadow-none p-0 selectpicker sortby"  id="paginSize" onchange="loadActiveListingsListingMap([0,0],0)" name="paginSize">
+                                    <select class="form-control border-0 bg-transparent shadow-none p-0 selectpicker sortby"  id="paginSize" onchange="loadActiveListingsListingMap([0,0],0,9)" name="paginSize">
                                         <option selected value="20">20</option>
                                         <option value="40">40</option>
                                         <option value="60">60</option>
@@ -255,7 +255,7 @@
                                 </div>
                                 <div class="input-group border rounded input-group-lg w-auto mr-4">
                                     <label class="input-group-text bg-transparent border-0 text-uppercase letter-spacing-093 pr-1 pl-3" for="inputGroupSelect01"><i class="fas fa-align-left fs-16 pr-2"></i>Sortby:</label>
-                                    <select class="form-control border-0 bg-transparent shadow-none p-0 selectpicker sortby"  onchange="loadActiveListingsListingMap([0,0],0)"  data-style="bg-transparent border-0 font-weight-600 btn-lg pl-0 pr-3" id="sortby" name="sortby">
+                                    <select class="form-control border-0 bg-transparent shadow-none p-0 selectpicker sortby"  onchange="loadActiveListingsListingMap([0,0],0,9)"  data-style="bg-transparent border-0 font-weight-600 btn-lg pl-0 pr-3" id="sortby" name="sortby">
                                         <option value="1">Latest</option>
                                         <option value="2">Price(low to high)</option>
                                         <option value="3">Price(high to low)</option>
@@ -345,7 +345,7 @@
             }
         // }, 5000);
     }
-    loadActiveListingsListingMap([0,0],0);
+    loadActiveListingsListingMap([0,0],0,9);
         // loadActivePropertTypeListingMap();
         // loadActivePropertStatusListingMap();
 	// });
@@ -477,7 +477,7 @@
             }
 		}
 	}
-    function loadActiveListingsListingGrid(maker_position,set){
+    function loadActiveListingsListingGrid(maker_position,set,zoom){
         customer_id = '<?php echo $user_id; ?>';
         if(document.getElementById("selBathrooms").value > 0){
             number_of_bathrooms = document.getElementById("selBathrooms").value;
@@ -613,7 +613,7 @@
                         markersArray.push(markers[i]);    
                     }
                 }
-                map_init_circle(markersArray,maker_position,set);
+                map_init_circle(markersArray,maker_position,set,zoom);
             }
             
 			list = JSON.parse(xhr.response).items.data;
@@ -752,11 +752,10 @@
             }
 		}
     }
-    function loadActiveListingsListingMap(maker_position,set){
+    function loadActiveListingsListingMap(maker_position,set,zoom){
         document.getElementById("page_index").value = 1;
         hiddenAdvancedDivListingMap();
-        loadActiveListingsListingGrid(maker_position,set);
-        
+        loadActiveListingsListingGrid(maker_position,set,zoom);
 	}
     function hiddenAdvancedDivListingMap(){
         document.getElementById('advancedSearch').className = "explore__form-checkbox-list full-filter";
@@ -835,7 +834,7 @@
         }
     }
     
-    function map_init_circle(valueArray,maker_position,set){
+    function map_init_circle(valueArray,maker_position,set,zoom){
         
         if ($('#map-leaflet').length) {
             var container = L.DomUtil.get('map');
@@ -846,7 +845,12 @@
             if (map !== undefined && map !== null) {
                 map.remove(); // should remove the map from UI and clean the inner children of DOM element
             }
-            map = L.map('map-leaflet').setView([34.994003757575776,33.15703828125001], 9);
+            if(set > 0){
+                map = L.map('map-leaflet').setView(maker_position, zoom);
+            }else{
+                map = L.map('map-leaflet').setView([34.994003757575776,33.15703828125001], zoom);
+            }
+            
             L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);      
 
             circle = L.circle(maker_position, 1000*set).addTo(map);
@@ -934,7 +938,7 @@
                     temp = marker.getLatLng();
                     distance = Math.sqrt(Math.pow( event.latlng.lat - temp.lat, 2) + Math.pow( event.latlng.lng - temp.lng, 2))
                     circle.setRadius(distance*1000/0.011);
-                    loadActiveListingsListingMap([temp.lat,temp.lng],distance/0.011);
+                    loadActiveListingsListingMap([temp.lat,temp.lng],distance/0.011,map.getZoom());
                     viewCircleFlag = 3;
                     document.getElementById("redrawCircleListingMap").style.background = "rgb(255, 255, 255)";
                     document.getElementById("redrawCircleListingMap").style.color = "rgb(0, 0, 0)";
@@ -952,7 +956,7 @@
         }
     }
     function searchNowListingMap(){
-        loadActiveListingsListingMap([0,0],0);
+        loadActiveListingsListingMap([0,0],0,9);
     }
     function showCircleListingMap(){
         if(viewCircleFlag > 0 ){
@@ -962,9 +966,8 @@
             document.getElementById("showCircleListingMap").style.background = "rgb(255, 255, 255)";
             document.getElementById("showCircleListingMap").style.color = "rgb(0, 0, 0)";
             document.getElementById("showCircleListingMap").innerHTML = "Draw";
-            loadActiveListingsListingMap([0,0],0);
-        }
-        else{
+            loadActiveListingsListingMap([0,0],0,9);
+        }else{
             viewCircleFlag = 1;
             $( "#map_success" ).fadeIn( 300 ).delay( 5000 ).fadeOut( 400 );
             document.getElementById("showCircleListingMap").style.background = "rgb(34, 150, 67)";
@@ -976,7 +979,7 @@
         }
     }
     function redrawCircleListingMap(){
-        $( "#map_success" ).fadeIn( 300 ).delay( 5000 ).fadeOut( 400 );
+        $( "#map_success" ).fadeIn( 300 ).delay( 3000 ).fadeOut( 400 );
         viewCircleFlag = 1;
         document.getElementById("redrawCircleListingMap").style.background = "rgb(34, 150, 67)";
         document.getElementById("redrawCircleListingMap").style.color = "rgb(255, 255, 255)";
