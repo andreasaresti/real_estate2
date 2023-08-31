@@ -39,15 +39,9 @@
         <div class="container-fluid">
             <div class="row">
                 <aside class="col-lg-6 col-md-6 google-maps-left mt-0">
-                    <div class="row" style="display: flex;align-items: center;margin: 25px 0px 0px 50px; position: absolute;z-index: 9;">
-                        <div class="col-xl-12 xsRow" style="display: flex;justify-content: space-around;align-items: center;padding: 0px;">
-                            <a  class="btn btn-map" id="mapSizeListingMap1" onclick="mapSizeListingMap(1);" style="margin-right:5px;">+ 1 km</a>
-                            <a  class="btn btn-map" id="mapSizeListingMap5" onclick="mapSizeListingMap(5);" style="margin-right:5px;">+ 5 km</a>
-                            <a  class="btn btn-map" id="mapSizeListingMap10" onclick="mapSizeListingMap(10);" style="margin-right:5px;">+ 10 km</a>
-                            <a  class="btn btn-map" id="mapSizeListingMap30" onclick="mapSizeListingMap(30);" style="margin-right:5px;">+ 30 km</a>
-                            <a  class="btn btn-map" id="mapSizeListingMap50" onclick="mapSizeListingMap(50);" style="margin-right:5px;">+ 50 km</a>
-                            <a  class="btn btn-map" id="mapSizeListingMap100" onclick="mapSizeListingMap(100);" style="margin-right:5px;">+ 100 km</a>
-                            <a style="display: flex;justify-content: center;align-items: center;" class="btn btn-map" id="showCircleListingMap" onclick="showCircleListingMap();" ><i class="fa-solid fa-location-crosshairs" style="font-size:30px;"></i></a>
+                    <div class="row" style="margin: 25px 0px 0px 0px;position: absolute;z-index: 9;width: 100%;">
+                        <div class="col-xl-12 xsRow" style="display: flex;justify-content: flex-end;margin-right: 10px;">
+                            <a style="display: flex;justify-content: center;align-items: center;" class="btn btn-map" id="showCircleListingMap" onclick="showCircleListingMap();" >Draw</a>
                         </div>
                     </div>
                     <div id="map-leaflet"></div>
@@ -295,7 +289,6 @@
 <script type="text/javascript">
     var map = null;
     var circle;
-    var curLocation = [0,0];
     var viewCircleFlag = 0;
     // loadActiveFeaturesListingMap();
     // loadActiveDistrictListingMap();
@@ -839,33 +832,10 @@
             loginIn();
         }
     }
-    function mapSizeListingMap(index){
-        if(viewCircleFlag==0){
-            showCircleListingMap(index);
-        }
-        if(viewCircleFlag>0){
-            viewCircleFlag = index;
-            // document.getElementById("mapSizeListingMap1").style.background = "rgb(255, 255, 255)";
-            // document.getElementById("mapSizeListingMap1").style.color = "rgb(0, 0, 0)";
-            document.getElementById("mapSizeListingMap5").style.background = "rgb(255, 255, 255)";
-            document.getElementById("mapSizeListingMap5").style.color = "rgb(0, 0, 0)";
-            document.getElementById("mapSizeListingMap10").style.background = "rgb(255, 255, 255)";
-            document.getElementById("mapSizeListingMap10").style.color = "rgb(0, 0, 0)";
-            document.getElementById("mapSizeListingMap30").style.background = "rgb(255, 255, 255)";
-            document.getElementById("mapSizeListingMap30").style.color = "rgb(0, 0, 0)";
-            document.getElementById("mapSizeListingMap50").style.background = "rgb(255, 255, 255)";
-            document.getElementById("mapSizeListingMap50").style.color = "rgb(0, 0, 0)";
-            document.getElementById("mapSizeListingMap100").style.background = "rgb(255, 255, 255)";
-            document.getElementById("mapSizeListingMap100").style.color = "rgb(0, 0, 0)";
-            document.getElementById("mapSizeListingMap"+index).style.background = "rgb(34, 150, 67)";
-            document.getElementById("mapSizeListingMap"+index).style.color = "rgb(255, 255, 255)";
-            loadActiveListingsListingMap(curLocation,index);
-        }
-    }
+    
     function map_init_circle(valueArray,maker_position,set){
         
         if ($('#map-leaflet').length) {
-            curLocation = maker_position;
             var container = L.DomUtil.get('map');
             if(container != null){
                 container._leaflet_id = null;
@@ -877,16 +847,17 @@
             map = L.map('map-leaflet').setView([34.994003757575776,33.15703828125001], 9);
             L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);      
 
-            if(set>0){
-                var donut = L.donut(curLocation,{
+            circle = L.circle(maker_position, 1000*set).addTo(map);
+            circle.setStyle({color: 'green',  opacity:0.5});
+
+            if(viewCircleFlag>0){
+                var donut = L.donut(maker_position,{
                     radius: 20000000000000,
                     innerRadius: 1000*set,
                     innerRadiusAsPercent: false,
                     color: '#000',
                     weight: 2,
                 }).addTo(map);
-                circle = L.circle(curLocation, 1000*set).addTo(map);
-                circle.setStyle({color: 'green',  opacity:0.5});
             }
             
             var markerArray=[];
@@ -920,19 +891,17 @@
                 );  
             })
 
-            let marker = new L.marker(curLocation, {
+            let marker = new L.marker(maker_position, {
                 draggable: 'true'
             });
 
             marker.on('dragend', function(event) {
                 temp = marker.getLatLng();
-                curLocation = [temp.lat,temp.lng];
-                marker.setLatLng(curLocation, {
+                marker.setLatLng(temp, {
                     draggable: 'true'
                 });
-                circle.setLatLng(curLocation);
+                circle.setLatLng(temp);
                 document.getElementById("page_index").value = 1;
-                loadActiveListingsListingMap(curLocation,set);
             });
 
             map.addLayer(marker);
@@ -947,67 +916,49 @@
                 marker.setLatLng(data.latlng, {
                     draggable: 'true'
                 }).bindPopup(data.latlng).update();
-                temp = marker.getLatLng();
-                curLocation = [temp.lat,temp.lng];
-                if(map.hasLayer(circle))
-                map.removeLayer(circle);
-                circle = L.circle(curLocation, 1000*set).addTo(map);
-                circle.setLatLng(curLocation);
-                document.getElementById("page_index").value = 1;
-                loadActiveListingsListingMap(curLocation,set);
-                
+                viewCircleFlag = 2;
+                document.getElementById("page_index").value = 1;                
             });
 
-            map.on("click", addMarker);
-
-            function addMarker(e) {
-                if(set>0){
-                    marker.setLatLng(e.latlng, {
-                        draggable: 'true'
-                    }).bindPopup(e.latlng).update();
+            map.on('mousedown', function (event) {
+                if(viewCircleFlag == 1){
+                    marker.setLatLng(event.latlng);
+                    circle.setLatLng(event.latlng);
+                    circle.setRadius(0);
+                    viewCircleFlag = 2;
+                }else if(viewCircleFlag == 2){
                     temp = marker.getLatLng();
-                    curLocation = [temp.lat,temp.lng];
-                    circle.setLatLng(curLocation);
-                    document.getElementById("page_index").value = 1;
-                    loadActiveListingsListingMap(curLocation,set);
+                    distance = Math.sqrt(Math.pow( event.latlng.lat - temp.lat, 2) + Math.pow( event.latlng.lng - temp.lng, 2))
+                    circle.setRadius(distance*1000/0.011);
+                    loadActiveListingsListingMap([temp.lat,temp.lng],distance/0.011);
+                    viewCircleFlag = 1;
                 }
-            }
+            });
+
+            map.on('mousemove', event => {
+                if(viewCircleFlag == 2){
+                    temp = marker.getLatLng();
+                    distance = Math.sqrt(Math.pow( event.latlng.lat - temp.lat, 2) + Math.pow( event.latlng.lng - temp.lng, 2))
+                    circle.setRadius(distance*1000/0.0115742);
+                }
+            });
             
         }
     }
     function searchNowListingMap(){
         loadActiveListingsListingMap([0,0],0);
     }
-    function showCircleListingMap(radius=100){
-        // document.getElementById("mapSizeListingMap1").style.background = "rgb(255, 255, 255)";
-        // document.getElementById("mapSizeListingMap1").style.color = "rgb(0, 0, 0)";
-        document.getElementById("mapSizeListingMap5").style.background = "rgb(255, 255, 255)";
-        document.getElementById("mapSizeListingMap5").style.color = "rgb(0, 0, 0)";
-        document.getElementById("mapSizeListingMap10").style.background = "rgb(255, 255, 255)";
-        document.getElementById("mapSizeListingMap10").style.color = "rgb(0, 0, 0)";
-        document.getElementById("mapSizeListingMap30").style.background = "rgb(255, 255, 255)";
-        document.getElementById("mapSizeListingMap30").style.color = "rgb(0, 0, 0)";
-        document.getElementById("mapSizeListingMap50").style.background = "rgb(255, 255, 255)";
-        document.getElementById("mapSizeListingMap50").style.color = "rgb(0, 0, 0)";
-        document.getElementById("mapSizeListingMap100").style.background = "rgb(255, 255, 255)";
-        document.getElementById("mapSizeListingMap100").style.color = "rgb(0, 0, 0)";
+    function showCircleListingMap(){
         if(viewCircleFlag > 0 ){
-            curLocation = [0,0];
-            document.getElementById("mapSizeListingMap"+viewCircleFlag).style.background = "rgb(255, 255, 255)";
-            document.getElementById("mapSizeListingMap"+viewCircleFlag).style.color = "rgb(0, 0, 0)";
+            viewCircleFlag = 0;
             document.getElementById("showCircleListingMap").style.background = "rgb(255, 255, 255)";
             document.getElementById("showCircleListingMap").style.color = "rgb(0, 0, 0)";
-            viewCircleFlag = 0;
-            loadActiveListingsListingMap(curLocation,0);
+            loadActiveListingsListingMap([0,0],0);
         }
         else{
-            viewCircleFlag = radius;
-            curLocation = [34.994003757575776,33.19793701171876];
-            document.getElementById("mapSizeListingMap"+radius).style.background = "rgb(34, 150, 67)";
-            document.getElementById("mapSizeListingMap"+radius).style.color = "rgb(255, 255, 255)";
+            viewCircleFlag = 1;
             document.getElementById("showCircleListingMap").style.background = "rgb(34, 150, 67)";
             document.getElementById("showCircleListingMap").style.color = "rgb(255, 255, 255)";
-            loadActiveListingsListingMap(curLocation,100);
         }
         
     }
