@@ -383,10 +383,9 @@
             document.getElementById("activePropertType").innerHTML = temp;
 		}
 	}
-    function loadPageListingMap(index,maker_position0,maker_position1,set){
+    function loadPageListingMap(index,maker_position0,maker_position1,set,zoom){
         document.getElementById("page_index").value = index;
-        loadActiveListingsListingGrid([maker_position0,maker_position1],set);
-		
+        loadActiveListingsListingGrid([maker_position0,maker_position1],set,zoom);
 	}
 	function loadActiveFeaturesListingMap(){
 		
@@ -727,7 +726,7 @@
                         if(list1[j].active){
                             flag = "active";
                         }
-                        temp1 += `<li class="page-item `+flag+`"><a class="page-link" onclick="loadPageListingMap(`+tempIndex+`,`+maker_position[0]+`,`+maker_position[1]+`,`+set+`)">`+list1[j].label+`</a></li>`;
+                        temp1 += `<li class="page-item `+flag+`"><a class="page-link" onclick="loadPageListingMap(`+tempIndex+`,`+maker_position[0]+`,`+maker_position[1]+`,`+set+`,`+zoom+`)">`+list1[j].label+`</a></li>`;
                     }
                 }else{
                     for(j=0;j<list1.length;j++){
@@ -738,11 +737,11 @@
                             tempIndex = tempUrl.substring(tempUrl.indexOf("?page=")+6);
                         }
                         if(j==0 || j == list1.length-1){
-                            temp1 += `<li class="page-item"><a class="page-link" onclick="loadPageListingMap(`+tempIndex+`,`+maker_position[0]+`,`+maker_position[1]+`,`+set+`)">`+list1[j].label+`</a></li>`;    
+                            temp1 += `<li class="page-item"><a class="page-link" onclick="loadPageListingMap(`+tempIndex+`,`+maker_position[0]+`,`+maker_position[1]+`,`+set+`,`+zoom+`)">`+list1[j].label+`</a></li>`;    
                         }else{
                             if(list1[j].active){
                                 flag = "active";
-                                temp1 += `<li class="page-item `+flag+`"><a class="page-link" onclick="loadPageListingMap(`+tempIndex+`,`+maker_position[0]+`,`+maker_position[1]+`,`+set+`)">`+list1[j].label+`</a></li>`;
+                                temp1 += `<li class="page-item `+flag+`"><a class="page-link" onclick="loadPageListingMap(`+tempIndex+`,`+maker_position[0]+`,`+maker_position[1]+`,`+set+`,`+zoom+`)">`+list1[j].label+`</a></li>`;
                             }
                         }
                     }
@@ -911,20 +910,6 @@
             });
 
             map.addLayer(marker);
-            
-            var arcgisOnline = L.esri.Geocoding.arcgisOnlineProvider();
-
-            var searchControl = L.esri.Geocoding.geosearch({
-                providers: [arcgisOnline]
-            }).addTo(map);
-
-            searchControl.on('results', function(data){
-                marker.setLatLng(data.latlng, {
-                    draggable: 'true'
-                }).bindPopup(data.latlng).update();
-                viewCircleFlag = 2;
-                document.getElementById("page_index").value = 1;                
-            });
 
             map.on('mousedown', function (event) {
                 if(viewCircleFlag == 1){

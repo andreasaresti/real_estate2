@@ -293,7 +293,7 @@ use App\Helpers\Helper;
                                                             </div>
                                                             <div class="dropdown-filter"><span>Advanced Search</span></div>
                                                             <div class="col-xl-2 col-lg-2 col-md-4 pl-0">
-                                                                <a class="btn btn-yellow" onclick="loadActiveListingsListingMap([0,0],0);">Search Now</a>
+                                                                <a class="btn btn-yellow" onclick="searchNowHeader3([0,0],0,9);">Search Now</a>
                                                             </div>
                                                             <div id="advancedSearch" class="explore__form-checkbox-list full-filter">
                                                                 <div class="row">
@@ -405,6 +405,13 @@ use App\Helpers\Helper;
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 mt-0" id="mapdiv">
+                        <div class="alert-box success" id="map_success" style="position: absolute;z-index: 9;width: 100%;margin-top: 80px;">Click on the map select center and radius</div>
+                        <div class="row" style="margin: 25px 0px 0px 0px;position: absolute;z-index: 9;width: 100%;">
+                            <div class="col-xl-12 xsRow" style="display: flex;justify-content: flex-end;margin-right: 10px;">
+                                <a style="display: flex;justify-content: center;align-items: center;margin-right:20px;" class="btn btn-map" id="redrawCircleHeader3" onclick="redrawCircleHeader3();" >Re-draw</a>
+                                <a style="display: flex;justify-content: center;align-items: center;" class="btn btn-map" id="showCircleHeader3" onclick="showCircleHeader3();" >Draw</a>
+                            </div>
+                        </div>
                         <div id="map-leaflet" style="height:100vh"></div>
                     </div>
                     
@@ -420,7 +427,7 @@ use App\Helpers\Helper;
                                 </div>
                                 <div class="cod-pad single detail-wrapper mr-2 mt-0 d-flex justify-content-md-end align-items-center">
                                     <div class="input-group border rounded input-group-lg w-auto mr-4">
-                                        <select class="form-control border-0 bg-transparent shadow-none p-0 selectpicker sortby"  id="paginSize" onchange="loadActiveListingsListingMap([0,0],0)" name="paginSize">
+                                        <select class="form-control border-0 bg-transparent shadow-none p-0 selectpicker sortby"  id="paginSize" onchange="loadActiveListingsHeader3([0,0],0,9)" name="paginSize">
                                             <option selected value="20">20</option>
                                             <option value="40">40</option>
                                             <option value="60">60</option>
@@ -429,7 +436,7 @@ use App\Helpers\Helper;
                                     </div>
                                     <div class="input-group border rounded input-group-lg w-auto mr-4">
                                         <label class="input-group-text bg-transparent border-0 text-uppercase letter-spacing-093 pr-1 pl-3" for="inputGroupSelect01"><i class="fas fa-align-left fs-16 pr-2"></i>Sortby:</label>
-                                        <select class="form-control border-0 bg-transparent shadow-none p-0 selectpicker sortby"  onchange="loadActiveListingsListingMap([0,0],0)"  data-style="bg-transparent border-0 font-weight-600 btn-lg pl-0 pr-3" id="sortby" name="sortby">
+                                        <select class="form-control border-0 bg-transparent shadow-none p-0 selectpicker sortby"  onchange="loadActiveListingsHeader3([0,0],0,9)"  data-style="bg-transparent border-0 font-weight-600 btn-lg pl-0 pr-3" id="sortby" name="sortby">
                                             <option value="1">Latest</option>
                                             <option value="2">Price(low to high)</option>
                                             <option value="3">Price(high to low)</option>
@@ -545,17 +552,11 @@ use App\Helpers\Helper;
 
 
 <script type="text/javascript">
-	// window.addEventListener("load", (event) => {
-        // loadMenuHeader3();
-        loadLangHeader3();
-		// loadActiveFeaturesHeader3();
-        // loadActiveDistrictHeader3();
-        // loadActivePropertTypeHeader3();
-	// });
+        
+    loadLangHeader3();
 
     var map = null;
     var circle;
-    var curLocation = [0,0];
     var viewCircleFlag = 0;
 
     var desktop = 1;
@@ -566,8 +567,6 @@ use App\Helpers\Helper;
         desktop = 0;
         show_mobile_view();
     }
-
-    
 
     function show_list(){
         $('#mapdiv').hide();
@@ -593,13 +592,6 @@ use App\Helpers\Helper;
         $('#sideBar').hide();        
     }
 
-    // window.onscroll = function (e) {
-    //     console.log('scroll');
-    //     $('#showmapbutton').css({ position: "absolute", marginLeft: 0, marginTop: 0, top: 'calc(80vh - (100px / 2))', left: 0}); 
-    //     $('#showlistbutton').css({ position: "absolute", marginLeft: 0, marginTop: 0, top: 'calc(80vh - (100px / 2))', left: 0}); 
-
-    // }
-
     $(document).ready(function() {
       $(window).scroll(function() {
         $('#showmapbutton').css('top', '90vh');
@@ -617,9 +609,9 @@ use App\Helpers\Helper;
             desktop = 1;
             show_desktop_view();
         }
-        
-        // Perform any other actions with the newScreenWidth value
-      });
+    
+    // Perform any other actions with the newScreenWidth value
+    });
 
     function loadLangHeader3(){
         data = {
@@ -651,9 +643,6 @@ use App\Helpers\Helper;
         document.getElementsByName("activeLang")[0].innerHTML = data;
         document.getElementsByName("activeLang")[1].innerHTML = data;
     }
-    
-	
-    
     
     function hiddenAdvancedDivHeader3(){
         document.getElementById('advancedSearch').className = "explore__form-checkbox-list full-filter";
@@ -814,21 +803,20 @@ use App\Helpers\Helper;
             loginIn()
         }
 	}
-    
-    
 
-    function loadActiveListingsListingMap(maker_position,set){
+    function searchNowHeader3(maker_position,set,zoom){
+        console.log(maker_position,set,zoom);
         $('#searchcontentdiv').css("display", "block");
         document.getElementById('searchcontentdiv').scrollIntoView();
         document.getElementById("page_index").value = 1;
-        hiddenAdvancedDivListingMap();
-        loadActiveListingsListingGrid(maker_position,set);
+        hiddenAdvancedDivHeader3();
+        loadActiveListingsHeader3(maker_position,set,zoom);
         
 	}
-    function hiddenAdvancedDivListingMap(){
+    function hiddenAdvancedDivHeader3(){
         document.getElementById('advancedSearch').className = "explore__form-checkbox-list full-filter";
     }
-    function loadActiveListingsListingGrid(maker_position,set){
+    function loadActiveListingsHeader3(maker_position,set,zoom){
         customer_id = '<?php echo $user_id; ?>';
         if(document.getElementById("selBathrooms").value > 0){
             number_of_bathrooms = document.getElementById("selBathrooms").value;
@@ -964,7 +952,7 @@ use App\Helpers\Helper;
                         markersArray.push(markers[i]);    
                     }
                 }
-                map_init_circle(markersArray,maker_position,set);
+                map_init_circle(markersArray,maker_position,set,zoom);
             }
             
 			list = JSON.parse(xhr.response).items.data;
@@ -1040,7 +1028,7 @@ use App\Helpers\Helper;
                                 <a href="/page/listing-details?index=`+list[i].id+`" tabindex="0">€ `+ list[i].price+`</a>
                             </h3>
                             <div class="compare">
-                                <a style="cursor: pointer;" onclick="addFavoritListingMap(`+list[i].id+`)"><i id="faHeart`+list[i].id+`" class="fa fa-heart" style="font-size: x-large; ` + favorite + ` "></i></a>
+                                <a style="cursor: pointer;" onclick="addFavoritHeader3(`+list[i].id+`)"><i id="faHeart`+list[i].id+`" class="fa fa-heart" style="font-size: x-large; ` + favorite + ` "></i></a>
                             </div>
                         </div></div></div></div>`;
             }
@@ -1078,7 +1066,7 @@ use App\Helpers\Helper;
                         if(list1[j].active){
                             flag = "active";
                         }
-                        temp1 += `<li class="page-item `+flag+`"><a class="page-link" onclick="loadPageListingMap(`+tempIndex+`,`+maker_position[0]+`,`+maker_position[1]+`,`+set+`)">`+list1[j].label+`</a></li>`;
+                        temp1 += `<li class="page-item `+flag+`"><a class="page-link" onclick="loadPageHeader3(`+tempIndex+`,`+maker_position[0]+`,`+maker_position[1]+`,`+set+`,`+zoom+`)">`+list1[j].label+`</a></li>`;
                     }
                 }else{
                     for(j=0;j<list1.length;j++){
@@ -1089,11 +1077,11 @@ use App\Helpers\Helper;
                             tempIndex = tempUrl.substring(tempUrl.indexOf("?page=")+6);
                         }
                         if(j==0 || j == list1.length-1){
-                            temp1 += `<li class="page-item"><a class="page-link" onclick="loadPageListingMap(`+tempIndex+`,`+maker_position[0]+`,`+maker_position[1]+`,`+set+`)">`+list1[j].label+`</a></li>`;    
+                            temp1 += `<li class="page-item"><a class="page-link" onclick="loadPageHeader3(`+tempIndex+`,`+maker_position[0]+`,`+maker_position[1]+`,`+set+`,`+zoom+`)">`+list1[j].label+`</a></li>`;    
                         }else{
                             if(list1[j].active){
                                 flag = "active";
-                                temp1 += `<li class="page-item `+flag+`"><a class="page-link" onclick="loadPageListingMap(`+tempIndex+`,`+maker_position[0]+`,`+maker_position[1]+`,`+set+`)">`+list1[j].label+`</a></li>`;
+                                temp1 += `<li class="page-item `+flag+`"><a class="page-link" onclick="loadPageHeader3(`+tempIndex+`,`+maker_position[0]+`,`+maker_position[1]+`,`+set+`,`+zoom+`)">`+list1[j].label+`</a></li>`;
                             }
                         }
                     }
@@ -1103,11 +1091,9 @@ use App\Helpers\Helper;
             }
 		}
     }
-    function map_init_circle(valueArray,maker_position,set){
-        
+    function map_init_circle(valueArray,maker_position,set,zoom){
         
         if ($('#map-leaflet').length) {
-            curLocation = maker_position;
             var container = L.DomUtil.get('map');
             if(container != null){
                 container._leaflet_id = null;
@@ -1116,19 +1102,25 @@ use App\Helpers\Helper;
             if (map !== undefined && map !== null) {
                 map.remove(); // should remove the map from UI and clean the inner children of DOM element
             }
-            map = L.map('map-leaflet').setView([34.994003757575776,33.15703828125001], 9);
+            if(set > 0){
+                map = L.map('map-leaflet').setView(maker_position, zoom);
+            }else{
+                map = L.map('map-leaflet').setView([34.994003757575776,33.15703828125001], zoom);
+            }
+            
             L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);      
 
-            if(set>0){
-                var donut = L.donut(curLocation,{
+            circle = L.circle(maker_position, 1000*set).addTo(map);
+            circle.setStyle({color: 'green',  opacity:0.5});
+
+            if(viewCircleFlag>0){
+                var donut = L.donut(maker_position,{
                     radius: 20000000000000,
                     innerRadius: 1000*set,
                     innerRadiusAsPercent: false,
                     color: '#000',
                     weight: 2,
                 }).addTo(map);
-                circle = L.circle(curLocation, 1000*set).addTo(map);
-                circle.setStyle({color: 'green',  opacity:0.5});
             }
             
             var markerArray=[];
@@ -1160,142 +1152,106 @@ use App\Helpers\Helper;
                     '</a>' +
                     '</div>'
                 );  
-            });
+            })
 
-            let marker = new L.marker(curLocation, {
+            let marker = new L.marker(maker_position, {
                 draggable: 'true'
             });
 
             marker.on('dragend', function(event) {
                 temp = marker.getLatLng();
-                curLocation = [temp.lat,temp.lng];
-                marker.setLatLng(curLocation, {
+                marker.setLatLng(temp, {
                     draggable: 'true'
                 });
-                circle.setLatLng(curLocation);
+                circle.setLatLng(temp);
                 document.getElementById("page_index").value = 1;
-                loadActiveListingsListingMap(curLocation,set);
             });
 
             map.addLayer(marker);
-            
-            var arcgisOnline = L.esri.Geocoding.arcgisOnlineProvider();
 
-            var searchControl = L.esri.Geocoding.geosearch({
-                providers: [arcgisOnline]
-            }).addTo(map);
-
-            searchControl.on('results', function(data){
-                marker.setLatLng(data.latlng, {
-                    draggable: 'true'
-                }).bindPopup(data.latlng).update();
-                temp = marker.getLatLng();
-                curLocation = [temp.lat,temp.lng];
-                if(map.hasLayer(circle))
-                map.removeLayer(circle);
-                circle = L.circle(curLocation, 1000*set).addTo(map);
-                circle.setLatLng(curLocation);
-                document.getElementById("page_index").value = 1;
-                loadActiveListingsListingMap(curLocation,set);
-                
+            map.on('mousedown', function (event) {
+                if(viewCircleFlag == 1){
+                    marker.setLatLng(event.latlng);
+                    circle.setLatLng(event.latlng);
+                    circle.setRadius(0);
+                    viewCircleFlag = 2;
+                    map.scrollWheelZoom.disable();
+                }else if(viewCircleFlag == 2){
+                    map.scrollWheelZoom.enable();
+                    temp = marker.getLatLng();
+                    distance = Math.sqrt(Math.pow( event.latlng.lat - temp.lat, 2) + Math.pow( event.latlng.lng - temp.lng, 2))
+                    circle.setRadius(distance*1000/0.011);
+                    loadActiveListingsHeader3([temp.lat,temp.lng],distance/0.011,map.getZoom());
+                    viewCircleFlag = 3;
+                    document.getElementById("redrawCircleHeader3").style.background = "rgb(255, 255, 255)";
+                    document.getElementById("redrawCircleHeader3").style.color = "rgb(0, 0, 0)";
+                }
             });
 
-            map.on("click", addMarker);
-
-            function addMarker(e) {
-                if(set>0){
-                    marker.setLatLng(e.latlng, {
-                        draggable: 'true'
-                    }).bindPopup(e.latlng).update();
+            map.on('mousemove', event => {
+                if(viewCircleFlag == 2){
                     temp = marker.getLatLng();
-                    curLocation = [temp.lat,temp.lng];
-                    circle.setLatLng(curLocation);
-                    document.getElementById("page_index").value = 1;
-                    loadActiveListingsListingMap(curLocation,set);
+                    distance = Math.sqrt(Math.pow( event.latlng.lat - temp.lat, 2) + Math.pow( event.latlng.lng - temp.lng, 2))
+                    circle.setRadius(distance*1000/0.0115742);
                 }
-            }
+            });
             
         }
     }
-    function showCircleListingMap(radius=100){
-        // document.getElementById("mapSizeListingMap1").style.background = "rgb(255, 255, 255)";
-        // document.getElementById("mapSizeListingMap1").style.color = "rgb(0, 0, 0)";
-        document.getElementById("mapSizeListingMap5").style.background = "rgb(255, 255, 255)";
-        document.getElementById("mapSizeListingMap5").style.color = "rgb(0, 0, 0)";
-        document.getElementById("mapSizeListingMap10").style.background = "rgb(255, 255, 255)";
-        document.getElementById("mapSizeListingMap10").style.color = "rgb(0, 0, 0)";
-        document.getElementById("mapSizeListingMap30").style.background = "rgb(255, 255, 255)";
-        document.getElementById("mapSizeListingMap30").style.color = "rgb(0, 0, 0)";
-        document.getElementById("mapSizeListingMap50").style.background = "rgb(255, 255, 255)";
-        document.getElementById("mapSizeListingMap50").style.color = "rgb(0, 0, 0)";
-        document.getElementById("mapSizeListingMap100").style.background = "rgb(255, 255, 255)";
-        document.getElementById("mapSizeListingMap100").style.color = "rgb(0, 0, 0)";
-        if(viewCircleFlag > 0 ){
-            curLocation = [0,0];
-            document.getElementById("mapSizeListingMap"+viewCircleFlag).style.background = "rgb(255, 255, 255)";
-            document.getElementById("mapSizeListingMap"+viewCircleFlag).style.color = "rgb(0, 0, 0)";
-            document.getElementById("showCircleListingMap").style.background = "rgb(255, 255, 255)";
-            document.getElementById("showCircleListingMap").style.color = "rgb(0, 0, 0)";
-            viewCircleFlag = 0;
-            loadActiveListingsListingMap(curLocation,0);
+    
+    $(window).scroll(function(){
+        if($(window).scrollTop() >= 200){
+            $('anchor3').css({
+                "margin-top": "80px"
+            })
+            $('icon').css({
+                "margin-top": "10px"
+            })
+            $('oldurl').css({
+                "margin-top": "296px"
+            })
         }
         else{
-            viewCircleFlag = radius;
-            curLocation = [34.994003757575776,33.19793701171876];
-            document.getElementById("mapSizeListingMap"+radius).style.background = "rgb(34, 150, 67)";
-            document.getElementById("mapSizeListingMap"+radius).style.color = "rgb(255, 255, 255)";
-            document.getElementById("showCircleListingMap").style.background = "rgb(34, 150, 67)";
-            document.getElementById("showCircleListingMap").style.color = "rgb(255, 255, 255)";
-            loadActiveListingsListingMap(curLocation,100);
-        }
-        
-    }
-    function mapSizeListingMap(index){
-        if(viewCircleFlag==0){
-            showCircleListingMap(index);
-        }
-        if(viewCircleFlag>0){
-            viewCircleFlag = index;
-            // document.getElementById("mapSizeListingMap1").style.background = "rgb(255, 255, 255)";
-            // document.getElementById("mapSizeListingMap1").style.color = "rgb(0, 0, 0)";
-            document.getElementById("mapSizeListingMap5").style.background = "rgb(255, 255, 255)";
-            document.getElementById("mapSizeListingMap5").style.color = "rgb(0, 0, 0)";
-            document.getElementById("mapSizeListingMap10").style.background = "rgb(255, 255, 255)";
-            document.getElementById("mapSizeListingMap10").style.color = "rgb(0, 0, 0)";
-            document.getElementById("mapSizeListingMap30").style.background = "rgb(255, 255, 255)";
-            document.getElementById("mapSizeListingMap30").style.color = "rgb(0, 0, 0)";
-            document.getElementById("mapSizeListingMap50").style.background = "rgb(255, 255, 255)";
-            document.getElementById("mapSizeListingMap50").style.color = "rgb(0, 0, 0)";
-            document.getElementById("mapSizeListingMap100").style.background = "rgb(255, 255, 255)";
-            document.getElementById("mapSizeListingMap100").style.color = "rgb(0, 0, 0)";
-            document.getElementById("mapSizeListingMap"+index).style.background = "rgb(34, 150, 67)";
-            document.getElementById("mapSizeListingMap"+index).style.color = "rgb(255, 255, 255)";
-            loadActiveListingsListingMap(curLocation,index);
+            $('anchor3').css({
+                "margin-top": 300 - $(window).scrollTop()
+            })
+            $('icon').css({
+                "margin-top": 230 - $(window).scrollTop()
+            })
+            $('oldurl').css({
+                "margin-top": 516 - $(window).scrollTop()
+            })
+        }    
+    })
+    function showCircleHeader3(){
+        if(viewCircleFlag > 0 ){
+            viewCircleFlag = 0;
+            document.getElementById("redrawCircleHeader3").style.background = "rgb(255, 255, 255)";
+            document.getElementById("redrawCircleHeader3").style.color = "rgb(0, 0, 0)";
+            document.getElementById("showCircleHeader3").style.background = "rgb(255, 255, 255)";
+            document.getElementById("showCircleHeader3").style.color = "rgb(0, 0, 0)";
+            document.getElementById("showCircleHeader3").innerHTML = "Draw";
+            loadActiveListingsHeader3([0,0],0,9);
+        }else{
+            viewCircleFlag = 1;
+            $( "#map_success" ).fadeIn( 300 ).delay( 5000 ).fadeOut( 400 );
+            document.getElementById("showCircleHeader3").style.background = "rgb(34, 150, 67)";
+            document.getElementById("showCircleHeader3").style.color = "rgb(255, 255, 255)";
+            document.getElementById("showCircleHeader3").innerHTML = "Clear";
+            document.getElementById("redrawCircleHeader3").style.background = "rgb(34, 150, 67)";
+            document.getElementById("redrawCircleHeader3").style.color = "rgb(255, 255, 255)";
+            
         }
     }
-    $(window).scroll(function(){
-    if($(window).scrollTop() >= 200){
-        $('anchor3').css({
-            "margin-top": "80px"
-        })
-        $('icon').css({
-            "margin-top": "10px"
-        })
-        $('oldurl').css({
-            "margin-top": "296px"
-        })
+    function redrawCircleHeader3(){
+        $( "#map_success" ).fadeIn( 300 ).delay( 3000 ).fadeOut( 400 );
+        viewCircleFlag = 1;
+        document.getElementById("redrawCircleHeader3").style.background = "rgb(34, 150, 67)";
+        document.getElementById("redrawCircleHeader3").style.color = "rgb(255, 255, 255)";
     }
-    else{
-        $('anchor3').css({
-            "margin-top": 300 - $(window).scrollTop()
-        })
-        $('icon').css({
-            "margin-top": 230 - $(window).scrollTop()
-        })
-        $('oldurl').css({
-            "margin-top": 516 - $(window).scrollTop()
-        })
-    }    
-})
+    function loadPageHeader3(index,maker_position0,maker_position1,set,zoom){
+        document.getElementById("page_index").value = index;
+        loadActiveListingsHeader3([maker_position0,maker_position1],set,zoom);
+	}
 </script>
 
