@@ -472,8 +472,11 @@ use App\Helpers\Helper;
                 map.remove(); // should remove the map from UI and clean the inner children of DOM element
             }
             map = L.map('map-leaflet').setView([34.994003757575776,33.15703828125001], 9);
-            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);      
-
+            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map); 
+            
+            
+            
+            
             if(set>0){
                 var donut = L.donut(curLocation,{
                     radius: 20000000000000,
@@ -584,6 +587,8 @@ use App\Helpers\Helper;
             }
             // map = L.map('map-leaflet').setView([34.994003757575776,33.15703828125001], 10, scrollWheelZoom: false);
             map = L.map('map-leaflet', {scrollWheelZoom: false}).setView([34.994003757575776,33.15703828125001], 10);
+            map.zoomControl.setPosition('bottomright');
+            alert('e');
             map.zoomControl.setPosition('bottomright');
             L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);      
 

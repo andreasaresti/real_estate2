@@ -190,7 +190,6 @@
 		/* color: hotpink; */
 	}
 </style>
-<div class="rh_sticky_wrapper_footer rh_apply_sticky_wrapper_footer">
 	<footer class="rh_footer rh_footer__before_fix rh_footer_layout_default">
 		<div class="rh_footer__wrap rh_footer__top_wrap rh_footer--alignCenter rh_footer--paddingBottom">
 			<div class="rh_footer__logo">
@@ -330,7 +329,6 @@
 			<div class="rh-footer-bottom-items-separator">|</div>
 		</div>
 	</footer>
-</div>
 <script type="text/javascript">
 	// window.addEventListener("load", (event) => {
         loadHomeAgenciesFooter();

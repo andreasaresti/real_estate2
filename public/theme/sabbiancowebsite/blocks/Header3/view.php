@@ -76,11 +76,14 @@ use App\Helpers\Helper;
         background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(<?php echo $block->setting('backgroundimage'); ?>) cover center top !important;background-size: cover !important;
     }
     .parallax-searchs.home15 {
-        height: 350px;
+        height: 350px !important;
         display: block;
     }
     #header.cloned.sticky ul li a:hover {
     color: #707070 !important;
+}
+.aos-animate {
+    transition-delay: .5s !important;
 }
 </style>
 <div class="homepage-9 hp-6 homepage-1 mh" style="z-index: 9999;position: relative;">
