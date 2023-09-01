@@ -336,7 +336,7 @@ use App\Helpers\Helper;
                                                                             <!-- Price Range -->
                                                                             <div class="range-slider">
                                                                                 <label>Price Range</label>
-                                                                                <div id="price-range" data-min="0" data-max="600000" data-unit="$"></div>
+                                                                                <div id="price-range" data-min="0" data-max="600000" data-unit="€"></div>
                                                                                 <div class="clearfix"></div>
                                                                             </div>
                                                                         </div>

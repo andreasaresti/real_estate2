@@ -46,6 +46,10 @@ use App\Helpers\Helper;
     $active_property_types_response = Helper::get_active_property_types();       
     $active_property_types_response = json_decode($active_property_types_response);
 
+    // echo '<pre>';
+    // print_r($active_property_types_response);
+    // echo '</pre>';
+
     $postData = [
         'slug'=>"menu",
         'locale'=>"en_US",
@@ -230,7 +234,17 @@ use App\Helpers\Helper;
                                                     <div class="rld-main-search" style="display: flex;justify-content: center;">
                                                         <div class="row">
                                                             <div class="rld-single-input">
-                                                                <input type="text" placeholder="Enter Keyword..." autocomplete="off" id="search_string">
+                                                                <input type="text" placeholder="PropertyID" autocomplete="off" id="search_string">
+                                                            </div>
+                                                            <div class="rld-single-select" style="margin-bottom: 15px"  onmouseover="hiddenAdvancedDivHeader3();">
+                                                                <select class="select single-select"  id="property_type">
+                                                                    <option value="">Sale/Rent</option>
+                                                                    <?php 
+                                                                    foreach($active_property_types_response->data as $property_type){
+                                                                        echo '<option value="'.$property_type->id.'">'.$property_type->displayname.'</option>';
+                                                                    }
+                                                                    ?>
+                                                                </select>
                                                             </div>
                                                             <div class="rld-single-select" style="margin-bottom: 15px"  onmouseover="hiddenAdvancedDivHeader3();">
                                                                 <input type="hidden" id="selActivePropertType" name="selActivePropertType" value="">
@@ -291,7 +305,7 @@ use App\Helpers\Helper;
                                                                     </ul>
                                                                 </nav>
                                                             </div>
-                                                            <div class="dropdown-filter"><span>Advanced Search</span></div>
+                                                            <div class="dropdown-filter"><span></span></div>
                                                             <div class="col-xl-2 col-lg-2 col-md-4 pl-0">
                                                                 <a class="btn btn-yellow" onclick="searchNowHeader3([0,0],0,9);">Search Now</a>
                                                             </div>
@@ -346,7 +360,7 @@ use App\Helpers\Helper;
                                                                             <!-- Price Range -->
                                                                             <div class="range-slider">
                                                                                 <label>Price Range</label>
-                                                                                <div id="price-range" data-min="0" data-max="600000" data-unit="$"></div>
+                                                                                <div id="price-range" data-min="0" data-max="600000" data-unit="€"></div>
                                                                                 <div class="clearfix"></div>
                                                                             </div>
                                                                         </div>
@@ -405,7 +419,7 @@ use App\Helpers\Helper;
             <div class="container-fluid">
                 <div class="row">
                     <div id="MapHeader3" class="col-lg-6 col-md-6 mt-0 MobileHiddenMap">
-                        <div class="alert-box success" id="map_success" style="position: absolute;z-index: 9;width: 100%;margin-top: 80px;">Click on the map select center and radius</div>
+                        <div class="alert-box success" id="map_success" style="position: absolute;z-index: 9;width: 100%;margin-top: 80px;">Click on the map to select center and radius</div>
                         <div class="row" style="padding: 25px 0px 0px 0px;position: absolute;z-index: 9;width: 50%;left: 50%;">
                             <div class="col-xl-12 xsRow" style="display: flex;justify-content: flex-end;margin-right: 10px;">
                                 <a style="display: none;justify-content: center;align-items: center;margin-right:20px;" class="btn btn-map" id="redrawCircleHeader3" onclick="redrawCircleHeader3();" >Re-draw</a>
@@ -860,13 +874,21 @@ use App\Helpers\Helper;
                 tempLocationArr.push(locations[j].value);
             }
         }
+        // var tempPropertStatus = [];
+        // var propertStatus = document.getElementsByClassName('propertStatus');
+        // for(var j=0; j<propertStatus.length;j++){
+        //     if(propertStatus[j].checked){
+        //         tempPropertStatus.push(propertStatus[j].value);
+        //     }
+        // }
+
         var tempPropertStatus = [];
-        var propertStatus = document.getElementsByClassName('propertStatus');
-        for(var j=0; j<propertStatus.length;j++){
-            if(propertStatus[j].checked){
-                tempPropertStatus.push(propertStatus[j].value);
-            }
+        var propertStatus = $('#property_type').val();
+        if(propertStatus != ''){
+            tempPropertStatus.push($('#property_type').val());
         }
+
+
         var tempPropertTypes = [];
         var propertTypes = document.getElementsByClassName('propertTypes');
         for(var j=0; j<propertTypes.length;j++){
@@ -1244,7 +1266,6 @@ use App\Helpers\Helper;
             document.getElementById("redrawCircleHeader3").style.display = "flex";
             document.getElementById("redrawCircleHeader3").style.background = "rgb(34, 150, 67)";
             document.getElementById("redrawCircleHeader3").style.color = "rgb(255, 255, 255)";
-            
         }
     }
     function redrawCircleHeader3(){
