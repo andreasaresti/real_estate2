@@ -283,13 +283,19 @@
 </div>
 
 
-<script src="https://code.jquery.com/jquery-2.2.4.min.js" ></script>
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+<script src="https://unpkg.com/esri-leaflet@2.2.3/dist/esri-leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/Falke-Design/L.Donut@latest/src/L.Donut.js"></script>
+<!-- 
 <script src="https://cdn.jsdelivr.net/leaflet/1.0.0-rc.1/leaflet-src.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/leaflet.esri/2.0.0/esri-leaflet.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.1.0/esri-leaflet-geocoder.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/leaflet.markercluster/1.0.0-beta.2.0/leaflet.markercluster.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/leaflet.markercluster/1.0.0-beta.2.0/leaflet.markercluster-src.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/gh/Falke-Design/L.Donut@latest/src/L.Donut.js"></script>
+ -->
 
 <script type="text/javascript">
     
@@ -836,11 +842,12 @@
             loginIn();
         }
     }
-    
+   
     function map_init_circle(valueArray,maker_position,set,zoom){
         
         if ($('#map-leaflet').length) {
             var container = L.DomUtil.get('map');
+
             if(container != null){
                 container._leaflet_id = null;
             }

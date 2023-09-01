@@ -24,11 +24,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css">
     
     <!-- LEAFLET MAP -->
-    <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/leaflet.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css">
+    <!-- <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/leaflet.css">
     <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/leaflet-gesture-handling.min.css">
     <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/leaflet.markercluster.css">
     <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/leaflet.markercluster.default.css">
-    <link href="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.1.0/esri-leaflet-geocoder.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.1.0/esri-leaflet-geocoder.css" rel="stylesheet"> -->
     <!-- ARCHIVES CSS -->
     <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/search.css">
     <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/animate.css">
