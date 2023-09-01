@@ -38,7 +38,7 @@
     <section class="properties-right featured portfolio blog google-map-right mp-1">
         <div class="container-fluid">
             <div class="row">
-                <aside class="col-lg-6 col-md-6 google-maps-left mt-0">
+                <aside id="MapListingMap" class="col-lg-6 col-md-6 google-maps-left mt-0 MobileHiddenMap">
                     <div class="alert-box success" id="map_success" style="position: absolute;z-index: 9;width: 100%;margin-top: 80px;">Click on the map select center and radius</div>
                     <div class="row" style="padding: 25px 0px 0px 0px;position: absolute;z-index: 9;width: 50%;left: 50%;">
                         <div class="col-xl-12 xsRow" style="display: flex;justify-content: flex-end;margin-right: 10px;">
@@ -48,7 +48,7 @@
                     </div>
                     <div id="map-leaflet"></div>
                 </aside>
-                <div class="col-lg-6 col-md-12 google-maps-right" style="padding-left:20px">
+                <div id="ListingListingMap" class="col-lg-6 col-md-12 google-maps-right" style="padding-left:20px">
                     <!-- Search Form -->
                     <div class="col-12 px-0 parallax-searchs-button">
                         <a onclick="searchShowListingMap();" class="btn btn-yellow" id="SearchShowButton" style="margin-top: 20px;height: 41px;padding: 0px;line-height: 39px;">Search Show</a>
@@ -273,6 +273,9 @@
                         </ul>
                     </nav>
                 </div>
+                <div class="ViewListMap">
+                    <a onclick="showHideMapListingListingMap();" style="padding: 10px 20px 10px 20px;background: #E0F2FF;border-radius: 5px;cursor: pointer;" id="showMapListingListingMap">Show Map</a>
+                </div>
             </div>
             <input type="hidden" id="page_index" value="1">
         </div>
@@ -289,6 +292,7 @@
 <script src="https://cdn.jsdelivr.net/gh/Falke-Design/L.Donut@latest/src/L.Donut.js"></script>
 
 <script type="text/javascript">
+    
     var map = null;
     var circle;
     var viewCircleFlag = 0;
@@ -969,5 +973,16 @@
         viewCircleFlag = 1;
         document.getElementById("redrawCircleListingMap").style.background = "rgb(34, 150, 67)";
         document.getElementById("redrawCircleListingMap").style.color = "rgb(255, 255, 255)";
+    }
+    function showHideMapListingListingMap(){
+        if(document.getElementById("showMapListingListingMap").innerHTML == "Show Listings"){
+            document.getElementById("showMapListingListingMap").innerHTML = "Show Map";
+            document.getElementById("MapListingMap").style.display = "none";
+            document.getElementById("ListingListingMap").style.display = "block";
+        }else{
+            document.getElementById("showMapListingListingMap").innerHTML = "Show Listings";
+            document.getElementById("ListingListingMap").style.display = "none";
+            document.getElementById("MapListingMap").style.display = "block";
+        }
     }
 </script>

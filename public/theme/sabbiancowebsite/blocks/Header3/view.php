@@ -404,7 +404,7 @@ use App\Helpers\Helper;
         <section class="properties-right featured portfolio blog  mp-1">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-6 col-md-6 mt-0" id="mapdiv">
+                    <div id="MapHeader3" class="col-lg-6 col-md-6 mt-0 MobileHiddenMap">
                         <div class="alert-box success" id="map_success" style="position: absolute;z-index: 9;width: 100%;margin-top: 80px;">Click on the map select center and radius</div>
                         <div class="row" style="padding: 25px 0px 0px 0px;position: absolute;z-index: 9;width: 50%;left: 50%;">
                             <div class="col-xl-12 xsRow" style="display: flex;justify-content: flex-end;margin-right: 10px;">
@@ -414,8 +414,7 @@ use App\Helpers\Helper;
                         </div>
                         <div id="map-leaflet" style="height:100vh"></div>
                     </div>
-                    
-                    <div class="col-lg-6 col-md-12 " style="padding-left:20px" id="listingsdiv">
+                    <div id="ListingHeader3" class="col-lg-6 col-md-12 " style="padding-left:20px">
                         <section class="headings-2 pt-0">
                             <div class="pro-wrapper">
                                 <div class="detail-wrapper-body">
@@ -453,6 +452,9 @@ use App\Helpers\Helper;
                             <ul class="pagination mt-0" id="pagin_content">
                             </ul>
                         </nav>
+                    </div>
+                    <div class="ViewListMap">
+                        <a onclick="showHideMapListingHeader3();" style="padding: 10px 20px 10px 20px;background: #E0F2FF;border-radius: 5px;cursor: pointer;" id="showMapListingHeader3">Show Map</a>
                     </div>
                 </div>
                 <input type="hidden" id="page_index" value="1">
@@ -552,31 +554,32 @@ use App\Helpers\Helper;
 
 
 <script type="text/javascript">
-        
+    
+
     loadLangHeader3();
 
     var map = null;
     var circle;
     var viewCircleFlag = 0;
 
-    var desktop = 1;
+    // var desktop = 1;
 
-    var newScreenWidth = $(window).width();
+    // var newScreenWidth = $(window).width();
 
-    if(newScreenWidth < 700){
-        desktop = 0;
-        show_mobile_view();
-    }
+    // if(newScreenWidth < 700){
+    //     desktop = 0;
+    //     show_mobile_view();
+    // }
 
-    function show_list(){
-        $('#mapdiv').hide();
-        $('#listingsdiv').show();
-    }
-    function show_map(){
-        alert('here');
-        $('#mapdiv').show();
-        $('#listingsdiv').hide();
-    }
+    // function show_list(){
+    //     $('#mapdiv').hide();
+    //     $('#listingsdiv').show();
+    // }
+    // function show_map(){
+    //     alert('here');
+    //     $('#mapdiv').show();
+    //     $('#listingsdiv').hide();
+    // }
     function show_mobile_view(){
         $('#mapdiv').hide();
         $('#listingsdiv').show();
@@ -1254,5 +1257,17 @@ use App\Helpers\Helper;
         document.getElementById("page_index").value = index;
         loadActiveListingsHeader3([maker_position0,maker_position1],set,zoom);
 	}
+    function showHideMapListingHeader3(){
+        if(document.getElementById("showMapListingHeader3").innerHTML == "Show Listings"){
+            document.getElementById("showMapListingHeader3").innerHTML = "Show Map";
+            document.getElementById("MapHeader3").style.display = "none";
+            document.getElementById("ListingHeader3").style.display = "block";
+        }else{
+            document.getElementById("showMapListingHeader3").innerHTML = "Show Listings";
+            document.getElementById("ListingHeader3").style.display = "none";
+            document.getElementById("MapHeader3").style.display = "block";
+            document.getElementById("MapHeader3").style.height = "870px";
+        }
+    }
 </script>
 
