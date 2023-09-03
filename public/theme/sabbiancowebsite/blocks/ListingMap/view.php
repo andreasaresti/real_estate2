@@ -381,7 +381,6 @@
                                 </div>
                                 <aside class="col-lg-4 col-md-12 car">
                                     <div class="single widget">
-                                        <!-- end author-verified-badge $sales_people['name'] !== "" && -->
                                         <div class="sidebar">
                                             <div class="widget-boxed mt-33 mt-5">
                                                 <div class="widget-boxed-body">
@@ -396,13 +395,12 @@
                                                                 <input type="email" id="inquiry_emailid" name="email_address" placeholder="Email Address" required />
                                                                 <textarea placeholder="Message" id="inquiry_message" name="inquiry_message" required></textarea>
                                                                 <input type="hidden" id="property_type_id"/>
-                                                                <input type="button" onclick="sendRequestListingDetails();" name="sendmessage" class="multiple-send-message" value="Submit Request" />
+                                                                <input type="button" id="sendMessageListingsDetailModal" name="sendmessage" class="multiple-send-message" value="Submit Request" />
                                                             </form>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <?php //}?>                       
                                         </div>
                                     </div>
                                 </aside>
@@ -419,6 +417,7 @@
 <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
 <script src="https://unpkg.com/esri-leaflet@2.2.3/dist/esri-leaflet.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/Falke-Design/L.Donut@latest/src/L.Donut.js"></script>
+
 
 
 <script type="text/javascript">
@@ -1119,13 +1118,17 @@
     }
     function showListigDetailModalListingMap(index){
         document.getElementById("ListingDetailButtonListingMap").click();
-        loadListingDetailListingDetails(index);
+        loadListingsDetailModalListingMap(index);
     }
-    function loadListingDetailListingDetails(index){
+    function loadListingsDetailModalListingMap(index){
+
 		const url = "/api/activelistings";
+        customer_id = '<?php echo $user_id; ?>';
+                
 		let xhr = new XMLHttpRequest();
         sendData = {
             "id": index,
+            "customer_id": customer_id,
             "retrieve_markers": 1
         }
 		xhr.open('POST', url, true);
@@ -1153,8 +1156,8 @@
             document.getElementById("address_favorit").innerHTML = `<a href="#listing-location" class="listing-address">
                     <i class="fa fa-map-marker pr-2 ti-location-pin mrg-r-5"></i>`+data.location_name+`
                 </a>
-                <a style="cursor: pointer;" onclick="addFavoritListingDetails(`+data.id+`)">
-                    <i id="faHeart`+data.id+`" class="fa fa-heart" style="font-size: x-large; `+favorite+`"></i>
+                <a style="cursor: pointer;" onclick="addFavoritListingsDetailModalListingMap(`+data.id+`)">
+                    <i id="faHeartListingDetailModal`+data.id+`" class="fa fa-heart" style="font-size: x-large; `+favorite+`"></i>
                 </a>`;
             document.getElementById("listingDescription").innerHTML = data.displaydescription;
             if(data.year_built !== null){
@@ -1227,7 +1230,7 @@
                 </li>`;
                 }
             document.getElementById("listingULImg").innerHTML = temp;
-
+            document.getElementById("sendMessageListingsDetailModal").setAttribute( "onClick", "sendRequestListingsDetailModalListingMap("+data.id+");" );
             markers = JSON.parse(xhr.response).listing_markers;
             
             var valueArray = [];
@@ -1238,24 +1241,123 @@
 		}
 	}
     function map_init_listingDetail(valueArray){
-            mapListingsDetail = L.map('map-leaflet-listingsDetail').setView(valueArray[0].center, 9);
-            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(mapListingsDetail);
-            for(i=0;i<valueArray.length;i++){//valueArray.forEach((value) => {
-                value = valueArray[i];
-                var icon = L.divIcon({
-                    html: value.icon,
-                    iconSize: [50, 50],
-                    iconAnchor: [50, 50],
-                    popupAnchor: [-20, -42]
-                });
-                var marker = L.marker(value.center, {
-                    icon: icon
-                });
-                mapListingsDetail.addLayer(marker);
-            }
+        if (mapListingsDetail !== undefined && mapListingsDetail !== null) {
+            mapListingsDetail.remove(); // should remove the map from UI and clean the inner children of DOM element
+        }
+        mapListingsDetail = L.map('map-leaflet-listingsDetail').setView(valueArray[0].center, 9);
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(mapListingsDetail);
+        for(i=0;i<valueArray.length;i++){//valueArray.forEach((value) => {
+            value = valueArray[i];
+            var icon = L.divIcon({
+                html: value.icon,
+                iconSize: [50, 50],
+                iconAnchor: [50, 50],
+                popupAnchor: [-20, -42]
+            });
+            var marker = L.marker(value.center, {
+                icon: icon
+            });
+            mapListingsDetail.addLayer(marker);
+        }
             //})
     }
-    window.onclick = function(event) {
-        // $("#ListingDetailModalListingMap").modal('hide');
+    function addFavoritListingsDetailModalListingMap(index)
+    {
+        customer_id = '<?php echo $user_id; ?>';
+        if(customer_id !== ""){
+            const url = "/api/add-remove-to-favorites";
+            const sendData = {
+                "customer_id": customer_id,
+                "listing_id": index,
+            };
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', url, true);
+            xhr.setRequestHeader('Content-type', 'application/json');
+            xhr.send(JSON.stringify(sendData));
+            xhr.onload = function () {
+                var paragraph = document.getElementById("faHeart"+index);
+                var paragraph1 = document.getElementById("faHeartListingDetailModal"+index);
+                
+                if(paragraph.style.color !== "red"){
+                    paragraph.style.color = "red";
+                    paragraph1.style.color = "red";
+                }else{
+                    paragraph.style.color = "currentColor";
+                    paragraph1.style.color = "currentColor";
+                }
+            }
+        }else{
+            jQuery.noConflict();
+            $('#ListingDetailModalListingMap').modal('toggle'); 
+            loginIn();
+        }
+    }
+    function sendRequestListingsDetailModalListingMap(index)
+    {
+        customer_id = '<?php echo $user_id; ?>';
+        size = document.getElementById("ListingArea").innerHTML;
+        price = document.getElementById("listingPrice").innerHTML;
+        
+        price = price.substring(2);
+        price = price.replace(',', '');
+        size = size.substring(0,size.length-3);
+        if(customer_id !== ""){
+            let data = {
+                "name": document.getElementById("inquiry_fname").value,
+                "date": moment(new Date()).format('YYYY-MM-DD'),
+                "customer_id": customer_id,
+                "inquiry_pnumber": document.getElementById("inquiry_pnumber").value,
+                "inquiry_emailid": document.getElementById("inquiry_emailid").value,
+                "description": document.getElementById("inquiry_message").value,
+                "listing_id": index,
+                "source_id":1,
+                "property_type_id":document.getElementById("property_type_id").value,
+                "minimum_budget" : price,
+                "minimum_size" : size,
+                "minimum_bedrooms" : document.getElementById("ListingBedrooms").innerHTML,
+                "minimum_bashrooms" : document.getElementById("ListingBath").innerHTML,
+            };
+            const url = "/api/salesrequest-addsalesrequest";
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', url, true);
+            xhr.setRequestHeader('Content-type', 'application/json');
+            xhr.send(JSON.stringify(data));
+            xhr.onload = function () {
+                data = JSON.parse(xhr.response);
+                if(data.hasOwnProperty("errors")){
+                    Object.keys(data.errors).forEach(function(key) {
+                        $("#addRequest_failure").html(data.errors[key][0]);
+                    })
+                    $( "#addRequest_failure" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
+                }else{
+                    result = JSON.parse(xhr.response);
+                    let data1 = {
+                        "sales_request_id": result.salesRequest.id,
+                        "listing_id": index,
+                    };
+                    console.log(data1);
+                    const url1 = "/api/salesrequest-addlisting";
+                    let xhr1 = new XMLHttpRequest();
+                    xhr1.open('POST', url1, true);
+                    xhr1.setRequestHeader('Content-type', 'application/json');
+                    xhr1.send(JSON.stringify(data1));
+                    xhr1.onload = function () {
+                        data1 = JSON.parse(xhr1.response);
+                        if(data1.hasOwnProperty("errors")){
+                            Object.keys(data1.errors).forEach(function(key) {
+                                $("#addRequest_failure").html(data1.errors[key][0]);
+                            })
+                            $( "#addRequest_failure" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
+                        }else{
+                            $( "#addRequest_success" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
+                        }
+                    }
+                }
+            }
+        }else{
+            jQuery.noConflict();
+            $('#ListingDetailModalListingMap').modal('hide');
+            loginIn();
+        }
     }
 </script>
