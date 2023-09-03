@@ -25,6 +25,8 @@
     
     <!-- LEAFLET MAP -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css">
+    <link href="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.1.0/esri-leaflet-geocoder.css" rel="stylesheet">
+    
     <!-- <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/leaflet.css">
     <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/leaflet-gesture-handling.min.css">
     <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/leaflet.markercluster.css">
@@ -120,16 +122,16 @@
 
     </script>
     <script>
-        var typed = new Typed('.typed', {
-            strings: ["House ^2000", "Apartment ^2000", "Plaza ^4000"],
-            smartBackspace: false,
-            loop: true,
-            showCursor: true,
-            cursorChar: "|",
-            typeSpeed: 50,
-            backSpeed: 30,
-            startDelay: 800
-        });
+        // var typed = new Typed('.typed', {
+        //     strings: ["House ^2000", "Apartment ^2000", "Plaza ^4000"],
+        //     smartBackspace: false,
+        //     loop: true,
+        //     showCursor: true,
+        //     cursorChar: "|",
+        //     typeSpeed: 50,
+        //     backSpeed: 30,
+        //     startDelay: 800
+        // });
 
     </script>
     <script>

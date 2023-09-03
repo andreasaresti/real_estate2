@@ -562,15 +562,6 @@ use App\Helpers\Helper;
 <script src="https://unpkg.com/esri-leaflet@2.2.3/dist/esri-leaflet.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/Falke-Design/L.Donut@latest/src/L.Donut.js"></script>
 
-<!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js" ></script>
-<script src="https://cdn.jsdelivr.net/leaflet/1.0.0-rc.1/leaflet-src.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/leaflet.esri/2.0.0/esri-leaflet.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.1.0/esri-leaflet-geocoder.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/leaflet.markercluster/1.0.0-beta.2.0/leaflet.markercluster.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/leaflet.markercluster/1.0.0-beta.2.0/leaflet.markercluster-src.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/gh/Falke-Design/L.Donut@latest/src/L.Donut.js"></script> -->
-
-
 <script type="text/javascript">
     
 
@@ -580,7 +571,7 @@ use App\Helpers\Helper;
     var circle;
     var viewCircleFlag = 0;
 
-    // var desktop = 1;
+    var desktop = 1;
 
     // var newScreenWidth = $(window).width();
 
@@ -1270,6 +1261,7 @@ use App\Helpers\Helper;
             document.getElementById("redrawCircleHeader3").style.display = "flex";
             document.getElementById("redrawCircleHeader3").style.background = "rgb(34, 150, 67)";
             document.getElementById("redrawCircleHeader3").style.color = "rgb(255, 255, 255)";
+            map_init_circle([],[0,0],0,9)
         }
     }
     function redrawCircleHeader3(){

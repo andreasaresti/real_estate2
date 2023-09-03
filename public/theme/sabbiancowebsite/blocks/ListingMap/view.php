@@ -33,6 +33,7 @@
     $active_property_types_response = Helper::get_active_property_types();       
     $active_property_types_response = json_decode($active_property_types_response);
 ?>
+<link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/jquery-ui.css<?php echo time(); ?>">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <div class="inner-pages homepage-4 agents hp-6 full hd-white">
     <section class="properties-right featured portfolio blog google-map-right mp-1">
@@ -281,21 +282,147 @@
         </div>
     </section>
 </div>
-
+<a data-toggle="modal" data-target=".ListingDetailModalListingMap" id="ListingDetailButtonListingMap"></a>
+<div class="modal fade bs-modal-sm ListingDetailModalListingMap" style="z-index:9999" id="ListingDetailModalListingMap" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="inner-pages sin-1 homepage-4 hd-white">
+        <section class="single-proper blog details">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-md-12 ">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <section class="headings-2 pt-0">
+                                    <div class="listing-title-bar">
+                                        <h3 id="listingName"></h3>
+                                        <div >
+                                            <h4 id="listingPrice"></h4>
+                                        </div>
+                                        <div class="mt-0" style="width: 95%; display: flex; justify-content: space-between;" id ="address_favorit">
+                                            
+                                        </div>
+                                    </div>
+                                </section>
+                                <!-- main slider carousel items -->
+                                <div id="listingDetailsSlider" class="carousel listing-details-sliders slide mb-30">
+                                    <h5 class="mb-4">Gallery</h5>
+                                    <div class="carousel-inner" id ="listingImg">
+                                    
+                                    </div>
+                                    <!-- main slider carousel nav controls -->
+                                    <ul class="carousel-indicators smail-listing list-inline" id ="listingULImg">
+                                        
+                                    </ul>
+                                    <!-- main slider carousel items -->
+                                </div>
+                                <div class="blog-info details mb-30">
+                                    <h5 class="mb-4">Description</h5>
+                                    <p class="mb-3" id="listingDescription"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single homes-content details mb-30">
+                            <!-- title -->
+                            <h5 class="mb-4">Property Details</h5>
+                            <ul class="homes-list clearfix">
+                                <li style="display:none">
+                                    <span class="font-weight-bold mr-1">Property ID:</span>
+                                    <span class="det"></span>
+                                </li>
+                                <li id="ListingPropertyTypeDiv">
+                                    <span class="font-weight-bold mr-1">Property Type:</span>
+                                    <span class="det" id="ListingPropertyType"></span>
+                                </li>
+                                <li id="ListingPropertyStatusDiv" style="display:none">
+                                    <span class="font-weight-bold mr-1">Property status:</span>
+                                    <span class="det" id="ListingPropertyStatus"></span>
+                                </li>
+                                <li id="ListingPropertyPriceDiv">
+                                    <span class="font-weight-bold mr-1">Property Price:</span>
+                                    <span class="det" id="ListingPropertyPrice"></span>
+                                </li>
+                                <li id="ListingAreaDiv">
+                                    <span class="font-weight-bold mr-1">Area:</span>
+                                    <span class="det" id="ListingArea"></span>
+                                </li>
+                                <li id="ListingBedroomsDiv">
+                                    <span class="font-weight-bold mr-1">Bedrooms:</span>
+                                    <span class="det" id="ListingBedrooms"></span>
+                                </li>
+                                <li id="ListingBathDiv">
+                                    <span class="font-weight-bold mr-1">Bath:</span>
+                                    <span class="det" id="ListingBath"></span>
+                                </li>
+                                <li id="ListingGaragesDiv">
+                                    <span class="font-weight-bold mr-1">Garages:</span>
+                                    <span class="det" id="ListingGarages"></span>
+                                </li>
+                                <li id="ListingYearBuiltDiv">
+                                    <span class="font-weight-bold mr-1">Year Built:</span>
+                                    <span class="det" id="ListingYearBuilt"></span>
+                                </li>
+                            </ul>
+                            <!-- title -->
+                            <h5 class="mt-5">Amenities</h5>
+                            <!-- cars List -->
+                            <ul class="homes-list clearfix" id="amenities">
+                            </ul>
+                        </div>
+                        <div class="floor-plan property wprt-image-video w50 pro" id="floorPlansDiv">
+                            <h5>Floor Plans</h5>
+                            <img alt="image" id="floorPlans" src="">
+                        </div>
+                        <div class="property-location map" style="height: 350px;">
+                            <h5>Location</h5>
+                            <div class="divider-fade"></div>
+                            <div id="map-leaflet" class="contact-map" style="height: 255px; width:685px"></div>
+                        </div>
+                    </div>
+                    <aside class="col-lg-4 col-md-12 car">
+                        <div class="single widget">
+                            <!-- end author-verified-badge $sales_people['name'] !== "" && -->
+                            <div class="sidebar">
+                                <div class="widget-boxed mt-33 mt-5">
+                                    <div class="widget-boxed-body">
+                                        <div class="sidebar-widget author-widget2">
+                                            <div class="alert-box success" id="addRequest_success">Submit Ok !!!</div>
+                                            <div class="alert-box failure" id="addRequest_failure">fail!!!</div>
+                                            <div class="agent-contact-form-sidebar">
+                                                <h4>Request Inquiry</h4>
+                                                <form name="contact_form">
+                                                    <input type="text" id="inquiry_fname" name="full_name" placeholder="Full Name" required />
+                                                    <input type="number" id="inquiry_pnumber" name="phone_number" placeholder="Phone Number" required />
+                                                    <input type="email" id="inquiry_emailid" name="email_address" placeholder="Email Address" required />
+                                                    <textarea placeholder="Message" id="inquiry_message" name="inquiry_message" required></textarea>
+                                                    <input type="hidden" id="property_type_id"/>
+                                                    <input type="button" onclick="sendRequestListingDetails();" name="sendmessage" class="multiple-send-message" value="Submit Request" />
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php //}?>                       
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+                <section class="similar-property featured portfolio p-0 bg-white-inner">
+                    <div class="container">
+                        <h5>Similar Properties</h5>
+                        <div class="row portfolio-items" id="SimilarListingsContent">
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </div>
+</div>
 
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
 <script src="https://unpkg.com/esri-leaflet@2.2.3/dist/esri-leaflet.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/Falke-Design/L.Donut@latest/src/L.Donut.js"></script>
-<!-- 
-<script src="https://cdn.jsdelivr.net/leaflet/1.0.0-rc.1/leaflet-src.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/leaflet.esri/2.0.0/esri-leaflet.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.1.0/esri-leaflet-geocoder.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/leaflet.markercluster/1.0.0-beta.2.0/leaflet.markercluster.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/leaflet.markercluster/1.0.0-beta.2.0/leaflet.markercluster-src.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/gh/Falke-Design/L.Donut@latest/src/L.Donut.js"></script>
- -->
+
 
 <script type="text/javascript">
     
@@ -645,7 +772,7 @@
                                 <div class="project-inner project-head">
                                     <div class="homes">
                                         <!-- homes img -->
-                                        <a href="/page/listing-details?index=`+list[i].id+`" class="homes-img">`;
+                                        <a onclick="showListigDetailModalListingMap(`+list[i].id+`);" class="homes-img">`;
                 if(list[i].featured == true){
                     temp +=`<div class="homes-tag button alt featured">Featured</div>`;
                 }
@@ -660,9 +787,9 @@
                                 <!-- homes content -->
                                 <div class="homes-content">
                                     <!-- homes address -->
-                                    <h3><a href="/page/listing-details?index=`+list[i].id+`">`+list[i].displayname+`</a></h3>
+                                    <h3><a onclick="showListigDetailModalListingMap(`+list[i].id+`);">`+list[i].displayname+`</a></h3>
                                     <p class="homes-address mb-3">
-                                        <a href="/page/listing-details?index=`+list[i].id+`">
+                                        <a onclick="showListigDetailModalListingMap(`+list[i].id+`);">
                                             <i class="fa fa-map-marker"></i><span>`+list[i].location_name+`</span>
                                         </a>
                                     </p>
@@ -695,7 +822,7 @@
                 temp +=` </ul>
                         <div class="price-properties pt-3 pb-0">
                             <h3 class="title mt-3">
-                                <a href="/page/listing-details?index=`+list[i].id+`" tabindex="0">€ `+ list[i].price+`</a>
+                                <a onclick="showListigDetailModalListingMap(`+list[i].id+`);" tabindex="0">€ `+ list[i].price+`</a>
                             </h3>
                             <div class="compare">
                                 <a style="cursor: pointer;" onclick="addFavoritListingMap(`+list[i].id+`)"><i id="faHeart`+list[i].id+`" class="fa fa-heart" style="font-size: x-large; ` + favorite + ` "></i></a>
@@ -842,7 +969,7 @@
             loginIn();
         }
     }
-   
+
     function map_init_circle(valueArray,maker_position,set,zoom){
         
         if ($('#map-leaflet').length) {
@@ -972,7 +1099,7 @@
             document.getElementById("redrawCircleListingMap").style.display = "flex";
             document.getElementById("redrawCircleListingMap").style.background = "rgb(34, 150, 67)";
             document.getElementById("redrawCircleListingMap").style.color = "rgb(255, 255, 255)";
-            
+            map_init_circle([],[0,0],0,9)
         }
     }
     function redrawCircleListingMap(){
@@ -991,5 +1118,9 @@
             document.getElementById("ListingListingMap").style.display = "none";
             document.getElementById("MapListingMap").style.display = "block";
         }
+    }
+    function showListigDetailModalListingMap(index){
+        console.log(index);
+        document.getElementById("ListingDetailButtonListingMap").click();
     }
 </script>
