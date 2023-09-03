@@ -84,7 +84,7 @@
         <?= $body ?>
     </div>
 
-<script src="/theme/sabbiancowebsite/assets/js/rangeSlider.js"></script>
+    <script src="/theme/sabbiancowebsite/assets/js/rangeSlider.js"></script>
     <script src="/theme/sabbiancowebsite/assets/js/tether.min.js"></script>
     <script src="/theme/sabbiancowebsite/assets/js/moment.js"></script>
     
@@ -119,7 +119,6 @@
         $(window).on('scroll load', function() {
             $("#header.cloned #logo img").attr("src", $('#header #logo img').attr('data-sticky-logo'));
         });
-
     </script>
     <script>
         // var typed = new Typed('.typed', {
