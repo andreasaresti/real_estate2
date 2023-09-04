@@ -1535,7 +1535,7 @@ em.mm-counter+a.mm-fullsubopen+span {
     #navigation.style-1 ul ul li {
         margin: 0;
         border-radius: 0;
-        left: 20px;
+        /* left: 20px; */
     }
 }
 .header-user-menu.user-menu.add {

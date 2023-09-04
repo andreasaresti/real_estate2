@@ -8426,9 +8426,9 @@ html input[disabled] {
     border-radius: 10px;
   }
 
-  .hp-6.mh .rld-main-search {
+  /* .hp-6.mh .rld-main-search {
     height: 360px !important;
-  }
+  } */
 
   .hp-6 .rld-single-input input {
     width: 100%;
@@ -19645,7 +19645,7 @@ select:focus {
 }
 @media screen and (max-width: 320px) {
   #logo img {
-    width: 55px;
+    width: 90px;
     margin-right: 35px;
   }
 }

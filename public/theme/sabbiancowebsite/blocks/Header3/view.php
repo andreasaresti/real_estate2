@@ -242,8 +242,8 @@ use App\Helpers\Helper;
                                                             <div class="rld-single-input">
                                                                 <input type="text" placeholder="PropertyID" autocomplete="off" id="search_string">
                                                             </div>
-                                                            <div class="rld-single-select" style="margin-bottom: 15px"  onmouseover="hiddenAdvancedDivHeader3();">
-                                                                <select class="select single-select"  id="property_type" style="max-width:100%; margin-right: 10px!important;">
+                                                            <div class="rld-single-input"   onmouseover="hiddenAdvancedDivHeader3();">
+                                                                <select class="single-select"  id="property_type" style="width:100%; margin-right: 10px!important;">
                                                                     <option value="">Sale/Rent</option>
                                                                     <?php 
                                                                     foreach($active_property_types_response->data as $property_type){
@@ -252,7 +252,7 @@ use App\Helpers\Helper;
                                                                     ?>
                                                                 </select>
                                                             </div>
-                                                            <div class="rld-single-select" style="margin-bottom: 15px; "  onmouseover="hiddenAdvancedDivHeader3();">
+                                                            <div class="rld-single-input"   onmouseover="hiddenAdvancedDivHeader3();">
                                                                 <input type="hidden" id="selActivePropertType" name="selActivePropertType" value="">
                                                                 <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: #ebebeb; max-width:100%">
                                                                     <ul>
@@ -260,7 +260,7 @@ use App\Helpers\Helper;
                                                                             <ul id="activePropertType">
                                                                                 <?php
                                                                                 foreach($active_listing_types_response->data as $listing_type){
-                                                                                    echo '<li><a><input type="checkbox" class="propertTypes" name="property_types[]" value="'.$listing_type->id.'" id="propertTypes'.$listing_type->id.'">'.$listing_type->displayname.'</a></li>';
+                                                                                    echo '<li><a><input type="checkbox" style="width: auto;height: auto;" class="propertTypes" name="property_types[]" value="'.$listing_type->id.'" id="propertTypes'.$listing_type->id.'">'.$listing_type->displayname.'</a></li>';
                                                                                 }
                                                                                 ?>
                                                                             
@@ -269,7 +269,7 @@ use App\Helpers\Helper;
                                                                     </ul>
                                                                 </nav>
                                                             </div>
-                                                            <div class="rld-single-select" style="margin-bottom: 15px" onmouseover="hiddenAdvancedDivHeader3();">
+                                                            <div class="rld-single-select" style="margin-bottom: 15px"  onmouseover="hiddenAdvancedDivHeader3();">
                                                                 <input type="hidden" id="selLocation" name="selLocation" value="">
                                                                 <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: #ebebeb;">
                                                                     <ul>
