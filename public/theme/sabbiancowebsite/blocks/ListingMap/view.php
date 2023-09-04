@@ -287,7 +287,7 @@
 <script type="text/javascript">
     
     var map = null;
-    var mapListingsDetail = null;
+    
     var circle;
     var viewCircleFlag = 0;
     // loadActiveFeaturesListingMap();

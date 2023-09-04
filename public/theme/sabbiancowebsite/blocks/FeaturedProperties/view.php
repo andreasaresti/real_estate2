@@ -24,7 +24,6 @@
     </div>
 </div>
 <script type="text/javascript">
-    var mapListingsDetail = null;
     // window.addEventListener("load", (event) => {
 		loadFeaturedListingsListFeaturedProperties();
         

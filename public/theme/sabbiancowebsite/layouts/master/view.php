@@ -376,6 +376,7 @@
     
     <!-- ListingDetailModal -->
     <script>
+        var mapListingsDetail = null;
         function showListigDetailModal(index){
             document.getElementById("ListingDetailButton").click();
             loadListingsDetailModal(index);

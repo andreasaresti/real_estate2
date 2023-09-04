@@ -991,7 +991,7 @@ use App\Helpers\Helper;
                                 <div class="project-inner project-head">
                                     <div class="homes">
                                         <!-- homes img -->
-                                        <a href="/page/listing-details?index=`+list[i].id+`" class="homes-img">`;
+                                        <a onclick="showListigDetailModal(`+list[i].id+`);" class="homes-img">`;
                 if(list[i].featured == true){
                     temp +=`<div class="homes-tag button alt featured">Featured</div>`;
                 }
@@ -1006,9 +1006,9 @@ use App\Helpers\Helper;
                                 <!-- homes content -->
                                 <div class="homes-content">
                                     <!-- homes address -->
-                                    <h3><a href="/page/listing-details?index=`+list[i].id+`">`+list[i].displayname+`</a></h3>
+                                    <h3><a onclick="showListigDetailModal(`+list[i].id+`);">`+list[i].displayname+`</a></h3>
                                     <p class="homes-address mb-3">
-                                        <a href="/page/listing-details?index=`+list[i].id+`">
+                                        <a onclick="showListigDetailModal(`+list[i].id+`);">
                                             <i class="fa fa-map-marker"></i><span>`+list[i].location_name+`</span>
                                         </a>
                                     </p>
@@ -1041,7 +1041,7 @@ use App\Helpers\Helper;
                 temp +=` </ul>
                         <div class="price-properties pt-3 pb-0">
                             <h3 class="title mt-3">
-                                <a href="/page/listing-details?index=`+list[i].id+`" tabindex="0">€ `+ list[i].price+`</a>
+                                <a onclick="showListigDetailModal(`+list[i].id+`);" tabindex="0">€ `+ list[i].price+`</a>
                             </h3>
                             <div class="compare">
                                 <a style="cursor: pointer;" onclick="addFavoritHeader3(`+list[i].id+`)"><i id="faHeart`+list[i].id+`" class="fa fa-heart" style="font-size: x-large; ` + favorite + ` "></i></a>
@@ -1156,7 +1156,7 @@ use App\Helpers\Helper;
                 markerArray[value.id] = marker;
                 marker.bindPopup(
                     '<div class="listing-window-image-wrapper">' +
-                    '<a href="/' + value.link + '">' +
+                    '<a onclick="showListigDetailModal(' + value.id + ')">' +
                     '<div class="listing-window-image" style="background-image: url(' + value.image + ');"></div>' +
                     '<div class="listing-window-content">' +
                     '<div class="info">' +

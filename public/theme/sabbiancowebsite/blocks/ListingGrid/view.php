@@ -274,7 +274,6 @@
 </div>
 
 <script type="text/javascript">
-    var mapListingsDetail = null;
     // loadActiveFeaturesListingGrid();
     // loadActiveDistrictListingGrid();
     // loadActivePropertTypeListingGrid();

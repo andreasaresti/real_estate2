@@ -7823,7 +7823,7 @@ html input[disabled] {
 
 .hp-6 .dropdown-filter span {
   width: 180px !important;
-  padding: 15px 19px 15px 15px;
+  padding: 15px 18px 11px 5px;
   border-radius: 8px;
   line-height: 47px;
   margin: 0 15px 0 15px;
@@ -8018,7 +8018,7 @@ html input[disabled] {
 }
 @media screen and (max-width: 1024px) {
   .hp-6 .dropdown-filter span {
-    padding: 15px 15px 15px 15px;
+    padding: 15px 18px 11px 5px;
   }
 
   .hp-6 .rld-single-select.ml-22 {
@@ -8055,7 +8055,7 @@ html input[disabled] {
 }
 @media screen and (max-width: 575px) {
   .hp-6 .dropdown-filter {
-    width: 100% !important;
+    /* width: 100% !important; */
     margin-right: 0px;
   }
 
@@ -8356,6 +8356,7 @@ html input[disabled] {
   .hp-6 .rld-main-search .rld-single-select .single-select {
     width: 200px;
     margin-bottom: 15px!important;
+    margin-left: 10px!important;
   }
 
   .parallax-search .trip-search {
