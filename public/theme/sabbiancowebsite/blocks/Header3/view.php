@@ -84,15 +84,21 @@ use App\Helpers\Helper;
         color: #707070 !important;
     }
     #sideBar {
-    position: fixed;
-    display: block;
-    top: 50%;
-    left: 10px;
-    margin: -100px 0 0 0;
-    height: 200px;
-    display:none;
-    z-index:1000;
-}
+        position: fixed;
+        display: block;
+        top: 50%;
+        left: 10px;
+        margin: -100px 0 0 0;
+        height: 200px;
+        display:none;
+        z-index:1000;
+    }
+    @media only screen and (max-width: 450px){
+        .hp-6 .rld-single-select {
+            width: auto;
+        } 
+    }
+
 
 </style>
 <!-- <div id="sideBar">
@@ -237,7 +243,7 @@ use App\Helpers\Helper;
                                                                 <input type="text" placeholder="PropertyID" autocomplete="off" id="search_string">
                                                             </div>
                                                             <div class="rld-single-select" style="margin-bottom: 15px"  onmouseover="hiddenAdvancedDivHeader3();">
-                                                                <select class="select single-select"  id="property_type">
+                                                                <select class="select single-select"  id="property_type" style="max-width:100%; margin-right: 10px!important;">
                                                                     <option value="">Sale/Rent</option>
                                                                     <?php 
                                                                     foreach($active_property_types_response->data as $property_type){
@@ -246,9 +252,9 @@ use App\Helpers\Helper;
                                                                     ?>
                                                                 </select>
                                                             </div>
-                                                            <div class="rld-single-select" style="margin-bottom: 15px"  onmouseover="hiddenAdvancedDivHeader3();">
+                                                            <div class="rld-single-select" style="margin-bottom: 15px; "  onmouseover="hiddenAdvancedDivHeader3();">
                                                                 <input type="hidden" id="selActivePropertType" name="selActivePropertType" value="">
-                                                                <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: #ebebeb;">
+                                                                <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: #ebebeb; max-width:100%">
                                                                     <ul>
                                                                         <li ><a>Property Type</a>
                                                                             <ul id="activePropertType">
@@ -418,7 +424,7 @@ use App\Helpers\Helper;
         <section class="properties-right featured portfolio blog  mp-1">
             <div class="container-fluid">
                 <div class="row">
-                    <div id="MapHeader3" class="col-lg-6 col-md-6 mt-0 MobileHiddenMap">
+                    <div id="MapHeader3" class="col-lg-6 col-md-6 mt-0">
                         <div class="alert-box success" id="map_success" style="position: absolute;z-index: 9;width: 100%;margin-top: 80px;">Click on the map to select center and radius</div>
                         <div class="row" style="padding: 25px 0px 0px 0px;position: absolute;z-index: 9;width: 50%;left: 50%;">
                             <div class="col-xl-12 xsRow" style="display: flex;justify-content: flex-end;margin-right: 10px;">
@@ -815,10 +821,11 @@ use App\Helpers\Helper;
     function searchNowHeader3(maker_position,set,zoom){
         console.log(maker_position,set,zoom);
         $('#searchcontentdiv').css("display", "block");
-        document.getElementById('searchcontentdiv').scrollIntoView();
+        
         document.getElementById("page_index").value = 1;
         hiddenAdvancedDivHeader3();
         loadActiveListingsHeader3(maker_position,set,zoom);
+        showHideMapListingHeader3();
         
 	}
     function hiddenAdvancedDivHeader3(){
@@ -1263,6 +1270,7 @@ use App\Helpers\Helper;
     function redrawCircleHeader3(){
         $( "#map_success" ).fadeIn( 300 ).delay( 3000 ).fadeOut( 400 );
         viewCircleFlag = 1;
+        map_init_circle([],[0,0],0,9);
         document.getElementById("redrawCircleHeader3").style.background = "rgb(34, 150, 67)";
         document.getElementById("redrawCircleHeader3").style.color = "rgb(255, 255, 255)";
     }
