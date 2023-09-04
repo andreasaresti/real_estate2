@@ -725,7 +725,8 @@ use App\Helpers\Helper;
             data = JSON.parse(xhr.response);
             if(xhr.status == "201"){
                 $( "div.success" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
-                window.location.href="/page/profile";
+                window.location.reload();
+                //window.location.href="/page/profile";
             }else{
                 if( data.hasOwnProperty('errors')){
                     if( data.errors.hasOwnProperty('password')){
@@ -762,7 +763,7 @@ use App\Helpers\Helper;
             data = JSON.parse(xhr.response);
             if(xhr.status == "201"){
                 $( "div.signup_success" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
-                window.location.href="/page/profile";
+                window.location.reload();
             }else{
                 if( data.hasOwnProperty('errors')){
                     if( data.errors.hasOwnProperty('password')){
