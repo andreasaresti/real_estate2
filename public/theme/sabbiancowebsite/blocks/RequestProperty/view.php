@@ -334,7 +334,7 @@ if(isset($_SESSION["user_role"])){
 </div>
 <div class="modal fade bs-modal-sm signatureModal" id="addSignature" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm" style="margin-top: 200px;">
-        <div class="modal-content" style="width: 500px;">
+        <div class="modal-content" style="max-width:100%;width: 500px;">
             <div class="row justify-content-center">
                 <div class="col-md-10 text-center" style="margin: 40px 0px 40px 0px;">
                     <!-- <h3 class="h5">Date picker</h3>

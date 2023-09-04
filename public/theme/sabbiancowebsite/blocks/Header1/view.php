@@ -391,7 +391,7 @@ use App\Helpers\Helper;
 <a href="#signup"  data-toggle="modal" data-target=".log-sign" id="loginModal"></a>
 <div class="modal fade bs-modal-sm log-sign" style="z-index:9999" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm" style="margin-top: 200px;">
-        <div class="modal-content" style="width: 500px;">
+        <div class="modal-content" style="max-width:100%;width: 500px;">
             <div>
                 <div class="bs-example bs-example-tabs">
                     <ul id="myTab" class="nav nav-tabs">
