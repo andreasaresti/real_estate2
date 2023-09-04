@@ -172,7 +172,7 @@
             xhr.setRequestHeader('Content-type', 'application/json');
             xhr.send(JSON.stringify(sendData));
             xhr.onload = function () {
-                console.log(xhr.response);
+                
                 var paragraph = document.getElementById("faHeartPopularProperties"+index);
                 if(paragraph.style.color !== "red"){
                     paragraph.style.color = "red";

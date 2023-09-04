@@ -66,7 +66,13 @@
     <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
     <script src="https://unpkg.com/esri-leaflet@2.2.3/dist/esri-leaflet.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/Falke-Design/L.Donut@latest/src/L.Donut.js"></script>
+    <script src="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.1.0/esri-leaflet-geocoder.js" crossorigin="anonymous"></script>
 
+    <!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js" ></script>
+<script src="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/leaflet/1.0.0-rc.1/leaflet-src.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/leaflet.esri/2.0.0/esri-leaflet.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.1.0/esri-leaflet-geocoder.js" crossorigin="anonymous"></script> -->
 
     <style>
         .locationLi {
@@ -223,6 +229,85 @@
                             </div>
                         </section>
                     </div>
+            </div>
+        </div>
+    </div>
+    <a href="#signup"  data-toggle="modal" data-target=".log-sign" id="loginModal"></a>
+    <div class="modal fade bs-modal-sm log-sign" style="z-index:9999" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" style="margin-top: 200px;">
+            <div class="modal-content" style="max-width:100%;width: 500px;">
+                <div>
+                    <div class="bs-example bs-example-tabs">
+                        <ul id="myTab" class="nav nav-tabs">
+                            <li id="loginModalTab1" style="padding: 10px;" class=" tab-style login-shadow "><a href="#signin" id="loginModalTabButton" data-toggle="tab">Log In</a></li>
+                            <li id="loginModalTab2" style="padding: 10px;" class=" tab-style "><a href="#signup"  id="signupModalTabButton" data-toggle="tab">Sign Up</a></li>
+                        </ul>
+                    </div>
+                    <div class="modal-body">
+                        <div id="myTabContent" class="tab-content" style="margin-left: 20px; margin-right: 20px;">
+                        <div class="alert-box success" id="login_success">Login Ok !!!</div>
+                        <div class="alert-box failure" id="login_failure">fail!!!</div>
+                        <div class="tab-pane fade active in" id="signin">
+                            <!-- Sign In Form -->
+                            <!-- Text input-->
+                            <div class="group">
+                                <label for="date">Email address</label></div>        
+                                <input required="" id="login_email" class="loginModalInput" type="text"><span class="highlight"></span><span class="bar"></span>
+                            <!-- Password input-->
+                            <div class="group">
+                                <label for="date">Password</label>
+                                <input required="" id="login_password" class="loginModalInput" type="password"><span class="highlight"></span><span class="bar"></span>
+                            </div>
+                            <em>minimum 6 characters</em>
+
+                        <div class="forgot-link">
+                            <a href="#forgot" data-toggle="modal" data-target="#forgot-password"> I forgot my password</a>
+                            </div>
+                            <!-- Button -->
+                            <div class="control-group">
+                            <label class="control-label" for="signin"></label>
+                            <div class="controls" id="loginButtonContent" style="display: flex;justify-content: space-around;">
+                                <button onclick="modalLoginIn()" class="btn btn-primary btn-block">Log In</button>
+                            </div>
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="tab-pane fade" id="signup">
+                            <div class="alert-box success" id="signup_success">SignUp Ok !!!</div>
+                            <div class="alert-box failure" id="signup_failure">fail!!!</div>
+                            <!-- Sign Up Form -->
+                            <!-- Text input-->
+                            <div class="group">
+                                <label for="date">First Name</label></div>
+                                <input required="" id="SignFristName" class="loginModalInput" type="text"><span class="highlight"></span><span class="bar"></span>
+                            <!-- Text input-->
+                            <div class="group">
+                                <label for="date">Surname</label></div>
+                                <input required="" id="SignLastName" class="loginModalInput" type="text"><span class="highlight"></span><span class="bar"></span>
+                            <!-- Password input-->
+                            <div class="group">
+                                <label for="date">Email</label></div>
+                                <input required="" id="SignEmail" class="loginModalInput" type="text"><span class="highlight"></span><span class="bar"></span>
+                            <!-- Text input-->
+                            <div class="group">
+                                <label for="date">Password</label></div>
+                                <input required="" id="Signpassword1" class="loginModalInput" type="password"><span class="highlight"></span><span class="bar"></span>
+                            <div class="group">
+                                <label for="date">Confirm password</label></div>
+                                <input required=""  id="Signpassword2" class="loginModalInput" type="password"><span class="highlight"></span><span class="bar"></span>
+                            <em>1-8 Characters</em>
+                            
+                            <!-- Button -->
+                            <div class="control-group">
+                            <label class="control-label" for="confirmsignup"></label>
+                            <div class="controls" id="signButtonContent" style="display: flex;justify-content: space-around;">
+                                <button onclick="modalSignUp()" class="btn btn-primary btn-block">Sign Up</button>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -620,6 +705,114 @@
                 $('#ListingDetailModal').modal('hide');
                 loginIn();
             }
+        }
+        function loginIn()
+        {
+            document.getElementById("loginModal").click();
+            document.getElementById("loginModalTabButton").click();
+        }
+        function signUp()
+        {
+            document.getElementById("loginModal").click();
+            document.getElementById("signupModalTabButton").click();
+        }
+        function modalLoginIn()
+        {
+            let data = {
+                "email": document.getElementById("login_email").value,
+                "password": document.getElementById("login_password").value,
+            };
+            
+            const url = "/api/login-webuser";
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', url, true);
+            xhr.setRequestHeader('Content-type', 'application/json');
+            xhr.send(JSON.stringify(data));
+            xhr.onload = function () {
+                
+                data = JSON.parse(xhr.response);
+                if(xhr.status == "201"){
+                    $( "#login_success" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
+                    document.getElementById("loginButtonContent").innerHTML = `
+                                <button onclick="goBack()" class="btn btn-primary btn-block">Close</button>
+                                <button onclick="goMyAccount()" class="btn btn-primary btn-block" style>Go to my Account</button>`;
+                }else{
+                    if( data.hasOwnProperty('errors')){
+                        if( data.errors.hasOwnProperty('password')){
+                            $("#login_failure").html(data.errors.password);
+                        }
+                        if( data.errors.hasOwnProperty('email')){
+                            $("#login_failure").html(data.errors.email);
+                        }
+                    }
+                    if( data.hasOwnProperty('message')){
+                        $("#login_failure").html(data.message);
+                    }
+                    $( "div.failure" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
+                }
+            }
+        }
+        function modalSignUp()
+        {
+            let data = {
+                "name": document.getElementById("SignFristName").value,
+                "surname": document.getElementById("SignLastName").value,
+                "email": document.getElementById("SignEmail").value,
+                "password": document.getElementById("Signpassword1").value,
+                "confirm_password": document.getElementById("Signpassword2").value,
+            };
+            
+            const url = "/api/create-webuser";
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', url, true);
+            xhr.setRequestHeader('Content-type', 'application/json');
+            xhr.send(JSON.stringify(data));
+            xhr.onload = function () {
+                data = JSON.parse(xhr.response);
+                if(xhr.status == "201"){
+                    $( "div.signup_success" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
+                    document.getElementById("signButtonContent").innerHTML = `
+                                <button onclick="goBack()" class="btn btn-primary btn-block">Close</button>
+                                <button onclick="goMyAccount()" class="btn btn-primary btn-block" style>Go to my Account</button>`;
+                }else{
+                    if( data.hasOwnProperty('errors')){
+                        if( data.errors.hasOwnProperty('password')){
+                            $("#signup_failure").html(data.errors.password);
+                        }
+                        if( data.errors.hasOwnProperty('email')){
+                            $("#signup_failure").html(data.errors.email);
+                        }
+                    }
+                    if( data.hasOwnProperty('message')){
+                        $("#signup_failure").html(data.message);
+                    }
+                    $( "div.signup_failure" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
+                    // alert("Login Fail");
+                }
+            }
+        }
+        function signOut()
+        {
+            
+            const url = "/api/logout-webuser";
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', url, true);
+            xhr.setRequestHeader('Content-type', 'application/json');
+            xhr.send();
+            xhr.onload = function () {
+                if(xhr.status == "201"){
+                    //alert("LogOut Ok");
+                    window.location.href="/page/home";
+                }else{
+                    alert("LogOut Fail");
+                }
+            }
+        }
+        function goBack(){
+            window.location.reload();
+        }
+        function goMyAccount(){
+            window.location.href = "/page/profile";
         }
     </script>
 </body>

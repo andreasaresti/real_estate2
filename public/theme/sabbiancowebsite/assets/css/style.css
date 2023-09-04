@@ -80,9 +80,12 @@ background-color:#f2f2f2;
 	margin-top: 16px; 
 }
 
-.btn-block{margin-top:20px;
-margin-bottom:20px;
-font-size:18px;}
+.btn-block{
+	margin-top:20px!important;
+	margin-bottom:20px!important;
+	margin-left:10px!important;
+	font-size:18px;
+}
 
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {   background-color:#e5ecf4;
 color:#4a89dc;}
@@ -208,7 +211,10 @@ box-shadow: -5px 0px 6px 0px rgba(82,82,82,0.52);
 
 @media screen and (min-width: 768px) {
 	
-	#myModal .modal-dialog  {width:500px;}
+	#myModal .modal-dialog  {
+		width:500px;
+		max-width: 500px;
+	}
   
   #forgot-password .modal-dialog{width:500px;}
   

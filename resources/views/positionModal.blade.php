@@ -200,7 +200,7 @@
     xhr.setRequestHeader('Content-type', 'application/json');
     xhr.send(JSON.stringify(data));
     xhr.onload = function () {
-        console.log(xhr.response);    
+            
         if(xhr.response == "fail"){
             alert("Add Fail");
         }else{
