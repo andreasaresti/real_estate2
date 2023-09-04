@@ -303,6 +303,11 @@ a.button.border, a.button {
     color: #000;
     font-size: 16px;
 }
+.topMenu{
+    color: #000!important;
+    font-size: 16px!important;
+}
+
 #navigation.style-2.cloned .sticky-logo {
     display: inline-block;
     float: left;

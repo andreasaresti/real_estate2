@@ -95,7 +95,7 @@
                                     <div class="project-inner project-head">
                                         <div class="homes">
                                             <!-- homes img -->
-                                            <a href="/page/listing-details?index=`+list[i].id+`" class="homes-img" tabindex="0">`;
+                                            <a onclick="showListigDetailModal(`+list[i].id+`);" class="homes-img" tabindex="0">`;
                                     if(list[i].featured == 1){
                                         temp +=`<div class="homes-tag button alt featured">Featured</div>`;
                                     }
@@ -107,9 +107,9 @@
                                     <!-- homes content -->
                                     <div class="homes-content">
                                         <!-- homes address -->
-                                        <h3><a href="/page/listing-details?index=`+list[i].id+`" tabindex="0">`+list[i].displayname+`</a></h3>
+                                        <h3><a onclick="showListigDetailModal(`+list[i].id+`);" tabindex="0">`+list[i].displayname+`</a></h3>
                                         <p class="homes-address mb-3">
-                                            <a href="/page/listing-details?index=`+list[i].id+`" tabindex="0">
+                                            <a onclick="showListigDetailModal(`+list[i].id+`);" tabindex="0">
                                                 <i class="fa fa-map-marker"></i><span>`+list[i].location_name+`</span>
                                             </a>
                                         </p>
@@ -142,7 +142,7 @@
                                     temp +=`</ul>
                                         <div class="price-properties pt-3 pb-0">
                                             <h3 class="title mt-3">
-                                                <a href="/page/listing-details?index=`+list[i].id+`" tabindex="0">€ `+ list[i].price+`</a>
+                                                <a onclick="showListigDetailModal(`+list[i].id+`);" tabindex="0">€ `+ list[i].price+`</a>
                                             </h3>
                                             <div class="compare">
                                                 <a style="cursor: pointer;" onclick="addFavoritPopularProperties(`+list[i].id+`)"><i id="faHeartPopularProperties`+list[i].id+`" class="fa fa-heart" style="font-size: x-large; ` + favorite + ` "></i></a>

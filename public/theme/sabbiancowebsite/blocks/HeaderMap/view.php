@@ -98,11 +98,11 @@ use App\Helpers\Helper;
                                                 $sub_children_menu[] = $submenu; 
                                             }
                                         }
-                                        echo '<li><a href="'.$menu->value.'">'.$menu->name.'</a>';
+                                        echo '<li><a class="topMenu" href="'.$menu->value.'">'.$menu->name.'</a>';
                                         if(count($sub_children_menu) > 0){
                                             echo '<ul>';
                                             foreach($sub_children_menu as $submenu){
-                                                echo '<li><a href="'.$submenu->value.'">'.$submenu->name.'</a></li>';
+                                                echo '<li><a  class="topMenu" href="'.$submenu->value.'">'.$submenu->name.'</a></li>';
                                             }
                                             echo '</ul>';
                                         }
@@ -124,7 +124,7 @@ use App\Helpers\Helper;
                     </div>
                     <?php if($email != ''){?>
                     <div class="header-user-menu user-menu add">
-                        <div class=" header-user-name">
+                        <div class="header-user-name">
                             <!-- <a href="/page/profile">topMenu -->
                             
                             Hi, <?php echo $name; ?>
@@ -167,10 +167,10 @@ use App\Helpers\Helper;
                     <div class="right-side d-none d-none d-lg-none d-xl-flex sign ml-0">
                         <!-- Header Widget -->
                         <div class="header-widget sign-in">
-                            <div class="show-reg-form" ><a style="cursor: pointer;" onclick="loginIn()">Sign In</a></div>
+                            <div class="show-reg-form" ><a class="topMenu" style="cursor: pointer;" onclick="loginIn()">Sign In</a></div>
                         </div>
                         <div class="header-widget sign-in">
-                            <div class="show-reg-form" ><a style="cursor: pointer;" onclick="signUp()">Sign Up</a></div>
+                            <div class="show-reg-form" ><a class="topMenu" style="cursor: pointer;" onclick="signUp()">Sign Up</a></div>
                         </div>
                         <!-- Header Widget / End -->
                     </div>
@@ -412,20 +412,13 @@ use App\Helpers\Helper;
         </div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-2.2.4.min.js" ></script>
-<script src="https://cdn.jsdelivr.net/leaflet/1.0.0-rc.1/leaflet-src.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/leaflet.esri/2.0.0/esri-leaflet.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.1.0/esri-leaflet-geocoder.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/leaflet.markercluster/1.0.0-beta.2.0/leaflet.markercluster.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/leaflet.markercluster/1.0.0-beta.2.0/leaflet.markercluster-src.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/gh/Falke-Design/L.Donut@latest/src/L.Donut.js"></script>
+
 <script type="text/javascript">
     var map = null;
     var circle;
     var curLocation = [0,0];
     var viewCircleFlag = 0;
     var page_index = 0;
-
 
 	// window.addEventListener("load", (event) => {
         // loadMenuHeaderMap();

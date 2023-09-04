@@ -300,13 +300,7 @@
     </div>
 </section>
 </div>
-    
-<script src="https://code.jquery.com/jquery-2.2.4.min.js" ></script>
-<script src="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/leaflet/1.0.0-rc.1/leaflet-src.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/leaflet.esri/2.0.0/esri-leaflet.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.1.0/esri-leaflet-geocoder.js" crossorigin="anonymous"></script>
-    
+       
 <script type="text/javascript">
     loadActiveFeaturesAddProperty();
     loadActiveDistrictAddProperty();
@@ -611,37 +605,37 @@
         // var curLocation = [@Model.Location.addPropertyLatitude, @Model.Location.addPropertyLongitude];
     
         if (curLocation[0] == 0 && curLocation[1] == 0) {
-            curLocation = [5.9714, 116.0953];
+            curLocation = [35.1264, 33.4299];
         }
     
-        var map = L.map('MapLocation').setView(curLocation, 12);
+        var map = L.map('MapLocation').setView(curLocation, 9);
     
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
     
         map.attributionControl.setPrefix(false);
+               
+        // var arcgisOnline = L.esri.Geocoding.arcgisOnlineProvider();
     
-        var arcgisOnline = L.esri.Geocoding.arcgisOnlineProvider();
+        // var searchControl = L.esri.Geocoding.geosearch({
+        //     providers: [arcgisOnline]
+        // }).addTo(map);
     
-        var searchControl = L.esri.Geocoding.geosearch({
-        providers: [arcgisOnline]
-        }).addTo(map);
+        // searchControl.on('results', function(data){
+        //     $("#address").val(data.text);
+        //     $("#addPropertyLatitude").val(data.latlng.lat);
+        //     $("#addPropertyLongitude").val(data.latlng.lng);
+        //     marker.setLatLng(data.latlng, {
+        //         draggable: 'true'
+        //     }).bindPopup(data.latlng).update();
     
-        searchControl.on('results', function(data){
-            $("#address").val(data.text);
-            $("#addPropertyLatitude").val(data.latlng.lat);
-            $("#addPropertyLongitude").val(data.latlng.lng);
-            marker.setLatLng(data.latlng, {
-                draggable: 'true'
-            }).bindPopup(data.latlng).update();
-    
-        // console.log(data);
-        // results.clearLayers();
-        // for (var i = data.results.length - 1; i >= 0; i--) {
-        //   results.addLayer(L.marker(data.results[i].latlng));
-        // }
-        });
+        // // console.log(data);
+        // // results.clearLayers();
+        // // for (var i = data.results.length - 1; i >= 0; i--) {
+        // //   results.addLayer(L.marker(data.results[i].latlng));
+        // // }
+        // });
     
         var marker = new L.marker(curLocation, {
             draggable: 'true'
