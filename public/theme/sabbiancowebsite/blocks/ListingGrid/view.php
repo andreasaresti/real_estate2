@@ -253,7 +253,7 @@
                                 <option value="3">Price(high to low)</option>
                             </select>
                         </div>
-                        <div class="sorting-options" style="width: 100px;">
+                        <div class="sorting-options" style="width: 100px;display: flex;">
                             <a onclick="changeViewModeListingGrid('list');" id="view_mode1" class="change-view-btn lde"><i class="fa fa-th-list"></i></a>
                             <a onclick="changeViewModeListingGrid('grid');" id="view_mode2"  class="change-view-btn active-view-btn"><i class="fa fa-th-large"></i></a>
                         </div>

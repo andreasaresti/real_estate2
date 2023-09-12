@@ -72,46 +72,51 @@ if(isset($_SESSION["user_role"])){
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-12 col-xs-12 pl-0 user-dash2" style="display: flex;justify-content: center;">
-                    <div class="widget-boxed" style="width: 650px;margin-bottom: 20px;">
+                    <div class="widget-boxed Profile-width">
                         <div class="widget-boxed-header">
                             <h4>Profile Details</h4>
                         </div>
                         <div class="sidebar-widget author-widget2">
                             
-                            <ul class="author__contact" style="margin-left: 40px; margin-top:50px">
+                            <ul class="author-contact">
                                 <li style="margin-bottom: 20px;display: flex;justify-content: space-between;align-items: center;">
-                                    Name:<input style="width: 430px" type="text" id="up_name"    />
+                                    Name: <input style="width: 80%" type="text" id="up_name"    />
                                 </li>
                                 <li style="margin-bottom: 20px;display: flex;justify-content: space-between;align-items: center;">
-                                    Surname:<input style="width: 430px" type="text" id="up_surname"   />
+                                    Surname: <input style="width: 80%" type="text" id="up_surname"   />
                                 </li>
                                 <li style="margin-bottom: 20px;display: flex;justify-content: space-between;align-items: center;">
-                                    Company Name:&nbsp; <input style="width: 430px" type="text" id="up_company_name"   />
+                                    Company Name: <input style="width: 80%" type="text" id="up_company_name"   />
                                 </li>
-                                <li style="display: flex;">
-                                    Country:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <select id="up_country" style="display: block;width: 452px;height: 40px;">
+                                <li style="display: flex;justify-content: space-between;margin-bottom: 18px;">
+                                    Country:
+                                    <select id="up_country" style="display: block;width: 80%;height: 40px;">
                                     </select>
                                 </li>
                                 <li style="display: flex;">
-                                    District:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <input style="width:170px;height: 30px;" type="text" id="up_district"    />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    City:&nbsp; <input style="width:190px;height: 30px;" type="text" id="up_city"    />
+                                    <div class="row" style="width:100%;margin: 0px;">
+                                        <div class="col-lg-6 col-md-12 col-xs-12 pl-0" style="margin-bottom: 18px; display: flex;justify-content: space-between;align-items: center;">
+                                            District: <input style="width:60%;height: 40px;" type="text" id="up_district"/>
+                                        </div>
+                                        <div class="col-lg-6 col-md-12 col-xs-12 pl-0" style="margin-bottom: 18px; display: flex;justify-content: space-between;align-items: center;">
+                                            City: <input style="width:60%;height: 40px;" type="text" id="up_city"/>
+                                        </div>
+                                    </div>
                                 </li>
                                 <!-- <li style="margin-bottom: 20px;display: flex;justify-content: space-between;">
-                                    Postal Code:&nbsp; <input style="width: 430px" type="text" id="up_postal_code"   />
+                                    Postal Code:&nbsp; <input style="width: 80%" type="text" id="up_postal_code"   />
                                 </li> -->
                                 <li style="margin-bottom: 20px;display: flex;justify-content: space-between;align-items: center;">
-                                    Mobile: <input style="width: 430px" type="text" id="up_mobile"   />
+                                    Mobile: <input style="width: 80%" type="text" id="up_mobile"   />
                                 </li>
                                 <li style="margin-bottom: 20px;display: flex;justify-content: space-between;align-items: center;">
-                                    Phone: <input style="width: 430px" type="text" id="up_phone"  />
+                                    Phone: <input style="width: 80%" type="text" id="up_phone"  />
                                 </li>
                                 <li style="margin-bottom: 20px;display: flex;justify-content: space-between;align-items: center;">
-                                    Email: <input style="width: 430px" type="text" id="up_email"  />
+                                    Email: <input style="width: 80%" type="text" id="up_email"  />
                                 </li>
                                 <li style="margin-bottom: 20px;display: flex;justify-content: space-between;align-items: center;">
-                                    Note: <textarea style="width: 430px"  id="up_notes"  ></textarea>
+                                    Note: <textarea style="width: 80%"  id="up_notes"  ></textarea>
                                 </li>
                             </ul>
                             <div class="alert-box success" id="profileDetail_success">Update Ok !!!</div>

@@ -105,7 +105,7 @@
     </div>
     <a data-toggle="modal" data-target=".ListingDetailModal" id="ListingDetailButton"></a>
     <div class="modal fade bs-modal-sm ListingDetailModal" style="z-index: 9999;" id="ListingDetailModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm" style="max-width: 80%;">
+        <div class="modal-dialog modal-sm modal-width" >
             <div class="modal-content" style="padding: 20px 5px 15px 5px;display: flex;align-items: center;justify-content: center;background: #f5f7fb;">
                     <div class="inner-pages sin-1 homepage-4 hd-white" style="width: 100%;height: 90vh;overflow: auto;">
                         <section class="single-proper blog details" style="padding: 43px 0px 10px 16px  !important;">
@@ -544,7 +544,7 @@
                 document.getElementById("property_type_id").value = data.property_type_id;
                 var temp ="";
                 for(i=0;i<data.features.length;i++){
-                temp += `<li style="margin-left: 50px;width:40%">
+                temp += `<li class="Amenities-width">
                             <input type="checkbox" checked><span>`+data.features[i]+`</span>
                         </li>`;
                 }

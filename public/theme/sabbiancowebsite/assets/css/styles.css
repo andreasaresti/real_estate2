@@ -25050,7 +25050,37 @@ section.ui-element {
 .MobileHiddenMap{
   display: block;
 }
+.modal-width{
+  max-width: 80%;
+}
+.Amenities-width{
+  margin-left: 40px;
+  width:40%;
+}
+.Profile-width{
+  width: 650px;
+  margin-bottom: 20px;
+}
+.author-contact{
+  margin-left: 40px!important; 
+  margin-top:50px!important;
+}
 @media screen and (max-width: 767px) {
+  .author-contact{
+    margin-left: 10px!important; 
+    margin-top: 50px!important;
+  }
+  .Profile-width{
+    width: 80%;
+    margin-bottom: 20px;
+  }
+  .Amenities-width{
+    margin-left: 20px;
+    width:100%;
+  }
+  .modal-width{
+    max-width: 100%;
+  }
   .ViewListMap{
     position: fixed;
     z-index: 2;

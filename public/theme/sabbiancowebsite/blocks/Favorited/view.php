@@ -72,7 +72,7 @@ if(isset($_SESSION["user_role"])){
             </div>
             <div class="col-lg-9 col-md-12 col-xs-12 pl-0 user-dash2">
                 <div class="container">
-                    <div class="row" id="ListingListContent">
+                    <div class="row" id="ListingListContent" style="display: flex;justify-content: center;">
             
                     </div>
                     <nav aria-label="..." class="pt-3" style="display: flex;justify-content: center;">
