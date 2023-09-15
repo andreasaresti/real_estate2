@@ -847,7 +847,7 @@
                 var temp ="";
                 for(i=0;i<data.features.length;i++){
                 temp += `<li style="display: flex;width:100%;align-items: center;">
-                            <input type="checkbox" checked>&nbsp;<span>`+data.features[i]+`</span>
+                            <img style="height: 15px;" src="/theme/sabbiancowebsite/assets/images/checkbox.png">&nbsp;<span>`+data.features[i]+`</span>
                         </li>`;
                 }
                 document.getElementById("amenities").innerHTML = temp;
