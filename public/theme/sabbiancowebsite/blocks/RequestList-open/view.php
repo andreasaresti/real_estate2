@@ -11,8 +11,85 @@ if(isset($_SESSION["user_role"])){
  }
 ?>
 <style>
-    table tbody tr td {
-        border: none;
+    table {
+        border: 0px solid #ccc;
+        border-collapse: collapse;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    table caption {
+        font-size: 1.5em;
+        margin: .5em 0 .75em;
+    }
+
+    table tr {
+        background-color: #f8f8f8;
+        border: 0px solid #ddd;
+        padding: .35em;
+    }
+
+    table th,
+    table td {
+        padding: .625em;
+        text-align: center;
+    }
+
+    table th {
+        font-size: .85em;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+    }
+
+    @media screen and (max-width: 600px) {
+        table {
+            border: 0;
+        }
+
+        table caption {
+            font-size: 1.3em;
+        }
+        
+        table thead {
+            border: none;
+            clip: rect(0 0 0 0);
+            height: 1px;
+            margin: -1px;
+            overflow: hidden;
+            padding: 0;
+            position: absolute;
+            width: 1px;
+        }
+        
+        table tr {
+            border-bottom: 3px solid #ddd;
+            display: block;
+            margin-bottom: .625em;
+        }
+        
+        table td {
+            border-bottom: 1px solid #ddd;
+            display: block;
+            font-size: .8em;
+            text-align: right;
+        }
+        
+        table td::before {
+            /*
+            * aria-label has no advantage, it won't be read inside a table
+            content: attr(aria-label);
+            */
+            content: attr(data-label);
+            float: left;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        table td:last-child {
+            border-bottom: 0;
+        }
     }
 </style>
 <div class="inner-pages homepage-4 agents hp-6 full hd-white">
@@ -125,11 +202,11 @@ if(isset($_SESSION["user_role"])){
             var temp ="";
             for(i=0;i<list.length;i++){
                 temp +=`<tr>
-                        <td>` + (i+1) +`</td>
-                        <td>`+ list[i].name + `</td>
-                        <td>`+ (new Date(list[i].date)).toISOString().slice(0, 10) +`</td>
-                        <td>`+list[i].customer_id +`</td>
-                        <td>`+list[i].source_id +`</td>`;
+                        <td data-label="No">` + (i+1) +`</td>
+                        <td data-label="Name">`+ list[i].name + `</td>
+                        <td data-label="Date">`+ (new Date(list[i].date)).toISOString().slice(0, 10)  +`</td>
+                        <td data-label="customer_id">`+list[i].customer_id +`</td>
+                        <td data-label="source_id">`+list[i].source_id +`</td>`;
                 temp += `<td><a style="color:white;" class="btn btn-secondary" onclick="requestViewRequestListOpen(`+list[i].id+`)"> view </a></td>`;
                 temp += `</tr>`;
             }

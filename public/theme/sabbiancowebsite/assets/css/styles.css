@@ -25065,7 +25065,25 @@ section.ui-element {
   margin-left: 40px!important; 
   margin-top:50px!important;
 }
+.signature-width{
+  width: 500px;
+  background: white;
+  /* max-width:100%; */
+}
+.listings-display{
+  display: grid!important;
+  background:white;
+}
 @media screen and (max-width: 767px) {
+  .listings-display{
+    display: flex!important;
+    background:white;
+  }
+  .signature-width{
+    width: 100%;
+    background: white;
+    /* max-width:100%; */
+  }
   .author-contact{
     margin-left: 10px!important; 
     margin-top: 50px!important;

@@ -53,7 +53,7 @@
     <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/style.css?<?php echo time(); ?>">
     <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/maps.css?<?php echo time(); ?>">
     <link rel="stylesheet" id="color" href="/theme/sabbiancowebsite/assets/css/colors/pink.css?<?php echo time(); ?>">
-    
+    <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/listingdetail.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
@@ -67,13 +67,13 @@
     <script src="https://unpkg.com/esri-leaflet@2.2.3/dist/esri-leaflet.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/Falke-Design/L.Donut@latest/src/L.Donut.js"></script>
     <script src="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.1.0/esri-leaflet-geocoder.js" crossorigin="anonymous"></script>
-
+    
     <!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js" ></script>
 <script src="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/leaflet/1.0.0-rc.1/leaflet-src.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/leaflet.esri/2.0.0/esri-leaflet.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.1.0/esri-leaflet-geocoder.js" crossorigin="anonymous"></script> -->
-
+    
     <style>
         .locationLi {
             position: static!important;
@@ -98,6 +98,99 @@
             }
         }
     </style>
+    <style>
+        section#slider .scroll-wrapper {
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        section#slider ul {
+            padding: 0;
+            width: max-content;
+                margin-right: 0;
+            margin-left: 0;
+            margin-bottom: 0;
+        }
+
+        section#slider li.slider {
+            display: inline-block;
+            position: relative;
+            /* width: 24.6vw; */
+        }
+
+        section#slider li.slider img {
+            margin: 5px 10px 0 0;
+            display: block;
+            height: auto;
+            max-width: 100%;
+        }
+
+        section#slider span.slider-name, span.slider-title {
+            display: block;
+            position: absolute;
+            color: #fff;
+            left: 2vw;
+        }
+
+        section#slider span.slider-name {
+            font-weight: 900;
+            bottom: 4vw;
+            font-size: 1.5vw;
+        }
+
+        section#slider span.slider-title {
+            font-weight: 100;
+            bottom: 2.5vw;
+            font-size: 1.3vw;
+        }
+
+        section#slider .more-slider {
+            padding: 1vh 5% 0;
+        }
+
+        section#slider .more-slider h4 {
+            font-family: 'Playfair Display', serif;
+            color: #5896b0;
+            font-weight: 500;
+            font-size: 3vw;
+            padding: 35px 0 25px 0px;
+            margin-bottom: 0;
+            margin-top: 8px;
+        }
+
+        section#slider .more-slider p {
+                padding-bottom: 2vh;
+        }
+
+        section#slider .slide-controls {
+            color: #5896b0;
+            font-weight: 300;
+        }
+
+        section#slider .slide-controls span.slider-previous {
+            margin-right: 75px;
+        }
+
+        section#slider .slide-controls i {
+            font-size: 26px;
+        }
+
+        section#slider .more-slider a.button {
+            border: 1px solid #5896b0;
+            max-width: 200px;
+            color: #5896b0;
+            margin-top: 1vw;
+        }
+
+        section#slider .more-slider a.button:hover {
+            color: #fff;
+        }
+
+        section#slider .more-slider a.button:before {
+            background: #5896b0;
+        }
+
+    </style>
 </head>
 <body style="overflow-x: hidden;">
     <div id="wrapper">
@@ -107,128 +200,304 @@
     <div class="modal fade bs-modal-sm ListingDetailModal" style="z-index: 9999;" id="ListingDetailModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm modal-width" >
             <div class="modal-content" style="padding: 20px 5px 15px 5px;display: flex;align-items: center;justify-content: center;background: #f5f7fb;">
-                    <div class="inner-pages sin-1 homepage-4 hd-white" style="width: 100%;height: 90vh;overflow: auto;">
-                        <section class="single-proper blog details" style="padding: 43px 0px 10px 16px  !important;">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-lg-8 col-md-12 ">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <section class="headings-2 pt-0">
-                                                    <div class="listing-title-bar">
-                                                        <h3 id="listingName"></h3>
-                                                        <div >
-                                                            <h4 id="listingPrice"></h4>
+                <div id="search-detail-lightbox" class="home-detail-lightbox">
+                    <div id="details-page-container" class="detail-page details-page-container active-view react">
+                        <div id="detail-container-column" class="active-hdp-col yui3-app-views">
+                            <div class="active-view preload-lightbox">
+                                <div id="__next">
+                                    <div data-test="hdp-for-sale-page-content">
+                                        <div class="hdp__sc-9dqr3g-0 gDrWtP ds-wrapper fs-package">
+                                            <div class="hdp__sc-9dqr3g-1 KyLea ds-container">
+                                                <div class="layout-wrapper" style="height: auto;">
+                                                    <div class="layout-container " style="height: 100vh;">
+                                                        <div class="media-column-container">
+                                                            <div data-renderstrat="inline">
+                                                                <div>
+                                                                    <div>
+                                                                        <div class="hdp__sc-ys97yr-0 dsOsCK">
+                                                                            <div data-media-col="true">
+                                                                                <ul class="hdp__sc-1wi9vqt-0 dDzspE ds-media-col media-stream" id="listingImg">
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="hdp__sc-ys97yr-1 byRSqe" style="margin-top: 59px;">
+                                                                            <button class="StyledTextButton-c11n-8-84-3__sc-n1gfmh-0 kvwmII dpf__sc-bfl6r0-0 gvIJFU">Skip to end of photos</button>
+                                                                            <div data-integration-test-id="photo-carousel" class="dpf__sc-1dbq79x-0 ihMmzv">
+                                                                                <div class="sc-gGvHcT hUYMgw dpf__sc-1ezqz18-0 brZwag">
+                                                                                    <button id="slider-previous" tabindex="-1" aria-label="Previous set of items" type="button" class="UnstyledButton-c11n-8-84-3__sc-13jpj60-0 ghQDHZ">
+                                                                                        <svg viewBox="0 0 32 32" class="Icon-c11n-8-84-3__sc-13llmml-0 eFSKjO IconChevronLeft-c11n-8-84-3__sc-ddr5cu-0 fXPeRZ" aria-hidden="true" focusable="false" role="img">
+                                                                                            <title>Chevron Left</title>
+                                                                                            <path stroke="none" d="M29.41 8.59a2 2 0 00-2.83 0L16 19.17 5.41 8.59a2 2 0 00-2.83 2.83l12 12a2 2 0 002.82 0l12-12a2 2 0 00.01-2.83z">
+                                                                                            </path>
+                                                                                        </svg>
+                                                                                    </button>
+                                                                                    <section id="slider" class="row" style="height: 100%;">
+                                                                                        <div class="scroll-wrapper" >
+                                                                                            <ul class="row" id="listingImgMobile" style="height: 100%;">
+                                                                                            </ul>
+                                                                                        </div>
+                                                                                    </section>
+                                                                                    <button id="slider-next" tabindex="-1" aria-label="Next set of items" type="button" class="UnstyledButton-c11n-8-84-3__sc-13jpj60-0 ghQDHZ">
+                                                                                        <svg viewBox="0 0 32 32" class="Icon-c11n-8-84-3__sc-13llmml-0 eFSKjO IconChevronRight-c11n-8-84-3__sc-19mpgrq-0 dUtfpm" aria-hidden="true" focusable="false" role="img">
+                                                                                            <title>Chevron Right</title>
+                                                                                            <path stroke="none" d="M29.41 8.59a2 2 0 00-2.83 0L16 19.17 5.41 8.59a2 2 0 00-2.83 2.83l12 12a2 2 0 002.82 0l12-12a2 2 0 00.01-2.83z"></path>
+                                                                                        </svg>
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
+                                                                            <button class="StyledTextButton-c11n-8-84-3__sc-n1gfmh-0 kvwmII dpf__sc-bfl6r0-0 gvIJFU">Skip to beginning of photos</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="mt-0" style="width: 95%; display: flex; justify-content: space-between;" id ="address_favorit">
-                                                            
-                                                        </div>
-                                                    </div>
-                                                </section>
-                                                <!-- main slider carousel items -->
-                                                <div id="listingDetailsSlider" class="carousel listing-details-sliders slide mb-30">
-                                                    <h5 class="mb-4">Gallery</h5>
-                                                    <div class="carousel-inner" id ="listingImg">
-                                                    
-                                                    </div>
-                                                    <!-- main slider carousel nav controls -->
-                                                    <ul class="carousel-indicators smail-listing list-inline" id ="listingULImg">
-                                                        
-                                                    </ul>
-                                                    <!-- main slider carousel items -->
-                                                </div>
-                                                <div class="blog-info details mb-30">
-                                                    <h5 class="mb-4">Description</h5>
-                                                    <p class="mb-3" id="listingDescription"></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="single homes-content details mb-30">
-                                            <!-- title -->
-                                            <h5 class="mb-4">Property Details</h5>
-                                            <ul class="homes-list clearfix">
-                                                <li style="display:none">
-                                                    <span class="font-weight-bold mr-1">Property ID:</span>
-                                                    <span class="det"></span>
-                                                </li>
-                                                <li id="ListingPropertyTypeDiv">
-                                                    <span class="font-weight-bold mr-1">Property Type:</span>
-                                                    <span class="det" id="ListingPropertyType"></span>
-                                                </li>
-                                                <li id="ListingPropertyStatusDiv" style="display:none">
-                                                    <span class="font-weight-bold mr-1">Property status:</span>
-                                                    <span class="det" id="ListingPropertyStatus"></span>
-                                                </li>
-                                                <li id="ListingPropertyPriceDiv">
-                                                    <span class="font-weight-bold mr-1">Property Price:</span>
-                                                    <span class="det" id="ListingPropertyPrice"></span>
-                                                </li>
-                                                <li id="ListingAreaDiv">
-                                                    <span class="font-weight-bold mr-1">Area:</span>
-                                                    <span class="det" id="ListingArea"></span>
-                                                </li>
-                                                <li id="ListingBedroomsDiv">
-                                                    <span class="font-weight-bold mr-1">Bedrooms:</span>
-                                                    <span class="det" id="ListingBedrooms"></span>
-                                                </li>
-                                                <li id="ListingBathDiv">
-                                                    <span class="font-weight-bold mr-1">Bath:</span>
-                                                    <span class="det" id="ListingBath"></span>
-                                                </li>
-                                                <li id="ListingGaragesDiv">
-                                                    <span class="font-weight-bold mr-1">Garages:</span>
-                                                    <span class="det" id="ListingGarages"></span>
-                                                </li>
-                                                <li id="ListingYearBuiltDiv">
-                                                    <span class="font-weight-bold mr-1">Year Built:</span>
-                                                    <span class="det" id="ListingYearBuilt"></span>
-                                                </li>
-                                            </ul>
-                                            <!-- title -->
-                                            <h5 class="mt-5">Amenities</h5>
-                                            <!-- cars List -->
-                                            <ul class="homes-list clearfix" id="amenities">
-                                            </ul>
-                                        </div>
-                                        <div class="floor-plan property wprt-image-video w50 pro" id="floorPlansDiv">
-                                            <h5>Floor Plans</h5>
-                                            <img alt="image" id="floorPlans" src="">
-                                        </div>
-                                        <div class="property-location map" style="height: 350px;">
-                                            <h5>Location</h5>
-                                            <div class="divider-fade"></div>
-                                            <div id="map-leaflet-listingsDetail" class="contact-map" style="height: 255px; "></div>
-                                        </div>
-                                    </div>
-                                    <aside class="col-lg-4 col-md-12 car">
-                                        <div class="single widget">
-                                            <div class="sidebar">
-                                                <div class="widget-boxed mt-33 mt-5">
-                                                    <div class="widget-boxed-body">
-                                                        <div class="sidebar-widget author-widget2">
-                                                            <div class="alert-box success" id="addRequest_success">Submit Ok !!!</div>
-                                                            <div class="alert-box failure" id="addRequest_failure">fail!!!</div>
-                                                            <div class="agent-contact-form-sidebar">
-                                                                <h4>Request Inquiry</h4>
-                                                                <form name="contact_form">
-                                                                    <input type="text" id="inquiry_fname" name="full_name" placeholder="Full Name" required />
-                                                                    <input type="number" id="inquiry_pnumber" name="phone_number" placeholder="Phone Number" required />
-                                                                    <input type="email" id="inquiry_emailid" name="email_address" placeholder="Email Address" required />
-                                                                    <textarea placeholder="Message" id="inquiry_message" name="inquiry_message" required></textarea>
-                                                                    <input type="hidden" id="property_type_id"/>
-                                                                    <input type="button" id="sendMessageListingsDetailModal" name="sendmessage" class="multiple-send-message" value="Submit Request" />
-                                                                </form>
+                                                        <div class="data-column-container">
+                                                            <div class="side-by-side-action-bar">
+                                                                <div data-renderstrat="inline">
+                                                                    <div>
+                                                                        <div class="hdp__sc-664ky2-0 bjuBcC">
+                                                                            <div class="hdp__sc-1dupnse-5 kNVgPR">
+                                                                                <div class="hdp__sc-1dupnse-9 gWnoLO ds-action-bar">
+                                                                                    <nav aria-label="utility" class="hdp__sc-1dupnse-8 fHgghR">
+                                                                                        <div class="hdp__sc-199cylr-1 grtZWA">
+                                                                                            <div aria-label="close" class="hdp__sc-199cylr-2 iaMXFk">
+                                                                                                <button class="hdp__sc-199cylr-3 eaqbcg">
+                                                                                                    <svg viewBox="0 0 32 32" class="Icon-c11n-8-84-3__sc-13llmml-0 guRJEn IconChevronLeft-c11n-8-84-3__sc-ddr5cu-0 hdp__sc-199cylr-0 fXPeRZ gbWfFt" aria-hidden="true" focusable="false" role="img">
+                                                                                                        <title>Chevron Left</title>
+                                                                                                        <path stroke="none" d="M29.41 8.59a2 2 0 00-2.83 0L16 19.17 5.41 8.59a2 2 0 00-2.83 2.83l12 12a2 2 0 002.82 0l12-12a2 2 0 00.01-2.83z"></path>
+                                                                                                    </svg>
+                                                                                                </button>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div id="logo" style="position: absolute;text-align: center;">
+                                                                                            <a href="/page/home"><img style="width: 120px;margin-top: 4px;" src="/theme/sabbiancowebsite/assets/images/logosabbianco.png" data-sticky-logo="/theme/sabbiancowebsite/assets/images/logosabbianco.png" alt=""></a>
+                                                                                        </div>
+                                                                                        <ul class="hdp__sc-1dupnse-7 erqwFf">
+                                                                                            <li class="hdp__sc-1dupnse-1 fsIsqR">
+                                                                                                <button aria-pressed="false" class="sc-bcXHqe cqBcXG hdp__sc-14xnfdo-0 gdKUCl" role="button">
+                                                                                                    <div class="hdp__sc-1dupnse-4 jJQTGX">
+                                                                                                        <div aria-hidden="true" class="hdp__sc-1dupnse-2 hdp__sc-1dupnse-10 dWtTje eThNKw">
+                                                                                                            <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false" role="img" class="Icon-c11n-8-84-3__sc-13llmml-0 jhZWWg">
+                                                                                                                <title>Heart</title>
+                                                                                                                <path stroke="none" d="M27.66 6.19a7.85 7.85 0 00-11 .13L16 7l-.65-.66a7.85 7.85 0 00-11-.13 8.23 8.23 0 00.09 11.59l.42.42L15.29 28.7a1 1 0 001.42 0l10.44-10.5.42-.42a8.23 8.23 0 00.09-11.59zm-1.42 10.06l-.52.52L16 26.55l-9.72-9.78-.52-.52A6.15 6.15 0 014 13.19a5.91 5.91 0 011.62-5.43 5.81 5.81 0 014.67-1.71 6 6 0 013.78 1.87l.5.5 1.08 1.08a.5.5 0 00.7 0l1.08-1.08.5-.5a6 6 0 013.78-1.87 5.81 5.81 0 014.67 1.71A5.91 5.91 0 0128 13.19a6.15 6.15 0 01-1.76 3.06z"></path>
+                                                                                                            </svg>
+                                                                                                        </div>
+                                                                                                        <span class="hdp__sc-1dupnse-3 gBetGm"> Save </span>
+                                                                                                    </div>
+                                                                                                </button>
+                                                                                            </li>
+                                                                                            <li class="hdp__sc-1dupnse-1 fsIsqR">
+                                                                                                <button type="button" class="hdp__sc-1dupnse-4 jJQTGX">
+                                                                                                    <div class="hdp__sc-1dupnse-2 dWtTje">
+                                                                                                        <svg viewBox="0 0 23 18" focusable="false">
+                                                                                                            <g fill="none" fill-rule="evenodd">
+                                                                                                                <g transform="translate(0)" class="ds-action-bar-icon-fill" fill-rule="nonzero">
+                                                                                                                    <path d="m22.504 7.0047l-9.4663-6.7849c-0.2188-0.18177-0.53451-0.22356-0.79965-0.10586-0.26514 0.11771-0.42736 0.37168-0.41087 0.64327v3.4148c-2.9503 0.066134-5.77 1.1388-7.9168 3.0118-2.3605 2.2392-3.4984 5.3966-3.3895 9.5391 0.0061638 0.30779 0.2342 0.57373 0.55684 0.64938h0.18158c0.2629 2.775e-4 0.50471-0.13305 0.62947-0.34708 0.89579-1.5115 4.2005-6.2922 9.8174-6.2922h0.12105v3.2245l0.060526 0.44785 0.33895 0.15675c0.25053 0.11823 0.55234 0.092065 0.77474-0.067177l9.2242-6.6169 0.27842-0.25751v-0.61579zm-9.43 6.0571v-2.7431c4.845e-4 -0.35828-0.30312-0.65386-0.69-0.67177-5.3505-0.31349-8.8853 3.2021-10.604 5.4749 0.023449-2.6474 1.1158-5.1911 3.0626-7.132 2.0065-1.7327 4.6512-2.6935 7.3963-2.6871h0.14526c0.19332-1.3199e-4 0.37937-0.068163 0.52053-0.19033l0.21789-0.24632v-3.2021l7.9532 5.6989-8.0016 5.6989z"></path>
+                                                                                                                </g>
+                                                                                                            </g>
+                                                                                                        </svg>
+                                                                                                    </div>
+                                                                                                    <span class="hdp__sc-1dupnse-3 gBetGm">Share</span>
+                                                                                                </button>
+                                                                                            </li>
+                                                                                            <li class="hdp__sc-1dupnse-1 fsIsqR">
+                                                                                                <div class="hdp__sc-1dupnse-11 gLYDfj" property="[object Object]">
+                                                                                                    <div type="button" class="hdp__sc-1dupnse-4 jJQTGX">
+                                                                                                        <div aria-hidden="true" class="hdp__sc-1dupnse-2 hdp__sc-1dupnse-10 dWtTje eThNKw">
+                                                                                                            <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false" role="img" class="Icon-c11n-8-84-3__sc-13llmml-0 jhZWWg">
+                                                                                                                <title>Hide</title>
+                                                                                                                <path stroke="none" d="M16 2a14 14 0 1014 14A14 14 0 0016 2zM6.85 23.74A12 12 0 0123.74 6.85L6.85 23.74zM16 28a11.89 11.89 0 01-7.74-2.85L25.15 8.26A12 12 0 0116 28z"></path>
+                                                                                                            </svg>
+                                                                                                        </div>
+                                                                                                        <span class="hdp__sc-1dupnse-3 gBetGm">Hide</span>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                            <li class="hdp__sc-1dupnse-4 HaKmy">
+                                                                                                <div data-test-selector="ds-more-button" aria-expanded="false" aria-haspopup="menu" class="hdp__sc-1dupnse-4 jJQTGX DropdownPopper-c11n-8-84-3__sc-1vnow1h-0 bsFbQm MenuPopper-c11n-8-84-3__sc-1uu201g-0 iGlPSH">
+                                                                                                    <div class="hdp__sc-1dupnse-2 hdp__sc-1dupnse-10 dWtTje eThNKw">
+                                                                                                        <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false" role="img" class="Icon-c11n-8-84-3__sc-13llmml-0 jhZWWg">
+                                                                                                            <title>More</title>
+                                                                                                            <g stroke="none">
+                                                                                                                <path d="M16,14a2,2,0,1,1-2,2,2,2,0,0,1,2-2m0-2a4,4,0,1,0,4,4,4,4,0,0,0-4-4Z"></path>
+                                                                                                                <path d="M6,14a2,2,0,1,1-2,2,2,2,0,0,1,2-2m0-2a4,4,0,1,0,4,4,4,4,0,0,0-4-4Z"></path>
+                                                                                                                <path d="M26,14a2,2,0,1,1-2,2,2,2,0,0,1,2-2m0-2a4,4,0,1,0,4,4,4,4,0,0,0-4-4Z"></path>
+                                                                                                            </g>
+                                                                                                        </svg>
+                                                                                                    </div>
+                                                                                                    <span class="hdp__sc-1dupnse-3 gBetGm">More</span>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </nav>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="summary-container">
+                                                                <div>
+                                                                    <div data-renderstrat="inline">
+                                                                        <div>
+                                                                            <div class="Spacer-c11n-8-84-3__sc-17suqs2-0 yETgj">
+                                                                                <div class="hdp__sc-1s2b8ok-0 eXZxHY">
+                                                                                    <div class="hdp__sc-1s2b8ok-1 ckVIjE">
+                                                                                        <span data-testid="price" class="Text-c11n-8-84-3__sc-aiai24-0 dpf__sc-1me8eh6-0 OByUh fpfhCd">
+                                                                                            <span id="listingPriceTitle"></span>
+                                                                                        </span>
+                                                                                        <div class="hdp__sc-1s2b8ok-2 wmMDq">
+                                                                                            <span data-testid="bed-bath-beyond">
+                                                                                                <span data-testid="bed-bath-item" class="Text-c11n-8-84-3__sc-aiai24-0 hrfydd">
+                                                                                                    <strong id="ListingBedroomsTitle"></strong>
+                                                                                                    <span> bd</span>
+                                                                                                </span>
+                                                                                                <span color="colors.gray300" class="dpf__sc-13frln-0 haJXRk"></span>
+                                                                                                <button type="button" aria-expanded="false" aria-haspopup="false" class="TriggerText-c11n-8-84-3__sc-139r5uq-0 eJlkOp TooltipPopper-c11n-8-84-3__sc-io290n-0 hdp__sc-1vcj1w9-0 cPCtZj TQpTu">
+                                                                                                    <span data-testid="bed-bath-item" class="Text-c11n-8-84-3__sc-aiai24-0 hrfydd">
+                                                                                                        <strong id="ListingBathTitle"></strong>
+                                                                                                        <span> ba</span>
+                                                                                                    </span>
+                                                                                                </button>
+                                                                                                <span color="colors.gray300" class="dpf__sc-13frln-0 haJXRk"></span>
+                                                                                                <span data-testid="bed-bath-item" class="Text-c11n-8-84-3__sc-aiai24-0 hrfydd">
+                                                                                                    <strong id="ListingAreaTitle"></strong>
+                                                                                                    <span> sqm</span>
+                                                                                                </span>
+                                                                                            </span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="hdp__sc-riwk6j-0 jmPkrV">
+                                                                                    <h1 class="Text-c11n-8-84-3__sc-aiai24-0 hrfydd" id="listingName"></h1>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div data-cft-name="contact-buttons" class="hdp__sc-h6x2kh-0 hXcQfc">
+                                                                        <ul class="contact-button-group">
+                                                                            <li class="contact-button prominent">
+                                                                                <button onclick="showRequestModal()" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 fKAHIc sc-16sdjcz-0 eObXzv contact-button-condensed ds-button ds-label-small" data-cft-name="contact-button-tour">
+                                                                                    <div style="text-align: center;">Request more Details
+                                                                                        <!-- <p class="Text-c11n-8-84-3__sc-aiai24-0 StyledParagraph-c11n-8-84-3__sc-18ze78a-0 hTmUSk">as early as today at 11:00 am</p> -->
+                                                                                    </div>
+                                                                                </button>
+                                                                            </li>
+                                                                            <!-- <li class="contact-button">
+                                                                                <button class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 liNKkG sc-16sdjcz-0 eObXzv contact-button-condensed ds-button ds-label-small" data-cft-name="contact-button-message">Contact agent</button>
+                                                                            </li> -->
+                                                                        </ul>
+                                                                        <div class="Spacer-c11n-8-84-3__sc-17suqs2-0 fyXflK"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="data-view-container">
+                                                                <div class="ds-data-view-list">
+                                                                    <div class="hdp__sc-1jydst6-0 lckxKm">
+                                                                        <div class="single homes-content details mb-30">
+                                                                            <h3 class="mb-3">Description</h3>
+                                                                            <p id="listingDescription"></p>
+                                                                        </div>
+                                                                        <div class="single homes-content details mb-30">
+                                                                            <!-- title -->
+                                                                            <h3 class="mb-3">Property Details</h3>
+                                                                            <ul class="homes-list clearfix">
+                                                                                <li style="display:none">
+                                                                                    <span class="font-weight-bold mr-1">Property ID:</span>
+                                                                                    <span class="det"></span>
+                                                                                </li>
+                                                                                <li id="ListingPropertyTypeDiv">
+                                                                                    <span class="font-weight-bold mr-1">Property Type:</span>
+                                                                                    <span class="det" id="ListingPropertyType"></span>
+                                                                                </li>
+                                                                                <li id="ListingPropertyStatusDiv" style="display:none">
+                                                                                    <span class="font-weight-bold mr-1">Property status:</span>
+                                                                                    <span class="det" id="ListingPropertyStatus"></span>
+                                                                                </li>
+                                                                                <li id="ListingPropertyPriceDiv">
+                                                                                    <span class="font-weight-bold mr-1">Property Price:</span>
+                                                                                    <span class="det" id="ListingPropertyPrice"></span>
+                                                                                </li>
+                                                                                <li id="ListingAreaDiv">
+                                                                                    <span class="font-weight-bold mr-1">Area:</span>
+                                                                                    <span class="det" id="ListingArea"></span>
+                                                                                </li>
+                                                                                <li id="ListingBedroomsDiv">
+                                                                                    <span class="font-weight-bold mr-1">Bedrooms:</span>
+                                                                                    <span class="det" id="ListingBedrooms"></span>
+                                                                                </li>
+                                                                                <li id="ListingBathDiv">
+                                                                                    <span class="font-weight-bold mr-1">Bath:</span>
+                                                                                    <span class="det" id="ListingBath"></span>
+                                                                                </li>
+                                                                                <li id="ListingGaragesDiv">
+                                                                                    <span class="font-weight-bold mr-1">Garages:</span>
+                                                                                    <span class="det" id="ListingGarages"></span>
+                                                                                </li>
+                                                                                <li id="ListingYearBuiltDiv">
+                                                                                    <span class="font-weight-bold mr-1">Year Built:</span>
+                                                                                    <span class="det" id="ListingYearBuilt"></span>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                        <div class="single homes-content details mb-30">
+                                                                            <!-- title -->
+                                                                            <h3 class="mb-3">Amenities</h3>
+                                                                            <!-- cars List -->
+                                                                            <ul class="homes-list clearfix" id="amenities">
+                                                                            </ul>
+                                                                        </div>
+                                                                        <div class="floor-plan property wprt-image-video w50 pro" id="floorPlansDiv">
+                                                                        <h3 class="mb-3">Floor Plans</h3>
+                                                                            <img alt="image" id="floorPlans" src="">
+                                                                        </div>
+                                                                        <div class="property-location map" style="height: 350px;">
+                                                                        <h3 class="mb-3">Location</h3>
+                                                                            <div class="divider-fade"></div>
+                                                                            <div id="map-leaflet-listingsDetail" class="contact-map" style="height: 255px; "></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="mixed-media-lightbox-container" style="width:100vw"></div>
                                             </div>
                                         </div>
-                                    </aside>
+                                    </div>
                                 </div>
+                                <div id="__NEXT_SCRIPTS_DEV__"></div>
                             </div>
-                        </section>
+                        </div>
                     </div>
+                    <div class="home-detail-lightbox-mask" role="presentation"></div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="property_type_id"/>
+    </div>
+    <a data-toggle="modal" data-target=".RequestModal" id="RequestModal"></a>
+    <div class="modal fade bs-modal-sm RequestModal" style="z-index:9999" id="RequestModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" style="margin-top: 200px;">
+            <div class="modal-content" style="display:flex;align-items: center;justify-content:center;">
+                <div class="widget-boxed-body signature-width" style="padding: 25px;background: white;border-radius: 10px;">
+                    <div class="sidebar-widget author-widget2">
+                        <div class="alert-box success" id="addRequest_success">Submit Ok !!!</div>
+                        <div class="alert-box failure" id="addRequest_failure">fail!!!</div>
+                        <div class="agent-contact-form-sidebar">
+                            <h4>Request Inquiry</h4>
+                            <form name="contact_form">
+                                <input type="text" id="inquiry_fname" name="full_name" placeholder="Full Name" required />
+                                <input type="number" id="inquiry_pnumber" name="phone_number" placeholder="Phone Number" required />
+                                <input type="email" id="inquiry_emailid" name="email_address" placeholder="Email Address" required />
+                                <textarea placeholder="Message" id="inquiry_message" name="inquiry_message" required></textarea>
+                                <input type="hidden" id="property_type_id"/>
+                                <input type="button" id="sendMessageListingsDetailModal" name="sendmessage" class="multiple-send-message" value="Submit Request" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -314,8 +583,6 @@
     <script src="/theme/sabbiancowebsite/assets/js/rangeSlider.js"></script>
     <script src="/theme/sabbiancowebsite/assets/js/tether.min.js"></script>
     <script src="/theme/sabbiancowebsite/assets/js/moment.js"></script>
-    
-    
     <script src="/theme/sabbiancowebsite/assets/js/mmenu.min.js"></script>
     <script src="/theme/sabbiancowebsite/assets/js/mmenu.js"></script>
     <script src="/theme/sabbiancowebsite/assets/js/aos.js"></script>
@@ -346,19 +613,6 @@
         $(window).on('scroll load', function() {
             $("#header.cloned #logo img").attr("src", $('#header #logo img').attr('data-sticky-logo'));
         });
-    </script>
-    <script>
-        // var typed = new Typed('.typed', {
-        //     strings: ["House ^2000", "Apartment ^2000", "Plaza ^4000"],
-        //     smartBackspace: false,
-        //     loop: true,
-        //     showCursor: true,
-        //     cursorChar: "|",
-        //     typeSpeed: 50,
-        //     backSpeed: 30,
-        //     startDelay: 800
-        // });
-
     </script>
     <script>
         $('.job_clientSlide').owlCarousel({
@@ -456,11 +710,49 @@
             });
         });
     </script>
+
     <!-- MAIN JS -->
     <script src="/theme/sabbiancowebsite/assets/js/script.js"></script>
     
     <!-- ListingDetailModal -->
     <script>
+        var listingMobileSliderIndex = 0;
+
+        $(document).on('click', '#slider-next', function(){
+            var next = listingMobileSliderIndex + 9;
+            console.log(next);
+            if (listingMobileSliderIndex === 90) {
+                $('div.scroll-wrapper ul.row li').removeAttr('style');
+                $('div.scroll-wrapper ul.row li').attr('style', 'left:0%;-webkit-transition:left 1s;transition:left 1s;');
+                listingMobileSliderIndex = 0;
+            } else {
+                $('div.scroll-wrapper ul.row li').removeAttr('style');
+                $('div.scroll-wrapper ul.row li').attr('style', 'left:-'+ next +'.1%;-webkit-transition:left 1s;transition:left 1s;');
+                listingMobileSliderIndex = next;
+            }   
+        });
+
+        $(document).on('click', '#slider-previous', function(){
+            
+            var previous = listingMobileSliderIndex - 9;
+            console.log(previous);
+            if (listingMobileSliderIndex === 0) {
+                $('div.scroll-wrapper ul.row li').removeAttr('style');
+                $('div.scroll-wrapper ul.row li').attr('style', 'left:-70%;-webkit-transition:left 1s;transition:left 1s;');
+                listingMobileSliderIndex = 90;
+            } else {
+                $('div.scroll-wrapper ul.row li').removeAttr('style');
+                $('div.scroll-wrapper ul.row li').attr('style', 'left:-'+ previous +'.1%;-webkit-transition:left 1s;transition:left 1s;');
+                listingMobileSliderIndex = previous;
+            }
+        });
+
+        function showRequestModal(index){
+            jQuery.noConflict();
+            $('#ListingDetailModal').modal('toggle'); 
+            document.getElementById("RequestModal").click();
+        }
+
         var mapListingsDetail = null;
         function showListigDetailModal(index){
             document.getElementById("ListingDetailButton").click();
@@ -485,26 +777,60 @@
                 list = JSON.parse(xhr.response);
                 list = list.items;
                 data = list.data[0];
+                
+                // if(data.notes == null){
+                //     // document.getElementById("video").style.display="none";
+                // }
+                // favorite = '';
+                // if(data.in_favoriteproperties == 1){
+                //     favorite = "color: red;";
+                // }
+                document.getElementById("listingName").innerHTML = data.displayname + ` <span class="Text-c11n-8-84-3__sc-aiai24-0 dpf__sc-1yftt2a-1 hrfydd ixkFNb">`+data.property_type+`</span>`;
+                if(data.price !== null){
+                    document.getElementById("listingPriceTitle").innerHTML = `€‎ ` + data.price;
+                }
+                if(data.number_of_bathrooms !== null){
+                    document.getElementById("ListingBath").innerHTML = data.number_of_bathrooms;
+                    document.getElementById("ListingBathTitle").innerHTML = data.number_of_bathrooms;
+                }else{
+                    document.getElementById("ListingBathDiv").style.display = "none";
+                }
+                if(data.number_of_bedrooms !== null){
+                    document.getElementById("ListingBedrooms").innerHTML = data.number_of_bedrooms;
+                    document.getElementById("ListingBedroomsTitle").innerHTML = data.number_of_bedrooms;
+                }else{
+                    document.getElementById("ListingBedroomsDiv").style.display = "none";
+                }
+                if(data.area_size !== null){
+                    document.getElementById("ListingArea").innerHTML = data.area_size + "sqm";
+                    document.getElementById("ListingAreaTitle").innerHTML = data.area_size;
+                }else{
+                    document.getElementById("ListingAreaDiv").style.display = "none";
+                }
+
+                if(data.property_type !== null){
+                    document.getElementById("ListingPropertyType").innerHTML = data.property_type;
+                }else{
+                    document.getElementById("ListingPropertyTypeDiv").style.display = "none";
+                }
+                if(data.price !== null){
+                    document.getElementById("ListingPropertyPrice").innerHTML = `€‎` + data.price;
+                }else{
+                    document.getElementById("ListingPropertyPriceDiv").style.display = "none";
+                }
                 if(data.floor_plans.length == 0){
                     document.getElementById("floorPlansDiv").style.display="none";
                 }else{
                     document.getElementById("floorPlans").src=""+data.floor_plans[0].image;
                 }
-                if(data.notes == null){
-                    // document.getElementById("video").style.display="none";
-                }
-                favorite = '';
-                if(data.in_favoriteproperties == 1){
-                    favorite = "color: red;";
-                }
-                document.getElementById("listingName").innerHTML = data.displayname + `<span class="mrg-l-5 category-tag">`+data.property_type+`</span>`;
-                document.getElementById("listingPrice").innerHTML = `€` + data.price;
-                document.getElementById("address_favorit").innerHTML = `<a href="#listing-location" class="listing-address">
-                        <i class="fa fa-map-marker pr-2 ti-location-pin mrg-r-5"></i>`+data.location_name+`
-                    </a>
-                    <a style="cursor: pointer;" onclick="addFavoritListingsDetailModal(`+data.id+`)">
-                        <i id="faHeartListingDetailModal`+data.id+`" class="fa fa-heart" style="font-size: x-large; `+favorite+`"></i>
-                    </a>`;
+                // document.getElementById("listingPrice").innerHTML = `€` + data.price;
+                // document.getElementById("address_favorit").innerHTML = `<a href="#listing-location" class="listing-address">
+                //         <i class="fa fa-map-marker pr-2 ti-location-pin mrg-r-5"></i>`+data.location_name+`
+                //     </a>
+                //     <a style="cursor: pointer;" onclick="addFavoritListingsDetailModal(`+data.id+`)">
+                //         <i id="faHeartListingDetailModal`+data.id+`" class="fa fa-heart" style="font-size: x-large; `+favorite+`"></i>
+                //     </a>`;
+
                 document.getElementById("listingDescription").innerHTML = data.displaydescription;
                 if(data.year_built !== null){
                     document.getElementById("ListingYearBuilt").innerHTML = data.year_built;
@@ -516,69 +842,55 @@
                 }else{
                     document.getElementById("ListingGaragesDiv").style.display = "none";
                 }
-                if(data.number_of_bathrooms !== null){
-                    document.getElementById("ListingBath").innerHTML = data.number_of_bathrooms;
-                }else{
-                    document.getElementById("ListingBathDiv").style.display = "none";
-                }
-                if(data.number_of_bedrooms !== null){
-                    document.getElementById("ListingBedrooms").innerHTML = data.number_of_bedrooms;
-                }else{
-                    document.getElementById("ListingBedroomsDiv").style.display = "none";
-                }
-                if(data.area_size !== null){
-                    document.getElementById("ListingArea").innerHTML = data.area_size + "sqm";
-                }else{
-                    document.getElementById("ListingAreaDiv").style.display = "none";
-                }
-                if(data.property_type !== null){
-                    document.getElementById("ListingPropertyType").innerHTML = data.property_type;
-                }else{
-                    document.getElementById("ListingPropertyTypeDiv").style.display = "none";
-                }
-                if(data.price !== null){
-                    document.getElementById("ListingPropertyPrice").innerHTML = `€‎` + data.price;
-                }else{
-                    document.getElementById("ListingPropertyPriceDiv").style.display = "none";
-                }
+               
                 document.getElementById("property_type_id").value = data.property_type_id;
                 var temp ="";
                 for(i=0;i<data.features.length;i++){
-                temp += `<li class="Amenities-width">
-                            <input type="checkbox" checked><span>`+data.features[i]+`</span>
+                temp += `<li style="display: flex;width:100%;align-items: center;">
+                            <input type="checkbox" checked>&nbsp;<span>`+data.features[i]+`</span>
                         </li>`;
                 }
                 document.getElementById("amenities").innerHTML = temp;
-                // var temp ="";amenities
-                // document.getElementById("activefeaturesRight").innerHTML = temp;
-                temp = `<div class="carousel-inner" id ="listingImg" style="text-align: center;">
-                    <div class="active item carousel-item" data-slide-number="0">
-                        <img src="`+data.image+`" class="img-fluid" alt="slider-listing">
-                    </div>`;
-                for(i=1;i<=data.images.length;i++){
-                    temp += `<div class="item carousel-item" data-slide-number="`+i+`">
-                        <img src="`+data.images[i-1]+`" class="img-fluid" alt="slider-listing">
-                    </div>`;
+
+                temp =`<li class="hdp__sc-bxf98j-0 hsjuif media-stream-tile media-stream-tile--prominent">
+                            <figure>
+                                <button aria-label="view larger view of the 1 photo of this home" class="sc-bcXHqe hdp__sc-1hfifce-0 cqBcXG dYAmNA">
+                                    <picture class="sc-eJDSGI izLhdJ">
+                                        <img src="`+data.image+`" alt="">
+                                    </picture>
+                                </button>
+                            </figure>
+                        </li>`;
+                temp1 =`<li class="slider" style="left:-0%;-webkit-transition:left 1s;transition:left 1s;">
+                            <button type="button" class="UnstyledButton-c11n-8-84-3__sc-13jpj60-0 dpf__sc-1obsll-1 ghQDHZ ieLHUW">
+                                <picture class="sc-eJDSGI izLhdJ">
+                                    <img style="height:100%" src="`+data.image+`" alt="">
+                                </picture>
+                            </button>
+                        </li>`;
+                for(i=0;i<data.images.length;i++){
+                    temp += `<li class="hdp__sc-bxf98j-0 hsjuif media-stream-tile tile-1">
+                                <figure>
+                                    <button aria-label="view larger view of the 2 photo of this home" class="sc-bcXHqe hdp__sc-1hfifce-0 cqBcXG dYAmNA">
+                                        <picture class="sc-eJDSGI izLhdJ">
+                                            <img src="`+data.images[i]+`" alt="">
+                                        </picture>
+                                    </button>
+                                </figure>
+                            </li>`;
+                    temp1 +=` <li class="slider" style="left:-0%;-webkit-transition:left 1s;transition:left 1s;">
+                                <button type="button" class="UnstyledButton-c11n-8-84-3__sc-13jpj60-0 dpf__sc-1obsll-1 ghQDHZ ieLHUW">
+                                    <picture class="sc-eJDSGI izLhdJ">
+                                        <img  style="height:100%" src="`+data.images[i]+`" alt="">
+                                    </picture>
+                                </button>
+                            </li>`;
                 }
-                temp += `<a class="carousel-control left" href="#listingDetailsSlider" data-slide="prev"><i class="fa fa-angle-left"></i></a>
-                <a class="carousel-control right" href="#listingDetailsSlider" data-slide="next"><i class="fa fa-angle-right"></i></a>`;
                 document.getElementById("listingImg").innerHTML = temp;
-                temp = `<li class="list-inline-item active">
-                        <a id="carousel-selector-0" class="selected" data-slide-to="0" data-target="#listingDetailsSlider">
-                            <img src="`+data.image+`" class="img-fluid" alt="listing-small">
-                        </a>
-                    </li>`;
-                    for(i=1;i<=data.images.length;i++){
-                    temp += `<li class="list-inline-item active">
-                        <a id="carousel-selector-0" class="selected" data-slide-to="`+i+`" data-target="#listingDetailsSlider">
-                            <img src="`+data.images[i-1]+`" class="img-fluid" alt="listing-small">
-                        </a>
-                    </li>`;
-                    }
-                document.getElementById("listingULImg").innerHTML = temp;
+                document.getElementById("listingImgMobile").innerHTML = temp1;
+
                 document.getElementById("sendMessageListingsDetailModal").setAttribute( "onClick", "sendRequestListingsDetailModal("+data.id+");" );
                 markers = JSON.parse(xhr.response).listing_markers;
-                
                 var valueArray = [];
                 if(markers[0].center[0]>0){
                     valueArray.push(markers[0]);
@@ -642,9 +954,9 @@
         {
             customer_id = '<?php echo $user_id; ?>';
             size = document.getElementById("ListingArea").innerHTML;
-            price = document.getElementById("listingPrice").innerHTML;
+            price = document.getElementById("listingPriceTitle").innerHTML;
 
-            price = price.substring(2);
+            price = price.substring(3);
             price = price.replace(',', '');
             size = size.substring(0,size.length-3);
             if(customer_id !== ""){
@@ -663,6 +975,7 @@
                     "minimum_bedrooms" : document.getElementById("ListingBedrooms").innerHTML,
                     "minimum_bashrooms" : document.getElementById("ListingBath").innerHTML,
                 };
+                console.log(data);
                 const url = "/api/salesrequest-addsalesrequest";
                 let xhr = new XMLHttpRequest();
                 xhr.open('POST', url, true);

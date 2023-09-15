@@ -10,6 +10,88 @@ if(isset($_SESSION["user_role"])){
     $user_role = "";
  }
 ?>
+<style>
+    table {
+        border: 0px solid #ccc;
+        border-collapse: collapse;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    table caption {
+        font-size: 1.5em;
+        margin: .5em 0 .75em;
+    }
+
+    table tr {
+        background-color: #f8f8f8;
+        border: 0px solid #ddd;
+        padding: .35em;
+    }
+
+    table th,
+    table td {
+        padding: .625em;
+        text-align: center;
+    }
+
+    table th {
+        font-size: .85em;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+    }
+
+    @media screen and (max-width: 600px) {
+        table {
+            border: 0;
+        }
+
+        table caption {
+            font-size: 1.3em;
+        }
+        
+        table thead {
+            border: none;
+            clip: rect(0 0 0 0);
+            height: 1px;
+            margin: -1px;
+            overflow: hidden;
+            padding: 0;
+            position: absolute;
+            width: 1px;
+        }
+        
+        table tr {
+            border-bottom: 3px solid #ddd;
+            display: block;
+            margin-bottom: .625em;
+        }
+        
+        table td {
+            border-bottom: 1px solid #ddd;
+            display: block;
+            font-size: .8em;
+            text-align: right;
+        }
+        
+        table td::before {
+            /*
+            * aria-label has no advantage, it won't be read inside a table
+            content: attr(aria-label);
+            */
+            content: attr(data-label);
+            float: left;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        table td:last-child {
+            border-bottom: 0;
+        }
+    }
+</style>
 <div class="inner-pages homepage-4 agents hp-6 full hd-white">
     <section class="properties-list featured portfolio blog"> 
         <div class="row">
@@ -77,12 +159,12 @@ if(isset($_SESSION["user_role"])){
                     <table class="table table-striped" >
                         <thead>
                             <tr>
-                                <th>No</th>
-                                <th>Name</th>
-                                <th>Date</th>
-                                <th>customer_id</th>
-                                <th>source_id</th>
-                                <th></th>
+                                <td>No</td>
+                                <td>Name</td>
+                                <td>Date</td>
+                                <td>customer_id</td>
+                                <td>source_id</td>
+                                <td></td>
                             </tr>
                         </thead>
                         <tbody id="request_list_content">
@@ -109,7 +191,6 @@ if(isset($_SESSION["user_role"])){
             "sales_people_id": user_id,
             "accepted_status": "no",
         }
-        alert(user_id);
 		const url = "/api/salesrequest-getsalesrequest";
 		let xhr = new XMLHttpRequest();
 		xhr.open('POST', url, true);
@@ -121,11 +202,11 @@ if(isset($_SESSION["user_role"])){
             var temp ="";
             for(i=0;i<list.length;i++){
                 temp +=`<tr>
-                        <td>` + (i+1) +`</td>
-                        <td>`+ list[i].name + `</td>
-                        <td>`+ (new Date(list[i].date)).toISOString().slice(0, 10)  +`</td>
-                        <td>`+list[i].customer_id +`</td>
-                        <td>`+list[i].source_id +`</td>`;
+                        <td data-label="No">` + (i+1) +`</td>
+                        <td data-label="Name">`+ list[i].name + `</td>
+                        <td data-label="Date">`+ (new Date(list[i].date)).toISOString().slice(0, 10)  +`</td>
+                        <td data-label="customer_id">`+list[i].customer_id +`</td>
+                        <td data-label="source_id">`+list[i].source_id +`</td>`;
                         if(list[i].accepted_status == "yes"){
                 temp += `<td> <a style="color:white;" class="btn btn-secondary" onclick="acceptSalesRequestRequestListPendingAppproval(`+list[i].id+`,'no')"> remove </a> </td>`;
                 }else{

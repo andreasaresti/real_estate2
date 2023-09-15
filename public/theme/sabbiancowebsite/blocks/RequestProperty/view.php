@@ -17,8 +17,85 @@ if(isset($_SESSION["user_role"])){
  }
 ?>
 <style>
-    table tbody tr td {
-        border: none;
+    table {
+        border: 0px solid #ccc;
+        border-collapse: collapse;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    table caption {
+        font-size: 1.5em;
+        margin: .5em 0 .75em;
+    }
+
+    table tr {
+        background-color: #f8f8f8;
+        border: 0px solid #ddd;
+        padding: .35em;
+    }
+
+    table th,
+    table td {
+        padding: .625em;
+        text-align: center;
+    }
+
+    table th {
+        font-size: .85em;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+    }
+
+    @media screen and (max-width: 600px) {
+        table {
+            border: 0;
+        }
+
+        table caption {
+            font-size: 1.3em;
+        }
+        
+        table thead {
+            border: none;
+            clip: rect(0 0 0 0);
+            height: 1px;
+            margin: -1px;
+            overflow: hidden;
+            padding: 0;
+            position: absolute;
+            width: 1px;
+        }
+        
+        table tr {
+            border-bottom: 3px solid #ddd;
+            display: block;
+            margin-bottom: .625em;
+        }
+        
+        table td {
+            border-bottom: 1px solid #ddd;
+            display: block;
+            font-size: .8em;
+            text-align: right;
+        }
+        
+        table td::before {
+            /*
+            * aria-label has no advantage, it won't be read inside a table
+            content: attr(aria-label);
+            */
+            content: attr(data-label);
+            float: left;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        table td:last-child {
+            border-bottom: 0;
+        }
     }
 </style>
 <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/jquery-ui.css<?php echo time(); ?>">
@@ -93,18 +170,29 @@ if(isset($_SESSION["user_role"])){
                         </button>
                     </div>
                     <div class="form-group" style="margin-top: 40px; padding: 20px;">
-                        <table class="table" id="customer_detail" style="border:none;">
+                        <table class="table" style="border:none;">
+                            <thead>
+                                <tr>
+                                    <td style="margin: 0px;height: 40px;padding: 0px;border: none;">Customer Name</td>
+                                    <td style="margin: 0px;height: 40px;padding: 0px;border: none;">Customer Surname</td>
+                                    <td style="margin: 0px;height: 40px;padding: 0px;border: none;">Email</td>
+                                    <td style="margin: 0px;height: 40px;padding: 0px;border: none;">Address</td>
+                                    <td style="margin: 0px;height: 40px;padding: 0px;border: none;">Phone</td>
+                                </tr>
+                            </thead>
+                            <tbody id="customer_detail">
+                                
+                            </tbody>
                         </table>
-
                     </div>
                 </div>
                 <div >
                     <!-- class="tabs-container" -->
                     <div class="tabs">
-                        <h3 class="active">Request Details</h3>
-                        <h3>Listings</h3>
-                        <h3>Appointments</h3>
-                        <h3>Notes</h3>
+                        <h3 class="active" style="font-size: 15px;padding: 10px;">Request Details</h3>
+                        <h3 style="font-size: 15px;padding: 10px;">Listings</h3>
+                        <h3 style="font-size: 15px;padding: 10px;">Appointments</h3>
+                        <h3 style="font-size: 15px;padding: 10px;">Notes</h3>
                     </div>
                     <hr style="margin-top: -2px">
                     <div class="tabs-content">
@@ -130,7 +218,7 @@ if(isset($_SESSION["user_role"])){
                                                             </ul>
                                                         </nav>
                                                     </div>
-                                                    <div onmouseover="hiddenAdvancedDivRequestProperty();"  class="col-lg-3 col-md-6 col-sm-12 py-2 pr-30" style="align-self: self-end; width: 180px" >
+                                                    <div onmouseover="hiddenAdvancedDivRequestProperty();"  class="col-lg-3 col-md-6 col-sm-12 py-2 pr-30" style="align-self: self-end;" >
                                                         <input type="hidden" id="selListingType" name="selListingType" >
                                                         <nav id="navigation" class="style-1" style="background: white;margin-top:0px;margin-left: 10px!important;margin-right: 10px;border: 1px solid;border-radius: 5px;border-color: #ebebeb;">
                                                             <ul>
@@ -334,8 +422,8 @@ if(isset($_SESSION["user_role"])){
 </div>
 <div class="modal fade bs-modal-sm signatureModal" id="addSignature" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm" style="margin-top: 200px;">
-        <div class="modal-content" style="max-width:100%;width: 500px;">
-            <div class="row justify-content-center">
+        <div class="modal-content  signature-width">
+            <div class="row justify-content-center signature-width">
                 <div class="col-md-10 text-center" style="margin: 40px 0px 40px 0px;">
                     <!-- <h3 class="h5">Date picker</h3>
                     <div class="w-100">
@@ -350,7 +438,7 @@ if(isset($_SESSION["user_role"])){
                     <div class="flex-row">
                         <h3 class="h5">Please Sign</h3>
                         <div class="wrapper" style="border: solid;color: black;">
-                            <canvas id="signaturePad" width="400px" height="200px"></canvas>
+                            <canvas id="signaturePad" style="width: 100%;height: 200px;"></canvas>
                         </div>
                     </div>
                     <div style="margin-top: 10px; display: flex; justify-content: flex-end;">
@@ -457,6 +545,7 @@ if(isset($_SESSION["user_role"])){
     </div>
     </div>
 </div>
+    
 <script>
     var signatureImage;
 
@@ -535,6 +624,7 @@ if(isset($_SESSION["user_role"])){
                 if(result == "ok"){
                     alert("Send Mail ok");
                     get_appointments();
+                    jQuery.noConflict();
                     $("#signatureModal").modal('hide');
                 }else{
                     alert("Add fail");
@@ -573,6 +663,7 @@ if(isset($_SESSION["user_role"])){
 		xhr.onload = function () {
             if(xhr.status == "201"){
                 loadNotesRequestProperty();
+                jQuery.noConflict();
                 $("#addNotes").modal('hide');
             }else{
                 alert("fail");
@@ -705,6 +796,7 @@ if(isset($_SESSION["user_role"])){
                 }
                 $( "#add_appointment_success" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
                 loadAppointmentRequestProperty();
+                jQuery.noConflict();
                 $("#addAppointments").modal('hide');
             }else{
                 console.log(data.errors.date);
@@ -1055,16 +1147,11 @@ if(isset($_SESSION["user_role"])){
 		xhr.send(JSON.stringify(sendData));
 		xhr.onload = function () {
 			detail = JSON.parse(xhr.response);
-            temp = `<tr><td style="margin: 0px;height: 40px;padding: 0px;border: none;">Customer Name</td>
-                    <td style="margin: 0px;height: 40px;padding: 0px;border: none;">Customer Surname</td>
-                    <td style="margin: 0px;height: 40px;padding: 0px;border: none;">Email</td>
-                    <td style="margin: 0px;height: 40px;padding: 0px;border: none;">Address</td>
-                    <td style="margin: 0px;height: 40px;padding: 0px;border: none;">Phone</td></tr>`;
-            temp += `<tr><td style="margin: 0px;height: 40px;padding: 0px;border: none;">`+detail.customer_name+`</td>
-                    <td style="margin: 0px;height: 40px;padding: 0px;border: none;">`+detail.customer_surname+`</td>
-                    <td style="margin: 0px;height: 40px;padding: 0px;border: none;">`+detail.customer_email+`</td>
-                    <td style="margin: 0px;height: 40px;padding: 0px;border: none;">`+detail.customer_address+`</td>
-                    <td style="margin: 0px;height: 40px;padding: 0px;border: none;">`+detail.customer_phone+`</td></tr>`;
+            temp = `<tr><td data-label="Customer Name" style="margin: 0px;height: 40px;padding: 0px;border: none;">`+detail.customer_name+`</td>
+                    <td data-label="Customer Surname" style="margin: 0px;height: 40px;padding: 0px;border: none;">`+detail.customer_surname+`</td>
+                    <td data-label="Customer Email" style="margin: 0px;height: 40px;padding: 0px;border: none;">`+detail.customer_email+`</td>
+                    <td data-label="Customer Address" style="margin: 0px;height: 40px;padding: 0px;border: none;">`+detail.customer_address+`</td>
+                    <td data-label="Customer Phone" style="margin: 0px;height: 40px;padding: 0px;border: none;">`+detail.customer_phone+`</td></tr>`;
             document.getElementById("customer_detail").innerHTML = temp;
             setTimeout(() => {
                 document.getElementById("customer_id").value = detail.customer_id;
@@ -1331,8 +1418,8 @@ if(isset($_SESSION["user_role"])){
                     favorite = "color: red;";
                 }
                 temp +=`
-                    <div style="display: flex; padding: 10px; width:100%">
-                    <div class="item col-lg-4 col-md-12 col-xs-12 landscapes sale pr-0 pb-0 my-44 ft" >
+                    <div class="row" style="display: flex; padding: 10px; width:100%">
+                    <div class="item col-lg-4 col-md-12 col-xs-12 landscapes sale pr-0 pb-0 my-44 ft" style="padding: 0px;">
                         <div class="project-single mb-0 bb-0">
                             <div class="project-inner project-head">
                                 <div class="homes">
@@ -1383,7 +1470,7 @@ if(isset($_SESSION["user_role"])){
                             }
                             temp +=` </ul>
                     </div>
-                    <div class=" col-lg-1 col-md-12 price-properties pt-3 pb-0" style="display: grid;background:white;">
+                    <div class=" col-lg-1 col-md-12 price-properties pt-3 pb-0 listings-display" >
                         <h3 class="title mt-3">
                             <a href="/page/listing-details?index=`+list[i].id+`" tabindex="0">€ `+ list[i].price+`</a>
                         </h3>
