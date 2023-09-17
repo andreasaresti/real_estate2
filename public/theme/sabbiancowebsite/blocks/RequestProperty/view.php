@@ -162,7 +162,7 @@ if(isset($_SESSION["user_role"])){
             <div class="col-lg-9 col-md-12 col-xs-12 pl-0 user-dash2" >
                 <div >
                     <div class="form-group text-right">
-                        <a href="/page/salesequest-open" class="btn btn-secondary" >
+                        <a href="/page/salesequest-open" class="btn btn-secondary" style="color: white;">
                             Back to Sales Requests
                         </a>
                         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#closeDeal">
@@ -350,10 +350,10 @@ if(isset($_SESSION["user_role"])){
                                 <table class="table table-striped" >
                                     <thead>
                                         <tr>
-                                            <th>No</th>
-                                            <th>My Listings</th>
-                                            <th>Status	</th>
-                                            <th>Add Appointment</th>
+                                            <th style="width: 8%;">No</th>
+                                            <th style="width: *;">My Listings</th>
+                                            <th style="width: 15%;">Status</th>
+                                            <th style="width: 20%;">Add Appointment</th>
                                         </tr>
                                     </thead>
                                     <tbody id="request_Listing_Content">
@@ -379,10 +379,10 @@ if(isset($_SESSION["user_role"])){
                                 <table class="table table-striped" >
                                     <thead>
                                         <tr>
-                                            <th>No</th>
-                                            <th>Listing Name</th>
-                                            <th>Date</th>
-                                            <th>signed</th>
+                                            <th style="width: 8%;">No</th>
+                                            <th style="width: *;">Listing Name</th>
+                                            <th style="width: 15%;">Date</th>
+                                            <th style="width: 15%;">signed</th>
                                         </tr>
                                     </thead>
                                     <tbody id="appointments_list_content">
@@ -401,9 +401,9 @@ if(isset($_SESSION["user_role"])){
                                 <table class="table table-striped" >
                                     <thead>
                                         <tr>
-                                            <th>No</th>
-                                            <th>Note</th>
-                                            <th>Date Added</th>
+                                            <th style="width: 8%;">No</th>
+                                            <th style="width: *;">Note</th>
+                                            <th style="width: 15%;">Date Added</th>
                                         </tr>
                                     </thead>
                                     <tbody id="notes_list_content">

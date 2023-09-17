@@ -259,23 +259,13 @@
                                                                             <div class="hdp__sc-1dupnse-5 kNVgPR">
                                                                                 <div class="hdp__sc-1dupnse-9 gWnoLO ds-action-bar">
                                                                                     <nav aria-label="utility" class="hdp__sc-1dupnse-8 fHgghR">
-                                                                                        <div class="hdp__sc-199cylr-1 grtZWA">
-                                                                                            <div aria-label="close" class="hdp__sc-199cylr-2 iaMXFk">
-                                                                                                <button class="hdp__sc-199cylr-3 eaqbcg">
-                                                                                                    <svg viewBox="0 0 32 32" class="Icon-c11n-8-84-3__sc-13llmml-0 guRJEn IconChevronLeft-c11n-8-84-3__sc-ddr5cu-0 hdp__sc-199cylr-0 fXPeRZ gbWfFt" aria-hidden="true" focusable="false" role="img">
-                                                                                                        <title>Chevron Left</title>
-                                                                                                        <path stroke="none" d="M29.41 8.59a2 2 0 00-2.83 0L16 19.17 5.41 8.59a2 2 0 00-2.83 2.83l12 12a2 2 0 002.82 0l12-12a2 2 0 00.01-2.83z"></path>
-                                                                                                    </svg>
-                                                                                                </button>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div id="logo" style="position: absolute;text-align: center;">
+                                                                                        <div id="logo" style="position: inherit;text-align: center;width:100%">
                                                                                             <a href="/page/home"><img style="width: 120px;margin-top: 4px;" src="/theme/sabbiancowebsite/assets/images/logosabbianco.png" data-sticky-logo="/theme/sabbiancowebsite/assets/images/logosabbianco.png" alt=""></a>
                                                                                         </div>
                                                                                         <ul class="hdp__sc-1dupnse-7 erqwFf">
                                                                                             <li class="hdp__sc-1dupnse-1 fsIsqR">
                                                                                                 <button aria-pressed="false" class="sc-bcXHqe cqBcXG hdp__sc-14xnfdo-0 gdKUCl" role="button">
-                                                                                                    <div class="hdp__sc-1dupnse-4 jJQTGX">
+                                                                                                    <div class="hdp__sc-1dupnse-4 jJQTGX" id="ListingDetailFavorit">
                                                                                                         <div aria-hidden="true" class="hdp__sc-1dupnse-2 hdp__sc-1dupnse-10 dWtTje eThNKw">
                                                                                                             <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false" role="img" class="Icon-c11n-8-84-3__sc-13llmml-0 jhZWWg">
                                                                                                                 <title>Heart</title>
@@ -287,45 +277,16 @@
                                                                                                 </button>
                                                                                             </li>
                                                                                             <li class="hdp__sc-1dupnse-1 fsIsqR">
-                                                                                                <button type="button" class="hdp__sc-1dupnse-4 jJQTGX">
-                                                                                                    <div class="hdp__sc-1dupnse-2 dWtTje">
-                                                                                                        <svg viewBox="0 0 23 18" focusable="false">
-                                                                                                            <g fill="none" fill-rule="evenodd">
-                                                                                                                <g transform="translate(0)" class="ds-action-bar-icon-fill" fill-rule="nonzero">
-                                                                                                                    <path d="m22.504 7.0047l-9.4663-6.7849c-0.2188-0.18177-0.53451-0.22356-0.79965-0.10586-0.26514 0.11771-0.42736 0.37168-0.41087 0.64327v3.4148c-2.9503 0.066134-5.77 1.1388-7.9168 3.0118-2.3605 2.2392-3.4984 5.3966-3.3895 9.5391 0.0061638 0.30779 0.2342 0.57373 0.55684 0.64938h0.18158c0.2629 2.775e-4 0.50471-0.13305 0.62947-0.34708 0.89579-1.5115 4.2005-6.2922 9.8174-6.2922h0.12105v3.2245l0.060526 0.44785 0.33895 0.15675c0.25053 0.11823 0.55234 0.092065 0.77474-0.067177l9.2242-6.6169 0.27842-0.25751v-0.61579zm-9.43 6.0571v-2.7431c4.845e-4 -0.35828-0.30312-0.65386-0.69-0.67177-5.3505-0.31349-8.8853 3.2021-10.604 5.4749 0.023449-2.6474 1.1158-5.1911 3.0626-7.132 2.0065-1.7327 4.6512-2.6935 7.3963-2.6871h0.14526c0.19332-1.3199e-4 0.37937-0.068163 0.52053-0.19033l0.21789-0.24632v-3.2021l7.9532 5.6989-8.0016 5.6989z"></path>
-                                                                                                                </g>
-                                                                                                            </g>
-                                                                                                        </svg>
-                                                                                                    </div>
-                                                                                                    <span class="hdp__sc-1dupnse-3 gBetGm">Share</span>
-                                                                                                </button>
-                                                                                            </li>
-                                                                                            <li class="hdp__sc-1dupnse-1 fsIsqR">
                                                                                                 <div class="hdp__sc-1dupnse-11 gLYDfj" property="[object Object]">
                                                                                                     <div type="button" class="hdp__sc-1dupnse-4 jJQTGX">
-                                                                                                        <div aria-hidden="true" class="hdp__sc-1dupnse-2 hdp__sc-1dupnse-10 dWtTje eThNKw">
+                                                                                                        <div aria-hidden="true" class="hdp__sc-1dupnse-2 hdp__sc-1dupnse-10 dWtTje eThNKw" onclick="closeListingDetailModal();">
                                                                                                             <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false" role="img" class="Icon-c11n-8-84-3__sc-13llmml-0 jhZWWg">
-                                                                                                                <title>Hide</title>
+                                                                                                                <title>close</title>
                                                                                                                 <path stroke="none" d="M16 2a14 14 0 1014 14A14 14 0 0016 2zM6.85 23.74A12 12 0 0123.74 6.85L6.85 23.74zM16 28a11.89 11.89 0 01-7.74-2.85L25.15 8.26A12 12 0 0116 28z"></path>
                                                                                                             </svg>
                                                                                                         </div>
-                                                                                                        <span class="hdp__sc-1dupnse-3 gBetGm">Hide</span>
+                                                                                                        <span class="hdp__sc-1dupnse-3 gBetGm" onclick="closeListingDetailModal();">Close</span>
                                                                                                     </div>
-                                                                                                </div>
-                                                                                            </li>
-                                                                                            <li class="hdp__sc-1dupnse-4 HaKmy">
-                                                                                                <div data-test-selector="ds-more-button" aria-expanded="false" aria-haspopup="menu" class="hdp__sc-1dupnse-4 jJQTGX DropdownPopper-c11n-8-84-3__sc-1vnow1h-0 bsFbQm MenuPopper-c11n-8-84-3__sc-1uu201g-0 iGlPSH">
-                                                                                                    <div class="hdp__sc-1dupnse-2 hdp__sc-1dupnse-10 dWtTje eThNKw">
-                                                                                                        <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false" role="img" class="Icon-c11n-8-84-3__sc-13llmml-0 jhZWWg">
-                                                                                                            <title>More</title>
-                                                                                                            <g stroke="none">
-                                                                                                                <path d="M16,14a2,2,0,1,1-2,2,2,2,0,0,1,2-2m0-2a4,4,0,1,0,4,4,4,4,0,0,0-4-4Z"></path>
-                                                                                                                <path d="M6,14a2,2,0,1,1-2,2,2,2,0,0,1,2-2m0-2a4,4,0,1,0,4,4,4,4,0,0,0-4-4Z"></path>
-                                                                                                                <path d="M26,14a2,2,0,1,1-2,2,2,2,0,0,1,2-2m0-2a4,4,0,1,0,4,4,4,4,0,0,0-4-4Z"></path>
-                                                                                                            </g>
-                                                                                                        </svg>
-                                                                                                    </div>
-                                                                                                    <span class="hdp__sc-1dupnse-3 gBetGm">More</span>
                                                                                                 </div>
                                                                                             </li>
                                                                                         </ul>
@@ -478,7 +439,7 @@
         <input type="hidden" id="property_type_id"/>
     </div>
     <a data-toggle="modal" data-target=".RequestModal" id="RequestModal"></a>
-    <div class="modal fade bs-modal-sm RequestModal" style="z-index:9999" id="RequestModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal fade bs-modal-sm RequestModal" style="z-index:99999" id="RequestModalDiv" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm" style="margin-top: 200px;">
             <div class="modal-content" style="display:flex;align-items: center;justify-content:center;">
                 <div class="widget-boxed-body signature-width" style="padding: 25px;background: white;border-radius: 10px;">
@@ -749,8 +710,13 @@
 
         function showRequestModal(index){
             jQuery.noConflict();
-            $('#ListingDetailModal').modal('toggle'); 
+            // $('#ListingDetailModal').modal('toggle'); 
             document.getElementById("RequestModal").click();
+        }
+        function closeListingDetailModal(index){
+            jQuery.noConflict();
+            $('#ListingDetailModal').modal('toggle'); 
+            // document.getElementById("RequestModal").click();
         }
 
         var mapListingsDetail = null;
@@ -777,14 +743,11 @@
                 list = JSON.parse(xhr.response);
                 list = list.items;
                 data = list.data[0];
-                
-                // if(data.notes == null){
-                //     // document.getElementById("video").style.display="none";
-                // }
-                // favorite = '';
-                // if(data.in_favoriteproperties == 1){
-                //     favorite = "color: red;";
-                // }
+                favorite = '';
+                if(data.in_favoriteproperties == 1){
+                    favorite = "color: red;";
+                }
+
                 document.getElementById("listingName").innerHTML = data.displayname + ` <span class="Text-c11n-8-84-3__sc-aiai24-0 dpf__sc-1yftt2a-1 hrfydd ixkFNb">`+data.property_type+`</span>`;
                 if(data.price !== null){
                     document.getElementById("listingPriceTitle").innerHTML = `€‎ ` + data.price;
@@ -823,13 +786,11 @@
                 }else{
                     document.getElementById("floorPlans").src=""+data.floor_plans[0].image;
                 }
-                // document.getElementById("listingPrice").innerHTML = `€` + data.price;
-                // document.getElementById("address_favorit").innerHTML = `<a href="#listing-location" class="listing-address">
-                //         <i class="fa fa-map-marker pr-2 ti-location-pin mrg-r-5"></i>`+data.location_name+`
-                //     </a>
-                //     <a style="cursor: pointer;" onclick="addFavoritListingsDetailModal(`+data.id+`)">
-                //         <i id="faHeartListingDetailModal`+data.id+`" class="fa fa-heart" style="font-size: x-large; `+favorite+`"></i>
-                //     </a>`;
+                document.getElementById("ListingDetailFavorit").innerHTML = `
+                    <a style="cursor: pointer;" onclick="addFavoritListingsDetailModal(`+data.id+`)">
+                        <i id="faHeartListingDetailModal`+data.id+`" class="fa fa-heart" style="font-size: initial; `+favorite+`"></i>
+                        <span class="hdp__sc-1dupnse-3 gBetGm"> Save </span>
+                    </a>`;
 
                 document.getElementById("listingDescription").innerHTML = data.displaydescription;
                 if(data.year_built !== null){
@@ -928,11 +889,13 @@
                     "customer_id": customer_id,
                     "listing_id": index,
                 };
+                console.log(sendData);
                 let xhr = new XMLHttpRequest();
                 xhr.open('POST', url, true);
                 xhr.setRequestHeader('Content-type', 'application/json');
                 xhr.send(JSON.stringify(sendData));
                 xhr.onload = function () {
+                    console.log(xhr.response);
                     // var paragraph = document.getElementById("faHeart"+index);
                     var paragraph1 = document.getElementById("faHeartListingDetailModal"+index);
                     
@@ -975,7 +938,6 @@
                     "minimum_bedrooms" : document.getElementById("ListingBedrooms").innerHTML,
                     "minimum_bashrooms" : document.getElementById("ListingBath").innerHTML,
                 };
-                console.log(data);
                 const url = "/api/salesrequest-addsalesrequest";
                 let xhr = new XMLHttpRequest();
                 xhr.open('POST', url, true);
@@ -1009,13 +971,16 @@
                                 $( "#addRequest_failure" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
                             }else{
                                 $( "#addRequest_success" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
+                                jQuery.noConflict();
+                                $('#RequestModalDiv').modal('toggle');
                             }
                         }
                     }
                 }
             }else{
                 jQuery.noConflict();
-                $('#ListingDetailModal').modal('hide');
+                $('#ListingDetailModal').modal('toggle');
+                $('#RequestModalDiv').modal('toggle');
                 loginIn();
             }
         }
