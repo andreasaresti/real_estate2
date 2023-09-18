@@ -948,6 +948,9 @@ use App\Helpers\Helper;
     function map_init_circle(valueArray,maker_position,set,zoom){
         
         if ($('#map-leaflet').length) {
+            if(window.innerWidth<=768){
+                document.getElementById("MapHeader3").style.display = "block";
+            }
             var container = L.DomUtil.get('map');
             if(container != null){
                 container._leaflet_id = null;
@@ -1050,7 +1053,13 @@ use App\Helpers\Helper;
                     circle.setRadius(distance*1000/0.0115742);
                 }
             });
-            
+            if(window.innerWidth<=768){
+                if(listing_type == 'map'){
+                    document.getElementById("MapHeader3").style.display = "block";
+                }else{
+                    document.getElementById("MapHeader3").style.display = "none";
+                }
+            }
         }
     }
     
@@ -1109,8 +1118,8 @@ use App\Helpers\Helper;
         document.getElementById("page_index").value = index;
         loadActiveListingsHeader3([maker_position0,maker_position1],set,zoom);
 	}
-    var listing_type = 'map';
-    // var listing_type = 'listings';
+    // var listing_type = 'map';
+    var listing_type = 'listings';
     function showHideMapListingHeader3(){
         document.getElementById("MapHeader3").style.height = "870px";
         if($( window ).width() > 1000){

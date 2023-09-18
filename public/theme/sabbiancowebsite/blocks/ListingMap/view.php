@@ -942,7 +942,6 @@
             });
 
             if(window.innerWidth<=768){
-                console.log(document.getElementById("showMapListingListingMap").innerHTML);
                 if(document.getElementById("showMapListingListingMap").innerHTML == "Show Listings"){
                     document.getElementById("MapListingMap").style.display = "block";
                 }else{
