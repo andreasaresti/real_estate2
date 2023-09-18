@@ -13,7 +13,7 @@
                     <h2><span>Featured </span>Properties</h2>
                     <p>These are our featured properties</p>
                 </div>
-                <div class="row portfolio-items" id="FeaturedListingListContent">
+                <div class="row" id="FeaturedListingListContent">
                     
                 </div>
                 <div class="bg-all">
