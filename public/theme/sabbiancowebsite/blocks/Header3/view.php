@@ -474,7 +474,7 @@ use App\Helpers\Helper;
                         </nav>
                     </div>
                     <div class="ViewListMap">
-                        <a onclick="showHideMapListingHeader3();" style="padding: 10px 20px 10px 20px;background: #E0F2FF;border-radius: 5px;cursor: pointer;" id="showMapListingHeader3">Show Map</a>
+                        <a onclick="showHideMapListingHeader3();" style="padding: 10px 20px 10px 20px;background: #E0F2FF;border-radius: 5px;cursor: pointer;" id="showMapListingHeader3">Show Listings</a>
                     </div>
                 </div>
                 <input type="hidden" id="page_index" value="1">
@@ -1101,15 +1101,32 @@ use App\Helpers\Helper;
     function showHideMapListingHeader3(){
         if(document.getElementById("showMapListingHeader3").innerHTML == "Show Listings"){
             document.getElementById("showMapListingHeader3").innerHTML = "Show Map";
-            document.getElementById("MapHeader3").style.display = "none";
-            document.getElementById("ListingHeader3").style.display = "block";
-        }else{
+        }
+        else{
             document.getElementById("showMapListingHeader3").innerHTML = "Show Listings";
-            document.getElementById("ListingHeader3").style.display = "none";
+        }
+        if($( window ).width() > 1000){
+            document.getElementById("ListingHeader3").style.display = "block";
+            document.getElementById("showMapListingHeader3").style.display = "hide";
             document.getElementById("MapHeader3").style.display = "block";
             document.getElementById("MapHeader3").style.height = "870px";
         }
+        else{
+            document.getElementById("showMapListingHeader3").style.display = "show";
+            if(document.getElementById("showMapListingHeader3").innerHTML == "Show Listings"){                
+                document.getElementById("MapHeader3").style.display = "none";
+                document.getElementById("ListingHeader3").style.display = "block";
+            }else{                
+                document.getElementById("ListingHeader3").style.display = "none";
+                document.getElementById("MapHeader3").style.display = "block";
+                document.getElementById("MapHeader3").style.height = "870px";
+            }
+        }
+
         document.getElementById('searchcontentdiv').scrollIntoView();
     }
+    $(window).resize(function() {
+        showHideMapListingHeader3();
+    });
 </script>
 
