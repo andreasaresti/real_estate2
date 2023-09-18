@@ -259,9 +259,9 @@
                                                                             <div class="hdp__sc-1dupnse-5 kNVgPR">
                                                                                 <div class="hdp__sc-1dupnse-9 gWnoLO ds-action-bar">
                                                                                     <nav aria-label="utility" class="hdp__sc-1dupnse-8 fHgghR">
-                                                                                        <div id="logo" style="position: inherit;text-align: center;width:100%">
-                                                                                            <a href="/page/home"><img style="width: 120px;margin-top: 4px;" src="/theme/sabbiancowebsite/assets/images/logosabbianco.png" data-sticky-logo="/theme/sabbiancowebsite/assets/images/logosabbianco.png" alt=""></a>
-                                                                                        </div>
+                                                                                        <!-- <div  style="position: inherit;text-align: center;width:100%">
+                                                                                            <a href="/page/home"><img style="width: 120px;margin-top: 4px;" src="/theme/sabbiancowebsite/assets/images/logosabbianco.png" alt=""/></a>
+                                                                                        </div> -->
                                                                                         <ul class="hdp__sc-1dupnse-7 erqwFf">
                                                                                             <li class="hdp__sc-1dupnse-1 fsIsqR">
                                                                                                 <button aria-pressed="false" class="sc-bcXHqe cqBcXG hdp__sc-14xnfdo-0 gdKUCl" role="button">
@@ -739,10 +739,11 @@
             xhr.setRequestHeader('Content-type', 'application/json');
             xhr.send(JSON.stringify(sendData));
             xhr.onload = function () {
-
+                
                 list = JSON.parse(xhr.response);
                 list = list.items;
                 data = list.data[0];
+                console.log(data);
                 favorite = '';
                 if(data.in_favoriteproperties == 1){
                     favorite = "color: red;";
@@ -786,11 +787,9 @@
                 }else{
                     document.getElementById("floorPlans").src=""+data.floor_plans[0].image;
                 }
-                document.getElementById("ListingDetailFavorit").innerHTML = `
-                    <a style="cursor: pointer;" onclick="addFavoritListingsDetailModal(`+data.id+`)">
+                document.getElementById("ListingDetailFavorit").innerHTML = `<a style="cursor: pointer;" onclick="addFavoritListingsDetailModal(`+data.id+`)">
                         <i id="faHeartListingDetailModal`+data.id+`" class="fa fa-heart" style="font-size: initial; `+favorite+`"></i>
-                        <span class="hdp__sc-1dupnse-3 gBetGm"> Save </span>
-                    </a>`;
+                        <span class="hdp__sc-1dupnse-3 gBetGm"> Save </span></a>`;
 
                 document.getElementById("listingDescription").innerHTML = data.displaydescription;
                 if(data.year_built !== null){

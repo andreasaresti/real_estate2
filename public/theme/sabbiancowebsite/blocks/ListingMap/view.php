@@ -834,6 +834,9 @@
     function map_init_circle(valueArray,maker_position,set,zoom){
         
         if ($('#map-leaflet').length) {
+            if(window.innerWidth<=768){
+                document.getElementById("MapListingMap").style.display = "block";
+            }
             var container = L.DomUtil.get('map');
 
             if(container != null){
@@ -937,6 +940,15 @@
                     circle.setRadius(distance*1000/0.0115742);
                 }
             });
+
+            if(window.innerWidth<=768){
+                console.log(document.getElementById("showMapListingListingMap").innerHTML);
+                if(document.getElementById("showMapListingListingMap").innerHTML == "Show Listings"){
+                    document.getElementById("MapListingMap").style.display = "block";
+                }else{
+                    document.getElementById("MapListingMap").style.display = "none";
+                }
+            }
             
         }
     }
@@ -977,6 +989,7 @@
             document.getElementById("ListingListingMap").style.display = "block";
         }else{
             document.getElementById("showMapListingListingMap").innerHTML = "Show Listings";
+            // loadActiveListingsListingMap([0,0],0,9);
             document.getElementById("ListingListingMap").style.display = "none";
             document.getElementById("MapListingMap").style.display = "block";
         }
