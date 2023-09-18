@@ -898,7 +898,6 @@ use App\Helpers\Helper;
     }
     function loadActiveListingsListingMap(maker_position,set){
         page_index = 1;
-        loadActiveListingsListingGrid(maker_position,set);
-        
+        loadActiveListingsListingGrid(maker_position,set);        
 	}
 </script>

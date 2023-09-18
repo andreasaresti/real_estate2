@@ -1110,14 +1110,13 @@ use App\Helpers\Helper;
         loadActiveListingsHeader3([maker_position0,maker_position1],set,zoom);
 	}
     var listing_type = 'map';
-    var listing_type = 'listings';
+    // var listing_type = 'listings';
     function showHideMapListingHeader3(){
         document.getElementById("MapHeader3").style.height = "870px";
         if($( window ).width() > 1000){
             document.getElementById("ListingHeader3").style.display = "block";
             document.getElementById("showMapListingHeader3").style.display = "hide";
-            document.getElementById("MapHeader3").style.display = "block";
-            
+            document.getElementById("MapHeader3").style.display = "block";            
         }
         else{
             document.getElementById("showMapListingHeader3").style.display = "show";

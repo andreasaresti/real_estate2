@@ -275,7 +275,7 @@
                     </nav>
                 </div>
                 <div class="ViewListMap">
-                    <a onclick="showHideMapListingListingMap();" style="padding: 10px 20px 10px 20px;background: #E0F2FF;border-radius: 5px;cursor: pointer;" id="showMapListingListingMap">Show Map</a>
+                    <a onclick="replaceview();" style="padding: 10px 20px 10px 20px;background: #E0F2FF;border-radius: 5px;cursor: pointer;" id="showMapListingListingMap">Show Map</a>
                 </div>
             </div>
             <input type="hidden" id="page_index" value="1">
@@ -981,18 +981,39 @@
         document.getElementById("redrawCircleListingMap").style.background = "rgb(34, 150, 67)";
         document.getElementById("redrawCircleListingMap").style.color = "rgb(255, 255, 255)";
     }
-    var listing_type = 'map';
+    var listing_type = 'listings';
     function showHideMapListingListingMap(){
-        if(document.getElementById("showMapListingListingMap").innerHTML == "Show Listings"){
-            document.getElementById("showMapListingListingMap").innerHTML = "Show Map";
-            document.getElementById("MapListingMap").style.display = "none";
+        document.getElementById("MapListingMap").style.height = "870px";
+        if($( window ).width() > 1000){
             document.getElementById("ListingListingMap").style.display = "block";
-        }else{
-            document.getElementById("showMapListingListingMap").innerHTML = "Show Listings";
-            // loadActiveListingsListingMap([0,0],0,9);
-            document.getElementById("ListingListingMap").style.display = "none";
-            document.getElementById("MapListingMap").style.display = "block";
+            document.getElementById("showMapListingListingMap").style.display = "hide";
+            document.getElementById("MapListingMap").style.display = "block";            
+        }
+        else{
+            document.getElementById("showMapListingListingMap").style.display = "show";
+            if(listing_type == 'map'){
+                document.getElementById("ListingListingMap").style.display = "none";
+                document.getElementById("MapListingMap").style.display = "block";
+                document.getElementById("showMapListingListingMap").innerHTML = "Show Listings";
+            }
+            else if(listing_type == 'listings'){
+                document.getElementById("MapListingMap").style.display = "none";
+                document.getElementById("ListingListingMap").style.display = "block";
+                document.getElementById("showMapListingListingMap").innerHTML = "Show Map";
+            }
         }
     }
+    function replaceview(){
+        if(listing_type == 'map'){
+            listing_type = 'listings';
+        }
+        else if(listing_type == 'listings'){
+            listing_type = 'map';
+        }
+        showHideMapListingListingMap();
+    }
+    $(window).resize(function() {
+        showHideMapListingListingMap();
+    });
     
 </script>
