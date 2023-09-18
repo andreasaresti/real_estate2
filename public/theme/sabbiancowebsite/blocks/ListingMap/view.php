@@ -275,7 +275,7 @@
                     </nav>
                 </div>
                 <div class="ViewListMap">
-                    <a onclick="showHideMapListingListingMap();" style="padding: 10px 20px 10px 20px;background: #E0F2FF;border-radius: 5px;cursor: pointer;" id="showMapListingListingMap">Show Listings</a>
+                    <a onclick="showHideMapListingListingMap();" style="padding: 10px 20px 10px 20px;background: #E0F2FF;border-radius: 5px;cursor: pointer;" id="showMapListingListingMap">Show Map</a>
                 </div>
             </div>
             <input type="hidden" id="page_index" value="1">
