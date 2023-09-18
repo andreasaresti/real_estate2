@@ -1011,9 +1011,14 @@
                 data = JSON.parse(xhr.response);
                 if(xhr.status == "201"){
                     $( "#login_success" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
-                    document.getElementById("loginButtonContent").innerHTML = `
-                                <button onclick="goBack()" class="btn btn-primary btn-block">Close</button>
-                                <button onclick="goMyAccount()" class="btn btn-primary btn-block" style>Go to my Account</button>`;
+                    
+                    var success_message = `<div class="right-side d-none d-none d-lg-none d-xl-flex sign ml-0">
+                            <div class="header-widget sign-in">
+                                <div class="show-reg-form"><a style="cursor: pointer;" onclick="goMyAccount()">Μy Account</a></div>
+                            </div>
+                        </div>`;
+                    $('#headerlogindiv').html(success_message);
+                    $('#myModal').hide();
                 }else{
                     if( data.hasOwnProperty('errors')){
                         if( data.errors.hasOwnProperty('password')){
@@ -1049,23 +1054,33 @@
                 data = JSON.parse(xhr.response);
                 if(xhr.status == "201"){
                     $( "div.signup_success" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
-                    document.getElementById("signButtonContent").innerHTML = `
-                                <button onclick="goBack()" class="btn btn-primary btn-block">Close</button>
-                                <button onclick="goMyAccount()" class="btn btn-primary btn-block" style>Go to my Account</button>`;
+                    var success_message = `<div class="right-side d-none d-none d-lg-none d-xl-flex sign ml-0">
+                            <div class="header-widget sign-in">
+                                <div class="show-reg-form"><a style="cursor: pointer;" onclick="goMyAccount()">Μy Account</a></div>
+                            </div>
+                        </div>`;
+                    $('#headerlogindiv').html(success_message);
+                    $('#myModal').hide();
                 }else{
+                    console.log(data);
                     if( data.hasOwnProperty('errors')){
-                        if( data.errors.hasOwnProperty('password')){
-                            $("#signup_failure").html(data.errors.password);
+                        if( data.errors.hasOwnProperty('name')){
+                            $("#signup_failure").html(data.errors.name);
                         }
-                        if( data.errors.hasOwnProperty('email')){
+                        else if( data.errors.hasOwnProperty('surname')){
+                            $("#signup_failure").html(data.errors.surname);
+                        }                        
+                        else if( data.errors.hasOwnProperty('email')){
                             $("#signup_failure").html(data.errors.email);
+                        }
+                        else if( data.errors.hasOwnProperty('password')){
+                            $("#signup_failure").html(data.errors.password);
                         }
                     }
                     if( data.hasOwnProperty('message')){
                         $("#signup_failure").html(data.message);
                     }
-                    $( "div.signup_failure" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
-                    // alert("Login Fail");
+                    $( "#signup_failure" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
                 }
             }
         }

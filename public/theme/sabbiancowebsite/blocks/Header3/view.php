@@ -213,16 +213,18 @@ use App\Helpers\Helper;
                     ?>
                     <!-- Right Side Content / End -->
 
-                    <div class="right-side d-none d-none d-lg-none d-xl-flex sign-white ml-0">
-                        <!-- Header Widget -->
-                        <div class="header-widget sign-in">
-                            <div class="show-reg-form" ><a style="cursor: pointer;" onclick="loginIn()">Sign In</a></div>
+                    <span  id="headerlogindiv">
+                        <div class="right-side d-none d-none d-lg-none d-xl-flex sign ml-0" >
+                            <!-- Header Widget -->
+                            <div class="header-widget sign-in">
+                                <div class="show-reg-form" ><a style="cursor: pointer;" onclick="loginIn()">Sign In</a></div>
+                            </div>
+                            <div class="header-widget sign-in">
+                                <div class="show-reg-form" ><a style="cursor: pointer;" onclick="signUp()">Sign Up</a></div>
+                            </div>
+                            <!-- Header Widget / End -->
                         </div>
-                        <div class="header-widget sign-in">
-                            <div class="show-reg-form" ><a style="cursor: pointer;" onclick="signUp()">Sign Up</a></div>
-                        </div>
-                        <!-- Header Widget / End -->
-                    </div>
+                    </span>
                     <!-- Right Side Content / End -->
                     <?php
                     }
