@@ -57,8 +57,17 @@ use App\Helpers\Helper;
 
     $menu_response = Helper::get_menu($postData);       
     $menu_response = json_decode($menu_response);
+
+    // $screen_width = "<script>document.write(screen.width);</script>";
+    // $screen_height = "<script>document.write(screen.height);</script>";
+    // echo 'screen_width: '.$screen_width.'<br>';
+    // echo 'screen_height: '.$height.'<br>';
 ?>
+
     <style>
+        #map-leaflet {
+    height: 100vh;
+}
     .parallax-searchs.home15 {
         height: 100vh;
         display:block;
@@ -474,7 +483,7 @@ use App\Helpers\Helper;
                         </nav>
                     </div>
                     <div class="ViewListMap">
-                        <a onclick="showHideMapListingHeader3();" style="padding: 10px 20px 10px 20px;background: #E0F2FF;border-radius: 5px;cursor: pointer;" id="showMapListingHeader3">Show Listings</a>
+                        <a onclick="replaceview();" style="padding: 10px 20px 10px 20px;background: #E0F2FF;border-radius: 5px;cursor: pointer;" id="showMapListingHeader3">Show Listings</a>
                     </div>
                 </div>
                 <input type="hidden" id="page_index" value="1">
@@ -1098,32 +1107,40 @@ use App\Helpers\Helper;
         document.getElementById("page_index").value = index;
         loadActiveListingsHeader3([maker_position0,maker_position1],set,zoom);
 	}
+    var listing_type = 'map';
+    var listing_type = 'listings';
     function showHideMapListingHeader3(){
-        if(document.getElementById("showMapListingHeader3").innerHTML == "Show Listings"){
-            document.getElementById("showMapListingHeader3").innerHTML = "Show Map";
-        }
-        else{
-            document.getElementById("showMapListingHeader3").innerHTML = "Show Listings";
-        }
+        document.getElementById("MapHeader3").style.height = "870px";
         if($( window ).width() > 1000){
             document.getElementById("ListingHeader3").style.display = "block";
             document.getElementById("showMapListingHeader3").style.display = "hide";
             document.getElementById("MapHeader3").style.display = "block";
-            document.getElementById("MapHeader3").style.height = "870px";
+            
         }
         else{
             document.getElementById("showMapListingHeader3").style.display = "show";
-            if(document.getElementById("showMapListingHeader3").innerHTML == "Show Listings"){                
-                document.getElementById("MapHeader3").style.display = "none";
-                document.getElementById("ListingHeader3").style.display = "block";
-            }else{                
+            if(listing_type == 'map'){
                 document.getElementById("ListingHeader3").style.display = "none";
                 document.getElementById("MapHeader3").style.display = "block";
-                document.getElementById("MapHeader3").style.height = "870px";
+                document.getElementById("showMapListingHeader3").innerHTML = "Show Listings";
+            }
+            else if(listing_type == 'listings'){
+                document.getElementById("MapHeader3").style.display = "none";
+                document.getElementById("ListingHeader3").style.display = "block";
+                document.getElementById("showMapListingHeader3").innerHTML = "Show Map";
             }
         }
 
         document.getElementById('searchcontentdiv').scrollIntoView();
+    }
+    function replaceview(){
+        if(listing_type == 'map'){
+            listing_type = 'listings';
+        }
+        else if(listing_type == 'listings'){
+            listing_type = 'map';
+        }
+        showHideMapListingHeader3();
     }
     $(window).resize(function() {
         showHideMapListingHeader3();

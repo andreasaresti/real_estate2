@@ -969,6 +969,7 @@
         document.getElementById("redrawCircleListingMap").style.background = "rgb(34, 150, 67)";
         document.getElementById("redrawCircleListingMap").style.color = "rgb(255, 255, 255)";
     }
+    var listing_type = 'map';
     function showHideMapListingListingMap(){
         if(document.getElementById("showMapListingListingMap").innerHTML == "Show Listings"){
             document.getElementById("showMapListingListingMap").innerHTML = "Show Map";
