@@ -56,7 +56,7 @@
                 }
                 temp +=`<div class="item col-xl-6 col-lg-12 col-md-12 col-xs-12 it2 web rent no-pb">
                             <div class="project-single no-mb last" >
-                                <div class="project-inner project-head">
+                                <div class="project-inner project-head" style="align-self: center;">
                                     <div class="homes">
                                         <!-- homes img -->
                                         <a onclick="showListigDetailModal(`+list[i].id+`);" class="homes-img">`;
@@ -71,14 +71,14 @@
                                 <!-- homes content -->
                                 <div class="homes-content">
                                     <!-- homes address -->
-                                    <h3><a onclick="showListigDetailModal(`+list[i].id+`);">`+list[i].displayname+`</a></h3>
+                                    <h3 style="height: 110px;overflow-y: hidden;"><a onclick="showListigDetailModal(`+list[i].id+`);">`+list[i].displayname+`</a></h3>
                                     <p class="homes-address mb-3">
                                         <a onclick="showListigDetailModal(`+list[i].id+`);">
                                             <i class="fa fa-map-marker"></i><span>`+list[i].location_name+`</span>
                                         </a>
                                     </p>
                                     <!-- homes List -->
-                                    <ul class="homes-list clearfix pb-3">`;
+                                    <ul class="homes-list clearfix pb-0">`;
                                     if(list[i].number_of_bedrooms > 0 ){
                                         temp +=`<li class="the-icons">
                                             <i class="flaticon-bed mr-2" aria-hidden="true"></i>
@@ -105,7 +105,7 @@
                                     }
                                     temp +=`
                                     </ul>
-                                    <div class="price-properties pt-3 pb-0">
+                                    <div class="price-properties pb-0">
                                         <h3 class="title mt-3">
                                             <a onclick="showListigDetailModal(`+list[i].id+`);">€‎`+ list[i].price+`</a>
                                         </h3>

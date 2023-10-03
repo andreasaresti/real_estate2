@@ -182,19 +182,142 @@
             margin-top: 1vw;
         }
 
-        section#slider .more-slider a.button:hover {
-            color: #fff;
+        .slider {
+            font-family: "@Microsoft YaHei Light";
+            background: #fafafa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;	
+            width:100%;
+            height: 100%;	
         }
 
-        section#slider .more-slider a.button:before {
-            background: #5896b0;
+        .carousel-container {
+            width: 100%;
+            position: relative;
+            box-shadow: 0 0 30px -20px #223344;
+            margin: auto;
+            z-index: 0;
         }
 
+        /* Hide the images by default */
+        .mySlides {
+            display: none;
+        }
+        .mySlides img {
+            display: block;
+            width: 100%;
+            height: 90vh;
+        }
+
+        .prev,
+        .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translate(0, -50%);
+            width: auto;
+            padding: 20px;
+            color: white;
+            font-weight: bold;
+            font-size: 24px;
+            border-radius: 0 8px 8px 0;
+            background: rgba(173, 216, 230, 0.1);
+            user-select: none;
+        }
+        .next {
+            right: 0;
+            border-radius: 8px 0 0 8px;
+        }
+        .prev:hover,
+        .next:hover {
+            background-color: rgba(173, 216, 230, 0.3);
+        }
+
+        /* Caption text */
+        .text {
+            color: #f2f2f2;
+            background-color: rgba(10, 10, 20, 0.1);
+            backdrop-filter: blur(6px);
+            border-radius: 10px;
+            font-size: 20px;
+            padding: 8px 12px;
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translate(-50%);
+            text-align: center;
+        }
+
+        /* Number text (1/3 etc) */
+        .number {
+            color: #f2f2f2;
+            font-size: 16px;
+            background-color: rgba(173, 216, 230, 0.15);
+            backdrop-filter: blur(6px);
+            border-radius: 10px;
+            padding: 8px 12px;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+        .dots-container {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translate(-50%);
+        }
+
+        /* The dots/bullets/indicators */
+        .dots {
+            cursor: pointer;
+            height: 14px;
+            width: 14px;
+            margin: 0 4px;
+            background-color: rgba(173, 216, 230, 0.2);
+            backdrop-filter: blur(2px);
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+        .active,
+        .dots:hover {
+            background-color: rgba(173, 216, 230, 0.8);
+        }
+
+        /* transition animation */
+        .animate {
+            -webkit-animation-name: animate;
+            -webkit-animation-duration: 1s;
+            animation-name: animate;
+            animation-duration: 2s;
+        }
+        
     </style>
 </head>
 <body style="overflow-x: hidden;">
     <div id="wrapper">
         <?= $body ?>
+    </div>
+    <div class="modal fade bs-modal-sm imageModal" style="z-index:99999" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" style="height: 100%;width: 100%;max-width: 100%;display: flex;align-content: center;justify-content: center;">
+            <div class="modal-content" style="width: 90%;height: 90%;">
+                <div class="slider">
+                    <!-- Full-width images with number and caption text -->
+                    <div class="carousel-container">
+                        <div id="slideContent">
+                        </div>
+                        <!-- Next and previous buttons -->
+                        <a class="prev" onclick="prevSlide()">&#10094;</a>
+                        <a class="next" onclick="nextSlide()">&#10095;</a>
+                        <!-- The dots/circles -->
+                        <div class="dots-container" id="dotsContainer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <a data-toggle="modal" data-target=".ListingDetailModal" id="ListingDetailButton"></a>
     <div class="modal fade bs-modal-sm ListingDetailModal" style="z-index: 9999;" id="ListingDetailModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -309,19 +432,22 @@
                                                                                         </span>
                                                                                         <div class="hdp__sc-1s2b8ok-2 wmMDq">
                                                                                             <span data-testid="bed-bath-beyond">
-                                                                                                <span data-testid="bed-bath-item" class="Text-c11n-8-84-3__sc-aiai24-0 hrfydd">
+                                                                                                <span data-testid="bed-bath-item" id="ListingBedroomsTitleDiv" class="Text-c11n-8-84-3__sc-aiai24-0 hrfydd">
+                                                                                                    <i class="flaticon-bed mr-2" aria-hidden="true"></i>
                                                                                                     <strong id="ListingBedroomsTitle"></strong>
                                                                                                     <span> bd</span>
+                                                                                                    <span color="colors.gray300" class="dpf__sc-13frln-0 haJXRk"></span>
                                                                                                 </span>
-                                                                                                <span color="colors.gray300" class="dpf__sc-13frln-0 haJXRk"></span>
-                                                                                                <button type="button" aria-expanded="false" aria-haspopup="false" class="TriggerText-c11n-8-84-3__sc-139r5uq-0 eJlkOp TooltipPopper-c11n-8-84-3__sc-io290n-0 hdp__sc-1vcj1w9-0 cPCtZj TQpTu">
-                                                                                                    <span data-testid="bed-bath-item" class="Text-c11n-8-84-3__sc-aiai24-0 hrfydd">
-                                                                                                        <strong id="ListingBathTitle"></strong>
-                                                                                                        <span> ba</span>
-                                                                                                    </span>
-                                                                                                </button>
-                                                                                                <span color="colors.gray300" class="dpf__sc-13frln-0 haJXRk"></span>
-                                                                                                <span data-testid="bed-bath-item" class="Text-c11n-8-84-3__sc-aiai24-0 hrfydd">
+                                                                                                <!-- <button type="button" aria-expanded="false" aria-haspopup="false" class="TriggerText-c11n-8-84-3__sc-139r5uq-0 eJlkOp TooltipPopper-c11n-8-84-3__sc-io290n-0 hdp__sc-1vcj1w9-0 cPCtZj"> -->
+                                                                                                <span data-testid="bed-bath-item" id="ListingBathTitleDiv" class="Text-c11n-8-84-3__sc-aiai24-0 hrfydd">
+                                                                                                    <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
+                                                                                                    <strong id="ListingBathTitle"></strong>
+                                                                                                    <span> ba</span>
+                                                                                                    <span color="colors.gray300" class="dpf__sc-13frln-0 haJXRk"></span>
+                                                                                                </span>
+                                                                                                <!-- </button> -->
+                                                                                                <span data-testid="bed-bath-item" id="ListingAreaTitleDiv" class="Text-c11n-8-84-3__sc-aiai24-0 hrfydd">
+                                                                                                    <i class="flaticon-square mr-2" aria-hidden="true"></i>
                                                                                                     <strong id="ListingAreaTitle"></strong>
                                                                                                     <span> sqm</span>
                                                                                                 </span>
@@ -541,6 +667,7 @@
             </div>
         </div>
     </div>
+    
     <script src="/theme/sabbiancowebsite/assets/js/rangeSlider.js"></script>
     <script src="/theme/sabbiancowebsite/assets/js/tether.min.js"></script>
     <script src="/theme/sabbiancowebsite/assets/js/moment.js"></script>
@@ -750,7 +877,7 @@
                 }
 
                 document.getElementById("listingName").innerHTML = data.displayname + ` <span class="Text-c11n-8-84-3__sc-aiai24-0 dpf__sc-1yftt2a-1 hrfydd ixkFNb">`+data.property_type+`</span>`;
-                if(data.price !== null){
+                if(data.price !== null && data.price !== '0' && data.price !== 0){
                     document.getElementById("listingPriceTitle").innerHTML = `€‎ ` + data.price;
                 }
                 if(data.number_of_bathrooms !== null){
@@ -758,18 +885,21 @@
                     document.getElementById("ListingBathTitle").innerHTML = data.number_of_bathrooms;
                 }else{
                     document.getElementById("ListingBathDiv").style.display = "none";
+                    document.getElementById("ListingBathTitleDiv").style.display = "none";
                 }
                 if(data.number_of_bedrooms !== null){
                     document.getElementById("ListingBedrooms").innerHTML = data.number_of_bedrooms;
                     document.getElementById("ListingBedroomsTitle").innerHTML = data.number_of_bedrooms;
                 }else{
                     document.getElementById("ListingBedroomsDiv").style.display = "none";
+                    document.getElementById("ListingBedroomsTitleDiv").style.display = "none";
                 }
                 if(data.area_size !== null){
                     document.getElementById("ListingArea").innerHTML = data.area_size + "sqm";
                     document.getElementById("ListingAreaTitle").innerHTML = data.area_size;
                 }else{
                     document.getElementById("ListingAreaDiv").style.display = "none";
+                    document.getElementById("ListingAreaTitleDiv").style.display = "none";
                 }
 
                 if(data.property_type !== null){
@@ -777,7 +907,7 @@
                 }else{
                     document.getElementById("ListingPropertyTypeDiv").style.display = "none";
                 }
-                if(data.price !== null){
+                if(data.price !== null && data.price !== '0' && data.price !== 0){
                     document.getElementById("ListingPropertyPrice").innerHTML = `€‎` + data.price;
                 }else{
                     document.getElementById("ListingPropertyPriceDiv").style.display = "none";
@@ -811,10 +941,14 @@
                         </li>`;
                 }
                 document.getElementById("amenities").innerHTML = temp;
-
+                var  imagesTemp = "";
+                imagesTemp = data.image;
+                for(i=0; i < data.images.length; i++){
+                    imagesTemp += "---" + data.images[i];
+                }
                 temp =`<li class="hdp__sc-bxf98j-0 hsjuif media-stream-tile media-stream-tile--prominent">
                             <figure>
-                                <button aria-label="view larger view of the 1 photo of this home" class="sc-bcXHqe hdp__sc-1hfifce-0 cqBcXG dYAmNA">
+                                <button onclick="viewImage('`+imagesTemp+`',1)" aria-label="view larger view of the 1 photo of this home" class="sc-bcXHqe hdp__sc-1hfifce-0 cqBcXG dYAmNA">
                                     <picture class="sc-eJDSGI izLhdJ">
                                         <img src="`+data.image+`" alt="">
                                     </picture>
@@ -822,16 +956,17 @@
                             </figure>
                         </li>`;
                 temp1 =`<li class="slider" style="left:-0%;-webkit-transition:left 1s;transition:left 1s;">
-                            <button type="button" class="UnstyledButton-c11n-8-84-3__sc-13jpj60-0 dpf__sc-1obsll-1 ghQDHZ ieLHUW">
+                            <button onclick="viewImage('`+imagesTemp+`',1)" type="button" class="UnstyledButton-c11n-8-84-3__sc-13jpj60-0 dpf__sc-1obsll-1 ghQDHZ ieLHUW">
                                 <picture class="sc-eJDSGI izLhdJ">
                                     <img style="height:100%" src="`+data.image+`" alt="">
                                 </picture>
                             </button>
                         </li>`;
                 for(i=0;i<data.images.length;i++){
+                    index = i+2;
                     temp += `<li class="hdp__sc-bxf98j-0 hsjuif media-stream-tile tile-1">
                                 <figure>
-                                    <button aria-label="view larger view of the 2 photo of this home" class="sc-bcXHqe hdp__sc-1hfifce-0 cqBcXG dYAmNA">
+                                    <button onclick="viewImage('`+imagesTemp+`',`+index+`)" aria-label="view larger view of the 2 photo of this home" class="sc-bcXHqe hdp__sc-1hfifce-0 cqBcXG dYAmNA">
                                         <picture class="sc-eJDSGI izLhdJ">
                                             <img src="`+data.images[i]+`" alt="">
                                         </picture>
@@ -839,7 +974,7 @@
                                 </figure>
                             </li>`;
                     temp1 +=` <li class="slider" style="left:-0%;-webkit-transition:left 1s;transition:left 1s;">
-                                <button type="button" class="UnstyledButton-c11n-8-84-3__sc-13jpj60-0 dpf__sc-1obsll-1 ghQDHZ ieLHUW">
+                                <button onclick="viewImage('`+imagesTemp+`',`+index+`)" type="button" class="UnstyledButton-c11n-8-84-3__sc-13jpj60-0 dpf__sc-1obsll-1 ghQDHZ ieLHUW">
                                     <picture class="sc-eJDSGI izLhdJ">
                                         <img  style="height:100%" src="`+data.images[i]+`" alt="">
                                     </picture>
@@ -1105,6 +1240,65 @@
         }
         function goMyAccount(){
             window.location.href = "/page/profile";
+        }
+        function viewImage(data,index){
+            jQuery.noConflict();
+            $('#imageModal').modal('toggle'); 
+            temp = "";
+            temp1 = "";
+            images = data.split("---");
+            console.log(index);
+            for(i=0;i<images.length;i++){
+                temp += `<div class="mySlides animate">
+                            <img src="`+images[i]+`" alt="slide" />
+                        </div>`;
+                temp1 += `<span class="dots" onclick="currentSlide(`+i+`)"></span>`;
+            }
+            document.getElementById("slideContent").innerHTML = temp;
+            document.getElementById("dotsContainer").innerHTML = temp1;
+            nextSlide(index);
+        }
+        let slideIndex = 0;
+	
+        // Next-previous control
+        function nextSlide() {
+            slideIndex++;
+            showSlides();
+        }
+
+        function prevSlide() {
+            slideIndex--;
+            showSlides();
+        }
+
+        // Thumbnail image controlls
+        function currentSlide(n) {
+            slideIndex = n-1;
+            showSlides();
+        }
+
+        function showSlides() {
+            
+            let slides = document.querySelectorAll(".mySlides");
+            
+            let dots = document.querySelectorAll(".dots");
+            
+            if (slideIndex > slides.length - 1) slideIndex = 0;
+            if (slideIndex < 0) slideIndex = slides.length - 1;
+            
+            // hide all slides
+            slides.forEach((slide) => {
+                slide.style.display = "none";
+            });
+            // show one slide base on index number
+
+            slides[slideIndex].style.display = "block";
+
+            dots.forEach((dot) => {
+                dot.classList.remove("active");
+            });
+
+            dots[slideIndex].classList.add("active");
         }
     </script>
 </body>
