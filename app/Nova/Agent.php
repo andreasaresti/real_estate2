@@ -109,6 +109,11 @@ class Agent extends Resource
                 ->default('CY')
                 ->hideFromIndex(),
 
+            Text::make('Map')
+                ->rules('nullable', 'max:255', 'string')
+                ->placeholder('map')
+                ->hideFromIndex(),
+
             Trix::make('Comments')
                 ->rules('nullable', 'max:255', 'string')
                 ->placeholder('Comments'),
