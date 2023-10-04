@@ -205,7 +205,7 @@
 							<font style="vertical-align: inherit;">/</font>
 						</font>
 					</span>
-					<span class="text">
+					<span class="text" style="bottom: auto!important; position: inherit!important;">
 						<font style="vertical-align: inherit;">
 							<font style="vertical-align: inherit;">Simply #1 Real Estate Agency</font>
 						</font>

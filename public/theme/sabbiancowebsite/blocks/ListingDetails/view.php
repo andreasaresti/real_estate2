@@ -134,7 +134,7 @@ if(isset($_GET['index'])){
         <section class="similar-property featured portfolio p-0 bg-white-inner">
             <div class="container">
                 <h5>Similar Properties</h5>
-                <div class="row portfolio-items" id="SimilarListingsContent">
+                <div class="row portfolio-items" id="SimilarListingsContent" style="height:auto!important">
                 </div>
             </div>
         </section>
@@ -342,14 +342,14 @@ if(isset($_GET['index'])){
                                 <!-- homes content -->
                                 <div class="homes-content">
                                     <!-- homes address -->
-                                    <h3><a href="/page/listing-details?index=`+list[i].id+`">`+list[i].displayname+`</a></h3>
+                                    <h3><a style="display: block;height: 80px;overflow-y: hidden;" href="/page/listing-details?index=`+list[i].id+`">`+list[i].displayname+`</a></h3>
                                     <p class="homes-address mb-3">
                                         <a href="/page/listing-details?index=`+list[i].id+`">
                                             <i class="fa fa-map-marker"></i><span>`+list[i].location_name+`</span>
                                         </a>
                                     </p>
                                     <!-- homes List -->
-                                    <ul class="homes-list clearfix pb-3">`;
+                                    <ul style="display: block;height: 58px;overflow-y: hidden;" class="homes-list clearfix pb-0">`;
                 if(list[i].number_of_bedrooms > 0 ){
                     temp +=`<li class="the-icons">
                                 <i class="flaticon-bed mr-2" aria-hidden="true"></i>
