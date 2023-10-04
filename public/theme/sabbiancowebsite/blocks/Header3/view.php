@@ -248,7 +248,7 @@ use App\Helpers\Helper;
                                         <div class="banner-search-wrap">
                                             <div class="tab-content">
                                                 <div class="tab-pane fade show active" id="tabs_1">
-                                                    <div class="rld-main-search" style="display: flex;justify-content: center;">
+                                                    <div class="rld-main-search" style="display: flex;justify-content: center;margin-right:0px">
                                                         <div class="row">
                                                             <div class="rld-single-input">
                                                                 <input type="text" placeholder="PropertyID" autocomplete="off" id="search_string">

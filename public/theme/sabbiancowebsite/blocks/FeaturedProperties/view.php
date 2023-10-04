@@ -71,14 +71,14 @@
                                 <!-- homes content -->
                                 <div class="homes-content">
                                     <!-- homes address -->
-                                    <h3 style="height: 110px;overflow-y: hidden;"><a onclick="showListigDetailModal(`+list[i].id+`);">`+list[i].displayname+`</a></h3>
+                                    <h3 style="height: 80px;overflow-y: hidden;"><a onclick="showListigDetailModal(`+list[i].id+`);">`+list[i].displayname+`</a></h3>
                                     <p class="homes-address mb-3">
                                         <a onclick="showListigDetailModal(`+list[i].id+`);">
                                             <i class="fa fa-map-marker"></i><span>`+list[i].location_name+`</span>
                                         </a>
                                     </p>
                                     <!-- homes List -->
-                                    <ul class="homes-list clearfix pb-0">`;
+                                    <ul style="height: 58px;overflow-y: hidden;" class="homes-list clearfix pb-0">`;
                                     if(list[i].number_of_bedrooms > 0 ){
                                         temp +=`<li class="the-icons">
                                             <i class="flaticon-bed mr-2" aria-hidden="true"></i>

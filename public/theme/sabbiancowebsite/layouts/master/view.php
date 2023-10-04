@@ -207,7 +207,6 @@
         }
         .mySlides img {
             display: block;
-            width: 100%;
             height: 90vh;
         }
 
@@ -288,6 +287,7 @@
 
         /* transition animation */
         .animate {
+            text-align: -webkit-center;
             -webkit-animation-name: animate;
             -webkit-animation-duration: 1s;
             animation-name: animate;
@@ -1249,7 +1249,7 @@
             images = data.split("---");
             console.log(index);
             for(i=0;i<images.length;i++){
-                temp += `<div class="mySlides animate">
+                temp += `<div class="mySlides animate" >
                             <img src="`+images[i]+`" alt="slide" />
                         </div>`;
                 temp1 += `<span class="dots" onclick="currentSlide(`+i+`)"></span>`;

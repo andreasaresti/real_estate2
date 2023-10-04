@@ -219,7 +219,7 @@ use App\Helpers\Helper;
                                             </ul>
                                             <div class="tab-content">
                                                 <div class="tab-pane fade show active" id="tabs_1">
-                                                    <div class="rld-main-search" style="display: flex;justify-content: center;">
+                                                    <div class="rld-main-search" style="display: flex;justify-content: center;margin-right:0px">
                                                         <div class="row">
                                                             <div class="rld-single-input">
                                                                 <input type="text" placeholder="Enter Keyword..." autocomplete="off" id="search_string">
