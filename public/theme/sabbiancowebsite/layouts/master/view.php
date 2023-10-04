@@ -280,10 +280,7 @@
             display: inline-block;
             transition: background-color 0.3s ease;
         }
-        .active,
-        .dots:hover {
-            background-color: rgba(173, 216, 230, 0.8);
-        }
+        
 
         /* transition animation */
         .animate {
