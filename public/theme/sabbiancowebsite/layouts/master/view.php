@@ -840,18 +840,15 @@
         function closeListingDetailModal(index){
             jQuery.noConflict();
             $('#ListingDetailModal').modal('toggle'); 
-            var newurl = <?php echo env('APP_URL'); ?>'<?php echo env('APP_URL'); ?>/page/listings-map';
-            window.history.pushState({ path: newurl }, '', newurl);
+            // document.getElementById("RequestModal").click();
         }
 
         var mapListingsDetail = null;
         function showListigDetailModal(index){
             document.getElementById("ListingDetailButton").click();
             loadListingsDetailModal(index);
-            
             var newurl = '<?php echo env('APP_URL'); ?>/page/listing-details?index='+index;
             window.history.pushState({ path: newurl }, '', newurl);
-            
         }
         function loadListingsDetailModal(index){
 
