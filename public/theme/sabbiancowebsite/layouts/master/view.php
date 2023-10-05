@@ -840,7 +840,7 @@
         function closeListingDetailModal(index){
             jQuery.noConflict();
             $('#ListingDetailModal').modal('toggle'); 
-            var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '/page/listing-details?index='+index;
+            var newurl = <?php echo env('APP_URL'); ?>'<?php echo env('APP_URL'); ?>/page/listings-map';
             window.history.pushState({ path: newurl }, '', newurl);
         }
 
@@ -848,7 +848,8 @@
         function showListigDetailModal(index){
             document.getElementById("ListingDetailButton").click();
             loadListingsDetailModal(index);
-            var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '/page/listings-map';
+            
+            var newurl = '<?php echo env('APP_URL'); ?>/page/listing-details?index='+index;
             window.history.pushState({ path: newurl }, '', newurl);
             
         }
