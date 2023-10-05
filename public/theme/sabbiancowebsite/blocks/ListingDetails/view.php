@@ -13,15 +13,15 @@ if(isset($_GET['index'])){
 <div class="inner-pages sin-1 homepage-4 hd-white">
 <section class="single-proper blog details">
     <div class="container">
-        <div id="detail-container-column" style="height: 100vh;" class="active-hdp-col yui3-app-views">
+        <div id="detail-container-column" class="active-hdp-col yui3-app-views">
             <div class="active-view preload-lightbox">
                 <div id="__next">
                     <div data-test="hdp-for-sale-page-content">
                         <div class="hdp__sc-9dqr3g-0 gDrWtP ds-wrapper fs-package">
                             <div class="hdp__sc-9dqr3g-1 KyLea ds-container">
                                 <div class="layout-wrapper" style="height: auto;">
-                                    <div class="layout-container " style="height: 100vh;position: initial;">
-                                        <div class="media-column-container">
+                                    <div class="layout-container " style="position: initial;">
+                                        <div class="media-column-container" style="overflow-y:auto">
                                             <div data-renderstrat="inline">
                                                 <div>
                                                     <div>
@@ -121,7 +121,7 @@ if(isset($_GET['index'])){
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="data-view-container">
+                                            <div class="data-view-container" style="overflow-y:auto">
                                                 <div class="ds-data-view-list">
                                                     <div class="hdp__sc-1jydst6-0 lckxKm">
                                                         <div class="single homes-content details mb-30">
@@ -289,8 +289,9 @@ if(isset($_GET['index'])){
             document.getElementById("ListingDetailFavorit").innerHTML = `<a style="cursor: pointer;" onclick="addFavoritListingsDetailModal(`+data.id+`)">
                     <i id="faHeartListingDetailModal`+data.id+`" class="fa fa-heart" style="font-size: initial; `+favorite+`"></i>
                     <span class="hdp__sc-1dupnse-3 gBetGm"> Save </span></a>`;
-
-            document.getElementById("listingDescription").innerHTML = data.displaydescription;
+            temp = data.displaydescription;
+            temp = temp.replaceAll("col-lg-6","col-lg-12");
+            document.getElementById("listingDescription").innerHTML = temp;
             if(data.year_built !== null){
                 document.getElementById("ListingYearBuilt").innerHTML = data.year_built;
             }else{
