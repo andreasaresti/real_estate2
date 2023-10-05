@@ -840,7 +840,8 @@
         function closeListingDetailModal(index){
             jQuery.noConflict();
             $('#ListingDetailModal').modal('toggle'); 
-            // document.getElementById("RequestModal").click();
+            var newurl = '<?php echo env('APP_URL'); ?>/page/listings-map';
+            window.history.pushState({ path: newurl }, '', newurl);
         }
 
         var mapListingsDetail = null;
