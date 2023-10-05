@@ -840,13 +840,17 @@
         function closeListingDetailModal(index){
             jQuery.noConflict();
             $('#ListingDetailModal').modal('toggle'); 
-            // document.getElementById("RequestModal").click();
+            var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '/page/listing-details?index='+index;
+            window.history.pushState({ path: newurl }, '', newurl);
         }
 
         var mapListingsDetail = null;
         function showListigDetailModal(index){
             document.getElementById("ListingDetailButton").click();
             loadListingsDetailModal(index);
+            var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '/page/listings-map';
+            window.history.pushState({ path: newurl }, '', newurl);
+            
         }
         function loadListingsDetailModal(index){
 
