@@ -35,7 +35,7 @@ class GetAgenciesController extends Controller
 
         $query = $query
             ->select('*')
-            ->orderBy('name', 'asc')
+            ->orderBy('sort_order', 'asc')
             ->paginate($perPage, ['/*'], 'page', $page);
         
         foreach ($query as $key => $row) {            

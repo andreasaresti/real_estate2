@@ -5,11 +5,20 @@ namespace App\Models;
 use App\Models\Scopes\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\EloquentSortable\Sortable;
+use Spatie\EloquentSortable\SortableTrait;
 
-class Agent extends Model
+class Agent extends Model implements Sortable
 {
     use HasFactory;
     use Searchable;
+
+    use SortableTrait;
+
+    public $sortable = [
+        'order_column_name' => 'sort_order',
+        'sort_when_creating' => true,
+    ];
 
     protected $fillable = [
         'ext_code',

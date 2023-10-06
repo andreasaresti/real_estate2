@@ -49,8 +49,14 @@
                             <div class="news-item news-item-sm" style="height: auto">
                                 <div style="width:300px;" id="agencyMap`+list[i].id+`"></div>
                                 <div class="news-item-text">
-                                    <a href="#"><h3>`+ list[i].name + `</h3></a>
-                                    <div class="news-item-descr">
+                                <div style="width: 100%;display: flex;justify-content: space-between;margin: 5px 10px 5px 10px;">
+                                <a href="#"><h3>`+ list[i].name + `</h3></a>`;
+				if(list[i].map !== null && list[i].map !== ""){
+					temp +=`<a onclick="window.open('`+ list[i].map + `', '_blank', 'location=yes,height=760,width=1024,scrollbars=yes,status=yes');">
+								<i class="fa fa-external-link" aria-hidden="true"></i>
+							</a>`;
+				}
+				temp +=`</div><div class="news-item-descr">
                                         <p>Email: `+list[i].email +`</p>
                                         <p>Phone: `+list[i].phone +`</p>
                                         <p>Address: `+list[i].address +`</p>

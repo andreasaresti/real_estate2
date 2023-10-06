@@ -16,6 +16,7 @@ use Laravel\Nova\Fields\Country;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use NormanHuth\IframePopup\IframePopup;
+use Outl1ne\NovaSortable\Traits\HasSortableRows;
 
 class Agent extends Resource
 {
@@ -24,6 +25,9 @@ class Agent extends Resource
      *
      * @var string
      */
+
+    use HasSortableRows;
+
     public static $model = \App\Models\Agent::class;
 
     /**

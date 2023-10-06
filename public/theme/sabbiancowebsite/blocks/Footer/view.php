@@ -355,13 +355,16 @@
 			}
             for(i= 0; i<counter; i++)
             {
-                temp +=` <p>
+                temp +=` <div style="width: 75%;display: flex;justify-content: space-between;margin: 5px 10px 5px 10px;">
 							<strong>
-										<font style="vertical-align: inherit;font-size: 20px;">`+ list[i].name + `</font>
-								</strong>
-								<br>
-									<font style="vertical-align: inherit;font-size: 20px;">`+list[i].address +" " + list[i].city +" "+ list[i].country + `</font>
-							</p>`;
+								<font style="vertical-align: inherit;font-size: 20px;">`+ list[i].name + `</font>
+							</strong>`;
+				if(list[i].map !== null && list[i].map !== ""){
+					temp +=`<a onclick="window.open('`+ list[i].map + `', '_blank', 'location=yes,height=760,width=1024,scrollbars=yes,status=yes');">
+								<i class="fa fa-external-link" aria-hidden="true"></i>
+							</a>`;
+				}
+				temp +=`</div>`;
             }
             document.getElementById("homeAgencyContent").innerHTML = temp;
 		}
