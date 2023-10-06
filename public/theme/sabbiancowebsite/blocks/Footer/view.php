@@ -357,14 +357,10 @@
             {
                 temp +=` <p>
 							<strong>
-									<font style="vertical-align: inherit;">
-										<font style="vertical-align: inherit;">`+ list[i].name + `</font>
-									</font>
+										<font style="vertical-align: inherit;font-size: 20px;">`+ list[i].name + `</font>
 								</strong>
 								<br>
-								<font style="vertical-align: inherit;">
-									<font style="vertical-align: inherit;">`+list[i].address +" " + list[i].city +" "+ list[i].country + `</font>
-								</font>
+									<font style="vertical-align: inherit;font-size: 20px;">`+list[i].address +" " + list[i].city +" "+ list[i].country + `</font>
 							</p>`;
             }
             document.getElementById("homeAgencyContent").innerHTML = temp;
@@ -395,9 +391,7 @@
             {
                 temp +=` <li style="margin-left: -23px;margin-top: 10px;" id="menu-item-5114" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5114">
 							<a href="/page/blogpost-detail/`+list[i].id+`">
-								<font style="vertical-align: inherit;">
-									<font style="vertical-align: inherit;">`+ list[i].displayname + `</font>
-								</font>
+									<font style="vertical-align: inherit;font-size: 20px;">`+ list[i].displayname + `</font>
 							</a>
 						</li>`;
             }
@@ -429,9 +423,7 @@
             {
                 temp +=` <li style="margin-left: -23px;margin-top: 10px;" id="menu-item-5114" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5114">
 							<a href="/page/blogpost-detail/`+list[i].id+`">
-								<font style="vertical-align: inherit;">
-									<font style="vertical-align: inherit;">`+ list[i].displayname + `</font>
-								</font>
+									<font style="vertical-align: inherit;font-size: 20px;">`+ list[i].displayname + `</font>
 							</a>
 						</li>`;
             }

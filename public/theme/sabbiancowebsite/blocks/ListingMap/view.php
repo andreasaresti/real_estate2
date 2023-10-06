@@ -383,6 +383,7 @@
 	}
     function loadPageListingMap(index,maker_position0,maker_position1,set,zoom){
         document.getElementById("page_index").value = index;
+        $('html,body').scrollTop(0);
         loadActiveListingsListingGrid([maker_position0,maker_position1],set,zoom);
 	}
 	function loadActiveFeaturesListingMap(){
@@ -682,9 +683,11 @@
                 }
                 temp +=` </ul>
                         <div class="price-properties pt-0 pb-0">
-                            <h3 class="title mt-3">
-                                <a onclick="showListigDetailModal(`+list[i].id+`);" tabindex="0">€ `+ list[i].price+`</a>
-                            </h3>
+                            <h3 class="title mt-3">`;
+                        if(parseInt(list[i].price)>0){
+                            temp +=`<a href="/page/listing-details?index=`+list[i].id+`" tabindex="0">€ `+ list[i].price+`</a>`;
+                        }
+                        temp +=`</h3>
                             <div class="compare">
                                 <a style="cursor: pointer;" onclick="addFavoritListingMap(`+list[i].id+`)"><i id="faHeart`+list[i].id+`" class="fa fa-heart" style="font-size: x-large; ` + favorite + ` "></i></a>
                             </div>

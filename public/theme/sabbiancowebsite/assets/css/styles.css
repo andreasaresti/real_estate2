@@ -2229,7 +2229,7 @@ section.welcome {
 
 .welcome-title h4 {
   color: #000;
-  font-size: 22px;
+  font-size: 20px;
   text-transform: uppercase;
 }
 
@@ -5815,6 +5815,7 @@ a.button,
 .homepage-3 .header-user-name,
 .homepage-3 .header-user-name:before {
   color: #fff;
+  font-size:22px;
 }
 
 .homepage-3 #navigation.style-2.cloned .header-user-name,
@@ -5861,7 +5862,7 @@ a.button,
   }
 
   .homepage-3 .banner-inner h1 {
-    font-size: 22px;
+    font-size: 20px;
   }
 
   .homepage-3 .banner-inner .sub-title {
@@ -6495,7 +6496,7 @@ a.button,
 }
 
 .play-icon {
-  font-size: 22px;
+  font-size: 20px;
   color: #229643;
   position: absolute;
   top: 50%;
@@ -10642,6 +10643,7 @@ a.button {
 .homepage-1 .header-user-name-white,
 .homepage-1 .header-user-name-white:before {
   color: #fff;
+  font-size: 20px;
 }
 
 .homepage-1 .agents-grid .project-single {
@@ -11013,6 +11015,7 @@ a.button {
 .th-15 #navigation.style-2.cloned .header-user-name:before,
 .th-15 #header.cloned.sticky .header-user-name:before {
   color: #666;
+  
 }
 
 @media only screen and (max-width: 1024px) {
@@ -12192,7 +12195,7 @@ section.visited-cities {
 }
 
 .recent-title {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 600;
   margin-bottom: 4px;
 }
@@ -13227,7 +13230,7 @@ form label.error {
   }
 
   .th-8 .header-image .left h1 {
-    font-size: 22px;
+    font-size: 20px;
   }
 
   .th-8 a.button.border, a.button, .th-8 .header-image .left .btn-white {
@@ -14479,7 +14482,7 @@ a.button {
   }
 
   .homepage-23 .banner-inner h1 {
-    font-size: 22px;
+    font-size: 20px;
   }
 
   .homepage-23 .banner-inner .sub-title {
@@ -19482,7 +19485,7 @@ body.dashboard-bd {
 }
 
 .notification-box h3 {
-  font-size: 22px;
+  font-size: 20px;
   margin-bottom: 10px;
 }
 

@@ -170,9 +170,11 @@ if(isset($_SESSION["user_role"])){
                             temp +=` </ul>
                         </div>
                         <div class="col-lg-1 col-md-12 homes-content pb-0 mb-44"  style=" display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap;">
-                            <h3 class="title mt-3">
-                                <a href="/page/listing-details?index=`+list[i].id+`" tabindex="0">€ `+ list[i].price+`</a>
-                            </h3>
+                            <h3 class="title mt-3">`;
+                        if(parseInt(list[i].price)>0){
+                            temp +=`<a href="/page/listing-details?index=`+list[i].id+`" tabindex="0">€ `+ list[i].price+`</a>`;
+                        }
+                        temp +=`</h3>
                             <div class="compare">
                                 <a style="cursor: pointer;" onclick="addFavoritFavorited(`+list[i].id+`)"><i id="faHeart`+list[i].id+`" class="fa fa-heart" style="font-size: x-large; ` + favorite + ` "></i></a>
                             </div>

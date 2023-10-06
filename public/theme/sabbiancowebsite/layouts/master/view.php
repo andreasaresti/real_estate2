@@ -432,14 +432,14 @@
                                                                                                 <span data-testid="bed-bath-item" id="ListingBedroomsTitleDiv" class="Text-c11n-8-84-3__sc-aiai24-0 hrfydd">
                                                                                                     <i class="flaticon-bed mr-2" aria-hidden="true"></i>
                                                                                                     <strong id="ListingBedroomsTitle"></strong>
-                                                                                                    <span> bd</span>
+                                                                                                    <span> bed</span>
                                                                                                     <span color="colors.gray300" class="dpf__sc-13frln-0 haJXRk"></span>
                                                                                                 </span>
                                                                                                 <!-- <button type="button" aria-expanded="false" aria-haspopup="false" class="TriggerText-c11n-8-84-3__sc-139r5uq-0 eJlkOp TooltipPopper-c11n-8-84-3__sc-io290n-0 hdp__sc-1vcj1w9-0 cPCtZj"> -->
                                                                                                 <span data-testid="bed-bath-item" id="ListingBathTitleDiv" class="Text-c11n-8-84-3__sc-aiai24-0 hrfydd">
                                                                                                     <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
                                                                                                     <strong id="ListingBathTitle"></strong>
-                                                                                                    <span> ba</span>
+                                                                                                    <span> bath</span>
                                                                                                     <span color="colors.gray300" class="dpf__sc-13frln-0 haJXRk"></span>
                                                                                                 </span>
                                                                                                 <!-- </button> -->
@@ -478,10 +478,7 @@
                                                             <div class="data-view-container">
                                                                 <div class="ds-data-view-list">
                                                                     <div class="hdp__sc-1jydst6-0 lckxKm">
-                                                                        <div class="single homes-content details mb-30">
-                                                                            <h3 class="mb-3">Description</h3>
-                                                                            <p id="listingDescription"></p>
-                                                                        </div>
+                                                                        
                                                                         <div class="single homes-content details mb-30">
                                                                             <!-- title -->
                                                                             <h3 class="mb-3">Property Details</h3>
@@ -523,6 +520,10 @@
                                                                                     <span class="det" id="ListingYearBuilt"></span>
                                                                                 </li>
                                                                             </ul>
+                                                                        </div>
+                                                                        <div class="single homes-content details mb-30">
+                                                                            <h3 class="mb-3">Description</h3>
+                                                                            <p id="listingDescription"></p>
                                                                         </div>
                                                                         <div class="single homes-content details mb-30">
                                                                             <!-- title -->
@@ -921,7 +922,9 @@
                         <i id="faHeartListingDetailModal`+data.id+`" class="fa fa-heart" style="font-size: initial; `+favorite+`"></i>
                         <span class="hdp__sc-1dupnse-3 gBetGm"> Save </span></a>`;
 
-                document.getElementById("listingDescription").innerHTML = data.displaydescription;
+                temp = data.displaydescription;
+                temp = temp.replaceAll("col-lg-6","col-lg-12");
+                document.getElementById("listingDescription").innerHTML = temp;
                 if(data.year_built !== null){
                     document.getElementById("ListingYearBuilt").innerHTML = data.year_built;
                 }else{

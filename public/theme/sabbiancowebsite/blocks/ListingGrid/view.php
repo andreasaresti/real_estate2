@@ -360,6 +360,7 @@
 	}
     function loadPageListingGrid(index){
         document.getElementById("page_index").value = index;
+        $('html,body').scrollTop(0);
 		loadActivelistingsListingGrid();
 	}
 	function loadActiveFeaturesListingGrid(){
@@ -645,9 +646,11 @@
                             temp +=` </ul>
                         </div>
                         <div class="col-lg-1 col-md-12 homes-content pb-0 mb-44"  style=" display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap;">
-                            <h3 class="title mt-3">
-                                <a onclick="showListigDetailModal(`+list[i].id+`);" tabindex="0">€ `+ list[i].price+`</a>
-                            </h3>
+                            <h3 class="title mt-3">`;
+                        if(parseInt(list[i].price)>0){
+                            temp +=`<a href="/page/listing-details?index=`+list[i].id+`" tabindex="0">€ `+ list[i].price+`</a>`;
+                        }
+                        temp +=`</h3>
                             <div class="compare">
                                 <a style="cursor: pointer;" onclick="AddFavoritListingGrid(`+list[i].id+`)"><i id="faHeart`+list[i].id+`" class="fa fa-heart" style="font-size: x-large; ` + favorite + ` "></i></a>
                             </div>
@@ -913,9 +916,11 @@
                 }
                 temp +=` </ul>
                             <div class="price-properties pt-0 pb-0">
-                            <h3 class="title mt-3">
-                                <a onclick="showListigDetailModal(`+list[i].id+`);" tabindex="0">€ `+ list[i].price+`</a>
-                            </h3>
+                            <h3 class="title mt-3">`;
+                        if(parseInt(list[i].price)>0){
+                            temp +=`<a href="/page/listing-details?index=`+list[i].id+`" tabindex="0">€ `+ list[i].price+`</a>`;
+                        }
+                        temp +=`</h3>
                             <div class="compare">
                                 <a style="cursor: pointer;" onclick="AddFavoritListingGrid(`+list[i].id+`)"><i id="faHeart`+list[i].id+`" class="fa fa-heart" style="font-size: x-large; ` + favorite + ` "></i></a>
                             </div>

@@ -10,6 +10,7 @@ use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\Country;
 use Laravel\Nova\Fields\BelongsTo;
@@ -123,6 +124,13 @@ class Agent extends Resource
                 ->placeholder('Active')
                 ->default('1'),
                 
+            Number::make('Sort Order')
+                ->rules('nullable', 'numeric')
+                ->placeholder('Sort Order')
+                ->default('0')
+                ->sortable()
+                ->hide(),
+
             // HasMany::make('Agent Agreement', 'agentAgreement'),
         ];
     }

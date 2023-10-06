@@ -78,14 +78,14 @@ if(isset($_GET['index'])){
                                                                                 <span data-testid="bed-bath-item" id="ListingBedroomsTitleDiv" class="Text-c11n-8-84-3__sc-aiai24-0 hrfydd">
                                                                                     <i class="flaticon-bed mr-2" aria-hidden="true"></i>
                                                                                     <strong id="ListingBedroomsTitle"></strong>
-                                                                                    <span> bd</span>
+                                                                                    <span> bed</span>
                                                                                     <span color="colors.gray300" class="dpf__sc-13frln-0 haJXRk"></span>
                                                                                 </span>
                                                                                 <!-- <button type="button" aria-expanded="false" aria-haspopup="false" class="TriggerText-c11n-8-84-3__sc-139r5uq-0 eJlkOp TooltipPopper-c11n-8-84-3__sc-io290n-0 hdp__sc-1vcj1w9-0 cPCtZj"> -->
                                                                                 <span data-testid="bed-bath-item" id="ListingBathTitleDiv" class="Text-c11n-8-84-3__sc-aiai24-0 hrfydd">
                                                                                     <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
                                                                                     <strong id="ListingBathTitle"></strong>
-                                                                                    <span> ba</span>
+                                                                                    <span> bath</span>
                                                                                     <span color="colors.gray300" class="dpf__sc-13frln-0 haJXRk"></span>
                                                                                 </span>
                                                                                 <!-- </button> -->
@@ -124,10 +124,6 @@ if(isset($_GET['index'])){
                                             <div class="data-view-container" style="overflow-y:auto">
                                                 <div class="ds-data-view-list">
                                                     <div class="hdp__sc-1jydst6-0 lckxKm">
-                                                        <div class="single homes-content details mb-30">
-                                                            <h3 class="mb-3">Description</h3>
-                                                            <p id="listingDescription"></p>
-                                                        </div>
                                                         <div class="single homes-content details mb-30">
                                                             <!-- title -->
                                                             <h3 class="mb-3">Property Details</h3>
@@ -169,6 +165,10 @@ if(isset($_GET['index'])){
                                                                     <span class="det" id="ListingYearBuilt"></span>
                                                                 </li>
                                                             </ul>
+                                                        </div>
+                                                        <div class="single homes-content details mb-30">
+                                                            <h3 class="mb-3">Description</h3>
+                                                            <p id="listingDescription"></p>
                                                         </div>
                                                         <div class="single homes-content details mb-30">
                                                             <!-- title -->
@@ -492,9 +492,11 @@ if(isset($_GET['index'])){
                 }
                 temp +=` </ul>
                         <div class="col-lg-12 col-md-12 homes-content pb-0 mb-44"  style=" display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;padding: 0px!important;box-shadow: none;">
-                            <h3 class="title mt-3">
-                                <a href="/page/listing-details?index=`+list[i].id+`" tabindex="0">€ `+ list[i].price+`</a>
-                            </h3>
+                            <h3 class="title mt-3">`;
+                        if(parseInt(list[i].price)>0){
+                            temp +=`<a href="/page/listing-details?index=`+list[i].id+`" tabindex="0">€ `+ list[i].price+`</a>`;
+                        }
+                        temp +=`</h3>
                             <div class="compare">
                                 <a style="cursor: pointer;" onclick="addFavoritListingDetails(`+list[i].id+`)"><i id="faHeart`+list[i].id+`" class="fa fa-heart" style="font-size: x-large; ` + favorite + ` "></i></a>
                             </div>
