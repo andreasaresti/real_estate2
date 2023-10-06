@@ -355,7 +355,7 @@
 			}
             for(i= 0; i<counter; i++)
             {
-                temp +=` <div style="width: 75%;display: flex;justify-content: space-between;margin: 5px 10px 5px 10px;">
+                temp +=` <div style="width: 75%;display: flex;justify-content: space-between;margin: 15px 10px 0px 0px">
 							<strong>
 								<font style="vertical-align: inherit;font-size: 20px;">`+ list[i].name + `</font>
 							</strong>`;
@@ -364,7 +364,8 @@
 								<i class="fa fa-external-link" aria-hidden="true"></i>
 							</a>`;
 				}
-				temp +=`</div>`;
+				temp +=`</div>
+						<font style="vertical-align: inherit;font-size: 20px;">`+ list[i].address + `</font><br>`;
             }
             document.getElementById("homeAgencyContent").innerHTML = temp;
 		}

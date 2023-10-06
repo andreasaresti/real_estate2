@@ -19713,13 +19713,9 @@ select:focus {
     margin-left: 250px;
   }
 }
-@media screen and (max-width: 320px) {
-  #logo img {
-    width: 90px;
-    margin-right: 35px;
-  }
-}
+
 @media screen and (max-width: 767px) {
+  
   .dashboard-bd #logo {
     margin-left: 250px;
   }
