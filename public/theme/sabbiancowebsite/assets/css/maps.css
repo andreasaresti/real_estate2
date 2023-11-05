@@ -492,7 +492,7 @@
 }
 #map-leaflet {
 	height: 100%;
-	width: 100%;
+	width: 98%;
 	margin: 0;
 	z-index: 1;
 }
@@ -2340,7 +2340,6 @@ section.feature-categories {
 }
 .homepage-9 .small-category-2-thumb .fas {
     font-size: 2.1rem;
-    color: $firstcolor;
 }
 .homepage-9 .small-category-2-thumb {
     width: 170px;
@@ -2376,7 +2375,7 @@ section.feature-categories {
 .homepage-9 .sc-2-detail span {
     font-size: 15px;
     font-weight: 400;
-    color: $text;
+    color: text;
 }
 .homepage-9 .no-mb {
     margin-bottom: 0px;
