@@ -229,4 +229,14 @@ z-inedx:4;}
 
 em{display:none;}
 
-
+.zillow-header{
+	background: white;
+	height: 80px;
+	border-bottom:1px solid rgb(216, 216, 216);
+}
+/* @media screen and (max-width: 768px) {
+	.zillow-header{
+		height: 80px;
+		background:none;
+	}
+} */
