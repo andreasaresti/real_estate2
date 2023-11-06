@@ -66,7 +66,7 @@ Route::get('', function () {
 // echo 'here<br>';
 //     die;
 Route::get('/', function () {
-    
+
     return redirect('/page/home');
 })->name('page');
 
@@ -74,7 +74,7 @@ Route::get('', function () {
     return redirect('/page/home');
 })->name('page');
 
-Route::controller(PositionModalController::class)->group(function(){
+Route::controller(PositionModalController::class)->group(function () {
     Route::get('positionModal', 'index');
 });
 
@@ -90,10 +90,9 @@ Route::any('/page/{any}', function () {
     if (request()->path() === '/' && !$hasPageReturned) {
         $builder->getWebsiteManager()->renderWelcomePage();
     }
-
 })->where('any', '.*');
 
-Route::controller(PositionModalController::class)->group(function(){
+Route::controller(PositionModalController::class)->group(function () {
     Route::get('positionModal', 'index');
 });
 
@@ -187,9 +186,9 @@ Route::prefix('/')
         Route::resource('banner-images', BannerImageController::class);
     });
 
-    
-    
 
-    Route::get('importimages', [webListingsImportImagesController::class, 'import_images']);
-    
-    Route::get('importlistings', [webListingsAddListingsController::class, 'import_listings']);
+
+
+Route::get('importimages', [webListingsImportImagesController::class, 'import_images']);
+
+Route::get('importlistings', [webListingsAddListingsController::class, 'import_listings']);

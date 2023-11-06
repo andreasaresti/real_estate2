@@ -68,7 +68,7 @@ class ActiveListingsController extends Controller
         if ($request->has('id') && $request->id != '') {
             $query = $query->where('listings.id', $request->id);
         }
-        
+
 
         if ($request->has('number_of_bedrooms') && $request->number_of_bedrooms != '') {
             $query = $query->where('number_of_bedrooms', '>=', $request->number_of_bedrooms);
@@ -101,8 +101,7 @@ class ActiveListingsController extends Controller
 
         if ($request->has('radius') && $request->radius[0] != '' && $request->radius[1] != '' && $request->set != 0) {
             $query = $query->whereRaw('(sqrt(pow( ? - latitude, 2) + pow( ? - longitude, 2))) < 0.0090437 * ?', [$request->radius[0], $request->radius[1], $request->set]);
-        }
-        else{
+        } else {
             if ($request->has('locations') && count($request->locations) > 0) {
                 $query = $query->whereIn('location_id', $request->locations);
             }
@@ -124,7 +123,7 @@ class ActiveListingsController extends Controller
                 });
             }
         }
-        
+
         if ($request->has('listing_types') && count($request->listing_types) > 0) {
             $query = $query->whereIn('listings.id', function ($subquery) use ($request) {
                 $subquery->select('listing_id')
@@ -147,6 +146,19 @@ class ActiveListingsController extends Controller
                     ->where('sales_request_id', $request->sales_request_id);
             });
         }
+        if ($request->has('markers') && !empty($request->markers)) {
+
+            $boundry = 'MULTIPOLYGON((';
+            foreach ($request->markers as $poly) {
+                $boundry .= "(";
+                foreach ($poly as $p) {
+                    $boundry .= number_format($p['lng'], 12, '.', '',) . " " . number_format($p['lat'], 12, '.', '',) . ",";
+                }
+                $boundry = substr($boundry, 0, -1) . "),";
+            };
+            $boundry = substr($boundry, 0, -1) . "))";
+            $query = $query->whereRaw('ST_CONTAINS(ST_GEOMFROMTEXT(\'' . $boundry . '\'),Point(longitude,latitude))');
+        }
         $querymarkers = $query
             ->select($select_values_array)
             ->orderBy($orderby, $orderbytype)
@@ -160,20 +172,20 @@ class ActiveListingsController extends Controller
                 }
                 $querymarkers[$key]->location_name = '';
                 $location = Location::where('id', $row->location_id)->first();
-                if($location){
+                if ($location) {
                     $querymarkers[$key]->location_name = $location->name;
                 }
                 $name_array = $row->name;
                 $querymarkers[$key]->displayname = $name_array;
                 $listing_marker  = [];
                 $listing_marker['id'] = $row->id;
-                $listing_marker['center'] = [$querymarkers[$key]->latitude,$querymarkers[$key]->longitude];
+                $listing_marker['center'] = [$querymarkers[$key]->latitude, $querymarkers[$key]->longitude];
                 $listing_marker['title'] = $querymarkers[$key]->displayname;
                 $listing_marker['icon'] = "<i class='fa fa-home'></i>";
                 $listing_marker['desc'] = $querymarkers[$key]->location_name;
-                $listing_marker['price'] = "€".number_format($row->price);
+                $listing_marker['price'] = "€" . number_format($row->price);
                 $listing_marker['image'] = $querymarkers[$key]->image;
-                $listing_marker['link'] = 'page/listing-details?index='.$row->id;
+                $listing_marker['link'] = 'page/listing-details?index=' . $row->id;
 
                 $listing_markers[]  = $listing_marker;
             }
@@ -183,13 +195,13 @@ class ActiveListingsController extends Controller
             ->orderBy($orderby, $orderbytype)
             ->paginate($perPage, ['/*'], 'page', $page);
 
-        
+
         foreach ($query as $key => $row) {
             $name_array = $row->name;
             $query[$key]->displayname = $name_array;
             $description_array = $row->description;
             $query[$key]->displaydescription = $description_array;
-            
+
 
             $post = Listing::with('media')->find($row->id);
             $media = $post->media;
@@ -230,17 +242,17 @@ class ActiveListingsController extends Controller
 
             $query[$key]->property_type = '';
             $property_type = PropertyType::where('id', $row->property_type_id)->first();
-            if($property_type){
+            if ($property_type) {
                 $query[$key]->property_type = $property_type->name;
             }
-            
+
 
             $query[$key]->location_name = '';
             $location = Location::where('id', $row->location_id)->first();
-            if($location){
+            if ($location) {
                 $query[$key]->location_name = $location->name;
             }
-            
+
 
             if ($row->image != '') {
                 $query[$key]->image = env('APP_IMG_URL') . '/storage/' . $row->image;
@@ -250,7 +262,6 @@ class ActiveListingsController extends Controller
             if (isset($query[$key]->favorite_properties_listing_id) && $query[$key]->favorite_properties_listing_id == $query[$key]->id) {
                 $query[$key]->in_favoriteproperties = 1;
             }
-            
         }
 
         // Combine paginated data and additional data
@@ -263,7 +274,7 @@ class ActiveListingsController extends Controller
 
         $products = $query;
 
-        
+
 
         return response()->json($products);
     }

@@ -35,14 +35,6 @@ $active_property_types_response = json_decode($active_property_types_response);
 ?>
 
 
-<style>
-    .leaflet-polygon {
-        fill: #229643;
-        fill-opacity: 0.3;
-        stroke: #229643;
-    }
-</style>
-
 <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/jquery-ui.css<?php echo time(); ?>">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <div class="inner-pages homepage-4 agents hp-6 full hd-white">
@@ -615,6 +607,7 @@ $active_property_types_response = json_decode($active_property_types_response);
         ps = localStorage.getItem("freedraw-polys")
         if (ps)
             sendData.markers = JSON.parse(ps)
+        console.log(sendData)
         const url = "/api/activelistings";
         let xhr = new XMLHttpRequest();
         xhr.open('POST', url, true);
@@ -854,6 +847,7 @@ $active_property_types_response = json_decode($active_property_types_response);
     }
 
     var freeDraw
+    localStorage.clear("freedraw-polys")
     var markers
 
     function map_init_circle(valueArray, maker_position, set, zoom) {
@@ -874,23 +868,20 @@ $active_property_types_response = json_decode($active_property_types_response);
             }
             if (set > 0) {
                 map = L.map('map-leaflet', {
-                    drawControl: true,
-                    tap: true
+                    drawControl: true
                 }).setView(maker_position, zoom);
             } else {
-                map = L.map('map-leaflet', {
-                    tap: true
-                }).setView([34.994003757575776, 33.15703828125001], zoom);
+                map = L.map('map-leaflet').setView([34.994003757575776, 33.15703828125001], zoom);
             }
 
 
-            freeDraw = new FreeDraw({
-                mode: FreeDraw.NONE
-            });
+            freeDraw = new L.FreeHandShapes();
 
             map.addLayer(freeDraw);
+            freeDraw.setMode('add');
 
-            //localStorage.clear("freedraw-polys")
+
+            localStorage.clear("freedraw-polys")
             ps = localStorage.getItem("freedraw-polys")
 
             if (ps) {
@@ -899,18 +890,26 @@ $active_property_types_response = json_decode($active_property_types_response);
                 })
             }
 
-            freeDraw.on('markers', event => {
-                localStorage.setItem("freedraw-polys", JSON.stringify(event.latLngs))
+            freeDraw.on('layeradd', event => {
+                console.log(freeDraw.getPolygon())
+                layers = []
+                freeDraw.eachLayer(l => {
+                    console.log(l.getLatLngs());
+                    layers.push(l._latlngs[0])
+                })
+
+                console.log(layers)
+                localStorage.setItem("freedraw-polys", JSON.stringify(layers))
                 var new_markers = []
                 markerArray.forEach((m, i) => {
 
-                    if (event.latLngs.length == 0) {
+                    if (layers.length == 0) {
                         if (!map.hasLayer(m)) {
                             map.addLayer(m)
                         }
                         new_markers.push(i)
                     } else {
-                        if (isMarkerInsidePolygon(m, event.latLngs)) {
+                        if (isMarkerInsidePolygon(m, layers)) {
                             if (!map.hasLayer(m)) {
                                 map.addLayer(m)
 
@@ -921,10 +920,10 @@ $active_property_types_response = json_decode($active_property_types_response);
                         }
                     }
                 })
-                markers = event.latLngs
+                markers = layers
 
                 $("#freeDrawingMap").removeClass("active")
-                freeDraw.mode(FreeDraw.NONE)
+                freeDraw.setMode('view');
                 loadActiveListingsListingGrid(maker_position, set, zoom);
 
 
