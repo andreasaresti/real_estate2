@@ -7551,7 +7551,7 @@ $active_property_types_response = json_decode($active_property_types_response);
           </div>
           <div id="map-leaflet"></div>
         </aside>
-        <div id="ListingListingMapDiv" class="col-lg-6 col-md-12 google-maps-right">
+        <div id="ListingListingMapDiv" class="col-lg-6 col-md-12 google-maps-right" style="overflow-y: scroll;height: 84vh;">
           <section>
             <div class="pro-wrapper">
               <div class="detail-wrapper-body">
