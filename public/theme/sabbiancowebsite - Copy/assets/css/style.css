@@ -1,0 +1,242 @@
+
+
+  .tabs-container {
+	width: 100%;
+	left: 50%;
+	top: 12px;
+	background-color: #ffffff;
+  }
+  .tabs {
+	width: 90%;
+	margin-left: 20px;
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+  }
+  .tabs h3 {
+	border: 1px;
+	border-style: double;
+	border-color: #c5c5c5;
+	background-color: #f6f6f6;
+	margin: 2px;
+	text-align: center;
+	padding: 15px 0;
+	cursor: pointer;
+	font-weight: 600;
+  }
+  .tabs-content {
+	background-color: #ffffff;
+	margin-bottom: 20px;
+  }
+  .tabs-content h4 {
+	font-size: 28px;
+	margin-bottom: 20px;
+	color: #000224;
+	font-weight: 600;
+  }
+  .tabs-content p {
+	text-align: justify;
+	line-height: 1.9;
+	letter-spacing: 0.4px;
+	color: #202238;
+  }
+  .tabs-content section {
+	display: none;
+  }
+  .tabs-content .active {
+	display: block!important;
+  }
+  .tabs .active {
+	background-color: #28a745;
+	color: white;
+  }
+
+  
+h1 {
+    color: red;
+}
+
+
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+body{font-family: 'Raleway', sans-serif ;}
+
+.tab-style{
+font-size:20px;
+width:50%;
+background-color:#f2f2f2;
+  text-align:center;
+  
+
+}
+.nav-tabs > li > a {
+    margin-right: 0px;
+    color:grey;
+}
+
+
+
+.group2 { 
+	position: relative; 
+	margin-top: 16px; 
+}
+
+.btn-block{
+	margin-top:20px!important;
+	margin-bottom:20px!important;
+	margin-left:10px!important;
+	font-size:18px;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {   background-color:#e5ecf4;
+color:#4a89dc;}
+
+.login-shadow{-webkit-box-shadow: 5px -5px 6px 0px rgba(82,82,82,0.52);
+-moz-box-shadow: 5px -5px 6px 0px rgba(82,82,82,0.52);
+box-shadow: 5px -5px 6px 0px rgba(82,82,82,0.52);
+  z-index:1;
+   
+}
+
+.signup-shadow{-webkit-box-shadow: -5px 0px 6px 0px rgba(82,82,82,0.52);
+-moz-box-shadow: -5px -5px 6px 0px rgba(82,82,82,0.52);
+box-shadow: -5px 0px 6px 0px rgba(82,82,82,0.52);
+  
+}
+
+
+.modal-header{background-color:#e5ecf4;}
+
+.group { 
+	position: relative; 
+	margin-top: 15px; 
+}
+
+
+.loginModalInput {
+	font-size: 18px;
+	padding: 5px 5px 5px 2px;
+	-webkit-appearance: none;
+	display: block;
+	background: none;
+	color: #636363;
+	width: 100%;
+	border: none;
+	border-radius: 0;
+	border-bottom: 1px solid #757575;
+}
+
+.loginModalInput:focus { outline: none; }
+
+
+/* Label */
+
+.label {
+	color: #757575; 
+	font-size: 18px;
+	font-weight: normal;
+	position: absolute;
+	pointer-events: none;
+	left: -10px;
+	top: 10px;
+	transition: all 0.2s ease;
+}
+
+
+/* active */
+
+.loginModalInput:focus ~ .label, .loginModalInput.used ~ .label {
+	top: -20px;
+  transform: scale(.75); left:-15px;
+	/* font-size: 14px; */
+	color: #4a89dc;
+}
+
+
+/* Underline */
+
+.bar {
+	position: relative;
+	display: block;
+	width: 100%;
+}
+
+.bar:before, .bar:after {
+	content: '';
+	height: 2px; 
+	width: 0;
+	bottom: 1px; 
+	position: absolute;
+	background: #4a89dc; 
+	transition: all 0.2s ease;
+}
+
+.bar:before { left: 50%; }
+
+.bar:after { right: 50%; }
+
+
+/* active */
+
+.loginModalInput:focus ~ .bar:before, .loginModalInput:focus ~ .bar:after { width: 50%; }
+
+
+/* Highlight */
+
+.highlight {
+	position: absolute;
+	height: 60%; 
+	width: 100px; 
+	top: 25%; 
+	left: 0;
+	pointer-events: none;
+	opacity: 0.5;
+}
+
+
+/* active */
+
+.loginModalInput:focus ~ .highlight {
+	animation: inputHighlighter 0.3s ease;
+}
+
+
+@media  screen and (max-width: 767px) and (min-width: 576px){
+  #myModal{margin-left:20%;
+            margin-right:20%;}
+
+  #forgot-password{margin-left:20%;
+            margin-right:20%;}
+} 
+
+
+@media screen and (min-width: 768px) {
+	
+	#myModal .modal-dialog  {
+		width:500px;
+		max-width: 500px;
+	}
+  
+  #forgot-password .modal-dialog{width:500px;}
+  
+  .modal-body{padding-left:50px;
+              padding-right:50px;}
+}
+
+
+.modal-body{background-image:url('/theme/sabbianco/assets/images/fp-1.jpg');
+background-size:cover;
+z-inedx:4;}
+
+em{display:none;}
+
+.zillow-header{
+	background: white;
+	height: 80px;
+	border-bottom:1px solid rgb(216, 216, 216);
+}
+/* @media screen and (max-width: 768px) {
+	.zillow-header{
+		height: 80px;
+		background:none;
+	}
+} */

@@ -16138,7 +16138,7 @@ section.google-map-left {
 .google-maps-right {
   position: relative;
   top: 1;
-  left: 50%;
+  left: 52%;
   height: 100%;
   width: 100%;
   z-index: 0 !important;
@@ -16254,7 +16254,15 @@ section.google-map-right {
 
   .google-maps-right {
     position: relative;
+<<<<<<< Updated upstream
     left: 50%;
+=======
+<<<<<<< HEAD
+    left:52%;
+=======
+    left: 50%;
+>>>>>>> b5a31826422d23e709d519f1d81d00b911a16ee6
+>>>>>>> Stashed changes
     margin-top: 30px;
   }
 
@@ -25492,5 +25500,13 @@ section.ui-element {
 
   .MobileHiddenMap {
     display: none;
+  }
+}
+.searchBarDiv{
+  display:block
+}
+@media screen and (max-width: 767px) {
+  .searchBarDiv{
+    display:none;
   }
 }

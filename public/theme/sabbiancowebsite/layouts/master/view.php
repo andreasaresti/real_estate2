@@ -346,18 +346,68 @@ if (isset($_SESSION["user_id"])) {
                                         <div class="hdp__sc-9dqr3g-0 gDrWtP ds-wrapper fs-package">
                                             <div class="hdp__sc-9dqr3g-1 KyLea ds-container">
                                                 <div class="layout-wrapper" style="height: auto;">
-                                                    <div class="layout-container " style="height: 100vh;">
+                                                    <div style="height: 100vh;">
+                                                        <div class="side-by-side-action-bar">
+                                                            <div data-renderstrat="inline">
+                                                                <div>
+                                                                    <div class="hdp__sc-664ky2-0 bjuBcC">
+                                                                        <div class="hdp__sc-1dupnse-5 kNVgPR">
+                                                                            <div class="hdp__sc-1dupnse-9 gWnoLO ds-action-bar">
+                                                                                <nav aria-label="utility" class="hdp__sc-1dupnse-8 fHgghR">
+                                                                                    <!-- <div  style="position: inherit;text-align: center;width:100%">
+                                                                            <a href="/page/home"><img style="width: 120px;margin-top: 4px;" src="/theme/sabbiancowebsite/assets/images/logosabbianco.png" alt=""/></a>
+                                                                        </div> -->
+                                                                                    <ul class="hdp__sc-1dupnse-7 erqwFf">
+                                                                                        <li class="hdp__sc-1dupnse-1 fsIsqR">
+                                                                                            <button aria-pressed="false" class="sc-bcXHqe cqBcXG hdp__sc-14xnfdo-0 gdKUCl" role="button">
+                                                                                                <div class="hdp__sc-1dupnse-4 jJQTGX" id="ListingDetailFavorit">
+                                                                                                    <div aria-hidden="true" class="hdp__sc-1dupnse-2 hdp__sc-1dupnse-10 dWtTje eThNKw">
+                                                                                                        <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false" role="img" class="Icon-c11n-8-84-3__sc-13llmml-0 jhZWWg">
+                                                                                                            <title>Heart</title>
+                                                                                                            <path stroke="none" d="M27.66 6.19a7.85 7.85 0 00-11 .13L16 7l-.65-.66a7.85 7.85 0 00-11-.13 8.23 8.23 0 00.09 11.59l.42.42L15.29 28.7a1 1 0 001.42 0l10.44-10.5.42-.42a8.23 8.23 0 00.09-11.59zm-1.42 10.06l-.52.52L16 26.55l-9.72-9.78-.52-.52A6.15 6.15 0 014 13.19a5.91 5.91 0 011.62-5.43 5.81 5.81 0 014.67-1.71 6 6 0 013.78 1.87l.5.5 1.08 1.08a.5.5 0 00.7 0l1.08-1.08.5-.5a6 6 0 013.78-1.87 5.81 5.81 0 014.67 1.71A5.91 5.91 0 0128 13.19a6.15 6.15 0 01-1.76 3.06z"></path>
+                                                                                                        </svg>
+                                                                                                    </div>
+                                                                                                    <span class="hdp__sc-1dupnse-3 gBetGm"> Save </span>
+                                                                                                </div>
+                                                                                            </button>
+                                                                                        </li>
+                                                                                        <li class="hdp__sc-1dupnse-1 fsIsqR">
+                                                                                            <div class="hdp__sc-1dupnse-11 gLYDfj" property="[object Object]">
+                                                                                                <div type="button" class="hdp__sc-1dupnse-4 jJQTGX">
+                                                                                                    <div aria-hidden="true" class="hdp__sc-1dupnse-2 hdp__sc-1dupnse-10 dWtTje eThNKw" onclick="closeListingDetailModal();">
+                                                                                                        <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false" role="img" class="Icon-c11n-8-84-3__sc-13llmml-0 jhZWWg">
+                                                                                                            <title>close</title>
+                                                                                                            <path stroke="none" d="M16 2a14 14 0 1014 14A14 14 0 0016 2zM6.85 23.74A12 12 0 0123.74 6.85L6.85 23.74zM16 28a11.89 11.89 0 01-7.74-2.85L25.15 8.26A12 12 0 0116 28z"></path>
+                                                                                                        </svg>
+                                                                                                    </div>
+                                                                                                    <span class="hdp__sc-1dupnse-3 gBetGm" onclick="closeListingDetailModal();">Close</span>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </nav>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                         <div class="media-column-container">
                                                             <div data-renderstrat="inline">
                                                                 <div>
                                                                     <div>
                                                                         <div class="hdp__sc-ys97yr-0 dsOsCK">
-                                                                            <div data-media-col="true">
-                                                                                <ul class="hdp__sc-1wi9vqt-0 dDzspE ds-media-col media-stream" id="listingImg">
-                                                                                </ul>
+                                                                            <div data-media-col="true" class="row" style="height: 400px;margin: 20px;">
+                                                                                <div class='col-lg-6 col-md-6' id="listingImg" style="padding: 0px;">
+
+                                                                                </div>
+                                                                                <div class='col-lg-6 col-md-6' style="padding: 0px;height: 100%;">
+                                                                                    <div class='row' id="listingSubImg" style="height: 400px;margin: 0px;">
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="hdp__sc-ys97yr-1 byRSqe" style="margin-top: 59px;">
+                                                                        <div class="hdp__sc-ys97yr-1 byRSqe">
                                                                             <button class="StyledTextButton-c11n-8-84-3__sc-n1gfmh-0 kvwmII dpf__sc-bfl6r0-0 gvIJFU">Skip to end of photos</button>
                                                                             <div data-integration-test-id="photo-carousel" class="dpf__sc-1dbq79x-0 ihMmzv">
                                                                                 <div class="sc-gGvHcT hUYMgw dpf__sc-1ezqz18-0 brZwag">
@@ -369,8 +419,16 @@ if (isset($_SESSION["user_id"])) {
                                                                                         </svg>
                                                                                     </button>
                                                                                     <section id="slider" class="row" style="height: 100%;">
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+                                                                                        <div class="scroll-wrapper" style="height: 100%;">
+                                                                                            <ul class="row" id="listingImgMobile" style="height: 100%;display:contents;">
+=======
+>>>>>>> Stashed changes
                                                                                         <div class="scroll-wrapper">
                                                                                             <ul class="row" id="listingImgMobile" style="height: 100%;">
+>>>>>>> b5a31826422d23e709d519f1d81d00b911a16ee6
                                                                                             </ul>
                                                                                         </div>
                                                                                     </section>
@@ -387,107 +445,131 @@ if (isset($_SESSION["user_id"])) {
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="data-column-container">
-                                                            <div class="side-by-side-action-bar">
-                                                                <div data-renderstrat="inline">
-                                                                    <div>
-                                                                        <div class="hdp__sc-664ky2-0 bjuBcC">
-                                                                            <div class="hdp__sc-1dupnse-5 kNVgPR">
-                                                                                <div class="hdp__sc-1dupnse-9 gWnoLO ds-action-bar">
-                                                                                    <nav aria-label="utility" class="hdp__sc-1dupnse-8 fHgghR">
-                                                                                        <!-- <div  style="position: inherit;text-align: center;width:100%">
-                                                                                            <a href="/page/home"><img style="width: 120px;margin-top: 4px;" src="/theme/sabbiancowebsite/assets/images/logosabbianco.png" alt=""/></a>
-                                                                                        </div> -->
-                                                                                        <ul class="hdp__sc-1dupnse-7 erqwFf">
-                                                                                            <li class="hdp__sc-1dupnse-1 fsIsqR">
-                                                                                                <button aria-pressed="false" class="sc-bcXHqe cqBcXG hdp__sc-14xnfdo-0 gdKUCl" role="button">
-                                                                                                    <div class="hdp__sc-1dupnse-4 jJQTGX" id="ListingDetailFavorit">
-                                                                                                        <div aria-hidden="true" class="hdp__sc-1dupnse-2 hdp__sc-1dupnse-10 dWtTje eThNKw">
-                                                                                                            <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false" role="img" class="Icon-c11n-8-84-3__sc-13llmml-0 jhZWWg">
-                                                                                                                <title>Heart</title>
-                                                                                                                <path stroke="none" d="M27.66 6.19a7.85 7.85 0 00-11 .13L16 7l-.65-.66a7.85 7.85 0 00-11-.13 8.23 8.23 0 00.09 11.59l.42.42L15.29 28.7a1 1 0 001.42 0l10.44-10.5.42-.42a8.23 8.23 0 00.09-11.59zm-1.42 10.06l-.52.52L16 26.55l-9.72-9.78-.52-.52A6.15 6.15 0 014 13.19a5.91 5.91 0 011.62-5.43 5.81 5.81 0 014.67-1.71 6 6 0 013.78 1.87l.5.5 1.08 1.08a.5.5 0 00.7 0l1.08-1.08.5-.5a6 6 0 013.78-1.87 5.81 5.81 0 014.67 1.71A5.91 5.91 0 0128 13.19a6.15 6.15 0 01-1.76 3.06z"></path>
-                                                                                                            </svg>
-                                                                                                        </div>
-                                                                                                        <span class="hdp__sc-1dupnse-3 gBetGm"> Save </span>
-                                                                                                    </div>
-                                                                                                </button>
-                                                                                            </li>
-                                                                                            <li class="hdp__sc-1dupnse-1 fsIsqR">
-                                                                                                <div class="hdp__sc-1dupnse-11 gLYDfj" property="[object Object]">
-                                                                                                    <div type="button" class="hdp__sc-1dupnse-4 jJQTGX">
-                                                                                                        <div aria-hidden="true" class="hdp__sc-1dupnse-2 hdp__sc-1dupnse-10 dWtTje eThNKw" onclick="closeListingDetailModal();">
-                                                                                                            <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false" role="img" class="Icon-c11n-8-84-3__sc-13llmml-0 jhZWWg">
-                                                                                                                <title>close</title>
-                                                                                                                <path stroke="none" d="M16 2a14 14 0 1014 14A14 14 0 0016 2zM6.85 23.74A12 12 0 0123.74 6.85L6.85 23.74zM16 28a11.89 11.89 0 01-7.74-2.85L25.15 8.26A12 12 0 0116 28z"></path>
-                                                                                                            </svg>
-                                                                                                        </div>
-                                                                                                        <span class="hdp__sc-1dupnse-3 gBetGm" onclick="closeListingDetailModal();">Close</span>
-                                                                                                    </div>
+                                                            <div class="row">
+                                                                <div class="col-lg-9 col-sm-12">
+                                                                    <div class="summary-container">
+                                                                        <div>
+                                                                            <div data-renderstrat="inline">
+                                                                                <div>
+                                                                                    <div class="Spacer-c11n-8-84-3__sc-17suqs2-0 yETgj">
+                                                                                        <div class="hdp__sc-1s2b8ok-0 eXZxHY">
+                                                                                            <div class="hdp__sc-1s2b8ok-1 ckVIjE">
+                                                                                                <span data-testid="price" class="Text-c11n-8-84-3__sc-aiai24-0 dpf__sc-1me8eh6-0 OByUh fpfhCd">
+                                                                                                    <span id="listingPriceTitle"></span>
+                                                                                                </span>
+                                                                                                <div class="hdp__sc-1s2b8ok-2 wmMDq">
+                                                                                                    <span data-testid="bed-bath-beyond">
+                                                                                                        <span data-testid="bed-bath-item" id="ListingBedroomsTitleDiv" class="Text-c11n-8-84-3__sc-aiai24-0 hrfydd">
+                                                                                                            <i class="flaticon-bed mr-2" aria-hidden="true"></i>
+                                                                                                            <strong id="ListingBedroomsTitle"></strong>
+                                                                                                            <span> bed</span>
+                                                                                                            <span color="colors.gray300" class="dpf__sc-13frln-0 haJXRk"></span>
+                                                                                                        </span>
+                                                                                                        <span data-testid="bed-bath-item" id="ListingBathTitleDiv" class="Text-c11n-8-84-3__sc-aiai24-0 hrfydd">
+                                                                                                            <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
+                                                                                                            <strong id="ListingBathTitle"></strong>
+                                                                                                            <span> bath</span>
+                                                                                                            <span color="colors.gray300" class="dpf__sc-13frln-0 haJXRk"></span>
+                                                                                                        </span>
+                                                                                                        <span data-testid="bed-bath-item" id="ListingAreaTitleDiv" class="Text-c11n-8-84-3__sc-aiai24-0 hrfydd">
+                                                                                                            <i class="flaticon-square mr-2" aria-hidden="true"></i>
+                                                                                                            <strong id="ListingAreaTitle"></strong>
+                                                                                                            <span> sqm</span>
+                                                                                                        </span>
+                                                                                                    </span>
                                                                                                 </div>
-                                                                                            </li>
-                                                                                        </ul>
-                                                                                    </nav>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="hdp__sc-riwk6j-0 jmPkrV">
+                                                                                            <h1 class="Text-c11n-8-84-3__sc-aiai24-0 hrfydd" id="listingName"></h1>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="data-view-container" style="overflow-y:auto">
+                                                                        <div class="ds-data-view-list">
+                                                                            <div class="hdp__sc-1jydst6-0 lckxKm">
+                                                                                <div class="single homes-content details mb-30">
+                                                                                    <h3 class="mb-3">Property Details</h3>
+                                                                                    <ul class="homes-list clearfix">
+                                                                                        <li style="display:none">
+                                                                                            <span class="font-weight-bold mr-1">Property ID:</span>
+                                                                                            <span class="det"></span>
+                                                                                        </li>
+                                                                                        <li id="ListingPropertyTypeDiv">
+                                                                                            <span class="font-weight-bold mr-1">Property Type:</span>
+                                                                                            <span class="det" id="ListingPropertyType"></span>
+                                                                                        </li>
+                                                                                        <li id="ListingPropertyStatusDiv" style="display:none">
+                                                                                            <span class="font-weight-bold mr-1">Property status:</span>
+                                                                                            <span class="det" id="ListingPropertyStatus"></span>
+                                                                                        </li>
+                                                                                        <li id="ListingPropertyPriceDiv">
+                                                                                            <span class="font-weight-bold mr-1">Property Price:</span>
+                                                                                            <span class="det" id="ListingPropertyPrice"></span>
+                                                                                        </li>
+                                                                                        <li id="ListingAreaDiv">
+                                                                                            <span class="font-weight-bold mr-1">Area:</span>
+                                                                                            <span class="det" id="ListingArea"></span>
+                                                                                        </li>
+                                                                                        <li id="ListingBedroomsDiv">
+                                                                                            <span class="font-weight-bold mr-1">Bedrooms:</span>
+                                                                                            <span class="det" id="ListingBedrooms"></span>
+                                                                                        </li>
+                                                                                        <li id="ListingBathDiv">
+                                                                                            <span class="font-weight-bold mr-1">Bath:</span>
+                                                                                            <span class="det" id="ListingBath"></span>
+                                                                                        </li>
+                                                                                        <li id="ListingGaragesDiv">
+                                                                                            <span class="font-weight-bold mr-1">Garages:</span>
+                                                                                            <span class="det" id="ListingGarages"></span>
+                                                                                        </li>
+                                                                                        <li id="ListingYearBuiltDiv">
+                                                                                            <span class="font-weight-bold mr-1">Year Built:</span>
+                                                                                            <span class="det" id="ListingYearBuilt"></span>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                                <div class="single homes-content details mb-30">
+                                                                                    <h3 class="mb-3">Description</h3>
+                                                                                    <p id="listingDescription"></p>
+                                                                                </div>
+                                                                                <div class="single homes-content details mb-30">
+                                                                                    <!-- title -->
+                                                                                    <h3 class="mb-3">Amenities</h3>
+                                                                                    <!-- cars List -->
+                                                                                    <ul class="homes-list clearfix" id="amenities">
+                                                                                    </ul>
+                                                                                </div>
+                                                                                <div class="floor-plan property wprt-image-video w50 pro" id="floorPlansDiv">
+                                                                                    <h3 class="mb-3">Floor Plans</h3>
+                                                                                    <img alt="image" id="floorPlans" src="">
+                                                                                </div>
+                                                                                <div class="property-location map" style="height: 350px;">
+                                                                                    <h3 class="mb-3">Location</h3>
+                                                                                    <div class="divider-fade"></div>
+                                                                                    <div id="map-leaflet-listingsDetail" class="contact-map" style="height: 255px; "></div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="summary-container">
-                                                                <div>
-                                                                    <div data-renderstrat="inline">
-                                                                        <div>
-                                                                            <div class="Spacer-c11n-8-84-3__sc-17suqs2-0 yETgj">
-                                                                                <div class="hdp__sc-1s2b8ok-0 eXZxHY">
-                                                                                    <div class="hdp__sc-1s2b8ok-1 ckVIjE">
-                                                                                        <span data-testid="price" class="Text-c11n-8-84-3__sc-aiai24-0 dpf__sc-1me8eh6-0 OByUh fpfhCd">
-                                                                                            <span id="listingPriceTitle"></span>
-                                                                                        </span>
-                                                                                        <div class="hdp__sc-1s2b8ok-2 wmMDq">
-                                                                                            <span data-testid="bed-bath-beyond">
-                                                                                                <span data-testid="bed-bath-item" id="ListingBedroomsTitleDiv" class="Text-c11n-8-84-3__sc-aiai24-0 hrfydd">
-                                                                                                    <i class="flaticon-bed mr-2" aria-hidden="true"></i>
-                                                                                                    <strong id="ListingBedroomsTitle"></strong>
-                                                                                                    <span> bed</span>
-                                                                                                    <span color="colors.gray300" class="dpf__sc-13frln-0 haJXRk"></span>
-                                                                                                </span>
-                                                                                                <!-- <button type="button" aria-expanded="false" aria-haspopup="false" class="TriggerText-c11n-8-84-3__sc-139r5uq-0 eJlkOp TooltipPopper-c11n-8-84-3__sc-io290n-0 hdp__sc-1vcj1w9-0 cPCtZj"> -->
-                                                                                                <span data-testid="bed-bath-item" id="ListingBathTitleDiv" class="Text-c11n-8-84-3__sc-aiai24-0 hrfydd">
-                                                                                                    <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
-                                                                                                    <strong id="ListingBathTitle"></strong>
-                                                                                                    <span> bath</span>
-                                                                                                    <span color="colors.gray300" class="dpf__sc-13frln-0 haJXRk"></span>
-                                                                                                </span>
-                                                                                                <!-- </button> -->
-                                                                                                <span data-testid="bed-bath-item" id="ListingAreaTitleDiv" class="Text-c11n-8-84-3__sc-aiai24-0 hrfydd">
-                                                                                                    <i class="flaticon-square mr-2" aria-hidden="true"></i>
-                                                                                                    <strong id="ListingAreaTitle"></strong>
-                                                                                                    <span> sqm</span>
-                                                                                                </span>
-                                                                                            </span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="hdp__sc-riwk6j-0 jmPkrV">
-                                                                                    <h1 class="Text-c11n-8-84-3__sc-aiai24-0 hrfydd" id="listingName"></h1>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div data-cft-name="contact-buttons" class="hdp__sc-h6x2kh-0 hXcQfc">
+                                                                <div class="col-3">
+                                                                    <div data-cft-name="contact-buttons" class="hdp__sc-h6x2kh-0 hXcQfc" style="border: 1px solid #D1D1D5;padding: 25px;border-radius: 10px;margin: 0px;">
                                                                         <ul class="contact-button-group">
                                                                             <li class="contact-button prominent">
                                                                                 <button onclick="showRequestModal()" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 fKAHIc sc-16sdjcz-0 eObXzv contact-button-condensed ds-button ds-label-small" data-cft-name="contact-button-tour">
-                                                                                    <div style="text-align: center;">Request more Details
+                                                                                    <div style="color: white;text-align: center;">Request more Details
                                                                                         <!-- <p class="Text-c11n-8-84-3__sc-aiai24-0 StyledParagraph-c11n-8-84-3__sc-18ze78a-0 hTmUSk">as early as today at 11:00 am</p> -->
                                                                                     </div>
                                                                                 </button>
                                                                             </li>
-                                                                            <!-- <li class="contact-button">
-                                                                                <button class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 liNKkG sc-16sdjcz-0 eObXzv contact-button-condensed ds-button ds-label-small" data-cft-name="contact-button-message">Contact agent</button>
-                                                                            </li> -->
                                                                         </ul>
+<<<<<<< HEAD
+=======
                                                                         <div class="Spacer-c11n-8-84-3__sc-17suqs2-0 fyXflK"></div>
                                                                     </div>
                                                                 </div>
@@ -558,10 +640,12 @@ if (isset($_SESSION["user_id"])) {
                                                                             <div class="divider-fade"></div>
                                                                             <div id="map-leaflet-listingsDetail" class="contact-map" style="height: 255px; "></div>
                                                                         </div>
+>>>>>>> b5a31826422d23e709d519f1d81d00b911a16ee6
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
+
                                                     </div>
                                                 </div>
                                                 <div class="mixed-media-lightbox-container" style="width:100vw"></div>
@@ -863,7 +947,15 @@ if (isset($_SESSION["user_id"])) {
             function closeListingDetailModal(index) {
                 jQuery.noConflict();
                 $('#ListingDetailModal').modal('toggle');
+<<<<<<< Updated upstream
                 var newurl = '<?php echo env('APP_URL'); ?>/page/listings-map';
+=======
+<<<<<<< HEAD
+                var newurl = '<?php echo env('APP_URL'); ?>/page/listings';
+=======
+                var newurl = '<?php echo env('APP_URL'); ?>/page/listings-map';
+>>>>>>> b5a31826422d23e709d519f1d81d00b911a16ee6
+>>>>>>> Stashed changes
                 window.history.pushState({
                     path: newurl
                 }, '', newurl);
@@ -895,6 +987,168 @@ if (isset($_SESSION["user_id"])) {
                 xhr.setRequestHeader('Content-type', 'application/json');
                 xhr.send(JSON.stringify(sendData));
                 xhr.onload = function() {
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+>>>>>>> Stashed changes
+
+                    list = JSON.parse(xhr.response);
+                    list = list.items;
+                    data = list.data[0];
+                    console.log(data);
+                    favorite = '';
+                    if (data.in_favoriteproperties == 1) {
+                        favorite = "color: red;";
+                    }
+
+                    document.getElementById("listingName").innerHTML = data.displayname + ` <span class="Text-c11n-8-84-3__sc-aiai24-0 dpf__sc-1yftt2a-1 hrfydd ixkFNb">` + data.property_type + `</span>`;
+                    if (data.price !== null && data.price !== '0' && data.price !== 0) {
+                        document.getElementById("listingPriceTitle").innerHTML = `€‎ ` + data.price;
+                    }
+                    if (data.number_of_bathrooms !== null) {
+                        document.getElementById("ListingBath").innerHTML = data.number_of_bathrooms;
+                        document.getElementById("ListingBathTitle").innerHTML = data.number_of_bathrooms;
+                    } else {
+                        document.getElementById("ListingBathDiv").style.display = "none";
+                        document.getElementById("ListingBathTitleDiv").style.display = "none";
+                    }
+                    if (data.number_of_bedrooms !== null) {
+                        document.getElementById("ListingBedrooms").innerHTML = data.number_of_bedrooms;
+                        document.getElementById("ListingBedroomsTitle").innerHTML = data.number_of_bedrooms;
+                    } else {
+                        document.getElementById("ListingBedroomsDiv").style.display = "none";
+                        document.getElementById("ListingBedroomsTitleDiv").style.display = "none";
+                    }
+                    if (data.area_size !== null) {
+                        document.getElementById("ListingArea").innerHTML = data.area_size + "sqm";
+                        document.getElementById("ListingAreaTitle").innerHTML = data.area_size;
+                    } else {
+                        document.getElementById("ListingAreaDiv").style.display = "none";
+                        document.getElementById("ListingAreaTitleDiv").style.display = "none";
+                    }
+
+                    if (data.property_type !== null) {
+                        document.getElementById("ListingPropertyType").innerHTML = data.property_type;
+                    } else {
+                        document.getElementById("ListingPropertyTypeDiv").style.display = "none";
+                    }
+                    if (data.price !== null && data.price !== '0' && data.price !== 0) {
+                        document.getElementById("ListingPropertyPrice").innerHTML = `€‎` + data.price;
+                    } else {
+                        document.getElementById("ListingPropertyPriceDiv").style.display = "none";
+                    }
+                    if (data.floor_plans.length == 0) {
+                        document.getElementById("floorPlansDiv").style.display = "none";
+                    } else {
+                        document.getElementById("floorPlans").src = "" + data.floor_plans[0].image;
+                    }
+                    document.getElementById("ListingDetailFavorit").innerHTML = `<a style="cursor: pointer;" onclick="addFavoritListingsDetailModal(` + data.id + `)">
+                        <i id="faHeartListingDetailModal` + data.id + `" class="fa fa-heart" style="font-size: initial; ` + favorite + `"></i>
+                        <span class="hdp__sc-1dupnse-3 gBetGm"> Save </span></a>`;
+
+                    temp = data.displaydescription;
+                    temp = temp.replaceAll("col-lg-6", "col-lg-12");
+                    document.getElementById("listingDescription").innerHTML = temp;
+                    if (data.year_built !== null) {
+                        document.getElementById("ListingYearBuilt").innerHTML = data.year_built;
+                    } else {
+                        document.getElementById("ListingYearBuiltDiv").style.display = "none";
+                    }
+                    if (data.number_of_garages_or_parkingpaces !== null) {
+                        document.getElementById("ListingGarages").innerHTML = data.number_of_garages_or_parkingpaces;
+                    } else {
+                        document.getElementById("ListingGaragesDiv").style.display = "none";
+                    }
+
+                    document.getElementById("property_type_id").value = data.property_type_id;
+                    var temp = "";
+                    for (i = 0; i < data.features.length; i++) {
+                        temp += `<li style="display: flex;width:100%;align-items: center;">
+                            <img style="height: 15px;" src="/theme/sabbiancowebsite/assets/images/checkbox.png">&nbsp;<span>` + data.features[i] + `</span>
+                        </li>`;
+                    }
+                    document.getElementById("amenities").innerHTML = temp;
+                    var imagesTemp = "";
+                    imagesTemp = data.image;
+                    for (i = 0; i < data.images.length; i++) {
+                        imagesTemp += "---" + data.images[i];
+                    }
+<<<<<<< Updated upstream
+                    temp = `<li class="hdp__sc-bxf98j-0 hsjuif media-stream-tile media-stream-tile--prominent">
+                            <figure>
+                                <button onclick="viewImage('` + imagesTemp + `',1)" aria-label="view larger view of the 1 photo of this home" class="sc-bcXHqe hdp__sc-1hfifce-0 cqBcXG dYAmNA">
+                                    <picture class="sc-eJDSGI izLhdJ">
+=======
+                    temp = "";
+                    temp2 = `<figure style="margin: 0px;padding: 5px;">
+                                    <button onclick="viewImage('` + imagesTemp + `',1)" aria-label="view larger view of the 1 photo of this home" class="sc-bcXHqe hdp__sc-1hfifce-0 cqBcXG dYAmNA">
+                                        <picture class="sc-eJDSGI izLhdJ">
+                                            <img style="object-fit: cover;border-top-left-radius: 15px;border-bottom-left-radius: 15px;height: 400px;visibility: visible;width: 100%;" src="` + data.image + `" alt="">
+                                        </picture>
+                                    </button>
+                                </figure>`;
+                    // temp = `<li class="hdp__sc-bxf98j-0 hsjuif media-stream-tile media-stream-tile--prominent">
+                    //             <figure>
+                    //                 <button onclick="viewImage('` + imagesTemp + `',1)" aria-label="view larger view of the 1 photo of this home" class="sc-bcXHqe hdp__sc-1hfifce-0 cqBcXG dYAmNA">
+                    //                     <picture class="sc-eJDSGI izLhdJ">
+                    //                         <img src="` + data.image + `" alt="">
+                    //                     </picture>
+                    //                 </button>
+                    //             </figure>
+                    //         </li>`;
+                    temp1 = `<li class="slider" style="left:-0%;-webkit-transition:left 1s;transition:left 1s;">
+                                <button onclick="viewImage('` + imagesTemp + `',1)" type="button" class="UnstyledButton-c11n-8-84-3__sc-13jpj60-0 dpf__sc-1obsll-1 ghQDHZ ieLHUW">
+                                    <picture class="sc-eJDSGI izLhdJ">
+                                        <img style="height:100%" src="` + data.image + `" alt="">
+                                    </picture>
+                                </button>
+                            </li>`;
+                    for (i = 0; i < data.images.length; i++) {
+                        index = i + 2;
+                        if (i == 3) {
+                            temp += `<div class="col-lg-6 col-md-6" style="padding: 0px;">
+                                    <figure style="margin: 5px;">
+                                        <button onclick="viewImage('` + imagesTemp + `',` + index + `)" aria-label="view larger view of the 2 photo of this home" class="sc-bcXHqe hdp__sc-1hfifce-0 cqBcXG dYAmNA">
+                                            <picture class="sc-eJDSGI izLhdJ">
+                                                <img style="object-fit: cover;border-bottom-right-radius: 15px;height: 195px;visibility: visible;width: 100%;" src="` + data.images[i] + `" alt="">
+                                            </picture>
+                                        </button>
+                                    </figure>
+                                </div>`;
+                        } else if (i == 1) {
+                            temp += `<div class="col-lg-6 col-md-6" style="padding: 0px;">
+                                    <figure style="margin: 5px;">
+                                        <button onclick="viewImage('` + imagesTemp + `',` + index + `)" aria-label="view larger view of the 2 photo of this home" class="sc-bcXHqe hdp__sc-1hfifce-0 cqBcXG dYAmNA">
+                                            <picture class="sc-eJDSGI izLhdJ">
+                                                <img style="object-fit: cover;border-top-right-radius: 15px;height: 195px;visibility: visible;width: 100%;" src="` + data.images[i] + `" alt="">
+                                            </picture>
+                                        </button>
+                                    </figure>
+                                </div>`;
+                        } else if (i < 4) {
+                            temp += `<div class="col-lg-6 col-md-6" style="padding: 0px;">
+                                    <figure style="margin: 5px;">
+                                        <button onclick="viewImage('` + imagesTemp + `',` + index + `)" aria-label="view larger view of the 2 photo of this home" class="sc-bcXHqe hdp__sc-1hfifce-0 cqBcXG dYAmNA">
+                                            <picture class="sc-eJDSGI izLhdJ">
+                                                <img style="object-fit: cover;height: 195px;visibility: visible;width: 100%;" src="` + data.images[i] + `" alt="">
+                                            </picture>
+                                        </button>
+                                    </figure>
+                                </div>`;
+                        }
+                        temp1 += ` <li class="slider" style="left:-0%;-webkit-transition:left 1s;transition:left 1s;">
+                                    <button onclick="viewImage('` + imagesTemp + `',` + index + `)" type="button" class="UnstyledButton-c11n-8-84-3__sc-13jpj60-0 dpf__sc-1obsll-1 ghQDHZ ieLHUW">
+                                        <picture class="sc-eJDSGI izLhdJ">
+                                            <img  style="height:100%" src="` + data.images[i] + `" alt="">
+                                        </picture>
+                                    </button>
+                                </li>`;
+                    }
+                    document.getElementById("listingImg").innerHTML = temp2;
+                    document.getElementById("listingSubImg").innerHTML = temp;
+                    document.getElementById("listingImgMobile").innerHTML = temp1;
+
+=======
 
                     list = JSON.parse(xhr.response);
                     list = list.items;
@@ -981,6 +1235,7 @@ if (isset($_SESSION["user_id"])) {
                             <figure>
                                 <button onclick="viewImage('` + imagesTemp + `',1)" aria-label="view larger view of the 1 photo of this home" class="sc-bcXHqe hdp__sc-1hfifce-0 cqBcXG dYAmNA">
                                     <picture class="sc-eJDSGI izLhdJ">
+>>>>>>> Stashed changes
                                         <img src="` + data.image + `" alt="">
                                     </picture>
                                 </button>
@@ -1015,6 +1270,10 @@ if (isset($_SESSION["user_id"])) {
                     document.getElementById("listingImg").innerHTML = temp;
                     document.getElementById("listingImgMobile").innerHTML = temp1;
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> b5a31826422d23e709d519f1d81d00b911a16ee6
+>>>>>>> Stashed changes
                     document.getElementById("sendMessageListingsDetailModal").setAttribute("onClick", "sendRequestListingsDetailModal(" + data.id + ");");
                     markers = JSON.parse(xhr.response).listing_markers;
                     var valueArray = [];
