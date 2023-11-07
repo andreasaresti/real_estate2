@@ -98,7 +98,7 @@ if(isset($_SESSION["user_role"])){
         }
     }
 </style>
-<link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/jquery-ui.css<?php echo time(); ?>">
+<link rel="stylesheet" href="/theme/zillow/assets/css/jquery-ui.css<?php echo time(); ?>">
 <div class="inner-pages homepage-4 agents hp-6 full hd-white">
     <section class="single-proper blog details">
         <div class="row">
@@ -351,7 +351,7 @@ if(isset($_SESSION["user_role"])){
                                     <thead>
                                         <tr>
                                             <th style="width: 8%;">No</th>
-                                            <th style="width: *;">My Listings</th>
+                                            <th style="width: '*'">My Listings</th>
                                             <th style="width: 15%;">Status</th>
                                             <th style="width: 20%;">Add Appointment</th>
                                         </tr>
@@ -380,7 +380,7 @@ if(isset($_SESSION["user_role"])){
                                     <thead>
                                         <tr>
                                             <th style="width: 8%;">No</th>
-                                            <th style="width: *;">Listing Name</th>
+                                            <th style="width: '*';">Listing Name</th>
                                             <th style="width: 15%;">Date</th>
                                             <th style="width: 15%;">signed</th>
                                         </tr>
@@ -402,7 +402,7 @@ if(isset($_SESSION["user_role"])){
                                     <thead>
                                         <tr>
                                             <th style="width: 8%;">No</th>
-                                            <th style="width: *;">Note</th>
+                                            <th style="width: '*';">Note</th>
                                             <th style="width: 15%;">Date Added</th>
                                         </tr>
                                     </thead>

@@ -222,11 +222,11 @@ if (isset($_GET['index'])) {
         </div>
     </section>
 </div>
-<script src="/theme/sabbiancowebsite/assets/js/leaflet.js"></script>
-<script src="/theme/sabbiancowebsite/assets/js/leaflet-gesture-handling.min.js"></script>
-<script src="/theme/sabbiancowebsite/assets/js/leaflet-providers.js"></script>
-<script src="/theme/sabbiancowebsite/assets/js/leaflet.markercluster.js"></script>
-<script src="/theme/sabbiancowebsite/assets/js/map4.js?2"></script>
+<script src="/theme/zillow/assets/js/leaflet.js"></script>
+<script src="/theme/zillow/assets/js/leaflet-gesture-handling.min.js"></script>
+<script src="/theme/zillow/assets/js/leaflet-providers.js"></script>
+<script src="/theme/zillow/assets/js/leaflet.markercluster.js"></script>
+<script src="/theme/zillow/assets/js/map4.js?2"></script>
 <script type="text/javascript">
     // window.addEventListener("load", (event) => {
     loadListingDetailListingDetails();
@@ -319,7 +319,7 @@ if (isset($_GET['index'])) {
             var temp = "";
             for (i = 0; i < data.features.length; i++) {
                 temp += `<li style="display: flex;width:100%;align-items: center;">
-                        <img style="height: 15px;" src="/theme/sabbiancowebsite/assets/images/checkbox.png">&nbsp;<span>` + data.features[i] + `</span>
+                        <img style="height: 15px;" src="/theme/zillow/assets/images/checkbox.png">&nbsp;<span>` + data.features[i] + `</span>
                     </li>`;
             }
             document.getElementById("amenities").innerHTML = temp;

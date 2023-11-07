@@ -218,7 +218,7 @@ if(isset($_SESSION["user_role"])){
 		}
 	}
     function requestViewRequestListPendingAppproval(data){
-        window.location.href = "/sabbiancowebsite/salesequest-details?index="+data
+        window.location.href = "/zillow/salesequest-details?index="+data
 	}
     function acceptSalesRequestRequestListPendingAppproval(data, flag){
 		

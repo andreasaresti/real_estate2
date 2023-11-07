@@ -47,7 +47,7 @@ use App\Helpers\Helper;
         <header id="header-container" class="zillow-header" style="height: 70px;margin-top: 10px;">
             <div id="header"  style="padding: 0px;height: 70px;">
                 <div id="logo" style="position: absolute;width: 100%;text-align: center;">
-                    <a href="/page/home"><img style="width:175px;margin-top:-5px;" src="/theme/sabbiancowebsite/assets/images/logosabbianco.png" data-sticky-logo="/theme/sabbiancowebsite/assets/images/logosabbianco.png" alt=""></a>
+                    <a href="/page/home"><img style="width:175px;margin-top:-5px;" src="/theme/zillow/assets/images/logosabbianco.png" data-sticky-logo="/theme/zillow/assets/images/logosabbianco.png" alt=""></a>
                 </div>
                 <div class="container container-header">
                     <div class="left-side">

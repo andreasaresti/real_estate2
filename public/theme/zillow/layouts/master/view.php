@@ -17,14 +17,14 @@ if (isset($_SESSION["user_id"])) {
     <title><?= $page->get('name') ?></title>
     <!-- FAVICON -->
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-    <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/jquery-ui.css?<?php echo time(); ?>">
+    <link rel="stylesheet" href="/theme/zillow/assets/css/jquery-ui.css?<?php echo time(); ?>">
     <!-- GOOGLE FONTS -->
     <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i%7CMontserrat:600,800" rel="stylesheet">
     <!-- FONT AWESOME -->
-    <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/font/flaticon.css">
-    <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/fontawesome-all.min.css">
-    <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/fontawesome-5-all.min.css">
-    <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/theme/zillow/assets/font/flaticon.css">
+    <link rel="stylesheet" href="/theme/zillow/assets/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="/theme/zillow/assets/css/fontawesome-5-all.min.css">
+    <link rel="stylesheet" href="/theme/zillow/assets/css/font-awesome.min.css">
 
 
 
@@ -34,32 +34,32 @@ if (isset($_SESSION["user_id"])) {
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css">
     <link href="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.1.0/esri-leaflet-geocoder.css" rel="stylesheet">
 
-    <!-- <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/leaflet.css">
-    <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/leaflet-gesture-handling.min.css">
-    <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/leaflet.markercluster.css">
-    <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/leaflet.markercluster.default.css">
+    <!-- <link rel="stylesheet" href="/theme/zillow/assets/css/leaflet.css">
+    <link rel="stylesheet" href="/theme/zillow/assets/css/leaflet-gesture-handling.min.css">
+    <link rel="stylesheet" href="/theme/zillow/assets/css/leaflet.markercluster.css">
+    <link rel="stylesheet" href="/theme/zillow/assets/css/leaflet.markercluster.default.css">
     <link href="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.1.0/esri-leaflet-geocoder.css" rel="stylesheet"> -->
     <!-- ARCHIVES CSS -->
-    <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/search.css">
-    <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/animate.css">
-    <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/aos.css">
-    <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/aos2.css">
-    <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/magnific-popup.css">
-    <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/lightcase.css">
-    <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/menu.css?<?php echo time(); ?>?1">
-    <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/slick.css">
-    <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/styles.css?<?php echo time(); ?>">
-    <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/style.css?<?php echo time(); ?>">
-    <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/maps.css?<?php echo time(); ?>">
-    <link rel="stylesheet" id="color" href="/theme/sabbiancowebsite/assets/css/colors/pink.css?<?php echo time(); ?>">
-    <link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/listingdetail.css">
+    <link rel="stylesheet" href="/theme/zillow/assets/css/search.css">
+    <link rel="stylesheet" href="/theme/zillow/assets/css/animate.css">
+    <link rel="stylesheet" href="/theme/zillow/assets/css/aos.css">
+    <link rel="stylesheet" href="/theme/zillow/assets/css/aos2.css">
+    <link rel="stylesheet" href="/theme/zillow/assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="/theme/zillow/assets/css/lightcase.css">
+    <link rel="stylesheet" href="/theme/zillow/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/theme/zillow/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/theme/zillow/assets/css/menu.css?<?php echo time(); ?>?1">
+    <link rel="stylesheet" href="/theme/zillow/assets/css/slick.css">
+    <link rel="stylesheet" href="/theme/zillow/assets/css/styles.css?<?php echo time(); ?>">
+    <link rel="stylesheet" href="/theme/zillow/assets/css/style.css?<?php echo time(); ?>">
+    <link rel="stylesheet" href="/theme/zillow/assets/css/maps.css?<?php echo time(); ?>">
+    <link rel="stylesheet" id="color" href="/theme/zillow/assets/css/colors/pink.css?<?php echo time(); ?>">
+    <link rel="stylesheet" href="/theme/zillow/assets/css/listingdetail.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
-    <script src="/theme/sabbiancowebsite/assets/js/jquery-3.5.1.min.js"></script>
-    <script src="/theme/sabbiancowebsite/assets/js/bootstrap.min.js"></script>
+    <script src="/theme/zillow/assets/js/jquery-3.5.1.min.js"></script>
+    <script src="/theme/zillow/assets/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.3.5/signature_pad.min.js" integrity="sha512-kw/nRM/BMR2XGArXnOoxKOO5VBHLdITAW00aG8qK4zBzcLVZ4nzg7/oYCaoiwc8U9zrnsO9UHqpyljJ8+iqYiQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- //map -->
@@ -349,7 +349,7 @@ if (isset($_SESSION["user_id"])) {
                                                                             <div class="hdp__sc-1dupnse-9 gWnoLO ds-action-bar">
                                                                                 <nav aria-label="utility" class="hdp__sc-1dupnse-8 fHgghR">
                                                                                     <!-- <div  style="position: inherit;text-align: center;width:100%">
-                                                                            <a href="/page/home"><img style="width: 120px;margin-top: 4px;" src="/theme/sabbiancowebsite/assets/images/logosabbianco.png" alt=""/></a>
+                                                                            <a href="/page/home"><img style="width: 120px;margin-top: 4px;" src="/theme/zillow/assets/images/logosabbianco.png" alt=""/></a>
                                                                         </div> -->
                                                                                     <ul class="hdp__sc-1dupnse-7 erqwFf">
                                                                                         <li class="hdp__sc-1dupnse-1 fsIsqR">
@@ -686,34 +686,34 @@ if (isset($_SESSION["user_id"])) {
             </div>
         </div>
 
-        <script src="/theme/sabbiancowebsite/assets/js/rangeSlider.js"></script>
-        <script src="/theme/sabbiancowebsite/assets/js/tether.min.js"></script>
-        <script src="/theme/sabbiancowebsite/assets/js/moment.js"></script>
-        <script src="/theme/sabbiancowebsite/assets/js/mmenu.min.js"></script>
-        <script src="/theme/sabbiancowebsite/assets/js/mmenu.js"></script>
-        <script src="/theme/sabbiancowebsite/assets/js/aos.js"></script>
-        <script src="/theme/sabbiancowebsite/assets/js/aos2.js"></script>
-        <script src="/theme/sabbiancowebsite/assets/js/animate.js"></script>
-        <script src="/theme/sabbiancowebsite/assets/js/slick.min.js"></script>
-        <script src="/theme/sabbiancowebsite/assets/js/fitvids.js"></script>
-        <script src="/theme/sabbiancowebsite/assets/js/jquery.waypoints.min.js"></script>
-        <script src="/theme/sabbiancowebsite/assets/js/typed.min.js"></script>
-        <script src="/theme/sabbiancowebsite/assets/js/jquery.counterup.min.js"></script>
-        <script src="/theme/sabbiancowebsite/assets/js/imagesloaded.pkgd.min.js"></script>
-        <script src="/theme/sabbiancowebsite/assets/js/isotope.pkgd.min.js"></script>
-        <script src="/theme/sabbiancowebsite/assets/js/smooth-scroll.min.js"></script>
-        <script src="/theme/sabbiancowebsite/assets/js/lightcase.js"></script>
-        <script src="/theme/sabbiancowebsite/assets/js/owl.carousel.js"></script>
-        <script src="/theme/sabbiancowebsite/assets/js/jquery.magnific-popup.min.js"></script>
-        <script src="/theme/sabbiancowebsite/assets/js/ajaxchimp.min.js"></script>
-        <script src="/theme/sabbiancowebsite/assets/js/newsletter.js"></script>
-        <script src="/theme/sabbiancowebsite/assets/js/jquery.form.js"></script>
-        <script src="/theme/sabbiancowebsite/assets/js/jquery.validate.min.js"></script>
-        <script src="/theme/sabbiancowebsite/assets/js/searched.js"></script>
-        <script src="/theme/sabbiancowebsite/assets/js/forms-2.js"></script>
-        <script src="/theme/sabbiancowebsite/assets/js/range.js"></script>
-        <script src="/theme/sabbiancowebsite/assets/js/color-switcher.js"></script>
-        <script src="/theme/sabbiancowebsite/assets/js/dropzone.js"></script>
+        <script src="/theme/zillow/assets/js/rangeSlider.js"></script>
+        <script src="/theme/zillow/assets/js/tether.min.js"></script>
+        <script src="/theme/zillow/assets/js/moment.js"></script>
+        <script src="/theme/zillow/assets/js/mmenu.min.js"></script>
+        <script src="/theme/zillow/assets/js/mmenu.js"></script>
+        <script src="/theme/zillow/assets/js/aos.js"></script>
+        <script src="/theme/zillow/assets/js/aos2.js"></script>
+        <script src="/theme/zillow/assets/js/animate.js"></script>
+        <script src="/theme/zillow/assets/js/slick.min.js"></script>
+        <script src="/theme/zillow/assets/js/fitvids.js"></script>
+        <script src="/theme/zillow/assets/js/jquery.waypoints.min.js"></script>
+        <script src="/theme/zillow/assets/js/typed.min.js"></script>
+        <script src="/theme/zillow/assets/js/jquery.counterup.min.js"></script>
+        <script src="/theme/zillow/assets/js/imagesloaded.pkgd.min.js"></script>
+        <script src="/theme/zillow/assets/js/isotope.pkgd.min.js"></script>
+        <script src="/theme/zillow/assets/js/smooth-scroll.min.js"></script>
+        <script src="/theme/zillow/assets/js/lightcase.js"></script>
+        <script src="/theme/zillow/assets/js/owl.carousel.js"></script>
+        <script src="/theme/zillow/assets/js/jquery.magnific-popup.min.js"></script>
+        <script src="/theme/zillow/assets/js/ajaxchimp.min.js"></script>
+        <script src="/theme/zillow/assets/js/newsletter.js"></script>
+        <script src="/theme/zillow/assets/js/jquery.form.js"></script>
+        <script src="/theme/zillow/assets/js/jquery.validate.min.js"></script>
+        <script src="/theme/zillow/assets/js/searched.js"></script>
+        <script src="/theme/zillow/assets/js/forms-2.js"></script>
+        <script src="/theme/zillow/assets/js/range.js"></script>
+        <script src="/theme/zillow/assets/js/color-switcher.js"></script>
+        <script src="/theme/zillow/assets/js/dropzone.js"></script>
 
         <script>
             $(window).on('scroll load', function() {
@@ -816,7 +816,7 @@ if (isset($_SESSION["user_id"])) {
         </script>
 
         <!-- MAIN JS -->
-        <script src="/theme/sabbiancowebsite/assets/js/script.js"></script>
+        <script src="/theme/zillow/assets/js/script.js"></script>
 
         <!-- ListingDetailModal -->
         <script>
@@ -965,7 +965,7 @@ if (isset($_SESSION["user_id"])) {
                     var temp = "";
                     for (i = 0; i < data.features.length; i++) {
                         temp += `<li style="display: flex;width:100%;align-items: center;">
-                            <img style="height: 15px;" src="/theme/sabbiancowebsite/assets/images/checkbox.png">&nbsp;<span>` + data.features[i] + `</span>
+                            <img style="height: 15px;" src="/theme/zillow/assets/images/checkbox.png">&nbsp;<span>` + data.features[i] + `</span>
                         </li>`;
                     }
                     document.getElementById("amenities").innerHTML = temp;

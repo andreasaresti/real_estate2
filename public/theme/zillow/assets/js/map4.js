@@ -30,7 +30,7 @@ function map_init(valueArray){
 			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 		}).addTo(map);
 
-		// $.ajax('/theme/sabbiancowebsite/assets/js/markers.json', {
+		// $.ajax('/theme/zillow/assets/js/markers.json', {
 
 		// 	success: function (markers) {
 		// 		$.each(markers, function (index, value) {

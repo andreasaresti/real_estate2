@@ -35,7 +35,7 @@ $active_property_types_response = json_decode($active_property_types_response);
 ?>
 
 
-<link rel="stylesheet" href="/theme/sabbiancowebsite/assets/css/jquery-ui.css<?php echo time(); ?>">
+<link rel="stylesheet" href="/theme/zillow/assets/css/jquery-ui.css<?php echo time(); ?>">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <div class="inner-pages homepage-4 agents hp-6 full hd-white">
     <section class="properties-right featured portfolio blog google-map-right mp-1">

@@ -665,7 +665,7 @@
         <header id="header-container" class="header head-tr zillow-header">
             <div id="header"  style="padding: 0px;height: 80px;">
                 <div id="logo" style="position: absolute;width: 100%;text-align: center;">
-                    <a href="/page/home"><img style="width:175px;margin-top: -5px;" src="/theme/sabbiancowebsite/assets/images/logosabbianco.png" data-sticky-logo="/theme/sabbiancowebsite/assets/images/logosabbianco.png" alt=""></a>
+                    <a href="/page/home"><img style="width:175px;margin-top: -5px;" src="/theme/zillow/assets/images/logosabbianco.png" data-sticky-logo="/theme/zillow/assets/images/logosabbianco.png" alt=""></a>
                 </div>
                 <div class="container container-header">
                     <div class="left-side">

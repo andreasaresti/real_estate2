@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'title' => 'Header',
+    'title' => 'Header1',
     'category' => 'Headers',
     'icon' => 'fa fa-sitemap',
     "settings" => [
@@ -18,7 +18,7 @@ return [
         "backgroundimage" => [
             "type" => "image",
             "label" => "Background Image",
-            "value" => "/theme/zillow/assets/images/bg/bg-h-1.jpg",
+            "value" => "/theme/sabbiancowebsite/assets/images/bg/bg-h-1.jpg",
         ]
     ],
 ];
