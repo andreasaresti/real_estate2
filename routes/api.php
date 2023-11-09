@@ -182,6 +182,7 @@ use App\Http\Controllers\webWebsiteController;
     Route::post('activelisting-types', [ActiveListingTypesController::class, 'get_active_listing_types']);
     Route::post('activeproperty-types', [ActivePropertyTypesController::class, 'get_active_property_types']);
     Route::post('activefeatures', [ActiveFeaturesController::class, 'get_active_features']);
+    Route::post('getLocationSearch', [ActiveDistrictController::class, 'get_location_search']);
     Route::post('activedistrict', [ActiveDistrictController::class, 'get_active_district']);
     Route::post('activemunicipality', [ActiveMunicipalityController::class, 'get_active_municipality']);
     Route::post('activelocation', [ActiveLocationController::class, 'get_active_location']);

@@ -236,4 +236,21 @@ class Helper {
 
 		return json_encode($listing_types);
     }
+    public static function get_location_search($data)
+    {
+        $result = [];
+        $query = District::where('ext_code','like','%'.$data.'%')->get();
+        foreach ($query as $key => $row) {
+            array_push($result,["name"=>$row->ext_code,"id"=>$row->id,"type"=>'District']);
+        }
+        $query = Municipality::where('ext_code','like','%'.$data.'%')->get();
+        foreach ($query as $key => $row) {
+            array_push($result,["name"=>$row->ext_code,"id"=>$row->id,"type"=>'Municipality']);
+        }
+        $query = Location::where('ext_code','like','%'.$data.'%')->get();
+        foreach ($query as $key => $row) {
+            array_push($result,["name"=>$row->ext_code,"id"=>$row->id,"type"=>'Location']);
+        }
+        return json_encode($result);
+    }
 }

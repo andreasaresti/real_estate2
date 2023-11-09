@@ -431,7 +431,7 @@ a.button.border, a.button {
     padding-left: 7px;
 }
 #navigation ul ul li a:after {
-    content: '\f105';
+    content: '';
     position: absolute;
     right: 15px;
 }

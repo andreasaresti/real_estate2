@@ -15,4 +15,11 @@ class ActiveDistrictController extends Controller
 
         return response()->json($active_district_response);
     }
+    public function get_location_search(Request $request)
+    {
+        $active_response = Helper::get_location_search($request->data);
+        $active_response = json_decode($active_response);
+
+        return response()->json($active_response);
+    }
 }

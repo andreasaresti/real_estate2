@@ -32,6 +32,8 @@ if (isset($_SESSION["user_id"])) {
 
     <!-- LEAFLET MAP -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css">
+    <link rel="stylesheet" href="https://unpkg.com/browse/leaflet-draw@1.0.4/dist/leaflet.draw.css">
+
     <link href="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.1.0/esri-leaflet-geocoder.css" rel="stylesheet">
 
     <!-- <link rel="stylesheet" href="/theme/zillow/assets/css/leaflet.css">
@@ -55,6 +57,7 @@ if (isset($_SESSION["user_id"])) {
     <link rel="stylesheet" href="/theme/zillow/assets/css/maps.css?<?php echo time(); ?>">
     <link rel="stylesheet" id="color" href="/theme/zillow/assets/css/colors/pink.css?<?php echo time(); ?>">
     <link rel="stylesheet" href="/theme/zillow/assets/css/listingdetail.css">
+    
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
@@ -67,6 +70,7 @@ if (isset($_SESSION["user_id"])) {
     <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
     <script src="https://unpkg.com/esri-leaflet@2.2.3/dist/esri-leaflet.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/Falke-Design/L.Donut@latest/src/L.Donut.js"></script>
+    <script src="/theme/zillow/assets/js/leaflet-freedraw.iife.js"> </script>
     <script src="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.1.0/esri-leaflet-geocoder.js" crossorigin="anonymous"></script>
 
     <!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js" ></script>

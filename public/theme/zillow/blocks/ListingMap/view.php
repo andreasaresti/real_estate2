@@ -7316,10 +7316,7 @@ if (isset($_SESSION["user_id"])) {
 } else {
   $user_id = "";
 }
-$selDistricts = '';
-if (isset($_GET["district"])) {
-  $selDistricts = $_GET["district"];
-}
+
 // echo 'selDistricts: '.$selDistricts.'<br>';
 
 $active_district_response = Helper::get_active_district();
@@ -7345,23 +7342,21 @@ $active_property_types_response = json_decode($active_property_types_response);
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <div class="inner-pages homepage-4 agents hp-6 full hd-white" style="height: 85vh;">
   <div data-zrr-key="static-search-page:search-app" class="searchBarDiv">
-    <div id="search-page-react-content" >
+    <div id="search-page-react-content">
       <section class="SearchPageHeaderContainer__StyledSearchPageHeaderContainer-srp__sc-h52t73-0 duceJr search-page-header wide has-floating-action-bar" aria-label="filters" style="margin-bottom: 5px;">
-        <div class="SearchBoxContainer__StyledSearchBoxContainer-srp__sc-hff1n-0 hjpPBk search-page-header-container">
+        <div style="border: 1px solid;margin-right: 13px;border-radius: 5px;" class="SearchBoxContainer__StyledSearchBoxContainer-srp__sc-hff1n-0 hjpPBk search-page-header-container">
           <div id="srp-search-box">
-            <form class="Form-c11n-8-84-3__sc-iqxs9k-0 SearchBoxCombobox__StyledForm-sc-1qvxrzk-1 bwbkLZ hkmErZ">
-              <div class="StyledCombobox-c11n-8-84-3__sc-rvbaft-0 ffAram SearchBoxCombobox__StyledCombobox-sc-1qvxrzk-2 dudagf">
-                <div aria-haspopup="listbox" class="StyledAdornedInput-c11n-8-84-3__sc-1kgphdl-0 dbgRAU DropdownPopper-c11n-8-84-3__sc-1vnow1h-0 bsFbQm">
-                  <div class="StyledComboboxInput-c11n-8-84-3__sc-vb87st-0 eKUdID SearchBoxCombobox__StyledComboboxInput-sc-1qvxrzk-3 gpmrrj">
-                    <input type="text" id="search_string" placeholder="City, Neighborhood, ZIP, Address" aria-autocomplete="list" autocomplete="off" role="combobox" aria-expanded="false" value="" class="StyledFormControl-c11n-8-84-3__sc-18qgis1-0 iUiTrf Input-c11n-8-84-3__sc-4ry0fw-0 jJHVHJ" />
-                  </div>
-                  <label aria-hidden="true" for="__c11n_u2d1u4qg" id="search_string" class="StyledAdornment-c11n-8-84-3__sc-1kerx9v-0 AdornmentRight-c11n-8-84-3__sc-1kerx9v-2 iZyVOm cmFlZW SearchBoxCombobox__StyledSearchBoxAdornment-sc-1qvxrzk-0 bQttJG"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false" role="img" class="Icon-c11n-8-84-3__sc-13llmml-0 jhZWWg">
-                      <title>Search</title>
-                      <path stroke="none" d="M29.41,26.59,23.77,21A12,12,0,0,0,14,2c-.17,0-.33,0-.5,0s-.33,0-.5,0A11,11,0,0,0,2,13c0,.17,0,.33,0,.5s0,.33,0,.5a12,12,0,0,0,19,9.77l5.64,5.64a2,2,0,0,0,2.82-2.82ZM14,22a8,8,0,1,1,8-8A8,8,0,0,1,14,22Z"></path>
-                    </svg></label>
+            <div class="StyledCombobox-c11n-8-84-3__sc-rvbaft-0 ffAram SearchBoxCombobox__StyledCombobox-sc-1qvxrzk-2 dudagf">
+              <div aria-haspopup="listbox" class="StyledAdornedInput-c11n-8-84-3__sc-1kgphdl-0 dbgRAU DropdownPopper-c11n-8-84-3__sc-1vnow1h-0 bsFbQm">
+                <div class="StyledComboboxInput-c11n-8-84-3__sc-vb87st-0 eKUdID SearchBoxCombobox__StyledComboboxInput-sc-1qvxrzk-3 gpmrrj">
+                  <input type="text" id="search_string" placeholder="City, Neighborhood, ZIP, Address" aria-autocomplete="list" autocomplete="off" role="combobox" aria-expanded="false" value="" class="StyledFormControl-c11n-8-84-3__sc-18qgis1-0 iUiTrf Input-c11n-8-84-3__sc-4ry0fw-0 jJHVHJ" />
                 </div>
+                <label aria-hidden="true" for="__c11n_u2d1u4qg" id="search_string" class="StyledAdornment-c11n-8-84-3__sc-1kerx9v-0 AdornmentRight-c11n-8-84-3__sc-1kerx9v-2 iZyVOm cmFlZW SearchBoxCombobox__StyledSearchBoxAdornment-sc-1qvxrzk-0 bQttJG"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false" role="img" class="Icon-c11n-8-84-3__sc-13llmml-0 jhZWWg">
+                    <title>Search</title>
+                    <path stroke="none" d="M29.41,26.59,23.77,21A12,12,0,0,0,14,2c-.17,0-.33,0-.5,0s-.33,0-.5,0A11,11,0,0,0,2,13c0,.17,0,.33,0,.5s0,.33,0,.5a12,12,0,0,0,19,9.77l5.64,5.64a2,2,0,0,0,2.82-2.82ZM14,22a8,8,0,1,1,8-8A8,8,0,0,1,14,22Z"></path>
+                  </svg></label>
               </div>
-            </form>
+            </div>
           </div>
         </div>
         <div class="rld-single-select" onmouseover="hiddenAdvancedDivListingMap();" style="width: 132px">
@@ -7448,7 +7443,8 @@ $active_property_types_response = json_decode($active_property_types_response);
             </button>
           </div>
           <div class="action-bar-right-content">
-            <a class="saved-homes-link saved-homes-visual-audit" tabindex="0" rel="nofollow" aria-label="Saved Homes" href="/myzillow/favorites"><strong>2 Saved Homes</strong></a>
+            <a class="saved-homes-link saved-homes-visual-audit" tabindex="0" rel="nofollow" aria-label="Saved Homes" href="/myzillow/favorites"><strong></strong></a>
+            <!-- //2 Saved Homes -->
           </div>
         </div>
         <div id="advancedSearch" style="position: absolute;margin-top: 60px;" class="rld-main-search explore__form-checkbox-list full-filter">
@@ -7547,6 +7543,10 @@ $active_property_types_response = json_decode($active_property_types_response);
             <div class="col-xl-12 xsRow" style="display: flex;justify-content: flex-end;margin-right: 10px;">
               <a style="display: none;justify-content: center;align-items: center;margin-right:20px;" class="btn btn-map" id="redrawCircleListingMap" onclick="redrawCircleListingMap();">Re-draw</a>
               <a style="display: flex;justify-content: center;align-items: center;" class="btn btn-map" id="showCircleListingMap" onclick="showCircleListingMap();">Draw</a>
+              <button style="display: flex;justify-content: center;align-items: center;margin: 0px 5px 0px 5px;" type="button" class="btn btn-map" data-toggle="button" aria-pressed="false" id="freeDrawingMap" onclick="freeDrawingMap();">
+                Free-Draw
+              </button>
+              <a style="display: flex;justify-content: center;align-items: center;" class="btn btn-map" id="clearDrawingsMap" onclick="clearDrawingsMap();">Clear</a>
             </div>
           </div>
           <div id="map-leaflet"></div>
@@ -7605,10 +7605,24 @@ $active_property_types_response = json_decode($active_property_types_response);
 
   var circle;
   var viewCircleFlag = 0;
+  if (localStorage.getItem("list_search_data")) {
+    tempList = JSON.parse(localStorage.getItem("list_search_data"));
+    if (tempList['type'] == "District") {
+      document.getElementById('districts' + tempList['id']).checked = true;
+    }
+    if (tempList['type'] == "Municipality") {
+      document.getElementById('municipalities' + tempList['id']).checked = true;
+    }
+    if (tempList['Location'] == "District") {
+      document.getElementById('locations' + tempList['id']).checked = true;
+    }
+    console.log(tempList);
+    localStorage.removeItem("list_search_data");
+  }
 
   loadActiveListingsListingMap([0, 0], 0, 9);
 
-  function loadActiveListingsListingGrid(maker_position, set, zoom) {
+  function loadActiveListingsListingGrid(maker_position, set, zoom, freedraw = false) {
     customer_id = '<?php echo $user_id; ?>';
     number_of_bathrooms = "";
     if (document.getElementById("selBathrooms").value > 0) {
@@ -7731,6 +7745,9 @@ $active_property_types_response = json_decode($active_property_types_response);
       "set": set,
       "retrieve_markers": 1
     };
+    ps = localStorage.getItem("freedraw-polys")
+        if (ps)
+            sendData.markers = JSON.parse(ps)
     const url = "/api/activelistings";
     let xhr = new XMLHttpRequest();
     xhr.open('POST', url, true);
@@ -7769,22 +7786,22 @@ $active_property_types_response = json_decode($active_property_types_response);
                                     <div class="StyledPropertyCardDataArea-c11n-8-86-1__sc-yipmu-0 zybOF">€ ` + list[i].price + `</div>
                                     <div class="StyledPropertyCardDataArea-c11n-8-86-1__sc-yipmu-0 bLsshH">
                                         <span class="StyledPropertyCardHomeDetails-c11n-8-86-1__sc-1mlc4v9-0 ebUkxz">`;
-                                      if(list[i].number_of_bedrooms>0){
-                                        temp += `<span>
+        if (list[i].number_of_bedrooms > 0) {
+          temp += `<span>
                                                 <b>` + list[i].number_of_bedrooms + `</b> bds
                                             </span>`;
-                                      }
-                                      if(list[i].number_of_bathrooms>0){
-                                        temp += `<span>
+        }
+        if (list[i].number_of_bathrooms > 0) {
+          temp += `<span>
                                                 <b>` + list[i].number_of_bathrooms + `</b> ba
                                             </span>`;
-                                      }
-                                      if(list[i].area_size>0){
-                                        temp += `<span>
+        }
+        if (list[i].area_size > 0) {
+          temp += `<span>
                                                 <b>` + list[i].area_size + `</b> sqft
                                             </span>`;
-                                      }
-                                      temp += `</span>
+        }
+        temp += `</span>
                                         <span>Condo for sale</span>
                                     </div>
                                     <a onclick="showListigDetailModal(` + list[i].id + `);" tabindex="-1" class="StyledPropertyCardDataArea-c11n-8-86-1__sc-yipmu-0 bWMoAg" style="text-decoration: none;">
@@ -7912,6 +7929,9 @@ $active_property_types_response = json_decode($active_property_types_response);
     }
   }
 
+  var freeDraw
+  var markers
+
   function map_init_circle(valueArray, maker_position, set, zoom) {
 
     if ($('#map-leaflet').length) {
@@ -7925,13 +7945,93 @@ $active_property_types_response = json_decode($active_property_types_response);
       }
 
       if (map !== undefined && map !== null) {
+        map.removeLayer(freeDraw);
         map.remove(); // should remove the map from UI and clean the inner children of DOM element
       }
       if (set > 0) {
-        map = L.map('map-leaflet').setView(maker_position, zoom);
+        map = L.map('map-leaflet', {
+          drawControl: true,
+          tap: true
+        }).setView(maker_position, zoom);
       } else {
-        map = L.map('map-leaflet').setView([34.994003757575776, 33.15703828125001], zoom);
+        map = L.map('map-leaflet', {
+          tap: true
+        }).setView([34.994003757575776, 33.15703828125001], zoom);
       }
+
+
+      freeDraw = new FreeDraw({
+        mode: FreeDraw.NONE
+      });
+
+      map.addLayer(freeDraw);
+
+      //localStorage.clear("freedraw-polys")
+      ps = localStorage.getItem("freedraw-polys")
+
+      if (ps) {
+        (JSON.parse(ps)).forEach(p => {
+          freeDraw.create(p)
+        })
+      }
+
+      freeDraw.on('markers', event => {
+        localStorage.setItem("freedraw-polys", JSON.stringify(event.latLngs))
+        var new_markers = []
+        markerArray.forEach((m, i) => {
+
+          if (event.latLngs.length == 0) {
+            if (!map.hasLayer(m)) {
+              map.addLayer(m)
+            }
+            new_markers.push(i)
+          } else {
+            if (isMarkerInsidePolygon(m, event.latLngs)) {
+              if (!map.hasLayer(m)) {
+                map.addLayer(m)
+
+              }
+              new_markers.push(i)
+            } else {
+              map.removeLayer(m)
+            }
+          }
+        })
+        markers = event.latLngs
+
+        $("#freeDrawingMap").removeClass("active")
+        freeDraw.mode(FreeDraw.NONE)
+        loadActiveListingsListingGrid(maker_position, set, zoom);
+
+
+      });
+
+      function isMarkerInsidePolygon(marker, poly) {
+
+        for (var p = 0; p < poly.length; p++) {
+          var polyPoints = poly[p];
+
+          var x = marker.getLatLng().lat,
+            y = marker.getLatLng().lng;
+
+          var inside = false;
+          for (var i = 0, j = polyPoints.length - 1; i < polyPoints.length; j = i++) {
+
+            var xi = polyPoints[i].lat,
+              yi = polyPoints[i].lng;
+            var xj = polyPoints[j].lat,
+              yj = polyPoints[j].lng;
+
+            var intersect = ((yi > y) != (yj > y)) &&
+              (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+            if (intersect) inside = !inside;
+          }
+
+          if (inside) return inside;
+        }
+        return inside;
+      };
+
 
       L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
 
@@ -8040,6 +8140,15 @@ $active_property_types_response = json_decode($active_property_types_response);
     hiddenAdvancedDivListingMap();
     loadActiveListingsListingMap([0, 0], 0, 9);
   }
+
+  function clearDrawingsMap() {
+        freeDraw.clear();
+    }
+
+    function freeDrawingMap() {
+        if ($("#freeDrawingMap").hasClass("active")) freeDraw.mode(FreeDraw.NONE)
+        else freeDraw.mode(FreeDraw.ALL)
+    }
 
   function showCircleListingMap() {
     if (viewCircleFlag > 0) {

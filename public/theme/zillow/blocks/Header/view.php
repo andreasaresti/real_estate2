@@ -24,6 +24,14 @@
         $name = "";
     }
 
+    $active_district_response = Helper::get_active_district();
+    $active_district_response = json_decode($active_district_response);
+
+    $active_municipality_response = Helper::get_active_municipality();
+    $active_municipality_response = json_decode($active_municipality_response);
+
+    $active_location_response = Helper::get_active_location();
+    $active_location_response = json_decode($active_location_response);
 
     // echo '<pre>';
     // print_r($active_property_types_response);
@@ -43,10 +51,10 @@
     // echo 'screen_height: '.$height.'<br>';
 ?>
 
-    <style>
-        #map-leaflet {
-    height: 100vh;
-}
+  <style>
+    #map-leaflet {
+      height: 100vh;
+    }
     .parallax-searchs.home15 {
         height: 100vh;
         display:block;
@@ -778,10 +786,9 @@
                     <div id="search-bar">
                     <div class="sc-1dzx782-0 KiRwB">
                         <div class="Flex-c11n-8-86-1__sc-n94bjd-0 sc-17uc5u3-0  jYxjRF ">
-                            <form class="react-autosuggest__container num-rows-5" style="text-align: left;margin: auto;height: 68px;width: 100%;" role="search">
                                 <div class="react-autosuggest__container">
                                     <div class="StyledAdornedInput-c11n-8-86-1__sc-1kgphdl-0 fvriFu SearchBox-c11n-8-86-1__sc-6uapbf-0 sc-1lfawsc-0 gPUkQT dvwpwM ">
-                                        <input role="combobox" aria-owns="react-autowhatever-1" aria-expanded="false" type="text" autocomplete="off" aria-autocomplete="list" aria-controls="react-autowhatever-1" class="StyledFormControl-c11n-8-86-1__sc-18qgis1-0 DA-dAx Input-c11n-8-86-1__sc-4ry0fw-0 frrUMP react-autosuggest__input" placeholder="Enter an address, neighborhood, city, or ZIP code" aria-label="Search: Suggestions appear below" id="search-box-input" value="">
+                                        <input role="combobox" onchange="search_text();" aria-owns="react-autowhatever-1" aria-expanded="false" type="text" autocomplete="off" aria-autocomplete="list" aria-controls="react-autowhatever-1" class="StyledFormControl-c11n-8-86-1__sc-18qgis1-0 DA-dAx Input-c11n-8-86-1__sc-4ry0fw-0 frrUMP react-autosuggest__input" placeholder="Enter an address, neighborhood, city, or ZIP code" aria-label="Search: Suggestions appear below" id="search-box-input" value="">
                                         <span class="StyledAdornment-c11n-8-86-1__sc-1kerx9v-0 AdornmentRight-c11n-8-86-1__sc-1kerx9v-2 ddthKA ecdnJo " aria-hidden="false">
                                             <button id="search-icon" class="sc-1bvnalc-1 fspXPt " aria-label="Submit Search">
                                                 <svg viewBox="0 0 32 32" theme="[object Object]" class="Icon-c11n-8-86-1__sc-13llmml-0 drKbVK sc-1bvnalc-0 kzKZEl" aria-hidden="true" focusable="false" role="img">
@@ -790,9 +797,8 @@
                                             </button>
                                         </span>
                                         </div>
-                                        <div id="react-autowhatever-1" class="react-autosuggest__suggestions-container" style="display: block;"></div>
+                                        <div id="suggesstion-box" style="display:none;background: white;padding: 10px 20px 10px;"></div>
                                     </div>
-                                </form>
                             </div>
                         </div>
                     </div>
@@ -804,7 +810,43 @@
 
 
 <script type="text/javascript">
-    
-
+    function search_text(){
+      if(document.getElementById("search-box-input").value !== ""){
+        const url = "/api/getLocationSearch";
+        const sendData = {
+          "data": document.getElementById("search-box-input").value,
+        };
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader('Content-type', 'application/json');
+        xhr.send(JSON.stringify(sendData));
+        xhr.onload = function() {
+          list = JSON.parse(xhr.response);
+          temp = `<ul id='search-list'>`;
+          for(i=0;i<list.length;i++){
+            temp += `<li onClick="selectLocation('`+list[i]['name']+`',`+list[i]['id']+`,'`+list[i]['type']+`');" style="margin-bottom:5px;font-size: larger;cursor: pointer;">` + list[i]['name'] + ` (` +list[i]['type']+ `)</li>`;
+          }
+          temp += `</ul>`;
+          if(list.length>0){
+            document.getElementById("suggesstion-box").style.display = "block";
+            document.getElementById("suggesstion-box").innerHTML = temp;
+          }else{
+            document.getElementById("suggesstion-box").style.display = "none";
+            document.getElementById("suggesstion-box").innerHTML = "";
+          }
+        }
+      }else{
+        document.getElementById("suggesstion-box").style.display = "none";
+        document.getElementById("suggesstion-box").innerHTML = "";
+      }
+    }
+    function selectLocation(name,id,type){
+      document.getElementById("search-box-input").value = name;
+      sendData = {
+        "id":id,
+        "type":type
+      }
+      localStorage.setItem("list_search_data", JSON.stringify(sendData));
+      window.location.href = "/page/listings";
+    }
 </script>
-
