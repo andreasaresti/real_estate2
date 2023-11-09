@@ -794,17 +794,23 @@
                                 <div class="StyledPropertyCardDataWrapper-c11n-8-86-1__sc-1omp4c3-0 daWIrq">
                                     <div class="StyledPropertyCardDataArea-c11n-8-86-1__sc-yipmu-0 zybOF">€ `+ list[i].price+`</div>
                                     <div class="StyledPropertyCardDataArea-c11n-8-86-1__sc-yipmu-0 bLsshH">
-                                        <span class="StyledPropertyCardHomeDetails-c11n-8-86-1__sc-1mlc4v9-0 ebUkxz">
-                                            <span>
-                                                <b>`+list[i].number_of_bedrooms+`</b> bds
-                                            </span>
-                                            <span>
-                                                <b>`+list[i].number_of_bathrooms+`</b> ba
-                                            </span>
-                                            <span>
-                                                <b>`+list[i].area_size+`</b> sqft
-                                            </span>
-                                        </span>
+                                        <span class="StyledPropertyCardHomeDetails-c11n-8-86-1__sc-1mlc4v9-0 ebUkxz">`;
+                                     if(list[i].number_of_bedrooms>0){
+                                        temp += `<span>
+                                                <b>` + list[i].number_of_bedrooms + `</b> bds
+                                            </span>`;
+                                      }
+                                      if(list[i].number_of_bathrooms>0){
+                                        temp += `<span>
+                                                <b>` + list[i].number_of_bathrooms + `</b> ba
+                                            </span>`;
+                                      }
+                                      if(list[i].area_size>0){
+                                        temp += `<span>
+                                                <b>` + list[i].area_size + `</b> sqft
+                                            </span>`;
+                                      }
+                                      temp += `</span>
                                         <span>Condo for sale</span>
                                     </div>
                                     <a onclick="showListigDetailModal(` + list[i].id + `);" tabindex="-1" class="StyledPropertyCardDataArea-c11n-8-86-1__sc-yipmu-0 bWMoAg" style="text-decoration: none;">
