@@ -7314,57 +7314,54 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <?php
 
-use App\Helpers\Helper;
+  use App\Helpers\Helper;
 
-if (isset($_SESSION["user_id"])) {
-  $user_id = $_SESSION["user_id"];
-} else {
-  $user_id = "";
-}
+  if (isset($_SESSION["user_id"])) {
+    $user_id = $_SESSION["user_id"];
+  } else {
+    $user_id = "";
+  }
 
-// echo 'selDistricts: '.$selDistricts.'<br>';
+  // echo 'selDistricts: '.$selDistricts.'<br>';
 
-$active_district_response = Helper::get_active_district();
-$active_district_response = json_decode($active_district_response);
+  $active_district_response = Helper::get_active_district();
+  $active_district_response = json_decode($active_district_response);
 
-$active_municipality_response = Helper::get_active_municipality();
-$active_municipality_response = json_decode($active_municipality_response);
+  $active_municipality_response = Helper::get_active_municipality();
+  $active_municipality_response = json_decode($active_municipality_response);
 
-$active_location_response = Helper::get_active_location();
-$active_location_response = json_decode($active_location_response);
+  $active_location_response = Helper::get_active_location();
+  $active_location_response = json_decode($active_location_response);
 
-$active_features_response = Helper::get_active_features();
-$active_features_response = json_decode($active_features_response);
-$active_features = $active_features_response->data;
+  $active_features_response = Helper::get_active_features();
+  $active_features_response = json_decode($active_features_response);
+  $active_features = $active_features_response->data;
 
-$active_listing_types_response = Helper::get_active_listing_types();
-$active_listing_types_response = json_decode($active_listing_types_response);
+  $active_listing_types_response = Helper::get_active_listing_types();
+  $active_listing_types_response = json_decode($active_listing_types_response);
 
-$active_property_types_response = Helper::get_active_property_types();
-$active_property_types_response = json_decode($active_property_types_response);
+  $active_property_types_response = Helper::get_active_property_types();
+  $active_property_types_response = json_decode($active_property_types_response);
 ?>
 <link rel="stylesheet" href="/theme/zillow/assets/css/jquery-ui.css<?php echo time(); ?>">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <div class="inner-pages homepage-4 agents hp-6 full hd-white" style="height: 85vh;">
-  <div data-zrr-key="static-search-page:search-app" class="searchBarDiv">
-    <div id="search-page-react-content">
-      <section class="SearchPageHeaderContainer__StyledSearchPageHeaderContainer-srp__sc-h52t73-0 duceJr search-page-header wide has-floating-action-bar" aria-label="filters" style="margin-bottom: 5px;">
-        <div style="border: 1px solid;margin-right: 13px;border-radius: 5px;" class="SearchBoxContainer__StyledSearchBoxContainer-srp__sc-hff1n-0 hjpPBk search-page-header-container">
-          <div id="srp-search-box">
-            <div class="StyledCombobox-c11n-8-84-3__sc-rvbaft-0 ffAram SearchBoxCombobox__StyledCombobox-sc-1qvxrzk-2 dudagf">
-              <div aria-haspopup="listbox" class="StyledAdornedInput-c11n-8-84-3__sc-1kgphdl-0 dbgRAU DropdownPopper-c11n-8-84-3__sc-1vnow1h-0 bsFbQm">
-                <div class="StyledComboboxInput-c11n-8-84-3__sc-vb87st-0 eKUdID SearchBoxCombobox__StyledComboboxInput-sc-1qvxrzk-3 gpmrrj">
-                  <input type="text" id="search_string" placeholder="City, Neighborhood, ZIP, Address" aria-autocomplete="list" autocomplete="off" role="combobox" aria-expanded="false" value="" class="StyledFormControl-c11n-8-84-3__sc-18qgis1-0 iUiTrf Input-c11n-8-84-3__sc-4ry0fw-0 jJHVHJ" />
-                </div>
-                <label aria-hidden="true" for="__c11n_u2d1u4qg" id="search_string" class="StyledAdornment-c11n-8-84-3__sc-1kerx9v-0 AdornmentRight-c11n-8-84-3__sc-1kerx9v-2 iZyVOm cmFlZW SearchBoxCombobox__StyledSearchBoxAdornment-sc-1qvxrzk-0 bQttJG"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false" role="img" class="Icon-c11n-8-84-3__sc-13llmml-0 jhZWWg">
-                    <title>Search</title>
-                    <path stroke="none" d="M29.41,26.59,23.77,21A12,12,0,0,0,14,2c-.17,0-.33,0-.5,0s-.33,0-.5,0A11,11,0,0,0,2,13c0,.17,0,.33,0,.5s0,.33,0,.5a12,12,0,0,0,19,9.77l5.64,5.64a2,2,0,0,0,2.82-2.82ZM14,22a8,8,0,1,1,8-8A8,8,0,0,1,14,22Z"></path>
-                  </svg></label>
+  <div data-zrr-key="static-search-page:search-app"  >
+      <section class="SearchPageHeaderContainer SearchPageHeaderContainer__StyledSearchPageHeaderContainer-srp__sc-h52t73-0 duceJr search-page-header wide has-floating-action-bar" aria-label="filters">
+        <div id="srp-search-box" style="margin-right: 13px;">
+          <div class="StyledCombobox-c11n-8-84-3__sc-rvbaft-0 ffAram SearchBoxCombobox__StyledCombobox-sc-1qvxrzk-2 dudagf">
+            <div aria-haspopup="listbox" class="StyledAdornedInput-c11n-8-84-3__sc-1kgphdl-0 dbgRAU DropdownPopper-c11n-8-84-3__sc-1vnow1h-0 bsFbQm" style="border: 1px solid;border-radius: 5px;margin-right: -2px;">
+              <div class="StyledComboboxInput-c11n-8-84-3__sc-vb87st-0 eKUdID SearchBoxCombobox__StyledComboboxInput-sc-1qvxrzk-3 gpmrrj">
+                <input type="text" id="search_string" placeholder="City, Neighborhood, ZIP, Address" aria-autocomplete="list" autocomplete="off" role="combobox" aria-expanded="false" value="" class="StyledFormControl-c11n-8-84-3__sc-18qgis1-0 iUiTrf Input-c11n-8-84-3__sc-4ry0fw-0 jJHVHJ" />
               </div>
+              <label aria-hidden="true" for="__c11n_u2d1u4qg" id="search_string" class="StyledAdornment-c11n-8-84-3__sc-1kerx9v-0 AdornmentRight-c11n-8-84-3__sc-1kerx9v-2 iZyVOm cmFlZW SearchBoxCombobox__StyledSearchBoxAdornment-sc-1qvxrzk-0 bQttJG"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false" role="img" class="Icon-c11n-8-84-3__sc-13llmml-0 jhZWWg">
+                  <title>Search</title>
+                  <path stroke="none" d="M29.41,26.59,23.77,21A12,12,0,0,0,14,2c-.17,0-.33,0-.5,0s-.33,0-.5,0A11,11,0,0,0,2,13c0,.17,0,.33,0,.5s0,.33,0,.5a12,12,0,0,0,19,9.77l5.64,5.64a2,2,0,0,0,2.82-2.82ZM14,22a8,8,0,1,1,8-8A8,8,0,0,1,14,22Z"></path>
+                </svg></label>
             </div>
           </div>
         </div>
-        <div class="rld-single-select" onmouseover="hiddenAdvancedDivListingMap();" style="width: 132px">
+        <div class="rld-single-select searchBarDiv" onmouseover="hiddenAdvancedDivListingMap();" style="width: 132px">
           <input type="hidden" id="selLocation" name="selLocation" value="">
           <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: black;">
             <ul>
@@ -7406,7 +7403,7 @@ $active_property_types_response = json_decode($active_property_types_response);
             </ul>
           </nav>
         </div>
-        <div class="rld-single-select" onmouseover="hiddenAdvancedDivListingMap();" style="width: 175px;">
+        <div class="rld-single-select searchBarDiv" onmouseover="hiddenAdvancedDivListingMap();" style="width: 175px;">
           <input type="hidden" id="selActivePropertStatus" name="selActivePropertStatus" value="">
           <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: black;">
             <ul>
@@ -7422,7 +7419,7 @@ $active_property_types_response = json_decode($active_property_types_response);
             </ul>
           </nav>
         </div>
-        <div class="rld-single-select" onmouseover="hiddenAdvancedDivListingMap();" style="width: 175px;">
+        <div class="rld-single-select searchBarDiv" onmouseover="hiddenAdvancedDivListingMap();" style="width: 175px;">
           <input type="hidden" id="selActivePropertType" name="selActivePropertType" value="">
           <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: black;">
             <ul>
@@ -7536,7 +7533,6 @@ $active_property_types_response = json_decode($active_property_types_response);
           </div>
         </div>
       </section>
-    </div>
   </div>
 
   <section class="properties-right featured portfolio blog google-map-right mp-1" style="padding: 0px!important;">
@@ -7547,16 +7543,16 @@ $active_property_types_response = json_decode($active_property_types_response);
           <div class="row" style="padding: 25px 0px 0px 0px;position: absolute;z-index: 9;width: 50%;left: 50%;">
             <div class="col-xl-12 xsRow" style="display: flex;justify-content: flex-end;margin-right: 10px;">
               <a style="display: none;justify-content: center;align-items: center;margin-right:20px;" class="btn btn-map" id="redrawCircleListingMap" onclick="redrawCircleListingMap();">Re-draw</a>
-              <a style="display: flex;justify-content: center;align-items: center;" class="btn btn-map" id="showCircleListingMap" onclick="showCircleListingMap();">Draw</a>
+              <a style="margin-top: 0px; display: flex;justify-content: center;align-items: center;" class="btn btn-map" id="showCircleListingMap" onclick="showCircleListingMap();">Draw</a>
               <button style="display: flex;justify-content: center;align-items: center;margin: 0px 5px 0px 5px;" type="button" class="btn btn-map" data-toggle="button" aria-pressed="false" id="freeDrawingMap" onclick="freeDrawingMap();">
                 Free-Draw
               </button>
-              <a style="display: flex;justify-content: center;align-items: center;" class="btn btn-map" id="clearDrawingsMap" onclick="clearDrawingsMap();">Clear</a>
+              <a style="margin-top: 0px; display: flex;justify-content: center;align-items: center;" class="btn btn-map" id="clearDrawingsMap" onclick="clearDrawingsMap();">Clear</a>
             </div>
           </div>
           <div id="map-leaflet"></div>
         </aside>
-        <div id="ListingListingMapDiv" class="col-lg-6 col-md-12 google-maps-right" style="overflow-y: scroll;height: 84vh;">
+        <div id="ListingListingMapDiv" class="col-lg-6 col-md-12 google-maps-right" style="overflow-y: scroll;height: 80vh;">
           <section>
             <div class="pro-wrapper">
               <div class="detail-wrapper-body">
@@ -7587,7 +7583,7 @@ $active_property_types_response = json_decode($active_property_types_response);
               </div>
             </div>
           </section>
-          <div class="row" id="ListingListContent">
+          <div class="ListMobile row" id="ListingListContent" >
 
           </div>
           <nav aria-label="..." style="padding: 20px;display: flex;justify-content: center;">
@@ -8236,4 +8232,7 @@ $active_property_types_response = json_decode($active_property_types_response);
   function hiddenAdvancedDivListingMap() {
     document.getElementById('advancedSearch').className = "explore__form-checkbox-list full-filter";
   }
+  $(window).resize(function() {
+    window.location.reload();
+  });
 </script>

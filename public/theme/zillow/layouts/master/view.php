@@ -608,7 +608,7 @@ if (isset($_SESSION["user_id"])) {
                 <div>
                     <div class="bs-example bs-example-tabs">
                         <ul id="myTab" class="nav nav-tabs">
-                            <li id="loginModalTab1" style="padding: 10px;" class=" tab-style login-shadow "><a href="#signin" id="loginModalTabButton" data-toggle="tab">Log In</a></li>
+                            <li id="loginModalTab1" style="padding: 10px;" class=" tab-style login-shadow "><a href="#signin" style="background-color:#f2f2f2;" id="loginModalTabButton" data-toggle="tab">Log In</a></li>
                             <li id="loginModalTab2" style="padding: 10px;" class=" tab-style "><a href="#signup" id="signupModalTabButton" data-toggle="tab">Sign Up</a></li>
                         </ul>
                     </div>

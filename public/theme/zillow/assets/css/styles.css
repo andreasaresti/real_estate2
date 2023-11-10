@@ -8081,7 +8081,7 @@ html input[disabled] {
   }
 
   .hp-6 .btn.btn-map {
-    margin-top: 20px;
+    margin-top: 0px;
   }
 
   .hp-6 .checkboxes.ch-2 {
@@ -8313,7 +8313,7 @@ html input[disabled] {
 
 @media only screen and (max-width: 1024px) {
   .hp-6 .btn.btn-map {
-    margin-top: 20px;
+    margin-top: 0px;
   }
   
   .parallax-search .trip-search .form-group {
@@ -25115,8 +25115,27 @@ section.ui-element {
 .searchBarDiv{
   display:block
 }
+.SearchPageHeaderContainer{
+  margin-bottom: 5px;
+  width:100%
+}
 @media screen and (max-width: 767px) {
   .searchBarDiv{
     display:none;
+  }
+  .container-fluid{
+    padding: 0px;
+    margin: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ListMobile{
+    margin:0px
+  }
+  .SearchPageHeaderContainer{
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
   }
 }
