@@ -25119,6 +25119,10 @@ section.ui-element {
   margin-bottom: 5px;
   width:100%
 }
+.ListingListingMapDiv{
+  overflow-y: scroll;
+  height: 80vh;
+}
 @media screen and (max-width: 767px) {
   .searchBarDiv{
     display:none;
@@ -25137,5 +25141,9 @@ section.ui-element {
     width: 100%;
     margin: 0px;
     padding: 0px;
+  }
+  .ListingListingMapDiv{
+    overflow-y: scroll;
+    height: 74vh;
   }
 }

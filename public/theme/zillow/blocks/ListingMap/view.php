@@ -7552,7 +7552,7 @@
           </div>
           <div id="map-leaflet"></div>
         </aside>
-        <div id="ListingListingMapDiv" class="col-lg-6 col-md-12 google-maps-right" style="overflow-y: scroll;height: 80vh;">
+        <div id="ListingListingMapDiv" class="col-lg-6 col-md-12 google-maps-right ListingListingMapDiv">
           <section>
             <div class="pro-wrapper">
               <div class="detail-wrapper-body">
