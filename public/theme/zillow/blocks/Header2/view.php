@@ -42,7 +42,7 @@ use App\Helpers\Helper;
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-<div class="homepage-9 hp-6 homepage-1 mh" style="z-index: 9999;position: relative;">
+<div class="homepage-9 hp-6 homepage-1 mh" style="z-index: 9999;">
     <div id="wrapper">
         <header id="header-container" class="zillow-header" style="height: 70px;margin-top: 10px;">
             <div id="header"  style="padding: 0px;height: 70px;">
@@ -131,10 +131,10 @@ use App\Helpers\Helper;
                         <div class="right-side d-none d-none d-lg-none d-xl-flex sign ml-0" >
                             <!-- Header Widget -->
                             <div class="header-widget sign-in">
-                                <div class="show-reg-form" ><a style="cursor: pointer;" onclick="loginIn()">Sign In</a></div>
+                                <div class="show-reg-form" ><a style="cursor: pointer;color: black;" onclick="loginIn()">Sign In</a></div>
                             </div>
                             <div class="header-widget sign-in">
-                                <div class="show-reg-form" ><a style="cursor: pointer;" onclick="signUp()">Sign Up</a></div>
+                                <div class="show-reg-form" ><a style="cursor: pointer;color: black;" onclick="signUp()">Sign Up</a></div>
                             </div>
                             <!-- Header Widget / End -->
                         </div>

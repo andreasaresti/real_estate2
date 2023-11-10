@@ -7788,20 +7788,24 @@ $active_property_types_response = json_decode($active_property_types_response);
                         <article  role="group" data-testid="Homes For You-card-0" class="StyledPropertyCard-c11n-8-86-1__sc-jvwq6q-0 bnlSnT">
                             <div  aria-label="4334 Union St APT 1E, Flushing, NY 11355" class="StyledCard-c11n-8-86-1__sc-rmiu6p-0 dVWlBO StyledPropertyCardBody-c11n-8-86-1__sc-1p5uux3-0 ffvFdw" tabindex="0">
                                 <div class="StyledPropertyCardDataWrapper-c11n-8-86-1__sc-1omp4c3-0 daWIrq">
-                                    <div class="StyledPropertyCardDataArea-c11n-8-86-1__sc-yipmu-0 zybOF">€ ` + list[i].price + `</div>
+                                    <div class="StyledPropertyCardDataArea-c11n-8-86-1__sc-yipmu-0 zybOF">`;
+        if(list[i].price !== 0 || list[i].price !== null){
+          temp += `€ ` + list[i].price;
+         }
+          temp +=  `</div>
                                     <div class="StyledPropertyCardDataArea-c11n-8-86-1__sc-yipmu-0 bLsshH">
                                         <span class="StyledPropertyCardHomeDetails-c11n-8-86-1__sc-1mlc4v9-0 ebUkxz">`;
-        if (list[i].number_of_bedrooms > 0) {
+        if (parseInt(list[i].number_of_bedrooms) > 0) {
           temp += `<span>
                                                 <b>` + list[i].number_of_bedrooms + `</b> bds
                                             </span>`;
         }
-        if (list[i].number_of_bathrooms > 0) {
+        if (parseInt(list[i].number_of_bathrooms) > 0) {
           temp += `<span>
                                                 <b>` + list[i].number_of_bathrooms + `</b> ba
                                             </span>`;
         }
-        if (list[i].area_size > 0) {
+        if (parseInt(list[i].area_size) > 0) {
           temp += `<span>
                                                 <b>` + list[i].area_size + `</b> sqft
                                             </span>`;
