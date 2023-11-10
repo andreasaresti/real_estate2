@@ -810,7 +810,7 @@
                                     <a onclick="showListigDetailModal(` + list[i].id + `);" tabindex="-1" class="StyledPropertyCardDataArea-c11n-8-86-1__sc-yipmu-0 bWMoAg" style="text-decoration: none;">
                                         <address>`+list[i].displayname+`</address>
                                     </a>
-                                    <div class="StyledPropertyCardDataArea-c11n-8-86-1__sc-yipmu-0 cuZKL">LISTING BY: WINZONE REALTY INC</div>
+                                    <div class="StyledPropertyCardDataArea-c11n-8-86-1__sc-yipmu-0 cuZKL">LISTING BY: SABBIANCO PROPERTIES LTD</div>
                                     <div class="StyledPropertyCardActionArea-c11n-8-86-1__sc-l8gezt-0 gUZfaS"></div>
                                 </div>
                                 <div class="StyledPropertyCardPhotoWrapper-c11n-8-86-1__sc-204bo4-0 jBRDYV">
