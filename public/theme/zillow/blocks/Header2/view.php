@@ -8,6 +8,12 @@ use App\Helpers\Helper;
         $user_id = "";
     }
 
+    if(isset($_SESSION["user_role"])){
+        $user_role = $_SESSION["user_role"];
+     }else{
+        $user_role = "";
+     }
+     
     if(isset($_SESSION["email"])){
         $email = $_SESSION["email"];
     }else{
@@ -94,13 +100,14 @@ use App\Helpers\Helper;
                             <!-- </a> -->
                         </div>
                         <ul>
+                            <?php if($user_role == "sales_people"){ ?>
                                 <li>
                                     <a href="/page/salesequest-pendingappproval">Sale Requests</a>
                                 </li>
                                 <li>
                                     <a href="/page/salesequest-open">SalesRequests List</a>
                                 </li>
-                            <?php //}?>
+                            <?php }?>
 
                             <li>
                                 <a href="/page/profile">Profile</a>

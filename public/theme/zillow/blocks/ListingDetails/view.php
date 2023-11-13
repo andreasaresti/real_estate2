@@ -127,7 +127,7 @@ if(isset($_GET['index'])){
                                                         <div class="single homes-content details mb-30">
                                                             <!-- title -->
                                                             <h3 class="mb-3">Property Details</h3>
-                                                            <ul class="homes-list clearfix">
+                                                            <ul class="clearfix">
                                                                 <li style="display:none">
                                                                     <span class="font-weight-bold mr-1">Property ID:</span>
                                                                     <span class="det"></span>
@@ -249,21 +249,21 @@ if(isset($_GET['index'])){
             if(data.price !== null && data.price !== '0' && data.price !== 0){
                 document.getElementById("listingPriceTitle").innerHTML = `€‎ ` + data.price;
             }
-            if(data.number_of_bathrooms !== null){
+            if(data.number_of_bathrooms !== null  && data.number_of_bathrooms>0){
                 document.getElementById("ListingBath").innerHTML = data.number_of_bathrooms;
                 document.getElementById("ListingBathTitle").innerHTML = data.number_of_bathrooms;
             }else{
                 document.getElementById("ListingBathDiv").style.display = "none";
                 document.getElementById("ListingBathTitleDiv").style.display = "none";
             }
-            if(data.number_of_bedrooms !== null){
+            if(data.number_of_bedrooms !== null && data.number_of_bedrooms>0){
                 document.getElementById("ListingBedrooms").innerHTML = data.number_of_bedrooms;
                 document.getElementById("ListingBedroomsTitle").innerHTML = data.number_of_bedrooms;
             }else{
                 document.getElementById("ListingBedroomsDiv").style.display = "none";
                 document.getElementById("ListingBedroomsTitleDiv").style.display = "none";
             }
-            if(data.area_size !== null){
+            if(data.area_size !== null  && data.area_size>0){
                 document.getElementById("ListingArea").innerHTML = data.area_size + "sqm";
                 document.getElementById("ListingAreaTitle").innerHTML = data.area_size;
             }else{
@@ -271,7 +271,7 @@ if(isset($_GET['index'])){
                 document.getElementById("ListingAreaTitleDiv").style.display = "none";
             }
 
-            if(data.property_type !== null){
+            if(data.property_type !== null ){
                 document.getElementById("ListingPropertyType").innerHTML = data.property_type;
             }else{
                 document.getElementById("ListingPropertyTypeDiv").style.display = "none";

@@ -8,6 +8,12 @@
         $user_id = "";
     }
 
+    if(isset($_SESSION["user_role"])){
+      $user_role = $_SESSION["user_role"];
+   }else{
+      $user_role = "";
+   }
+   
     if(isset($_SESSION["email"])){
         $email = $_SESSION["email"];
     }else{
@@ -722,13 +728,14 @@
                             <!-- </a> -->
                         </div>
                         <ul>
+                            <?php if($user_role == "sales_people"){ ?>
                                 <li>
                                     <a href="/page/salesequest-pendingappproval">Sale Requests</a>
                                 </li>
                                 <li>
                                     <a href="/page/salesequest-open">SalesRequests List</a>
                                 </li>
-                            <?php //}?>
+                            <?php }?>
 
                             <li>
                                 <a href="/page/profile">Profile</a>
@@ -788,7 +795,7 @@
                         <div class="Flex-c11n-8-86-1__sc-n94bjd-0 sc-17uc5u3-0  jYxjRF ">
                                 <div class="react-autosuggest__container">
                                     <div class="StyledAdornedInput-c11n-8-86-1__sc-1kgphdl-0 fvriFu SearchBox-c11n-8-86-1__sc-6uapbf-0 sc-1lfawsc-0 gPUkQT dvwpwM ">
-                                        <input role="combobox" onchange="search_text();" aria-owns="react-autowhatever-1" aria-expanded="false" type="text" autocomplete="off" aria-autocomplete="list" aria-controls="react-autowhatever-1" class="StyledFormControl-c11n-8-86-1__sc-18qgis1-0 DA-dAx Input-c11n-8-86-1__sc-4ry0fw-0 frrUMP react-autosuggest__input" placeholder="Enter an address, neighborhood, city, or ZIP code" aria-label="Search: Suggestions appear below" id="search-box-input" value="">
+                                        <input role="combobox" onkeypress="search_text();" aria-owns="react-autowhatever-1" aria-expanded="false" type="text" autocomplete="off" aria-autocomplete="list" aria-controls="react-autowhatever-1" class="StyledFormControl-c11n-8-86-1__sc-18qgis1-0 DA-dAx Input-c11n-8-86-1__sc-4ry0fw-0 frrUMP react-autosuggest__input" placeholder="Enter an address, neighborhood, city, or ZIP code" aria-label="Search: Suggestions appear below" id="search-box-input" value="">
                                         <span class="StyledAdornment-c11n-8-86-1__sc-1kerx9v-0 AdornmentRight-c11n-8-86-1__sc-1kerx9v-2 ddthKA ecdnJo " aria-hidden="false">
                                             <button id="search-icon" class="sc-1bvnalc-1 fspXPt " aria-label="Submit Search">
                                                 <svg viewBox="0 0 32 32" theme="[object Object]" class="Icon-c11n-8-86-1__sc-13llmml-0 drKbVK sc-1bvnalc-0 kzKZEl" aria-hidden="true" focusable="false" role="img">
@@ -811,7 +818,8 @@
 
 <script type="text/javascript">
     function search_text(){
-      if(document.getElementById("search-box-input").value !== ""){
+      var searchstr = document.getElementById("search-box-input").value;
+      if(searchstr.length >= 3){
         const url = "/api/getLocationSearch";
         const sendData = {
           "data": document.getElementById("search-box-input").value,

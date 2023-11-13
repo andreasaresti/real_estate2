@@ -90,6 +90,7 @@ class webUsersController extends Controller
 
         $_SESSION["email"] = $request->email;
         $_SESSION["name"] = $request->name . ' ' . $request->surname;
+        $_SESSION["phone"] = $request->phone;
         $_SESSION["user_id"] = $user->id;
         $_SESSION["user_image"] = '';
         $_SESSION["user_role"] = "";
@@ -204,6 +205,7 @@ class webUsersController extends Controller
             $_SESSION["email"] = $customer->email;
             $_SESSION["name"] = $customer->name;
             $_SESSION["user_id"] = $customer->id;
+            $_SESSION["phone"] = $customer->phone;
             $_SESSION["user_image"] = $customer->image;
 
             $sales_people = SalesPeople::where('customer_id', $customer->id)

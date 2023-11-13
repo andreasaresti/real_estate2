@@ -4,6 +4,7 @@ if (isset($_SESSION["user_id"])) {
 } else {
     $user_id = "";
 }
+// echo $_SESSION["phone"];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -476,7 +477,7 @@ if (isset($_SESSION["user_id"])) {
                                                                     <div data-cft-name="contact-buttons" class="hdp__sc-h6x2kh-0 hXcQfc">
                                                                         <ul class="contact-button-group">
                                                                             <li class="contact-button prominent">
-                                                                                <button onclick="showRequestModal()" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 fKAHIc sc-16sdjcz-0 eObXzv contact-button-condensed ds-button ds-label-small" data-cft-name="contact-button-tour">
+                                                                                <button onclick="showRequestModal()" style="background-color: #006AFF;border-color: #006AFF;color: #FFF;" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 fKAHIc sc-16sdjcz-0 eObXzv contact-button-condensed ds-button ds-label-small" data-cft-name="contact-button-tour">
                                                                                     <div style="text-align: center;">Request more Details
                                                                                         <!-- <p class="Text-c11n-8-84-3__sc-aiai24-0 StyledParagraph-c11n-8-84-3__sc-18ze78a-0 hTmUSk">as early as today at 11:00 am</p> -->
                                                                                     </div>
@@ -821,6 +822,7 @@ if (isset($_SESSION["user_id"])) {
 
         <!-- ListingDetailModal -->
         <script>
+            customer_id = '<?php echo $user_id; ?>';
             var listingMobileSliderIndex = 0;
 
             $(document).on('click', '#slider-next', function() {
@@ -853,9 +855,19 @@ if (isset($_SESSION["user_id"])) {
             });
 
             function showRequestModal(index) {
-                jQuery.noConflict();
-                // $('#ListingDetailModal').modal('toggle'); 
-                document.getElementById("RequestModal").click();
+                if (customer_id !== "") {
+                    name ='<?php if(isset($_SESSION["name"])) echo $_SESSION["name"]; else echo ""; ?>';
+                    phone ='<?php if(isset($_SESSION["phone"])) echo $_SESSION["phone"]; else echo ""; ?>';
+                    email ='<?php if(isset($_SESSION["email"])) echo $_SESSION["email"]; else echo ""; ?>';
+                    jQuery.noConflict();
+                    document.getElementById('inquiry_fname').value = name;
+                    document.getElementById('inquiry_pnumber').value = phone;
+                    document.getElementById('inquiry_emailid').value = email;
+                    document.getElementById("RequestModal").click();
+                } else {
+                    loginIn();
+                }
+                
             }
 
             function closeListingDetailModal(index) {
@@ -907,21 +919,21 @@ if (isset($_SESSION["user_id"])) {
                     if (data.price !== null && data.price !== '0' && data.price !== 0) {
                         document.getElementById("listingPriceTitle").innerHTML = `€‎ ` + data.price;
                     }
-                    if (data.number_of_bathrooms !== null) {
+                    if (data.number_of_bathrooms !== null && data.number_of_bathrooms>0) {
                         document.getElementById("ListingBath").innerHTML = data.number_of_bathrooms;
                         document.getElementById("ListingBathTitle").innerHTML = data.number_of_bathrooms;
                     } else {
                         document.getElementById("ListingBathDiv").style.display = "none";
                         document.getElementById("ListingBathTitleDiv").style.display = "none";
                     }
-                    if (data.number_of_bedrooms !== null) {
+                    if (data.number_of_bedrooms !== null && data.number_of_bedrooms>0) {
                         document.getElementById("ListingBedrooms").innerHTML = data.number_of_bedrooms;
                         document.getElementById("ListingBedroomsTitle").innerHTML = data.number_of_bedrooms;
                     } else {
                         document.getElementById("ListingBedroomsDiv").style.display = "none";
                         document.getElementById("ListingBedroomsTitleDiv").style.display = "none";
                     }
-                    if (data.area_size !== null) {
+                    if (data.area_size !== null && data.area_size>0) {
                         document.getElementById("ListingArea").innerHTML = data.area_size + "sqm";
                         document.getElementById("ListingAreaTitle").innerHTML = data.area_size;
                     } else {
@@ -1175,14 +1187,15 @@ if (isset($_SESSION["user_id"])) {
                     data = JSON.parse(xhr.response);
                     if (xhr.status == "201") {
                         $("#login_success").fadeIn(300).delay(1500).fadeOut(400);
-
+                        customer_id = data.user.id;
                         var success_message = `<div class="right-side d-none d-none d-lg-none d-xl-flex sign ml-0">
                             <div class="header-widget sign-in">
                                 <div class="show-reg-form"><a style="cursor: pointer;" onclick="goMyAccount()">Μy Account</a></div>
                             </div>
                         </div>`;
                         $('#headerlogindiv').html(success_message);
-                        $('#myModal').hide();
+                        $('#myModal').click();
+                        
                     } else {
                         if (data.hasOwnProperty('errors')) {
                             if (data.errors.hasOwnProperty('password')) {
@@ -1226,7 +1239,6 @@ if (isset($_SESSION["user_id"])) {
                         $('#headerlogindiv').html(success_message);
                         $('#myModal').hide();
                     } else {
-                        console.log(data);
                         if (data.hasOwnProperty('errors')) {
                             if (data.errors.hasOwnProperty('name')) {
                                 $("#signup_failure").html(data.errors.name);

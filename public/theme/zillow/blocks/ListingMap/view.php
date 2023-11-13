@@ -7443,8 +7443,15 @@
             <button onclick="searchNowListingMap()" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 sbjHp StyledFilterButton-srp__sc-vk62hb-0 jLwrOl DropdownPopper-c11n-8-84-3__sc-1vnow1h-0 bsFbQm save-search-button" tabindex="0" role="button" type="button" rel="nofollow" aria-label="Save search" aria-expanded="false" aria-haspopup="dialog">
               Search Now
             </button>
+            
+          </div>
+          <div class="action-bar-left-content" style="margin-left: 20px;">
+            <button onclick="searchReset()" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 sbjHp StyledFilterButton-srp__sc-vk62hb-0 jLwrOl DropdownPopper-c11n-8-84-3__sc-1vnow1h-0 bsFbQm save-search-button" tabindex="0" role="button" type="button" rel="nofollow" aria-label="Save search" aria-expanded="false" aria-haspopup="dialog">
+              Reset Search
+            </button>
           </div>
           <div class="action-bar-right-content">
+            
             <a class="saved-homes-link saved-homes-visual-audit" tabindex="0" rel="nofollow" aria-label="Saved Homes" href="/myzillow/favorites"><strong></strong></a>
             <!-- //2 Saved Homes -->
           </div>
@@ -7621,7 +7628,9 @@
     localStorage.removeItem("list_search_data");
   }
 
-  loadActiveListingsListingMap([0, 0], 0, 9);
+  map_init_circle([], [0,0], 0, 9);
+
+  // loadActiveListingsListingMap([0, 0], 0, 9);
 
   function loadActiveListingsListingGrid(maker_position, set, zoom, freedraw = false) {
     customer_id = '<?php echo $user_id; ?>';
@@ -7774,8 +7783,24 @@
       // alrt(total);
       // var valueArray = [];
       var temp = "";
-
+      console.log(list);
       for (i = 0; i < list.length; i++) {
+        listingStr = "";
+        for(j=0;j<list[i].listing_types.length;j++){
+          if(j == 0){
+            listingStr += list[i].listing_types[j];
+          }else{
+            listingStr += " , " + list[i].listing_types[j];
+          }
+        }
+        if(list[i].property_type !== "")
+        {
+          if(listingStr == ""){
+            listingStr += list[i].property_type;
+          }else{
+            listingStr += " , " + list[i].property_type;
+          }
+        }
         favorite = "";
         if (list[i].in_favoriteproperties == 1) {
           favorite = 'style="fill: red;"';
@@ -7785,10 +7810,10 @@
                             <div  aria-label="4334 Union St APT 1E, Flushing, NY 11355" class="StyledCard-c11n-8-86-1__sc-rmiu6p-0 dVWlBO StyledPropertyCardBody-c11n-8-86-1__sc-1p5uux3-0 ffvFdw" tabindex="0">
                                 <div class="StyledPropertyCardDataWrapper-c11n-8-86-1__sc-1omp4c3-0 daWIrq">
                                     <div class="StyledPropertyCardDataArea-c11n-8-86-1__sc-yipmu-0 zybOF">`;
-        if(list[i].price !== 0 || list[i].price !== null){
+        if(list[i].price !== '0' || list[i].price !== 0 || list[i].price !== null){
           temp += `€ ` + list[i].price;
          }
-          temp +=  `</div>
+          temp +=  `  <span style="font-size: 17px;margin-left: 20px;">` + list[i].location_name + `</span></div>
                                     <div class="StyledPropertyCardDataArea-c11n-8-86-1__sc-yipmu-0 bLsshH">
                                         <span class="StyledPropertyCardHomeDetails-c11n-8-86-1__sc-1mlc4v9-0 ebUkxz">`;
         if (parseInt(list[i].number_of_bedrooms) > 0) {
@@ -7807,7 +7832,7 @@
                                             </span>`;
         }
         temp += `</span>
-                                        <span>Condo for sale</span>
+                                        <span>`+listingStr+`</span>
                                     </div>
                                     <a onclick="showListigDetailModal(` + list[i].id + `);" tabindex="-1" class="StyledPropertyCardDataArea-c11n-8-86-1__sc-yipmu-0 bWMoAg" style="text-decoration: none;">
                                         <address>` + list[i].displayname + `</address>
@@ -8142,6 +8167,12 @@
   }
 
   function searchNowListingMap() {
+    freeDraw.clear();
+    viewCircleFlag = 0;
+    document.getElementById("redrawCircleListingMap").style.display = "none";
+    document.getElementById("showCircleListingMap").style.background = "rgb(255, 255, 255)";
+    document.getElementById("showCircleListingMap").style.color = "rgb(0, 0, 0)";
+    document.getElementById("showCircleListingMap").innerHTML = "Draw";
     hiddenAdvancedDivListingMap();
     loadActiveListingsListingMap([0, 0], 0, 9);
   }
@@ -8151,6 +8182,9 @@
     }
 
     function freeDrawingMap() {
+      document.getElementById("ListingListContent").innerHTML = "";
+      document.getElementById("page_count").innerHTML = " Search results"
+      document.getElementById("pagin_content").innerHTML = "";
         if ($("#freeDrawingMap").hasClass("active")) freeDraw.mode(FreeDraw.NONE)
         else freeDraw.mode(FreeDraw.ALL)
     }
@@ -8172,7 +8206,10 @@
       document.getElementById("redrawCircleListingMap").style.display = "flex";
       document.getElementById("redrawCircleListingMap").style.background = "rgb(34, 150, 67)";
       document.getElementById("redrawCircleListingMap").style.color = "rgb(255, 255, 255)";
-      map_init_circle([], [0, 0], 0, 9)
+      map_init_circle([], [0, 0], 0, 9);
+      document.getElementById("ListingListContent").innerHTML = "";
+      document.getElementById("page_count").innerHTML = " Search results"
+      document.getElementById("pagin_content").innerHTML = "";
     }
   }
 
@@ -8235,4 +8272,7 @@
   $(window).resize(function() {
     window.location.reload();
   });
+  function searchReset(){
+    window.location.href = '/page/listings';
+  }
 </script>

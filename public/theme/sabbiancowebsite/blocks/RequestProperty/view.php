@@ -351,7 +351,7 @@ if(isset($_SESSION["user_role"])){
                                     <thead>
                                         <tr>
                                             <th style="width: 8%;">No</th>
-                                            <th style="width: *;">My Listings</th>
+                                            <th style="width: '*'">My Listings</th>
                                             <th style="width: 15%;">Status</th>
                                             <th style="width: 20%;">Add Appointment</th>
                                         </tr>
@@ -380,7 +380,7 @@ if(isset($_SESSION["user_role"])){
                                     <thead>
                                         <tr>
                                             <th style="width: 8%;">No</th>
-                                            <th style="width: *;">Listing Name</th>
+                                            <th style="width: '*'">Listing Name</th>
                                             <th style="width: 15%;">Date</th>
                                             <th style="width: 15%;">signed</th>
                                         </tr>
@@ -402,7 +402,7 @@ if(isset($_SESSION["user_role"])){
                                     <thead>
                                         <tr>
                                             <th style="width: 8%;">No</th>
-                                            <th style="width: *;">Note</th>
+                                            <th style="width: '*'">Note</th>
                                             <th style="width: 15%;">Date Added</th>
                                         </tr>
                                     </thead>

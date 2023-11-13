@@ -48,6 +48,7 @@ class CustomerController extends Controller
             }
             
             $_SESSION["email"] = $result->email;
+            $_SESSION["phone"] = $result->phone;
             $_SESSION["name"] = $result->name;
             $_SESSION["user_id"] = $result->id;
             $_SESSION["user_image"]= $result->image;
