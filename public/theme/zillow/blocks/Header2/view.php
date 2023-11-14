@@ -7,7 +7,7 @@ use App\Helpers\Helper;
     }else{
         $user_id = "";
     }
-
+    
     if(isset($_SESSION["user_role"])){
         $user_role = $_SESSION["user_role"];
      }else{
@@ -30,7 +30,6 @@ use App\Helpers\Helper;
         $name = "";
     }
 
-    
     $postData = [
         'slug'=>"menu",
         'locale'=>"en_US",

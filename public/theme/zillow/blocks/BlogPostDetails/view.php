@@ -14,7 +14,7 @@
                 <div class="col-lg-12 col-md-12 blog-pots">
                     <div class="row">
                         <div class="col-md-12 col-xs-12">
-                            <div class="news-item details no-mb2">
+                            <div class="details no-mb2">
                                 <a href="blog-details.html" class="news-img-link">
                                     <div class="news-item-img">
                                         <img class="img-responsive" src="" id="image">

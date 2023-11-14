@@ -515,7 +515,7 @@ if(isset($_SESSION["user_role"])){
             <div class="alert-box failure" id="closeDeal_failure">fail!!!</div>
             <div class="form-group">
                 <label>Status</label>
-                <select class="form-control" name="deal_status" id="deal_status">
+                <select class="form-control" name="deal_status" onchange="change_status();" id="deal_status">
                     <option value="">Please Select</option>
                     <option value="won">Won</option>
                     <option value="lost">Lost</option>
@@ -527,11 +527,11 @@ if(isset($_SESSION["user_role"])){
                     
                 </select>
             </div>                    
-            <div class="form-group">
+            <div class="form-group" id="close_amount">
                 <label>Close Amount</label>
                 <input class="form-control" type="number" name="deal_close_amount" id="deal_close_amount">
             </div>
-            <div class="form-group" id="lost_reason">
+            <div class="form-group" id="lost_reason" style="display: none;">
                 <label>Lost Reason</label>
                 <select class="form-control" name="lost_reason_select" id="lost_reason_select">
                     
@@ -559,6 +559,15 @@ if(isset($_SESSION["user_role"])){
         signaturePad.clear();
     })
     
+    function change_status(){
+        if(document.getElementById("deal_status").value == "won"){
+            document.getElementById("close_amount").style.display = "block";
+            document.getElementById("lost_reason").style.display = "none";
+        }else{
+            document.getElementById("close_amount").style.display = "none";
+            document.getElementById("lost_reason").style.display = "block";
+        }
+    }
 
     let tabs = document.querySelectorAll(".tabs h3");
     let tabContents = document.querySelectorAll(".tabs-content section");
@@ -718,8 +727,8 @@ if(isset($_SESSION["user_role"])){
 		xhr.setRequestHeader('Content-type', 'application/json');
 		xhr.send(JSON.stringify(sendData));
 		xhr.onload = function () {
-            data = JSON.parse(xhr.response);
-            console.log(data);
+            console.log(xhr.response);
+            
             if(xhr.status == "201"){
                 loadListingsRequestProperty();
                 // $("#addSignature").modal('hide');
@@ -1150,8 +1159,20 @@ if(isset($_SESSION["user_role"])){
             temp = `<tr><td data-label="Customer Name" style="margin: 0px;height: 40px;padding: 0px;border: none;">`+detail.customer_name+`</td>
                     <td data-label="Customer Surname" style="margin: 0px;height: 40px;padding: 0px;border: none;">`+detail.customer_surname+`</td>
                     <td data-label="Customer Email" style="margin: 0px;height: 40px;padding: 0px;border: none;">`+detail.customer_email+`</td>
-                    <td data-label="Customer Address" style="margin: 0px;height: 40px;padding: 0px;border: none;">`+detail.customer_address+`</td>
-                    <td data-label="Customer Phone" style="margin: 0px;height: 40px;padding: 0px;border: none;">`+detail.customer_phone+`</td></tr>`;
+                    <td data-label="Customer Address" style="margin: 0px;height: 40px;padding: 0px;border: none;">`
+                    if(detail.customer_address !== null){
+                        temp +=detail.customer_address;
+                    }else{
+                        temp +="";
+                    }
+            temp += `</td>
+                    <td data-label="Customer Phone" style="margin: 0px;height: 40px;padding: 0px;border: none;">`
+                    if(detail.customer_phone !== null){
+                        temp +=detail.customer_phone;
+                    }else{
+                        temp +="";
+                    }
+            temp += `</td></tr>`;
             document.getElementById("customer_detail").innerHTML = temp;
             setTimeout(() => {
                 document.getElementById("customer_id").value = detail.customer_id;

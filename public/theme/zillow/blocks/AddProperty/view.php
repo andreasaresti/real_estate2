@@ -338,7 +338,7 @@
 			data = list.data;	
             var temp ="";
             for(i=0;i<data.length;i++){
-                temp += `<li><a><input type="radio" name="propertStatus" class="propertStatus" value="`+data[i].id+`" id="propertStatus`+data[i].id+`" >`+data[i].displayname+`</a>
+                temp += `<li><a style="display: flex;"><input type="radio" name="propertStatus" class="propertStatus" value="`+data[i].id+`" id="propertStatus`+data[i].id+`" >`+data[i].displayname+`</a>
                         </li>`;
             }
             document.getElementById("activePropertStatus").innerHTML = temp;
@@ -355,7 +355,7 @@
 			data = list.data;	
             var temp ="";
             for(i=0;i<data.length;i++){
-                temp += `<li><a><input type="radio" name="propertTypes" class="propertTypes" value="`+data[i].id+`" id="propertTypes`+data[i].id+`" >`+data[i].displayname+`</a>
+                temp += `<li><a style="display: flex;"><input type="radio" name="propertTypes" class="propertTypes" value="`+data[i].id+`" id="propertTypes`+data[i].id+`" >`+data[i].displayname+`</a>
                         </li>`;
             }
             document.getElementById("activePropertType").innerHTML = temp;
@@ -396,7 +396,7 @@
 			data = list.data;	
             var temp ="";
             for(i=0;i<data.length;i++){
-                temp += `<li class="parent locationLi" ><a><input type="radio" id="districts`+data[i].id+`" class="district" name="district" value="`+data[i].id+`" onchange="changeLocationsAddProperty('districts','`+data[i].id+`','`+data[i].displayname+`')">`+data[i].displayname+`</a>
+                temp += `<li class="parent locationLi" ><a style="display: flex;"><input type="radio" id="districts`+data[i].id+`" class="district" name="district" value="`+data[i].id+`" onchange="changeLocationsAddProperty('districts','`+data[i].id+`','`+data[i].displayname+`')">`+data[i].displayname+`</a>
                 <div class="wrapper"><ul style="transform:none;position:initial; visibility: visible;opacity: 100; overflow-x: hidden; overflow-y: auto; max-height: 500px;" id="subDistricts`+data[i].id+`"></ul></div></li>`;
             }
             document.getElementById("activelocation").innerHTML = temp;
@@ -418,7 +418,7 @@
                 temp ="";
                 for(i=0;i<data.length;i++){
                     if(data[i].district_id == districts[j].value){
-                        temp += `<li class="parent locationLi"><a><input type="radio"  id="municipalities`+data[i].id+`"  class="municipality" name="municipality" value="`+data[i].id+`" onchange="changeLocationsAddProperty('municipalities','`+data[i].id+`','`+data[i].displayname+`')">`+data[i].displayname+`</a>
+                        temp += `<li class="parent locationLi"><a style="display: flex;"><input type="radio"  id="municipalities`+data[i].id+`"  class="municipality" name="municipality" value="`+data[i].id+`" onchange="changeLocationsAddProperty('municipalities','`+data[i].id+`','`+data[i].displayname+`')">`+data[i].displayname+`</a>
                         <div class="wrapper"><ul style="visibility: visible;opacity: 100;" id="subMunicipalities`+data[i].id+`"></ul></div></li>`;
                     }
                 }
@@ -442,7 +442,7 @@
                 temp ="";
                 for(i=0;i<data.length;i++){
                     if(data[i].municipality_id == municipalities[j].value){
-                        temp += `<li><a><input type="radio"  id="locations`+data[i].id+`"  class="location" name="location" value="`+data[i].id+`" onchange="changeLocationsAddProperty('locations','`+data[i].id+`','`+data[i].displayname+`')">`+data[i].displayname+`</a>`;
+                        temp += `<li><a style="display: flex;"><input type="radio"  id="locations`+data[i].id+`"  class="location" name="location" value="`+data[i].id+`" onchange="changeLocationsAddProperty('locations','`+data[i].id+`','`+data[i].displayname+`')">`+data[i].displayname+`</a>`;
                     }
                 }
                 document.getElementById("subMunicipalities"+municipalities[j].value).innerHTML = temp;
@@ -460,7 +460,7 @@
 			data = list.data;	
             var temp ="";
             for(i=0;i<data.length;i++){
-                temp += `<li><a><input type="radio" name="deliveryTimes" class="deliveryTimes" value="`+data[i].id+`" id="deliveryTimes`+data[i].id+`" >`+data[i].displayname+`</a>
+                temp += `<li><a style="display: flex;"><input type="radio" name="deliveryTimes" class="deliveryTimes" value="`+data[i].id+`" id="deliveryTimes`+data[i].id+`" >`+data[i].displayname+`</a>
                         </li>`;
             }
             document.getElementById("activedelivery_times").innerHTML = temp;

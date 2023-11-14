@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Source;
 use App\Models\Listing;
 use App\Models\Customer;
 use App\Models\SalesRequestNote;
@@ -495,11 +496,19 @@ class webSalesRequestController extends Controller
         if ($request->has('accepted_status') && $request->accepted_status != '') {
             $query = $query->where('accepted_status', $request->accepted_status);
         }
-
+        
         $query = $query
             ->select('sales_requests.*')
             ->orderBy($orderby, $orderbytype)
             ->paginate($perPage, ['/*'], 'page', $page);
+
+        foreach ($query as $key => $row) {
+            $customer = Customer::where('id',$row->customer_id)->first();
+            $source = Source::where('id',$row->source_id)->first();
+            $query[$key]->customer_name = $customer->name;
+            $query[$key]->customer_phone = $customer->phone;
+            $query[$key]->source_name = $source->name;
+        }
 
         $sales_requests = $query;
 
@@ -580,21 +589,21 @@ class webSalesRequestController extends Controller
             'salesperson_name'=> $sendData3[0]->name
         ];
 
-        $pdf = PDF::loadView('emails.templatePDF', $pdfData);
+        // $pdf = PDF::loadView('emails.templatePDF', $pdfData);
 
-        $WebListingEmail = env("Web_Listing_Email");
+        // $WebListingEmail = env("Web_Listing_Email");
 
-        $data["email"]= $sendData[0]->email;
-        $data["client_name"]= $sendData[0]->name;
-        $data["subject"]="sign";
-        $data["title"] = "Sign";
-        $data["body"] = "The request signed.";
+        // $data["email"]= $sendData[0]->email;
+        // $data["client_name"]= $sendData[0]->name;
+        // $data["subject"]="sign";
+        // $data["title"] = "Sign";
+        // $data["body"] = "The request signed.";
 
-        Mail::send('emails.templateMail', $data, function($message)use($data,$pdf) {
-            $message->to($data["email"], $data["client_name"])
-            ->subject($data["subject"])
-            ->attachData($pdf->output(), "sign.pdf");
-        });
+        // Mail::send('emails.templateMail', $data, function($message)use($data,$pdf) {
+        //     $message->to($data["email"], $data["client_name"])
+        //     ->subject($data["subject"])
+        //     ->attachData($pdf->output(), "sign.pdf");
+        // });
 
         return response()->json([
             'message' => 'Appointment updated successfully',

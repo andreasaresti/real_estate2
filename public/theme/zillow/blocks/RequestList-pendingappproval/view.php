@@ -162,8 +162,9 @@ if(isset($_SESSION["user_role"])){
                                 <td>No</td>
                                 <td>Name</td>
                                 <td>Date</td>
-                                <td>customer_id</td>
-                                <td>source_id</td>
+                                <td>Customer Name</td>
+                                <td>Customer Phone</td>
+                                <td>Source Name</td>
                                 <td></td>
                             </tr>
                         </thead>
@@ -198,15 +199,17 @@ if(isset($_SESSION["user_role"])){
 		xhr.send(JSON.stringify(sendData));
 		xhr.onload = function () {
 			data = JSON.parse(xhr.response);
-			list = data.data;	
+			list = data.data;
+            console.log(list);
             var temp ="";
             for(i=0;i<list.length;i++){
                 temp +=`<tr>
                         <td data-label="No">` + (i+1) +`</td>
                         <td data-label="Name">`+ list[i].name + `</td>
                         <td data-label="Date">`+ (new Date(list[i].date)).toISOString().slice(0, 10)  +`</td>
-                        <td data-label="customer_id">`+list[i].customer_id +`</td>
-                        <td data-label="source_id">`+list[i].source_id +`</td>`;
+                        <td data-label="Customer Name">`+list[i].customer_name +`</td>
+                        <td data-label="Customer Phone">`+list[i].customer_phone +`</td>
+                        <td data-label="Source Name">`+list[i].source_name +`</td>`;
                         if(list[i].accepted_status == "yes"){
                 temp += `<td> <a style="color:white;" class="btn btn-secondary" onclick="acceptSalesRequestRequestListPendingAppproval(`+list[i].id+`,'no')"> remove </a> </td>`;
                 }else{

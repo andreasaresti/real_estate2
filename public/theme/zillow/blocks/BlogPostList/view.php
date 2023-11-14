@@ -4,9 +4,14 @@
  }else{
     $user_id = "";
  }
+ $title = $block->setting('title');
+
 ?>
     <div class="inner-pages homepage-4 agents hp-6 full hd-white">
-    <section class="blog-section">
+        <div style="text-align-last: center;margin: 21px 0px 10px 0px;">
+            <h1><?php echo $title;?></h1>
+        </div>
+        <section class="blog-section" style="padding: 2rem 0;">
             <div class="container">
                 <div class="news-wrap">
                     <div class="row" id="ListingListContent"></div>
@@ -41,6 +46,7 @@
 		xhr.onload = function () {
 			data = JSON.parse(xhr.response);
 			list = data.data;
+            console.log(list);
             var temp = "";
             temp = "";
             for(i= 0; i<list.length; i++)

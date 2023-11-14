@@ -161,8 +161,9 @@ if(isset($_SESSION["user_role"])){
                             <th>No</th>
                             <th>Name</th>
                             <th>Date</th>
-                            <th>customer_id</th>
-                            <th>source_id</th>
+                            <td>Customer Name</td>
+                            <td>Customer Phone</td>
+                            <td>Source Name</td>
                             <th></th>
                         </tr>
                     </thead>
@@ -205,8 +206,9 @@ if(isset($_SESSION["user_role"])){
                         <td data-label="No">` + (i+1) +`</td>
                         <td data-label="Name">`+ list[i].name + `</td>
                         <td data-label="Date">`+ (new Date(list[i].date)).toISOString().slice(0, 10)  +`</td>
-                        <td data-label="customer_id">`+list[i].customer_id +`</td>
-                        <td data-label="source_id">`+list[i].source_id +`</td>`;
+                        <td data-label="Customer Name">`+list[i].customer_name +`</td>
+                        <td data-label="Customer Phone">`+list[i].customer_phone +`</td>
+                        <td data-label="Source Name">`+list[i].source_name +`</td>`;
                 temp += `<td><a style="color:white;" class="btn btn-secondary" onclick="requestViewRequestListOpen(`+list[i].id+`)"> view </a></td>`;
                 temp += `</tr>`;
             }
