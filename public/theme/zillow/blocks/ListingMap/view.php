@@ -8242,6 +8242,9 @@
   }
 
   function freeDrawingMap() {
+    $('input:checkbox').each(function() {
+        this.checked = false;
+      });
     document.getElementById("ListingListContent").innerHTML = "";
     document.getElementById("page_count").innerHTML = " Search results"
     document.getElementById("pagin_content").innerHTML = "";
@@ -8270,6 +8273,9 @@
       document.getElementById("ListingListContent").innerHTML = "";
       document.getElementById("page_count").innerHTML = " Search results"
       document.getElementById("pagin_content").innerHTML = "";
+      $('input:checkbox').each(function() {
+        this.checked = false;
+      });
     }
   }
 
