@@ -7628,9 +7628,9 @@
     localStorage.removeItem("list_search_data");
   }
 
-  map_init_circle([], [0,0], 0, 9);
+  // map_init_circle([], [0,0], 0, 9);
 
-  // loadActiveListingsListingMap([0, 0], 0, 9);
+  loadActiveListingsListingMap([0, 0], 0, 9);
 
   function loadActiveListingsListingGrid(maker_position, set, zoom, freedraw = false) {
     customer_id = '<?php echo $user_id; ?>';
