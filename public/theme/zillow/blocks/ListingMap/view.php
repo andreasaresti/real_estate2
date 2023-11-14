@@ -7613,20 +7613,65 @@
 
   var circle;
   var viewCircleFlag = 0;
-  if (localStorage.getItem("list_search_data")) {
-    tempList = JSON.parse(localStorage.getItem("list_search_data"));
-    if (tempList['type'] == "District") {
-      document.getElementById('districts' + tempList['id']).checked = true;
-    }
-    if (tempList['type'] == "Municipality") {
-      document.getElementById('municipalities' + tempList['id']).checked = true;
-    }
-    if (tempList['Location'] == "District") {
-      document.getElementById('locations' + tempList['id']).checked = true;
-    }
-    console.log(tempList);
-    localStorage.removeItem("list_search_data");
+  // area_size=0%20sq%20,1300%20sq%20&price_rang
+  search_term = '<?php if(isset($_GET['search_term'])) echo$_GET['search_term'] ; else echo""; ?>';
+  if (search_term > 0) {
+      document.getElementById("search_string").value = search_term;
   }
+  number_of_bathrooms = '<?php if(isset($_GET['bathrooms'])) echo$_GET['bathrooms'] ; else echo""; ?>';
+  if (number_of_bathrooms > 0) {
+      document.getElementById("selBathrooms").value = number_of_bathrooms;
+  }
+  number_of_bedrooms = '<?php if(isset($_GET['bedrooms'])) echo$_GET['bedrooms'] ; else echo""; ?>';
+  if (number_of_bedrooms > 0) {
+      document.getElementById("selBedrooms").value = number_of_bedrooms;
+  }
+  temp = '<?php if(isset($_GET['features'])) echo$_GET['features'] ; else echo""; ?>';
+  if(temp !== ''){
+    features = temp.split(",");
+    for (var j = 0; j < features.length; j++) {
+        document.getElementById('fcheck-' + features[j]).checked = true;
+    }
+  }
+  temp = '<?php if(isset($_GET['district'])) echo$_GET['district'] ; else echo""; ?>';
+  if(temp !== ''){
+    districts = temp.split(",");
+    for (var j = 0; j < districts.length; j++) {
+        document.getElementById('districts' + districts[j]).checked = true;
+    }
+  }
+  temp = '<?php if(isset($_GET['municipality'])) echo$_GET['municipality'] ; else echo""; ?>';
+  if(temp !== ''){
+    municipalities = temp.split(",");
+    for (var j = 0; j < municipalities.length; j++) {
+        document.getElementById('municipalities' + municipalities[j]).checked = true;
+    }
+  }
+  temp = '<?php if(isset($_GET['location'])) echo$_GET['location'] ; else echo""; ?>';
+  if(temp !== ''){
+    
+    locations = temp.split(",");
+    for (var j = 0; j < locations.length; j++) {
+        document.getElementById('locations' + locations[j]).checked = true;
+    }
+  }
+  temp = '<?php if(isset($_GET['property_type'])) echo$_GET['property_type'] ; else echo""; ?>';
+  if(temp !== ''){
+    
+    listing_types = temp.split(",");
+    for (var j = 0; j < listing_types.length; j++) {
+        document.getElementById('propertTypes' + listing_types[j]).checked = true;
+    }
+  }
+  temp = '<?php if(isset($_GET['property_status'])) echo$_GET['property_status'] ; else echo""; ?>';
+  if(temp !== ''){
+    
+    listing_status = temp.split(",");
+    for (var j = 0; j < listing_status.length; j++) {
+        document.getElementById('propertStatus' + listing_status[j]).checked = true;
+    }
+  }
+  // }
 
   // map_init_circle([], [0,0], 0, 9);
 
@@ -7732,6 +7777,21 @@
         orderbyType = "desc";
         break;
     }
+    var newurl = '<?php echo env('APP_URL'); ?>/page/listings?search_term='+search_term;
+    newurl += '&district='+tempDistrictArr;
+    newurl += '&municipality='+tempMunicipalitiesArr;
+    newurl += '&location='+tempLocationArr;
+    newurl += '&property_status='+tempPropertStatus;
+    newurl += '&property_type='+tempPropertTypes;
+    newurl += '&bedrooms='+number_of_bedrooms;
+    newurl += '&bathrooms='+number_of_bathrooms;
+    newurl += '&area_size='+size1+','+size2;
+    newurl += '&price_range='+price1+','+price2;
+    newurl += '&features='+tempFeatures;
+    newurl += '&draw_map='+'';
+    window.history.pushState({
+        path: newurl
+    }, '', newurl);
     const sendData = {
       "number_of_bathrooms": number_of_bathrooms,
       "number_of_bedrooms": number_of_bedrooms,
@@ -7756,8 +7816,8 @@
       "retrieve_markers": 1
     };
     ps = localStorage.getItem("freedraw-polys")
-        if (ps)
-            sendData.markers = JSON.parse(ps)
+    if (ps)
+        sendData.markers = JSON.parse(ps)
     const url = "/api/activelistings";
     let xhr = new XMLHttpRequest();
     xhr.open('POST', url, true);
@@ -8179,15 +8239,15 @@
 
   function clearDrawingsMap() {
         freeDraw.clear();
-    }
+  }
 
-    function freeDrawingMap() {
-      document.getElementById("ListingListContent").innerHTML = "";
-      document.getElementById("page_count").innerHTML = " Search results"
-      document.getElementById("pagin_content").innerHTML = "";
-        if ($("#freeDrawingMap").hasClass("active")) freeDraw.mode(FreeDraw.NONE)
-        else freeDraw.mode(FreeDraw.ALL)
-    }
+  function freeDrawingMap() {
+    document.getElementById("ListingListContent").innerHTML = "";
+    document.getElementById("page_count").innerHTML = " Search results"
+    document.getElementById("pagin_content").innerHTML = "";
+      if ($("#freeDrawingMap").hasClass("active")) freeDraw.mode(FreeDraw.NONE)
+      else freeDraw.mode(FreeDraw.ALL)
+  }
 
   function showCircleListingMap() {
     if (viewCircleFlag > 0) {
