@@ -126,6 +126,15 @@
         font-family: "Ivar Headline","Ivar Headline Subset","Adjusted Times","Adjusted Times New Roman","Times New Roman",serif;
         filter: drop-shadow(0px 0px 5px #000);
     }
+    .bannerTitle2{
+        text-align-last: center;
+        color: white;
+        justify-content: center;
+        align-items: center;
+        font-size: 40px;
+        font-family: "Ivar Headline","Ivar Headline Subset","Adjusted Times","Adjusted Times New Roman","Times New Roman",serif;
+        filter: drop-shadow(0px 0px 5px #000);
+    }
     @media screen and (max-width: 768px) {
         .bannerTitle{
             font-size: 26px;
@@ -789,13 +798,18 @@
         <div id="hero-area" style="background-image: url('https://www.zillowstatic.com/bedrock/app/uploads/sites/5/2023/07/1920w_nationalbrand.webp');background-repeat: no-repeat;background-size: inherit;width: 100%;height: 488px;z-index: 0;top: 0px;left: 0px;" class="parallax-searchs home15 overlay thome-7" data-stellar-background-ratio="0.5">
             <div class="hero-main" style="height: 100%;width: 100%;display: flex;justify-content: center;align-items: center;">
                 <div>
-                    <div><h1 class="bannerTitle">Agents. Tours. Loans. Homes.</h1></div>
+                    <div><h1 class="bannerTitle">Discover your dream property</h1></div>
                     <div id="search-bar">
                     <div class="sc-1dzx782-0 KiRwB">
                         <div class="Flex-c11n-8-86-1__sc-n94bjd-0 sc-17uc5u3-0  jYxjRF ">
+                              <div>
+                                <label><input type="radio" name="property_status" value="2" checked><span class="bannerTitle2">For Sale</span></label>   
+                                <label><input type="radio" name="property_status" value="1"><span class="bannerTitle2">For Rent</span></label>
+                              </div>
                                 <div class="react-autosuggest__container">
+                                  
                                     <div class="StyledAdornedInput-c11n-8-86-1__sc-1kgphdl-0 fvriFu SearchBox-c11n-8-86-1__sc-6uapbf-0 sc-1lfawsc-0 gPUkQT dvwpwM ">
-                                        <input role="combobox" onkeypress="search_text();" aria-owns="react-autowhatever-1" aria-expanded="false" type="text" autocomplete="off" aria-autocomplete="list" aria-controls="react-autowhatever-1" class="StyledFormControl-c11n-8-86-1__sc-18qgis1-0 DA-dAx Input-c11n-8-86-1__sc-4ry0fw-0 frrUMP react-autosuggest__input" placeholder="Enter an address, neighborhood, city, or ZIP code" aria-label="Search: Suggestions appear below" id="search-box-input" value="">
+                                        <input role="combobox" onkeypress="search_text();" aria-owns="react-autowhatever-1" aria-expanded="false" type="text" autocomplete="off" aria-autocomplete="list" aria-controls="react-autowhatever-1" class="StyledFormControl-c11n-8-86-1__sc-18qgis1-0 DA-dAx Input-c11n-8-86-1__sc-4ry0fw-0 frrUMP react-autosuggest__input" placeholder="Enter district, municipality or location" aria-label="Search: Suggestions appear below" id="search-box-input" value="">
                                         <span class="StyledAdornment-c11n-8-86-1__sc-1kerx9v-0 AdornmentRight-c11n-8-86-1__sc-1kerx9v-2 ddthKA ecdnJo " aria-hidden="false">
                                             <button id="search-icon" class="sc-1bvnalc-1 fspXPt " aria-label="Submit Search">
                                                 <svg viewBox="0 0 32 32" theme="[object Object]" class="Icon-c11n-8-86-1__sc-13llmml-0 drKbVK sc-1bvnalc-0 kzKZEl" aria-hidden="true" focusable="false" role="img">
@@ -805,7 +819,10 @@
                                         </span>
                                         </div>
                                         <div id="suggesstion-box" style="display: none;background: white;padding: 10px 20px;border-bottom-left-radius: 10px;border-bottom-right-radius: 10px;"></div>
-                                    </div>
+                                 </div>
+                                 <div style="margin-top:40px; text-align:right">
+                                <a href="/page/listings?view=map" style="padding: 10px 20px 10px 20px;background: #398a39;border-radius: 5px;cursor: pointer;color:white !important; margin-bottom:10px;" id="showMapListingListingMap">Show Map</a>
+                              </div>
                             </div>
                         </div>
                     </div>
@@ -849,13 +866,14 @@
       }
     }
     function selectLocation(name,id,type){
+      var property_status = $('input[name="property_status"]:checked').val();
       document.getElementById("search-box-input").value = name;
       if(type == "District"){
-        window.location.href = "/page/listings?search_term=&district="+id+"&municipality=&location=&property_status=&property_type=&bedrooms=&bathrooms=&area_size=0,1300&price_range=0,600000&features=&draw_map=";
+        window.location.href = "/page/listings?search_term=&district="+id+"&municipality=&location=&property_status="+property_status+"&property_type=&bedrooms=&bathrooms=&area_size=0,1300&price_range=0,600000&features=&draw_map=";
       }else if(type == "Municipality"){
-        window.location.href = "/page/listings?search_term=&district=&municipality="+id+"&location=&property_status=&property_type=&bedrooms=&bathrooms=&area_size=0,1300&price_range=0,600000&features=&draw_map=";
+        window.location.href = "/page/listings?search_term=&district=&municipality="+id+"&location=&property_status="+property_status+"&property_type=&bedrooms=&bathrooms=&area_size=0,1300&price_range=0,600000&features=&draw_map=";
       }else if(type == "Location"){
-        window.location.href = "/page/listings?search_term=&district=&municipality=&location="+id+"&property_status=&property_type=&bedrooms=&bathrooms=&area_size=0,1300&price_range=0,600000&features=&draw_map=";  
+        window.location.href = "/page/listings?search_term=&district=&municipality=&location="+id+"&property_status="+property_status+"&property_type=&bedrooms=&bathrooms=&area_size=0,1300&price_range=0,600000&features=&draw_map=";  
       }
       
     }

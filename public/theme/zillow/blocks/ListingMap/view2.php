@@ -1060,7 +1060,9 @@ $active_property_types_response = json_decode($active_property_types_response);
     }
 
     function searchNowListingMap() {
+        $(".explore__form-checkbox-list").removeClass("filter-block");
         loadActiveListingsListingMap([0, 0], 0, 9);
+        
     }
 
     function clearDrawingsMap() {

@@ -25113,7 +25113,7 @@ section.ui-element {
   }
 }
 .searchBarDiv{
-  display:block
+  display:block;
 }
 .SearchPageHeaderContainer{
   margin-bottom: 5px;
@@ -25125,7 +25125,7 @@ section.ui-element {
 }
 @media screen and (max-width: 767px) {
   .searchBarDiv{
-    display:none;
+    /* display:none; */
   }
   .container-fluid{
     padding: 0px;

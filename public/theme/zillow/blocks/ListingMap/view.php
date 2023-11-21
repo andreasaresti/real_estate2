@@ -1,3 +1,9 @@
+<?php
+  $view = 'listings'; 
+  if(isset($_GET['view']) && $_GET['view'] == 'map'){
+    $view = 'map'; 
+  }
+?>
 <style id="server-styles">
   .hillcG {
     padding-top: 16px;
@@ -7361,8 +7367,10 @@
             </div>
           </div>
         </div>
-        <div class="rld-single-select searchBarDiv" onmouseover="hiddenAdvancedDivListingMap();" style="width: 132px">
-          <input type="hidden" id="selLocation" name="selLocation" value="">
+        
+        <!-- <span id="clonedesktop" > -->
+        <div id="location_desktopdiv" class="rld-single-select  searchBarDiv" style="width: 132px">
+          <!-- <input type="hidden" id="selLocation" name="selLocation" value=""> -->
           <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: black;">
             <ul>
               <li><a id="location_title">Location</a>
@@ -7403,7 +7411,9 @@
             </ul>
           </nav>
         </div>
-        <div class="rld-single-select searchBarDiv" onmouseover="hiddenAdvancedDivListingMap();" style="width: 175px;">
+        
+        
+        <div class="rld-single-select searchBarDiv" id="property_status_desktopdiv" style="width: 175px;">
           <input type="hidden" id="selActivePropertStatus" name="selActivePropertStatus" value="">
           <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: black;">
             <ul>
@@ -7419,7 +7429,7 @@
             </ul>
           </nav>
         </div>
-        <div class="rld-single-select searchBarDiv" onmouseover="hiddenAdvancedDivListingMap();" style="width: 175px;">
+        <div class="rld-single-select searchBarDiv" id="property_type_desktopdiv" style="width: 175px;">
           <input type="hidden" id="selActivePropertType" name="selActivePropertType" value="">
           <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: black;">
             <ul>
@@ -7434,7 +7444,11 @@
               </li>
             </ul>
           </nav>
-        </div>
+        </div>  
+
+                <!-- </span> -->
+        <!-- <div id="clonemobile">clone mobile</div> -->
+        
         <div class=" dropdown-filter" style="border: 1px solid;border-radius: 5px;border-color: black;width: 100px;height: 45px;margin-right: 25px;display: flex;justify-content: center;align-items: center;">
           <a>More</a>
         </div>
@@ -7457,8 +7471,14 @@
           </div>
         </div>
         <div id="advancedSearch" style="position: absolute;margin-top: 60px;" class="rld-main-search explore__form-checkbox-list full-filter">
-          <div class="row">
-            <div class="col-lg-4 col-md-6 py-1 pr-30 pl-0 ">
+        
+        
+        
+        <div class="row">
+          <div class="col-lg-4 col-md-6 py-1 pr-30 pl-0 " id="location_mobilediv" style="width: 132px"></div>
+          <div class="col-lg-4 col-md-6 py-1 pr-30 pl-0 " id="property_status_mobilediv" style="width: 175x"></div>
+          <div class="col-lg-4 col-md-6 py-1 pr-30 pl-0 " id="property_type_mobilediv" style="width: 132px"></div>
+          <div class="col-lg-4 col-md-6 py-1 pr-30 pl-0 ">
               <!-- Form Bedrooms -->
               <div class="form-group beds" style="display: flex;" id="searchFormBedrooms">
                 <i class="fa fa-bed" aria-hidden="true" style="align-self: center;width: 20px;"></i>
@@ -7550,7 +7570,7 @@
           <div class="row" style="padding: 25px 0px 0px 0px;position: absolute;z-index: 9;width: 50%;left: 50%;">
             <div class="col-xl-12 xsRow" style="display: flex;justify-content: flex-end;margin-right: 10px;">
               <a style="display: none;justify-content: center;align-items: center;margin-right:20px;" class="btn btn-map" id="redrawCircleListingMap" onclick="redrawCircleListingMap();">Re-draw</a>
-              <a style="margin-top: 0px; display: flex;justify-content: center;align-items: center;" class="btn btn-map" id="showCircleListingMap" onclick="showCircleListingMap();">Draw</a>
+              <!-- <a style="margin-top: 0px; display: flex;justify-content: center;align-items: center;" class="btn btn-map" id="showCircleListingMap" onclick="showCircleListingMap();">Draw</a> -->
               <button style="display: flex;justify-content: center;align-items: center;margin: 0px 5px 0px 5px;" type="button" class="btn btn-map" data-toggle="button" aria-pressed="false" id="freeDrawingMap" onclick="freeDrawingMap();">
                 Free-Draw
               </button>
@@ -7599,7 +7619,7 @@
           </nav>
         </div>
         <div class="ViewListMap">
-          <a onclick="replaceview();" style="padding: 10px 20px 10px 20px;background: #E0F2FF;border-radius: 5px;cursor: pointer;" id="showMapListingListingMap">Show Map</a>
+          <a onclick="replaceview();" style="padding: 10px 20px 10px 20px;background: #398a39;border-radius: 5px;cursor: pointer;color:white;" id="showMapListingListingMap">Show Map</a>
         </div>
       </div>
       <input type="hidden" id="page_index" value="1">
@@ -7609,6 +7629,9 @@
 
 
 <script type="text/javascript">
+  // clearDrawingsMap();
+  var view = '<?php echo $view;?>';
+
   var map = null;
 
   var circle;
@@ -7674,6 +7697,8 @@
   // }
 
   // map_init_circle([], [0,0], 0, 9);
+  // localStorage.clear();
+  localStorage.removeItem("freedraw-polys");
 
   loadActiveListingsListingMap([0, 0], 0, 9);
 
@@ -7682,15 +7707,11 @@
     number_of_bathrooms = "";
     if (document.getElementById("selBathrooms").value > 0) {
       number_of_bathrooms = document.getElementById("selBathrooms").value;
-    } else {
-      number_of_bathrooms = "";
-    }
+    } 
+    number_of_bedrooms = "";
     if (document.getElementById("selBedrooms").value > 0) {
       number_of_bedrooms = document.getElementById("selBedrooms").value;
-    } else {
-      number_of_bedrooms = "";
     }
-    number_of_bedrooms = "";
     var tempFeatures = [];
     var features = document.getElementsByClassName('featurecheck');
     for (var j = 0; j < features.length; j++) {
@@ -7789,9 +7810,12 @@
     newurl += '&price_range='+price1+','+price2;
     newurl += '&features='+tempFeatures;
     newurl += '&draw_map='+'';
+    newurl += '&view='+view;
     window.history.pushState({
         path: newurl
     }, '', newurl);
+    var markers = localStorage.getItem("freedraw-polys");
+    
     const sendData = {
       "number_of_bathrooms": number_of_bathrooms,
       "number_of_bedrooms": number_of_bedrooms,
@@ -8227,6 +8251,8 @@
   }
 
   function searchNowListingMap() {
+    
+    $(".explore__form-checkbox-list").removeClass("filter-block");
     freeDraw.clear();
     viewCircleFlag = 0;
     document.getElementById("redrawCircleListingMap").style.display = "none";
@@ -8235,6 +8261,7 @@
     document.getElementById("showCircleListingMap").innerHTML = "Draw";
     hiddenAdvancedDivListingMap();
     loadActiveListingsListingMap([0, 0], 0, 9);
+    
   }
 
   function clearDrawingsMap() {
@@ -8245,9 +8272,9 @@
     $('input:checkbox').each(function() {
         this.checked = false;
       });
-    document.getElementById("ListingListContent").innerHTML = "";
-    document.getElementById("page_count").innerHTML = " Search results"
-    document.getElementById("pagin_content").innerHTML = "";
+    // document.getElementById("ListingListContent").innerHTML = "";
+    // document.getElementById("page_count").innerHTML = " Search results"
+    // document.getElementById("pagin_content").innerHTML = "";
       if ($("#freeDrawingMap").hasClass("active")) freeDraw.mode(FreeDraw.NONE)
       else freeDraw.mode(FreeDraw.ALL)
   }
@@ -8285,7 +8312,7 @@
     document.getElementById("redrawCircleListingMap").style.background = "rgb(34, 150, 67)";
     document.getElementById("redrawCircleListingMap").style.color = "rgb(255, 255, 255)";
   }
-  var listing_type = 'listings';
+  
 
   function showHideMapListingListingMap() {
     document.getElementById("MapListingMap").style.height = "870px";
@@ -8295,25 +8322,35 @@
       document.getElementById("MapListingMap").style.display = "block";
     } else {
       document.getElementById("showMapListingListingMap").style.display = "show";
-      if (listing_type == 'map') {
+      if (view == 'map') {
         document.getElementById("ListingListingMapDiv").style.display = "none";
         document.getElementById("MapListingMap").style.display = "block";
         document.getElementById("showMapListingListingMap").innerHTML = "Show Listings";
-      } else if (listing_type == 'listings') {
+      } else if (view == 'listings') {
         document.getElementById("MapListingMap").style.display = "none";
         document.getElementById("ListingListingMapDiv").style.display = "block";
         document.getElementById("showMapListingListingMap").innerHTML = "Show Map";
       }
     }
   }
+  showHideMapListingListingMap();
 
   function replaceview() {
-    if (listing_type == 'map') {
-      listing_type = 'listings';
-    } else if (listing_type == 'listings') {
-      listing_type = 'map';
+    if (view == 'map') {
+      view = 'listings';
+    } else if (view == 'listings') {
+      view = 'map';
     }
     showHideMapListingListingMap();
+
+    var href = new URL('<?php echo env('APP_URL'); ?>/page/listings' + location.search);
+    href.searchParams.set('view', view);
+
+
+    
+    window.history.pushState({
+        path: href.toString()
+    }, '', href.toString());
   }
 
   function forSaleBtn() {
@@ -8335,10 +8372,63 @@
   function hiddenAdvancedDivListingMap() {
     document.getElementById('advancedSearch').className = "explore__form-checkbox-list full-filter";
   }
-  $(window).resize(function() {
-    window.location.reload();
-  });
+  // $(window).resize(function() {
+  //   window.location.reload();
+  // });
   function searchReset(){
     window.location.href = '/page/listings';
   }
+  
+  function replace_divs(){
+    if ($(window).width() > 1000) {
+      if($('#location_mobilediv').html() != ''){
+        var $locationdiv = $('#location_mobilediv').clone();
+        $('#location_desktopdiv').html($locationdiv);
+        $('#location_mobilediv').html('');
+        $("#location_mobilediv").css("display", "none");
+        $("#location_desktopdiv").css("display", "block");
+      }
+      if($('#property_status_mobilediv').html() != ''){
+        var $locationdiv = $('#property_status_mobilediv').clone();
+        $('#property_status_desktopdiv').html($locationdiv);
+        $('#property_status_mobilediv').html('');
+        $("#property_status_mobilediv").css("display", "none");
+        $("#property_status_desktopdiv").css("display", "block");
+      }
+      if($('#property_type_mobilediv').html() != ''){
+        var $locationdiv = $('#property_type_mobilediv').clone();
+        $('#property_type_desktopdiv').html($locationdiv);
+        $('#property_type_mobilediv').html('');
+        $("#property_type_mobilediv").css("display", "none");
+        $("#property_type_desktopdiv").css("display", "block");
+      }
+    }
+    else {
+      if($('#location_desktopdiv').html() != ''){
+        var $locationdiv = $('#location_desktopdiv').clone();
+        $('#location_mobilediv').html($locationdiv);
+        $('#location_desktopdiv').html('');
+        $("#location_mobilediv").css("display", "block");
+        $("#location_desktopdiv").css("display", "none");
+      }
+      if($('#property_status_desktopdiv').html() != ''){
+        var $locationdiv = $('#property_status_desktopdiv').clone();
+        $('#property_status_mobilediv').html($locationdiv);
+        $('#property_status_desktopdiv').html('');
+        $("#property_status_mobilediv").css("display", "block");
+        $("#property_status_desktopdiv").css("display", "none");
+      }
+      if($('#property_type_desktopdiv').html() != ''){
+        var $locationdiv = $('#property_type_desktopdiv').clone();
+        $('#property_type_mobilediv').html($locationdiv);
+        $('#property_type_desktopdiv').html('');
+        $("#property_type_mobilediv").css("display", "block");
+        $("#property_type_desktopdiv").css("display", "none");
+      }
+    }
+  }
+  $(window).resize(function(){
+    replace_divs()
+  });
+  replace_divs();
 </script>
