@@ -143,91 +143,91 @@ use App\Http\Controllers\webWebsiteController;
 */
 
 // Route::middleware('localhost')->group(function () {
-    
-    // // webUsersController
-    // Route::get('remind-password', [webUsersController::class, 'remind_password']);
-    // Route::post('create-webuser', [webUsersController::class, 'create_user']);
-	// Route::post('get-webuser', [webUsersController::class, 'get_users']);
-	// Route::post('update-webuser', [webUsersController::class, 'update_user']);
-	// Route::post('webuserschangepassword', [webUsersController::class, 'changepassword_user']);
-	// Route::post('login-webuser', [webUsersController::class, 'login_user']);
-	// Route::post('logout-webuser', [webUsersController::class, 'logout_user']);
-	
-    // webListings
-	// Route::post('activelistings', [ActiveListingsController::class, 'get_active_listings']);
-	// Route::post('activelisting-types', [ActiveListingTypesController::class, 'get_active_listing_types']);
-	// Route::post('activeproperty-types', [ActivePropertyTypesController::class, 'get_active_property_types']);
-	// Route::post('activefeatures', [ActiveFeaturesController::class, 'get_active_features']);
-	// Route::post('activedistrict', [ActiveDistrictController::class, 'get_active_district']);
-	// Route::post('activemunicipality', [ActiveMunicipalityController::class, 'get_active_municipality']);
-	// Route::post('activelocation', [ActiveLocationController::class, 'get_active_location']);
-	// Route::post('get-countries', [GetCountriesController::class, 'get_countries']);
-	// Route::post('getpagination', [GetPaginationController::class, 'get_pagination']);
-    // Route::post('add-remove-to-favorites', [AddRemoveFromFavoritesController::class, 'add_remove_to_favorites']);
-    // Route::post('createlisting', [CreateListingController::class, 'create_listing']);
-    // Route::post('get-similar-listings', [GetSimilarListingsController::class, 'get_similar_listings']);
-    // Route::post('addmedia', [AddMediaController::class, 'add_media']);
 
-// webUsersController
-    Route::get('remind-password', [webUsersController::class, 'remind_password']);
-    Route::post('create-webuser', [webUsersController::class, 'create_user']);
-    Route::post('get-webuser', [webUsersController::class, 'get_users']);
-    Route::post('update-webuser', [webUsersController::class, 'update_user']);
-    Route::post('webuserschangepassword', [webUsersController::class, 'changepassword_user']);
-    Route::post('login-webuser', [webUsersController::class, 'login_user']);
-    Route::post('logout-webuser', [webUsersController::class, 'logout_user']);
+// // webUsersController
+// Route::get('remind-password', [webUsersController::class, 'remind_password']);
+// Route::post('create-webuser', [webUsersController::class, 'create_user']);
+// Route::post('get-webuser', [webUsersController::class, 'get_users']);
+// Route::post('update-webuser', [webUsersController::class, 'update_user']);
+// Route::post('webuserschangepassword', [webUsersController::class, 'changepassword_user']);
+// Route::post('login-webuser', [webUsersController::class, 'login_user']);
+// Route::post('logout-webuser', [webUsersController::class, 'logout_user']);
 
 // webListings
-    Route::post('activelistings', [ActiveListingsController::class, 'get_active_listings']);
-    Route::post('activelisting-types', [ActiveListingTypesController::class, 'get_active_listing_types']);
-    Route::post('activeproperty-types', [ActivePropertyTypesController::class, 'get_active_property_types']);
-    Route::post('activefeatures', [ActiveFeaturesController::class, 'get_active_features']);
-    Route::post('getLocationSearch', [ActiveDistrictController::class, 'get_location_search']);
-    Route::post('activedistrict', [ActiveDistrictController::class, 'get_active_district']);
-    Route::post('activemunicipality', [ActiveMunicipalityController::class, 'get_active_municipality']);
-    Route::post('activelocation', [ActiveLocationController::class, 'get_active_location']);
-    Route::post('get-countries', [GetCountriesController::class, 'get_countries']);
-    Route::post('get-agencies', [GetAgenciesController::class, 'get_agencies']);
-    Route::post('get-mapAgencies', [GetAgenciesController::class, 'get_mapAgencies']);
-    Route::post('getpagination', [GetPaginationController::class, 'get_pagination']);
-    Route::post('add-remove-to-favorites', [AddRemoveFromFavoritesController::class, 'add_remove_to_favorites']);
-    Route::post('createlisting', [CreateListingController::class, 'create_listing']);
-    Route::post('getsimilarlistings', [GetSimilarListingsController::class, 'get_similar_listings']);
-    Route::post('activedelivery_times', [ActiveDeliveryTimesController::class, 'get_delivery_times']);
-    Route::post('savelisting_position', [SaveListingPositionController::class, 'save_position']);
+// Route::post('activelistings', [ActiveListingsController::class, 'get_active_listings']);
+// Route::post('activelisting-types', [ActiveListingTypesController::class, 'get_active_listing_types']);
+// Route::post('activeproperty-types', [ActivePropertyTypesController::class, 'get_active_property_types']);
+// Route::post('activefeatures', [ActiveFeaturesController::class, 'get_active_features']);
+// Route::post('activedistrict', [ActiveDistrictController::class, 'get_active_district']);
+// Route::post('activemunicipality', [ActiveMunicipalityController::class, 'get_active_municipality']);
+// Route::post('activelocation', [ActiveLocationController::class, 'get_active_location']);
+// Route::post('get-countries', [GetCountriesController::class, 'get_countries']);
+// Route::post('getpagination', [GetPaginationController::class, 'get_pagination']);
+// Route::post('add-remove-to-favorites', [AddRemoveFromFavoritesController::class, 'add_remove_to_favorites']);
+// Route::post('createlisting', [CreateListingController::class, 'create_listing']);
+// Route::post('get-similar-listings', [GetSimilarListingsController::class, 'get_similar_listings']);
+// Route::post('addmedia', [AddMediaController::class, 'add_media']);
+
+// webUsersController
+Route::get('remind-password', [webUsersController::class, 'remind_password']);
+Route::post('create-webuser', [webUsersController::class, 'create_user']);
+Route::post('get-webuser', [webUsersController::class, 'get_users']);
+Route::post('update-webuser', [webUsersController::class, 'update_user']);
+Route::post('webuserschangepassword', [webUsersController::class, 'changepassword_user']);
+Route::post('login-webuser', [webUsersController::class, 'login_user']);
+Route::post('logout-webuser', [webUsersController::class, 'logout_user']);
+
+// webListings
+Route::post('activelistings', [ActiveListingsController::class, 'get_active_listings']);
+Route::post('activelisting-types', [ActiveListingTypesController::class, 'get_active_listing_types']);
+Route::post('activeproperty-types', [ActivePropertyTypesController::class, 'get_active_property_types']);
+Route::post('activefeatures', [ActiveFeaturesController::class, 'get_active_features']);
+Route::post('getLocationSearch', [ActiveDistrictController::class, 'get_location_search']);
+Route::post('activedistrict', [ActiveDistrictController::class, 'get_active_district']);
+Route::post('activemunicipality', [ActiveMunicipalityController::class, 'get_active_municipality']);
+Route::post('activelocation', [ActiveLocationController::class, 'get_active_location']);
+Route::post('get-countries', [GetCountriesController::class, 'get_countries']);
+Route::post('get-agencies', [GetAgenciesController::class, 'get_agencies']);
+Route::post('get-mapAgencies', [GetAgenciesController::class, 'get_mapAgencies']);
+Route::post('getpagination', [GetPaginationController::class, 'get_pagination']);
+Route::post('add-remove-to-favorites', [AddRemoveFromFavoritesController::class, 'add_remove_to_favorites']);
+Route::post('createlisting', [CreateListingController::class, 'create_listing']);
+Route::post('getsimilarlistings', [GetSimilarListingsController::class, 'get_similar_listings']);
+Route::post('activedelivery_times', [ActiveDeliveryTimesController::class, 'get_delivery_times']);
+Route::post('savelisting_position', [SaveListingPositionController::class, 'save_position']);
 
 
-    Route::post('registernewsletter', [NewsletterController::class, 'register_unregister_newsletter']);
-    
-    Route::post('retrievefromxml', [webListingsRetrieveController::class, 'retrieve_from_xml']);
-    Route::post('importlistings', [webListingsAddListingsController::class, 'import_listings']);
-    Route::post('importimages', [webListingsImportImagesController::class, 'import_images']);
+Route::post('registernewsletter', [NewsletterController::class, 'register_unregister_newsletter']);
+
+Route::post('retrievefromxml', [webListingsRetrieveController::class, 'retrieve_from_xml']);
+Route::post('importlistings', [webListingsAddListingsController::class, 'import_listings']);
+Route::post('importimages', [webListingsImportImagesController::class, 'import_images']);
 
 // webSalesRequestController
-    Route::post('salesrequest-closedeal', [CloseDealController::class, 'close_deal']);
-    Route::post('addnote', [webSalesRequestController::class, 'add_note']);
-    Route::post('salesrequest-getnotes', [webSalesRequestController::class, 'get_notes']);
-    Route::post('salesrequest-addappointments', [webSalesRequestController::class, 'add_appointments']);
-    Route::post('salesrequest-getappointments', [webSalesRequestController::class, 'get_appointments']);
-    Route::post('salesrequest-getlistings', [webSalesRequestController::class, 'get_listings']);
-    Route::post('salesrequest-addlisting', [webSalesRequestController::class, 'add_listing']);
-    Route::post('salesrequest-deletelisting', [webSalesRequestController::class, 'delete_listing']);
-    Route::post('salesrequest-changelistingtype', [webSalesRequestController::class, 'change_listing_type']);
-    Route::post('salesrequest-addsalesrequest', [webSalesRequestController::class, 'add_sales_request']);
-    Route::post('salesrequest-acceptsalesrequest', [webSalesRequestController::class, 'accept_sales_request']);
-    Route::post('salesrequest-getsalesrequest', [webSalesRequestController::class, 'get_sales_request']);
-    Route::post('salesrequest-getsalesrequestdetail', [webSalesRequestController::class, 'get_sales_request_detail']);
-    Route::post('salesrequest-signappointment', [webSalesRequestController::class, 'sign_appointment']);
-    Route::post('salesrequest-updatesalesrequest', [webSalesRequestController::class, 'update_sales_request']);
-    Route::post('salesrequest-getlostreason', [webSalesRequestController::class, 'get_lost_reason']);
-    Route::post('salesrequest-getnotetype', [webSalesRequestController::class, 'get_note_type']);
+Route::post('salesrequest-closedeal', [CloseDealController::class, 'close_deal']);
+Route::post('addnote', [webSalesRequestController::class, 'add_note']);
+Route::post('salesrequest-getnotes', [webSalesRequestController::class, 'get_notes']);
+Route::post('salesrequest-addappointments', [webSalesRequestController::class, 'add_appointments']);
+Route::post('salesrequest-getappointments', [webSalesRequestController::class, 'get_appointments']);
+Route::post('salesrequest-getlistings', [webSalesRequestController::class, 'get_listings']);
+Route::post('salesrequest-addlisting', [webSalesRequestController::class, 'add_listing']);
+Route::post('salesrequest-deletelisting', [webSalesRequestController::class, 'delete_listing']);
+Route::post('salesrequest-changelistingtype', [webSalesRequestController::class, 'change_listing_type']);
+Route::post('salesrequest-addsalesrequest', [webSalesRequestController::class, 'add_sales_request']);
+Route::post('salesrequest-acceptsalesrequest', [webSalesRequestController::class, 'accept_sales_request']);
+Route::post('salesrequest-getsalesrequest', [webSalesRequestController::class, 'get_sales_request']);
+Route::post('salesrequest-getsalesrequestdetail', [webSalesRequestController::class, 'get_sales_request_detail']);
+Route::post('salesrequest-signappointment', [webSalesRequestController::class, 'sign_appointment']);
+Route::post('salesrequest-updatesalesrequest', [webSalesRequestController::class, 'update_sales_request']);
+Route::post('salesrequest-getlostreason', [webSalesRequestController::class, 'get_lost_reason']);
+Route::post('salesrequest-getnotetype', [webSalesRequestController::class, 'get_note_type']);
 
 // webSalesRequestController
-    Route::post('getmenu', [webWebsiteController::class, 'get_menu']);
-    Route::post('getbanner', [webWebsiteController::class, 'get_banner']);
-    Route::post('getlanguages', [webWebsiteController::class, 'get_languages']);
-    Route::post('getblogs', [webWebsiteController::class, 'get_blogs']);
-    Route::post('getblogposts', [webWebsiteController::class, 'get_blog_posts']);
+Route::post('getmenu', [webWebsiteController::class, 'get_menu']);
+Route::post('getbanner', [webWebsiteController::class, 'get_banner']);
+Route::post('getlanguages', [webWebsiteController::class, 'get_languages']);
+Route::post('getblogs', [webWebsiteController::class, 'get_blogs']);
+Route::post('getblogposts', [webWebsiteController::class, 'get_blog_posts']);
 
 // });
 

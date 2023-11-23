@@ -35,6 +35,7 @@ use App\Http\Controllers\Import\webListingsImportImagesController;
 use App\Http\Controllers\SalesRequestListingController;
 use App\Http\Controllers\SalesPeopleAgreementController;
 use App\Http\Controllers\ListingAdditionalDetailController;
+use App\Http\Controllers\Listings\ActiveListingsController;
 use App\Http\Controllers\SalesRequestAppointmentController;
 use App\Http\Controllers\PositionModalController;
 use Fosetico\LaravelPageBuilder\LaravelPageBuilder;
@@ -192,3 +193,6 @@ Route::prefix('/')
 Route::get('importimages', [webListingsImportImagesController::class, 'import_images']);
 
 Route::get('importlistings', [webListingsAddListingsController::class, 'import_listings']);
+
+
+Route::get("download/pdf/{id}", [ActiveListingsController::class, 'download_listing_pdf']);

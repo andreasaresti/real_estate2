@@ -9,11 +9,96 @@ use App\Models\Listing;
 use App\Models\ListingType;
 use App\Models\Location;
 use App\Models\PropertyType;
+use App\Models\SearchHash;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 class ActiveListingsController extends Controller
 {
+
+    public function download_listing_pdf(Request $request)
+    {
+        $query = Listing::where('published', '=', 1);
+        $query = $row = $query->where('listings.id', $request->id)->with("media")->first();
+
+        $row->displayname = $row->name;
+        $row->displaydescription = $row->description;
+
+        $media = $row->media;
+
+        $images_array = [];
+        foreach ($media as $m) {
+            $images_array[] = env('APP_IMG_URL') . '/storage/' . $m->id . '/' . $m->file_name;
+        }
+
+        $row->images = $images_array;
+        $row->price = number_format($row->price);
+
+        $features = DB::table('feature_listing')->where('listing_id', $row->id)->pluck('feature_id');
+        $features_array = Feature::whereIn('id', $features)->orderBy('name', 'asc')->get();
+        $features = [];
+        for ($i = 0; $i < count($features_array); $i++) {
+            $name_array = $features_array[$i]->name;
+            $features[] = $name_array;
+        }
+        $row->features = $features;
+
+        $floor_plan_array = FloorPlan::where('listing_id', $row->id)->get();
+        for ($i = 0; $i < count($floor_plan_array); $i++) {
+            $name_array = $floor_plan_array[$i]->name;
+            $description_array = $floor_plan_array[$i]->description;
+            $floor_plan_array[$i]->displayname = $name_array;
+            $floor_plan_array[$i]->displaydescription = $description_array;
+        }
+        $row->floor_plans = $floor_plan_array;
+
+        $listing_types = DB::table('listing_listing_type')->where('listing_id', $row->id)->pluck('listing_type_id');
+        $listing_types_array = ListingType::whereIn('id', $listing_types)->orderBy('name', 'asc')->get();
+        $listing_types = [];
+        for ($i = 0; $i < count($listing_types_array); $i++) {
+            $name_array = $listing_types_array[$i]->name;
+            $listing_types[] = $name_array;
+        }
+        $row->listing_types = $listing_types;
+
+        $row->property_type = '';
+        $property_type = PropertyType::where('id', $row->property_type_id)->first();
+        if ($property_type) {
+            $row->property_type = $property_type->name;
+        }
+
+        $row->location_name = '';
+        $location = Location::where('id', $row->location_id)->first();
+        if ($location) {
+            $row->location_name = $location->name;
+        }
+
+
+        if ($row->image != '') {
+            $row->image = env('APP_IMG_URL') . '/storage/' . $row->image;
+        }
+
+        $row->in_favoriteproperties = 0;
+        if (isset($row->favorite_properties_listing_id) && $row->favorite_properties_listing_id == $row->id) {
+            $row->in_favoriteproperties = 1;
+        }
+
+        set_time_limit(0);
+        $pdf = PDF::loadView('api.listingPDF', ["data" => $row]);
+
+        return $pdf->download('sabbianco - ' . $row->id . '.pdf');
+
+
+        //  echo sys_get_temp_dir();
+
+        return view("api.listingPDF", ["data" => $row]);
+        // $pdf = PDF::loadView('api.listingPDF', $pdfData);
+        // return $pdf->download('test.pdf');
+    }
+
     public function get_active_listings(Request $request)
     {
         // $request = $_REQUEST;
@@ -158,6 +243,14 @@ class ActiveListingsController extends Controller
             };
             $boundry = substr($boundry, 0, -1) . "))";
             $query = $query->whereRaw('ST_CONTAINS(ST_GEOMFROMTEXT(\'' . $boundry . '\'),Point(longitude,latitude))');
+
+            $hash = SearchHash::where("hash", md5(json_encode($request->markers)))->first();
+            if (!$hash) {
+                $hash = new SearchHash;
+                $hash->hash = md5(json_encode($request->markers));
+                $hash->info = json_encode($request->markers);
+                $hash->save();
+            } else $hash->touch();
         }
         $querymarkers = $query
             ->select($select_values_array)
@@ -269,6 +362,7 @@ class ActiveListingsController extends Controller
             'items' => $query,
             'listing_markers' => $listing_markers,
         ];
+        if (isset($hash)) $responseData['hash'] = $hash->hash; //intval($hash->id, 36);
 
         return response()->json($responseData);
 

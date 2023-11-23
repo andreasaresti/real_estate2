@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Helpers;
 
 use App\Models\Customer;
@@ -11,6 +12,7 @@ use App\Models\Location;
 use App\Models\Municipality;
 use App\Models\Newsletter;
 use App\Models\PropertyType;
+use App\Models\SearchHash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Support\Str;
@@ -21,8 +23,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-class Helper {
-	public static function get_delivery_times()
+class Helper
+{
+    public static function get_delivery_times()
     {
         // $this->authorize('view-any', Size::class);
 
@@ -38,10 +41,10 @@ class Helper {
 
         $result = $query;
 
-		return json_encode($result);
+        return json_encode($result);
     }
 
-	public static function get_active_features()
+    public static function get_active_features()
     {
         // $this->authorize('view-any', Size::class);
 
@@ -63,12 +66,18 @@ class Helper {
 
         $features = $query;
 
-		return json_encode($features);
+        return json_encode($features);
     }
 
-	public static function get_active_district()
-	{
-		$query = District::whereIn('districts.id', function ($subquery) {
+    public static function get_hashed_searched($id)
+    {
+        if ($id == '') return false;
+        return SearchHash::where('hash', $id)->first();
+    }
+
+    public static function get_active_district()
+    {
+        $query = District::whereIn('districts.id', function ($subquery) {
             $subquery->select('district_id')
                 ->from('listings')
                 ->join('locations', 'listings.location_id', '=', 'locations.id')
@@ -86,22 +95,22 @@ class Helper {
             $name_array = $row->name;
             $query[$key]->displayname = $name_array;
 
-            if($row->image != ''){
+            if ($row->image != '') {
                 $query[$key]->image = env('APP_IMG_URL') . '/storage/' . $row->image;;
             }
 
             $listingCount  = Listing::join('locations', 'locations.id', '=', 'listings.location_id')
-                                        ->join('municipalities', 'locations.municipality_id', '=', 'municipalities.id')
-                                        ->where('listings.published', '=', 1)
-                                        ->where('municipalities.district_id', $row->id)->count();
+                ->join('municipalities', 'locations.municipality_id', '=', 'municipalities.id')
+                ->where('listings.published', '=', 1)
+                ->where('municipalities.district_id', $row->id)->count();
             $query[$key]->listingCount = $listingCount;
         }
 
         $districts = $query;
 
-		return json_encode($districts);
-	}
-	public static function get_active_location($post_data = [])
+        return json_encode($districts);
+    }
+    public static function get_active_location($post_data = [])
     {
         $query = Location::whereIn('locations.id', function ($subquery) {
             $subquery->select('location_id')
@@ -127,7 +136,7 @@ class Helper {
             $listingCount  = Listing::where('published', '=', 1)->where('location_id', $row->id)->count();
             $query[$key]->listingCount = $listingCount;
 
-            if($row->image != ''){
+            if ($row->image != '') {
                 $query[$key]->image = env('APP_IMG_URL') . '/storage/' . $row->image;
             }
         }
@@ -136,53 +145,52 @@ class Helper {
 
         return json_encode($locations);
     }
-	public static function get_menu($post_data = [])
+    public static function get_menu($post_data = [])
     {
 
         $query = DB::table('nova_menu_menu_items')
-                    ->join('nova_menu_menus', 'nova_menu_menu_items.menu_id', '=', 'nova_menu_menus.id')
-                    ->where('nova_menu_menus.slug', $post_data['slug'])
-                    ->where('nova_menu_menu_items.locale', $post_data['locale'])
-                    ->where('nova_menu_menu_items.enabled', true);
+            ->join('nova_menu_menus', 'nova_menu_menu_items.menu_id', '=', 'nova_menu_menus.id')
+            ->where('nova_menu_menus.slug', $post_data['slug'])
+            ->where('nova_menu_menu_items.locale', $post_data['locale'])
+            ->where('nova_menu_menu_items.enabled', true);
 
         if (isset($post_data['parent_id']) && $post_data['parent_id'] != '') {
             $query = $query->where('nova_menu_menu_items.parent_id', $post_data['parent_id']);
         }
 
         $query = $query
-                    ->select('nova_menu_menu_items.*')
-                    ->orderBy('order', 'asc')->get();
-        $menus = $query; 
+            ->select('nova_menu_menu_items.*')
+            ->orderBy('order', 'asc')->get();
+        $menus = $query;
 
         return json_encode($menus);
     }
-	public static function get_active_property_types($post_data = [])
-	{
-		// $this->authorize('view-any', Size::class);
+    public static function get_active_property_types($post_data = [])
+    {
+        // $this->authorize('view-any', Size::class);
 
-		$query = PropertyType::whereIn('property_types.id', function ($subquery) {
-			$subquery->select('listings.property_type_id')
-				->from('listings')
-				->where('listings.published', '=', 1);
-		});
+        $query = PropertyType::whereIn('property_types.id', function ($subquery) {
+            $subquery->select('listings.property_type_id')
+                ->from('listings')
+                ->where('listings.published', '=', 1);
+        });
 
-		$query = $query->select('property_types.*')
-			->orderBy('property_types.name', 'asc')
-			->paginate(1000);
+        $query = $query->select('property_types.*')
+            ->orderBy('property_types.name', 'asc')
+            ->paginate(1000);
 
-		foreach ($query as $key => $row) {
-			$name_array = $row->name;
-			$query[$key]->displayname = $name_array;
-		}
+        foreach ($query as $key => $row) {
+            $name_array = $row->name;
+            $query[$key]->displayname = $name_array;
+        }
 
-		$listing_types = $query;
+        $listing_types = $query;
 
-		return json_encode($listing_types);
-
-	}
-	public static function get_active_municipality($post_data = [])
-	{
-		$query = Municipality::whereIn('municipalities.id', function ($subquery) {
+        return json_encode($listing_types);
+    }
+    public static function get_active_municipality($post_data = [])
+    {
+        $query = Municipality::whereIn('municipalities.id', function ($subquery) {
             $subquery->select('municipality_id')
                 ->from('listings')
                 ->join('locations', 'listings.location_id', '=', 'locations.id')
@@ -200,21 +208,21 @@ class Helper {
             $name_array = $row->name;
             $query[$key]->displayname = $name_array;
 
-            if($row->image != ''){
+            if ($row->image != '') {
                 $query[$key]->image = env('APP_IMG_URL') . '/storage/' . $row->image;;
             }
 
             $listingCount  = Listing::join('locations', 'locations.id', '=', 'listings.location_id')
-                                        ->where('listings.published', '=', 1)
-                                        ->where('locations.municipality_id', $row->id)->count();
+                ->where('listings.published', '=', 1)
+                ->where('locations.municipality_id', $row->id)->count();
             $query[$key]->listingCount = $listingCount;
         }
 
         $municipality = $query;
 
-		return json_encode($municipality);
-	}
-	public static function get_active_listing_types()
+        return json_encode($municipality);
+    }
+    public static function get_active_listing_types()
     {
         $query = ListingType::whereIn('listing_types.id', function ($subquery) {
             $subquery->select('listing_type_id')
@@ -234,22 +242,22 @@ class Helper {
 
         $listing_types = $query;
 
-		return json_encode($listing_types);
+        return json_encode($listing_types);
     }
     public static function get_location_search($data)
     {
         $result = [];
-        $query = District::where('ext_code','like','%'.$data.'%')->get();
+        $query = District::where('ext_code', 'like', '%' . $data . '%')->get();
         foreach ($query as $key => $row) {
-            array_push($result,["name"=>$row->ext_code,"id"=>$row->id,"type"=>'District']);
+            array_push($result, ["name" => $row->ext_code, "id" => $row->id, "type" => 'District']);
         }
-        $query = Municipality::where('ext_code','like','%'.$data.'%')->get();
+        $query = Municipality::where('ext_code', 'like', '%' . $data . '%')->get();
         foreach ($query as $key => $row) {
-            array_push($result,["name"=>$row->ext_code,"id"=>$row->id,"type"=>'Municipality']);
+            array_push($result, ["name" => $row->ext_code, "id" => $row->id, "type" => 'Municipality']);
         }
-        $query = Location::where('ext_code','like','%'.$data.'%')->get();
+        $query = Location::where('ext_code', 'like', '%' . $data . '%')->get();
         foreach ($query as $key => $row) {
-            array_push($result,["name"=>$row->ext_code,"id"=>$row->id,"type"=>'Location']);
+            array_push($result, ["name" => $row->ext_code, "id" => $row->id, "type" => 'Location']);
         }
         return json_encode($result);
     }

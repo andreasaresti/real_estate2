@@ -12,6 +12,12 @@ $selDistricts = '';
 if (isset($_GET["district"])) {
     $selDistricts = $_GET["district"];
 }
+
+$searched = '';
+if (isset($_GET["s"])) {
+    $searched = $_GET["s"];
+}
+
 // echo 'selDistricts: '.$selDistricts.'<br>';
 
 $active_district_response = Helper::get_active_district();
@@ -32,6 +38,21 @@ $active_listing_types_response = json_decode($active_listing_types_response);
 
 $active_property_types_response = Helper::get_active_property_types();
 $active_property_types_response = json_decode($active_property_types_response);
+
+$active_marker_search = Helper::get_hashed_searched($searched);
+if ($active_marker_search) {
+?>
+    <script>
+        localStorage.setItem("freedraw-polys", '<?= ($active_marker_search->info) ?>');
+    </script>
+<?php
+} elseif ($searched != '') {
+?>
+    <script>
+        localStorage.clear("freedraw-polys");
+    </script>
+<?php
+}
 ?>
 
 
@@ -633,6 +654,15 @@ $active_property_types_response = json_decode($active_property_types_response);
             }
 
             list = JSON.parse(xhr.response).items.data;
+
+            const url = new URL(window.location.href);
+            if (typeof JSON.parse(xhr.response).hash !== "undefined") {
+                url.searchParams.set('s', JSON.parse(xhr.response).hash);
+
+            } else {
+                url.searchParams.delete('s');
+            }
+            window.history.replaceState(null, null, url);
             // list = list.data;
             totalrecords = JSON.parse(xhr.response).items.total;
             current_page = JSON.parse(xhr.response).items.current_page;
@@ -901,6 +931,8 @@ $active_property_types_response = json_decode($active_property_types_response);
 
             freeDraw.on('markers', event => {
                 localStorage.setItem("freedraw-polys", JSON.stringify(event.latLngs))
+
+                console.log(btoa(JSON.stringify(event.latLngs)))
                 var new_markers = []
                 markerArray.forEach((m, i) => {
 
