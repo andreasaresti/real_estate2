@@ -1998,9 +1998,10 @@
 		content: "► ";
 		/* color: hotpink; */
 	}
+
 	.rh_footer a {
 		transition: .2s color linear;
-		color: #999!important;
+		color: #999 !important;
 	}
 </style>
 <footer class="rh_footer rh_footer__before_fix rh_footer_layout_default">
@@ -2014,7 +2015,7 @@
 						</font>
 					</h3>
 					<div class="textwidget" id="homeAgencyContent">
-						
+
 					</div>
 				</section>
 			</div>
@@ -2030,7 +2031,7 @@
 					<div class="textwidget custom-html-widget">
 						<div class="menu-footer-terms-container">
 							<ul class="menu" id="homeBlog1Content">
-								
+
 							</ul>
 						</div>
 					</div>
@@ -2047,8 +2048,8 @@
 					</h3>
 					<div class="textwidget custom-html-widget">
 						<div class="menu-footer-terms-container">
-							<ul  class="menu" id="homeBlog2Content">
-								
+							<ul class="menu" id="homeBlog2Content">
+
 							</ul>
 						</div>
 					</div>
@@ -2096,7 +2097,7 @@
 			</div>
 		</div>
 	</div>
-</footer>	
+</footer>
 <div class="sc-10wuuzs-0 bWwhKS">
 	<div display="flex" class="sc-1ov1ywu-0 sc-10wuuzs-4 cqzEkR jmTIyO">
 		<div data-shownyfairhousingmsg="false" class="sc-1ov1ywu-0 sc-10wuuzs-6 cqzEkR fqeJyA">
@@ -2362,7 +2363,7 @@
 			<li class="sc-10wuuzs-3 dDkGna">
 				<div class="sc-1pd1jzu-0 eSssbo">
 					<button aria-expanded="false" class="StyledTextButton-c11n-8-86-1__sc-n1gfmh-0 dlwERf sc-1p66692-0 bytAxr">
-						<span class="Text-c11n-8-86-1__sc-aiai24-0 jWCuQq">Mortgage Rates</span>
+						<span class="Text-c11n-8-86-1__sc-aiai24-0 jWCuQq">Private Data</span>
 					</button>
 					<ul class="sc-vxl3rc-0 dSwiOK">
 						<li><a href="/mortgage-rates/">Current mortgage rates</a></li>
@@ -2580,7 +2581,7 @@
 		</ul>
 	</div>
 </div>
-	
+
 <div data-testid="footer">
 	<style static-data-ssr-styled-pfs="true" static-data-ssr-styled-version="5.3.11">
 		.iwgVCm {
@@ -3380,135 +3381,135 @@
 </div>
 <script type="text/javascript">
 	// window.addEventListener("load", (event) => {
-        loadHomeAgenciesFooter();
-        loadHomeBlog1Footer();
-		loadHomeBlog2Footer();
+	loadHomeAgenciesFooter();
+	loadHomeBlog1Footer();
+	loadHomeBlog2Footer();
 	// });
-    function loadHomeAgenciesFooter(){
-        const sendData = {
-            // "id": id,
-        };
+	function loadHomeAgenciesFooter() {
+		const sendData = {
+			// "id": id,
+		};
 		const url = "/api/get-agencies";
 		let xhr = new XMLHttpRequest();
 		xhr.open('POST', url, true);
 		xhr.setRequestHeader('Content-type', 'application/json');
 		xhr.send(JSON.stringify(sendData));
-		xhr.onload = function () {
+		xhr.onload = function() {
 			data = JSON.parse(xhr.response);
 			list = data.data;
-            var temp = "";
-			if(list.length>5){
+			var temp = "";
+			if (list.length > 5) {
 				counter = 5;
-			}else{
+			} else {
 				counter = list.length;
 			}
-            for(i= 0; i<counter; i++)
-            {
-                temp +=` <div style="width: 75%;display: flex;justify-content: space-between;margin: 15px 10px 0px 0px">
+			for (i = 0; i < counter; i++) {
+				temp += ` <div style="width: 75%;display: flex;justify-content: space-between;margin: 15px 10px 0px 0px">
 							<strong>
-								<font style="vertical-align: inherit;font-size: 20px;">`+ list[i].name + `</font>
+								<font style="vertical-align: inherit;font-size: 20px;">` + list[i].name + `</font>
 							</strong>`;
-				if(list[i].map !== null && list[i].map !== ""){
-					temp +=`<a onclick="window.open('`+ list[i].map + `', '_blank', 'location=yes,height=760,width=1024,scrollbars=yes,status=yes');">
+				if (list[i].map !== null && list[i].map !== "") {
+					temp += `<a onclick="window.open('` + list[i].map + `', '_blank', 'location=yes,height=760,width=1024,scrollbars=yes,status=yes');">
 								<i class="fa fa-external-link" aria-hidden="true"></i>
 							</a>`;
 				}
-				temp +=`</div>
-						<font style="vertical-align: inherit;font-size: 20px;">`+ list[i].address + `</font><br>`;
-            }
-            document.getElementById("homeAgencyContent").innerHTML = temp;
+				temp += `</div>
+						<font style="vertical-align: inherit;font-size: 20px;">` + list[i].address + `</font><br>`;
+			}
+			document.getElementById("homeAgencyContent").innerHTML = temp;
 		}
 	}
-	function loadHomeBlog1Footer(){
-        const sendData = {
-            "id":"",
-			"blog_id":1,
-			"perpage":20,
-			"page":1
-        };
+
+	function loadHomeBlog1Footer() {
+		const sendData = {
+			"id": "",
+			"blog_id": 1,
+			"perpage": 20,
+			"page": 1
+		};
 		const url = "/api/getblogposts";
 		let xhr = new XMLHttpRequest();
 		xhr.open('POST', url, true);
 		xhr.setRequestHeader('Content-type', 'application/json');
 		xhr.send(JSON.stringify(sendData));
-		xhr.onload = function () {
+		xhr.onload = function() {
 			data = JSON.parse(xhr.response);
 			list = data.data;
-            var temp = "";
-			if(list.length>5){
+			var temp = "";
+			if (list.length > 5) {
 				counter = 5;
-			}else{
+			} else {
 				counter = list.length;
 			}
-            for(i= 0; i<counter; i++)
-            {
-                temp +=` <li style="margin-left: -23px;margin-top: 10px;" id="menu-item-5114" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5114">
-							<a href="/page/blogpost-detail/`+list[i].id+`">
-									<font style="vertical-align: inherit;font-size: 20px;">`+ list[i].displayname + `</font>
+			for (i = 0; i < counter; i++) {
+				temp += ` <li style="margin-left: -23px;margin-top: 10px;" id="menu-item-5114" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5114">
+							<a href="/page/blogpost-detail/` + list[i].id + `">
+									<font style="vertical-align: inherit;font-size: 20px;">` + list[i].displayname + `</font>
 							</a>
 						</li>`;
-            }
-            document.getElementById("homeBlog1Content").innerHTML = temp;
+			}
+			document.getElementById("homeBlog1Content").innerHTML = temp;
 		}
 	}
-	function loadHomeBlog2Footer(){
-        const sendData = {
-            "id":"",
-			"blog_id":2,
-			"perpage":20,
-			"page":1
-        };
+
+	function loadHomeBlog2Footer() {
+		const sendData = {
+			"id": "",
+			"blog_id": 2,
+			"perpage": 20,
+			"page": 1
+		};
 		const url = "/api/getblogposts";
 		let xhr = new XMLHttpRequest();
 		xhr.open('POST', url, true);
 		xhr.setRequestHeader('Content-type', 'application/json');
 		xhr.send(JSON.stringify(sendData));
-		xhr.onload = function () {
+		xhr.onload = function() {
 			data = JSON.parse(xhr.response);
 			list = data.data;
-            var temp = "";
-			if(list.length>5){
+			var temp = "";
+			if (list.length > 5) {
 				counter = 5;
-			}else{
+			} else {
 				counter = list.length;
 			}
-            for(i= 0; i<counter; i++)
-            {
-                temp +=` <li style="margin-left: -23px;margin-top: 10px;" id="menu-item-5114" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5114">
-							<a href="/page/blogpost-detail/`+list[i].id+`">
-									<font style="vertical-align: inherit;font-size: 20px;">`+ list[i].displayname + `</font>
+			for (i = 0; i < counter; i++) {
+				temp += ` <li style="margin-left: -23px;margin-top: 10px;" id="menu-item-5114" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5114">
+							<a href="/page/blogpost-detail/` + list[i].id + `">
+									<font style="vertical-align: inherit;font-size: 20px;">` + list[i].displayname + `</font>
 							</a>
 						</li>`;
-            }
-			
-            document.getElementById("homeBlog2Content").innerHTML = temp;
+			}
+
+			document.getElementById("homeBlog2Content").innerHTML = temp;
 		}
 	}
-	function registerNewsLetterFooter(){
-		if(document.getElementById("agreeServiceFooter").checked == true){
+
+	function registerNewsLetterFooter() {
+		if (document.getElementById("agreeServiceFooter").checked == true) {
 			const sendData = {
-				"email":document.getElementById("newsLetterFooter").value,
-				"active":1
+				"email": document.getElementById("newsLetterFooter").value,
+				"active": 1
 			}
 			const url = "/api/registernewsletter";
 			let xhr = new XMLHttpRequest();
 			xhr.open('POST', url, true);
 			xhr.setRequestHeader('Content-type', 'application/json');
 			xhr.send(JSON.stringify(sendData));
-			xhr.onload = function () {
+			xhr.onload = function() {
 				data = JSON.parse(xhr.response);
-				if(data.hasOwnProperty("errors")){
+				if (data.hasOwnProperty("errors")) {
 					Object.keys(data.errors).forEach(function(key) {
 						$("#newsLetterFooter_failure").html(data.errors[key][0]);
 					})
-					$( "#newsLetterFooter_failure" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
-				}else{
-					$( "#newsLetterFooter_success" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
+					$("#newsLetterFooter_failure").fadeIn(300).delay(1500).fadeOut(400);
+				} else {
+					$("#newsLetterFooter_success").fadeIn(300).delay(1500).fadeOut(400);
 				}
 			}
-		}else{
+		} else {
 			$("#newsLetterFooter_failure").html("Please check");
-			$( "#newsLetterFooter_failure" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
+			$("#newsLetterFooter_failure").fadeIn(300).delay(1500).fadeOut(400);
 		}
 	}
 </script>

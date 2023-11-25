@@ -7879,6 +7879,7 @@ if ($active_marker_search) {
       "retrieve_markers": 1
     };
     ps = localStorage.getItem("freedraw-polys")
+    console.log(ps);
     if (ps)
       sendData.markers = JSON.parse(ps)
     const url = "/api/activelistings";
@@ -7915,6 +7916,7 @@ if ($active_marker_search) {
       // alrt(total);
       // var valueArray = [];
       var temp = "";
+      console.log(list);
       for (i = 0; i < list.length; i++) {
         listingStr = "";
         for (j = 0; j < list[i].listing_types.length; j++) {
@@ -8071,6 +8073,7 @@ if ($active_marker_search) {
         "customer_id": customer_id,
         "listing_id": index,
       };
+      console.log(sendData);
       let xhr = new XMLHttpRequest();
       xhr.open('POST', url, true);
       xhr.setRequestHeader('Content-type', 'application/json');
@@ -8127,6 +8130,7 @@ if ($active_marker_search) {
 
       //localStorage.clear("freedraw-polys")
       ps = localStorage.getItem("freedraw-polys")
+      console.log(localStorage.getItem("freedraw-polys"))
       if (ps) {
         (JSON.parse(ps)).forEach(p => {
           freeDraw.create(p)
@@ -8134,7 +8138,8 @@ if ($active_marker_search) {
       }
 
       freeDraw.on('markers', event => {
-        //localStorage.setItem("freedraw-polys", JSON.stringify(event.latLngs))
+        localStorage.setItem("freedraw-polys", JSON.stringify(event.latLngs))
+
         var new_markers = []
         markerArray.forEach((m, i) => {
 
@@ -8297,7 +8302,7 @@ if ($active_marker_search) {
   function searchNowListingMap() {
 
     $(".explore__form-checkbox-list").removeClass("filter-block");
-    freeDraw.clear();
+    //freeDraw.clear();
     viewCircleFlag = 0;
     document.getElementById("redrawCircleListingMap").style.display = "none";
     document.getElementById("showCircleListingMap").style.background = "rgb(255, 255, 255)";
