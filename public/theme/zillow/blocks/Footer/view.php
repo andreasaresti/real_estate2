@@ -2004,6 +2004,7 @@
 		color: #999 !important;
 	}
 </style>
+<!--
 <footer class="rh_footer rh_footer__before_fix rh_footer_layout_default">
 	<div class="rh_footer__wrap rh_footer__widgets_wrap rh_footer--alignTop">
 		<div class="rh_footer__widgets columns-4">
@@ -2014,7 +2015,7 @@
 							<font style="vertical-align: inherit;">Our Offices</font>
 						</font>
 					</h3>
-					<div class="textwidget" id="homeAgencyContent">
+					<div class="textwidget" id="">
 
 					</div>
 				</section>
@@ -2030,7 +2031,7 @@
 					</h3>
 					<div class="textwidget custom-html-widget">
 						<div class="menu-footer-terms-container">
-							<ul class="menu" id="homeBlog1Content">
+							<ul class="menu" id="">
 
 							</ul>
 						</div>
@@ -2048,7 +2049,7 @@
 					</h3>
 					<div class="textwidget custom-html-widget">
 						<div class="menu-footer-terms-container">
-							<ul class="menu" id="homeBlog2Content">
+							<ul class="menu" id="">
 
 							</ul>
 						</div>
@@ -2057,47 +2058,11 @@
 			</div>
 		</div>
 		<div class="rh_footer__widgets columns-4">
-			<div class="rh_widgets">
-				<div class="alert-box success" id="newsLetterFooter_success">Add Ok !!!</div>
-				<div class="alert-box failure" id="newsLetterFooter_failure">fail!!!</div>
-				<section id="newsletterwidget-2" class="widget clearfix widget_newsletterwidget">
-					<h3 class="title">
-						<font style="vertical-align: inherit;">
-							<font style="vertical-align: inherit;">Newsletter</font>
-						</font>
-					</h3>
-					<div class="tnp tnp-widget">
-						<div class="tnp-field tnp-field-email" style="display: grid;">
-							<label for="tnp-1">
-								<font style="vertical-align: inherit;">
-									<font style="vertical-align: inherit;color: rgba(245, 255, 255, 0.8);">E-mail</font>
-								</font>
-							</label>
-							<input class="tnp-email" type="email" name="ne" id="newsLetterFooter" value="" required="" style="background-color: white;">
-						</div>
-						<div class="tnp-field tnp-privacy-field">
-							<label>
-								<input type="checkbox" id="agreeServiceFooter" required="" class="tnp-privacy" style="box-shadow:unset;">
-								<a target="_blank" href="https://sabbiancoproperties.com/privacy-policy-2/">
-									<font style="vertical-align: inherit;">
-										<font style="vertical-align: inherit;">I would like to be informed about the services and properties of Sabbianco Properties.</font>
-									</font>
-								</a>
-							</label>
-						</div>
-						<div class="tnp-field tnp-field-button">
-							<font style="vertical-align: inherit;">
-								<font style="vertical-align: inherit;">
-									<input style="background-color: #444;color: #fff;width: 100%;padding: 4px;border: 1px solid #ddd;" type="button" onclick="registerNewsLetterFooter();" value="Subscribe">
-								</font>
-							</font>
-						</div>
-					</div>
-				</section>
-			</div>
+
 		</div>
 	</div>
 </footer>
+-->
 <div class="sc-10wuuzs-0 bWwhKS">
 	<div display="flex" class="sc-1ov1ywu-0 sc-10wuuzs-4 cqzEkR jmTIyO">
 		<div data-shownyfairhousingmsg="false" class="sc-1ov1ywu-0 sc-10wuuzs-6 cqzEkR fqeJyA">
@@ -2107,7 +2072,7 @@
 			<a href="https://www.dos.ny.gov/licensing/docs/FairHousingNotice_new.pdf">Learn about New York Fair Housing protections</a>
 		</div>
 	</div>
-	<div id="region-footer-links" class="Flex-c11n-8-86-1__sc-n94bjd-0 sc-10wuuzs-1 kmllIg jAiHhK">
+	<!-- <div id="region-footer-links" class="Flex-c11n-8-86-1__sc-n94bjd-0 sc-10wuuzs-1 kmllIg jAiHhK">
 		<ul class="sc-10wuuzs-2 lnpwlZ">
 			<li class="sc-10wuuzs-3 dDkGna">
 				<div class="sc-1pd1jzu-0 eSssbo">
@@ -2579,7 +2544,7 @@
 				</div>
 			</li>
 		</ul>
-	</div>
+	</div> -->
 </div>
 
 <div data-testid="footer">
@@ -3229,120 +3194,104 @@
 		}
 
 		/*!sc*/
+
+		#homeBlog1Content>li a font {
+			font-size: 13px !important;
+			margin: 0px !important;
+		}
+
+		#homeBlog1Content>li {
+			margin: 0px 15px !important;
+		}
+
+		#homeBlog2Content>li a font {
+			font-size: 13px !important;
+			margin: 0px !important;
+		}
+
+		#homeBlog2Content>li {
+			margin: 0px 15px !important;
+		}
+
+		#homeBlog2Content>li a:hover,
+		#homeBlog1Content>li a:hover {
+			text-decoration: underline !important;
+		}
 	</style>
 	<div>
 		<footer class="pfs__sc-16g5ked-0 bFituu site-footer">
 			<div class="pfs__cacbnh-0 flQjlK">
 				<nav class="pfs__sc-1i1gn38-0 cifwbi">
-					<ul data-za-category="Navigation" data-za-action="Footer" class="pfs__sc-1kahb5i-0 cqzKrS">
-						<li>
-							<a href="/z/corp/about/" class="StyledTextButton-c11n-8-62-4__sc-n1gfmh-0 jdGWmK" tabindex="0" data-za-category="!inherit" data-za-action="!inherit" data-za-label="About">About</a>
-						</li>
-						<li>
-							<a href="/z/zestimate/" class="StyledTextButton-c11n-8-62-4__sc-n1gfmh-0 jdGWmK" tabindex="0" data-za-category="!inherit" data-za-action="!inherit" data-za-label="Zestimates">Zestimates</a>
-						</li>
-						<li>
-							<a href="/research/" class="StyledTextButton-c11n-8-62-4__sc-n1gfmh-0 jdGWmK" tabindex="0" data-za-category="!inherit" data-za-action="!inherit" data-za-label="Research">Research</a>
-						</li>
-						<li>
-							<a href="/careers/" class="StyledTextButton-c11n-8-62-4__sc-n1gfmh-0 jdGWmK" tabindex="0" data-za-category="!inherit" data-za-action="!inherit" data-za-label="Careers">Careers</a>
-						</li>
-						<li>
-							<a href="https://zillow.zendesk.com/hc/en-us" class="StyledTextButton-c11n-8-62-4__sc-n1gfmh-0 jdGWmK" tabindex="0" data-za-category="!inherit" data-za-action="!inherit" data-za-label="Help">Help</a>
-						</li>
-						<li>
-							<a href="/z/partners/advertise/" class="StyledTextButton-c11n-8-62-4__sc-n1gfmh-0 jdGWmK" tabindex="0" data-za-category="!inherit" data-za-action="!inherit" data-za-label="Advertise">Advertise</a>
-						</li>
-						<li>
-							<a href="https://www.zillow.com/rental-manager/resources/fair-housing-guide/" class="StyledTextButton-c11n-8-62-4__sc-n1gfmh-0 jdGWmK" tabindex="0" data-za-category="!inherit" data-za-action="!inherit" data-za-label="Fair Housing Guide">Fair Housing Guide</a>
-						</li>
-						<li>
-							<a href="/z/corp/terms/" class="StyledTextButton-c11n-8-62-4__sc-n1gfmh-0 jdGWmK" tabindex="0" data-za-category="!inherit" data-za-action="!inherit" data-za-label="Terms of use">Terms of use</a>
-						</li>
-						<li>
-							<a href="https://privacy.zillowgroup.com" class="StyledTextButton-c11n-8-62-4__sc-n1gfmh-0 jdGWmK" tabindex="0" data-za-category="!inherit" data-za-action="!inherit" data-za-label="Privacy Portal">Privacy Portal</a>
-						</li>
-						<li>
-							<a href="javascript:;" class="StyledTextButton-c11n-8-62-4__sc-n1gfmh-0 jdGWmK cookie-preference" tabindex="0" data-za-category="!inherit" data-za-action="!inherit" data-za-label="Cookie Preference">Cookie Preference</a>
-						</li>
-						<li>
-							<a href="/blog/" class="StyledTextButton-c11n-8-62-4__sc-n1gfmh-0 jdGWmK" tabindex="0" data-za-category="!inherit" data-za-action="!inherit" data-za-label="Blog">Blog</a>
-						</li>
-						<li>
-							<a href="/tech/" class="StyledTextButton-c11n-8-62-4__sc-n1gfmh-0 jdGWmK" tabindex="0" data-za-category="!inherit" data-za-action="!inherit" data-za-label="AI">AI</a>
-						</li>
-						<li>
-							<a href="/z/buying/app-download/" class="StyledTextButton-c11n-8-62-4__sc-n1gfmh-0 jdGWmK" tabindex="0" data-za-category="!inherit" data-za-action="!inherit" data-za-label="Mobile Apps">Mobile Apps</a>
-						</li>
+
+
+					<ul class="pfs__sc-1kahb5i-0 cqzKrS" id="homeBlog1Content" style="">
+
 					</ul>
-					<ul class="pfs__sc-1kahb5i-0 cqzKrS brand-links" data-za-category="Navigation" data-za-action="Footer">
-						<li>
-							<a href="https://www.trulia.com/" target="_blank" rel="noopener noreferrer" class="StyledTextButton-c11n-8-62-4__sc-n1gfmh-0 jdGWmK" tabindex="0" data-za-category="!inherit" data-za-action="!inherit" data-za-label="Trulia">Trulia</a>
-						</li>
-						<li>
-							<a href="https://streeteasy.com/" target="_blank" rel="noopener noreferrer" class="StyledTextButton-c11n-8-62-4__sc-n1gfmh-0 jdGWmK" tabindex="0" data-za-category="!inherit" data-za-action="!inherit" data-za-label="StreetEasy">StreetEasy</a>
-						</li>
-						<li>
-							<a href="https://hotpads.com/" target="_blank" rel="noopener noreferrer" class="StyledTextButton-c11n-8-62-4__sc-n1gfmh-0 jdGWmK" tabindex="0" data-za-category="!inherit" data-za-action="!inherit" data-za-label="HotPads">HotPads</a>
-						</li>
-						<li>
-							<a href="https://outeast.com/" target="_blank" rel="noopener noreferrer" class="StyledTextButton-c11n-8-62-4__sc-n1gfmh-0 jdGWmK" tabindex="0" data-za-category="!inherit" data-za-action="!inherit" data-za-label="Out East">Out East</a>
-						</li>
-						<li>
-							<a href="https://showingtimeplus.com/" target="_blank" rel="noopener noreferrer" class="StyledTextButton-c11n-8-62-4__sc-n1gfmh-0 jdGWmK" tabindex="0" data-za-category="!inherit" data-za-action="!inherit" data-za-label="ShowingTime+">ShowingTime+</a>
-						</li>
+
+					<hr />
+					<ul class="pfs__sc-1kahb5i-0 cqzKrS" id="homeBlog2Content" style="">
+
 					</ul>
-					<div class="pfs__sc-16y5ofh-0 gtfXp">
-						<a id="doNotSell" href="https://privacy.zillowgroup.com/cookie" aria-label="Do not sell or share my personal information" class="StyledTextButton-c11n-8-62-4__sc-n1gfmh-0 kyiqyb">Do Not Sell or Share My Personal Information<span aria-hidden="true">
-								→</span></a>
-					</div>
+
+
 				</nav>
 			</div>
-			<div class="pfs__wsq7ni-0 QHehi">
-				<div class="pfs__sc-1sj5qgb-0 CrqVZ">
-					<p class="Text-c11n-8-62-4__sc-aiai24-0 dzsPTj">
+			<div class="pfs__wsq7ni-0 QHehi row ">
+				<div class="pfs__sc-1sj5qgb-0 CrqVZ col-md-8">
+					<p class="Text-c11n-8-62-4__sc-aiai24-0 dzsPTj" id="homeAgencyContent">
 						Zillow Group is committed to ensuring digital accessibility for
 						individuals with disabilities. We are continuously working to
 						improve the accessibility of our web experience for everyone,
 						and we welcome feedback and accommodation requests. If you wish
 						to report an issue or seek an accommodation, please
-						<a href="https://zillow.zendesk.com/hc/en-us/requests/new?ticket_form_id=39140" rel="nofollow" class="Anchor-c11n-8-62-4__sc-hn4bge-0 bxnNjh">let us know</a>.
 					</p>
 				</div>
-				<div class="pfs__sc-1sj5qgb-0 CrqVZ">
-					<p class="Text-c11n-8-62-4__sc-aiai24-0 dzsPTj">
-						Zillow, Inc. holds real estate brokerage
-						<a href="/z/info/real-estate-licenses/" class="Anchor-c11n-8-62-4__sc-hn4bge-0 bxnNjh">licenses</a>
-						in multiple states. Zillow (Canada), Inc. holds real estate
-						brokerage
-						<a href="/z/info/real-estate-licenses/" class="Anchor-c11n-8-62-4__sc-hn4bge-0 bxnNjh">licenses</a>
-						in multiple provinces.<br /><a href="https://s.zillowstatic.com/pfs/static/SOP_NYS_10-4-23.pdf" rel="nofollow" class="Anchor-c11n-8-62-4__sc-hn4bge-0 bxnNjh">§ 442-H New York Standard Operating Procedures</a><br /><a href="https://s.zillowstatic.com/pfs/static/fairhousingnotice_10-4-23.pdf" rel="nofollow" class="Anchor-c11n-8-62-4__sc-hn4bge-0 bxnNjh">§ New York Fair Housing Notice</a><br />TREC:
-						<a href="https://s.zillowstatic.com/pfs/static/TREC_ZINC_10-4-23.pdf" rel="nofollow" class="Anchor-c11n-8-62-4__sc-hn4bge-0 bxnNjh">Information about brokerage services</a>,
-						<a href="https://www.trec.texas.gov/forms/consumer-protection-notice" rel="nofollow" class="Anchor-c11n-8-62-4__sc-hn4bge-0 bxnNjh">Consumer protection notice</a><br />California DRE #1522444<a href="https://www.zillow.com/z/info/contact-us/" class="Anchor-c11n-8-62-4__sc-hn4bge-0 pfs__chkjii-0 bxnNjh eWHYiW">Contact Zillow, Inc. Brokerage</a>
-					</p>
+
+
+				<div class="rh_widgets col-md-4">
+					<div class="alert-box success" id="newsLetterFooter_success">Add Ok !!!</div>
+					<div class="alert-box failure" id="newsLetterFooter_failure">fail!!!</div>
+					<section id="newsletterwidget-2" class="widget clearfix widget_newsletterwidget">
+						<h3 class="title">
+							<font style="vertical-align: inherit;">
+								<font style="vertical-align: inherit;">Newsletter</font>
+							</font>
+						</h3>
+						<div class="tnp tnp-widget">
+							<div class="tnp-field tnp-field-email" style="display: grid;">
+								<label for="tnp-1">
+									<font style="vertical-align: inherit;">
+										<font style="vertical-align: inherit;color: rgba(245, 255, 255, 0.8);">E-mail</font>
+									</font>
+								</label>
+								<input class="tnp-email" type="email" name="ne" id="newsLetterFooter" value="" required="" style="background-color: white;">
+							</div>
+							<div class="tnp-field tnp-privacy-field">
+								<label>
+									<input type="checkbox" id="agreeServiceFooter" required="" class="tnp-privacy" style="box-shadow:unset;">
+									<a target="_blank" href="https://sabbiancoproperties.com/privacy-policy-2/">
+										<font style="vertical-align: inherit;">
+											<font style="vertical-align: inherit;">I would like to be informed about the services and properties of Sabbianco Properties.</font>
+										</font>
+									</a>
+								</label>
+							</div>
+							<div class="tnp-field tnp-field-button">
+								<font style="vertical-align: inherit;">
+									<font style="vertical-align: inherit;">
+										<input style="background-color: #444;color: #fff;width: 100%;padding: 4px;border: 1px solid #ddd;" type="button" onclick="registerNewsLetterFooter();" value="Subscribe">
+									</font>
+								</font>
+							</div>
+						</div>
+					</section>
 				</div>
-				<div class="pfs__sc-1sj5qgb-0 CrqVZ">
-					<p class="Text-c11n-8-62-4__sc-aiai24-0 dzsPTj">
-						For listings in Canada, the trademarks REALTOR®, REALTORS®, and
-						the REALTOR® logo are controlled by The Canadian Real Estate
-						Association (CREA) and identify real estate professionals who
-						are members of CREA. The trademarks MLS®, Multiple Listing
-						Service® and the associated logos are owned by CREA and identify
-						the quality of services provided by real estate professionals
-						who are members of CREA. Used under license.
-					</p>
-				</div>
-				<ul class="pfs__sc-5sfc2u-0 gKiWnX">
+
+
+
+				<ul class="pfs__sc-1a1yrk2-0 cWXOkA col-sm-12">
 					<li>
-						<a href="http://zillow.com/z/buying/app-download?itc=zw_zw_zw_zillow-footer_btn_ios-download" aria-label="Download on the App Store"><img src="https://s.zillowstatic.com/pfs/static/app-store-badge.svg" type="image/svg+xml" alt="App store logo" focusable="false" height="32" width="96" class="" title="Download on the App Store" /></a>
-					</li>
-					<li>
-						<a href="http://zillow.com/z/buying/app-download?itc=zw_zw_zw_zillow-footer_btn_android-download" aria-label="Get it on Google play"><img src="https://s.zillowstatic.com/pfs/static/google-play-badge.svg" type="image/svg+xml" alt="Google play logo" focusable="false" height="32" width="108" class="" title="Get it on Google Play" /></a>
-					</li>
-				</ul>
-				<ul class="pfs__sc-1a1yrk2-0 cWXOkA">
-					<li>
-						<a href="/" width="152" height="32" data-za-action="Zillow logo click" data-za-category="!inherit" aria-label="Zillow.com homepage" version="DEFAULT" class="Anchor-c11n-8-62-4__sc-hn4bge-0 pfs__j60ma-0 bxnNjh gmnfCD znav-topnav-logo"><img src="https://s.zillowstatic.com/pfs/static/z-logo-default.svg" type="image/svg+xml" alt="Zillow logo" focusable="false" height="32" width="152" class="pfs__j60ma-1 hiOroW" /></a>
+						<a href="/" width="152" height="32" data-za-action="Zillow logo click" data-za-category="!inherit" aria-label="Zillow.com homepage" version="DEFAULT" class="Anchor-c11n-8-62-4__sc-hn4bge-0 pfs__j60ma-0 bxnNjh gmnfCD znav-topnav-logo"><img src="/theme/zillow/assets/images/logosabbianco.png" type="image/svg+xml" alt="Zillow logo" focusable="false" height="32" width="152" class="pfs__j60ma-1 hiOroW" /></a>
 					</li>
 					<li>
 						<div id="socialLinks" data-za-category="Homepage" data-za-action="Social Icon" class="pfs__sc-1l86zl0-0 HDXeu">
@@ -3363,7 +3312,7 @@
 						</div>
 					</li>
 					<li>
-						<span class="VisuallyHidden-c11n-8-62-4__sc-t8tewe-0 hplHxP">© 2006 to 2023 Zillow</span><span aria-hidden="true">© 2006-2023 Zillow</span><span><a href="https://www.hud.gov/program_offices/fair_housing_equal_opp" rel="nofollow noopener noreferrer" target="_blank" id="eho-link" class="Anchor-c11n-8-62-4__sc-hn4bge-0 pfs__x86ldc-0 bxnNjh bNsxfn"><svg viewBox="0 0 271.2 290.1" aria-hidden="true" focusable="false" role="img" class="Icon-c11n-8-62-4__sc-13llmml-0 iwgVCm">
+						<span class="VisuallyHidden-c11n-8-62-4__sc-t8tewe-0 hplHxP">© 2006 to 2023 sabbianco</span><span aria-hidden="true">© 2006-2023 sabbianco</span><span><a href="https://www.hud.gov/program_offices/fair_housing_equal_opp" rel="nofollow noopener noreferrer" target="_blank" id="eho-link" class="Anchor-c11n-8-62-4__sc-hn4bge-0 pfs__x86ldc-0 bxnNjh bNsxfn"><svg viewBox="0 0 271.2 290.1" aria-hidden="true" focusable="false" role="img" class="Icon-c11n-8-62-4__sc-13llmml-0 iwgVCm">
 									<title>Equal Housing Opportunity</title>
 									<g stroke="none">
 										<path d="M0 126.8V90.3l10.4-7L30 70l19.2-12.7 19.5-13.2 19.1-12.8 18.8-12.6L133.8.5a3.4 3.4 0 0 1 3.6 0l5.8 3.9 13.7 9.3q13.2 9 26.5 17.8l13.8 9.3 27.4 18.4 26.2 17.6 18.4 12.4a17.7 17.7 0 0 1 2 1.8v36h-17.6v107.8H252l-147-.3H19.8a16.2 16.2 0 0 1-2-.3V126.8zm224.4 71v-.7-89.8a1.8 1.8 0 0 0-.8-1.3L198 88.8l-41-27.5L136 47.5a1.2 1.2 0 0 0-1.6 0l-7.8 5.3-18.5 12.4L91 76.8 73.4 88.6l-25.2 16.9a1.9 1.9 0 0 0-1 1.8v90.5z"></path>
@@ -3375,7 +3324,7 @@
 					</li>
 				</ul>
 			</div>
-			<img src="https://s.zillowstatic.com/pfs/static/footer-art.svg" type="image/svg+xml" alt="Footer art" focusable="false" height="160" width="1200" class="pfs__kizoah-0 emwYNs" />
+			<img src="/theme/zillow/assets/images/footer-art.png" type="image/svg+xml" alt="Footer art" focusable="false" height="160" width="1200" class="pfs__kizoah-0 emwYNs" />
 		</footer>
 	</div>
 </div>
