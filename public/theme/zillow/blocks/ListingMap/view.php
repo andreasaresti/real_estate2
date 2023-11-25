@@ -7879,7 +7879,6 @@ if ($active_marker_search) {
       "retrieve_markers": 1
     };
     ps = localStorage.getItem("freedraw-polys")
-    console.log(ps);
     if (ps)
       sendData.markers = JSON.parse(ps)
     const url = "/api/activelistings";
@@ -7916,7 +7915,6 @@ if ($active_marker_search) {
       // alrt(total);
       // var valueArray = [];
       var temp = "";
-      console.log(list);
       for (i = 0; i < list.length; i++) {
         listingStr = "";
         for (j = 0; j < list[i].listing_types.length; j++) {
@@ -8073,7 +8071,6 @@ if ($active_marker_search) {
         "customer_id": customer_id,
         "listing_id": index,
       };
-      console.log(sendData);
       let xhr = new XMLHttpRequest();
       xhr.open('POST', url, true);
       xhr.setRequestHeader('Content-type', 'application/json');
@@ -8130,7 +8127,6 @@ if ($active_marker_search) {
 
       //localStorage.clear("freedraw-polys")
       ps = localStorage.getItem("freedraw-polys")
-      console.log(localStorage.getItem("freedraw-polys"))
       if (ps) {
         (JSON.parse(ps)).forEach(p => {
           freeDraw.create(p)
