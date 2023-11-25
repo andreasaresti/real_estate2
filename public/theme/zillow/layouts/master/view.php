@@ -59,7 +59,6 @@ if (isset($_SESSION["user_id"])) {
     <link rel="stylesheet" id="color" href="/theme/zillow/assets/css/colors/pink.css?<?php echo time(); ?>">
     <link rel="stylesheet" href="/theme/zillow/assets/css/listingdetail.css">
 
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
     <script src="/theme/zillow/assets/js/jquery-3.5.1.min.js"></script>
@@ -93,6 +92,12 @@ if (isset($_SESSION["user_id"])) {
             &:hover>.wrapper {
                 display: block;
             }
+        }
+
+        .ListingDetailModal .modal-footer {
+            padding: 0;
+            background: #fff;
+            border: 1px solid #eaeff5;
         }
 
         .locationLiLeft {
@@ -345,12 +350,12 @@ if (isset($_SESSION["user_id"])) {
                                         <div class="hdp__sc-9dqr3g-0 gDrWtP ds-wrapper fs-package">
                                             <div class="hdp__sc-9dqr3g-1 KyLea ds-container">
                                                 <div class="layout-wrapper" style="height: auto;">
-                                                    <div class="layout-container " style="height: 100vh;">
+                                                    <div class="layout-container " style="height: 100vh; overflow:auto;">
                                                         <div class="media-column-container">
                                                             <div data-renderstrat="inline">
                                                                 <div>
                                                                     <div>
-                                                                        <div class="hdp__sc-ys97yr-0 dsOsCK">
+                                                                        <div class="hdp__sc-ys97yr-0 dsOsCK property-images">
                                                                             <div data-media-col="true">
                                                                                 <ul class="hdp__sc-1wi9vqt-0 dDzspE ds-media-col media-stream" id="listingImg">
                                                                                 </ul>
@@ -413,6 +418,17 @@ if (isset($_SESSION["user_id"])) {
                                                                                                 </button>
                                                                                             </li>
                                                                                             <li class="hdp__sc-1dupnse-1 fsIsqR">
+                                                                                                <button aria-pressed="false" class="modal-download-btn sc-bcXHqe cqBcXG hdp__sc-14xnfdo-0 gdKUCl" role="button">
+                                                                                                    <div class="hdp__sc-1dupnse-4 jJQTGX">
+                                                                                                        <div aria-hidden="true" class="hdp__sc-1dupnse-2 hdp__sc-1dupnse-10 dWtTje eThNKw">
+                                                                                                            <i class="fas fa-file-pdf"></i>
+                                                                                                        </div>
+                                                                                                        <span class="hdp__sc-1dupnse-3 gBetGm"> PDF </span>
+                                                                                                    </div>
+                                                                                                </button>
+                                                                                            </li>
+
+                                                                                            <li class="hdp__sc-1dupnse-1 fsIsqR">
                                                                                                 <div class="hdp__sc-1dupnse-11 gLYDfj" property="[object Object]">
                                                                                                     <div type="button" class="hdp__sc-1dupnse-4 jJQTGX">
                                                                                                         <div aria-hidden="true" class="hdp__sc-1dupnse-2 hdp__sc-1dupnse-10 dWtTje eThNKw" onclick="closeListingDetailModal();">
@@ -440,7 +456,7 @@ if (isset($_SESSION["user_id"])) {
                                                                             <div class="Spacer-c11n-8-84-3__sc-17suqs2-0 yETgj">
                                                                                 <div class="hdp__sc-1s2b8ok-0 eXZxHY">
                                                                                     <div class="hdp__sc-1s2b8ok-1 ckVIjE">
-                                                                                        <span data-testid="price" class="Text-c11n-8-84-3__sc-aiai24-0 dpf__sc-1me8eh6-0 OByUh fpfhCd">
+                                                                                        <span data-testid="price" class="property-price Text-c11n-8-84-3__sc-aiai24-0 dpf__sc-1me8eh6-0 OByUh fpfhCd">
                                                                                             <span id="listingPriceTitle"></span>
                                                                                         </span>
                                                                                         <div class="hdp__sc-1s2b8ok-2 wmMDq">
@@ -537,11 +553,11 @@ if (isset($_SESSION["user_id"])) {
                                                                                 </li>
                                                                             </ul>
                                                                         </div>
-                                                                        <div class="single homes-content details mb-30">
+                                                                        <div class="single homes-content details mb-30 property-descr">
                                                                             <h3 class="mb-3">Description</h3>
                                                                             <p id="listingDescription"></p>
                                                                         </div>
-                                                                        <div class="single homes-content details mb-30">
+                                                                        <div class="single homes-content details mb-30 property-amenities">
                                                                             <!-- title -->
                                                                             <h3 class="mb-3">Amenities</h3>
                                                                             <!-- cars List -->
@@ -572,7 +588,25 @@ if (isset($_SESSION["user_id"])) {
                             </div>
                         </div>
                     </div>
-                    <div class="home-detail-lightbox-mask" role="presentation"></div>
+                    <!-- <div class="home-detail-lightbox-mask" role="presentation"></div> -->
+                    <div class="modal-footer modal-footer--sticky">
+
+                        <button type="button" class="btn btn-outline-dark modal-nav-btn" data-section="property-images"><i class="fas fa-images"></i></button>
+                        <button type="button" class="btn btn-outline-dark modal-nav-btn" data-section="property-price"><i class="fas fa-money-bill-wave"></i></button>
+                        <button type="button" class="btn btn-outline-dark modal-nav-btn" data-section="property-descr" style="padding-left: 15px; padding-right:15px;"><i class="fa fa-info"></i></button>
+                        <button type="button" class="btn btn-outline-dark modal-nav-btn" data-section="property-amenities"><i class="fa fa-warehouse"></i></button>
+                        <button type="button" class="btn btn-outline-dark modal-nav-btn" data-section="property-location"><i class="fa fa-map-marker"></i></button>
+                        <button type="button" class="btn btn-outline-dark modal-download-btn"><i class="fas fa-file-pdf"></i></button>
+
+                    </div>
+                    <script>
+                        $('.modal-nav-btn').click((event) => {
+                            var sectionPosition = $('.' + $(event.currentTarget).data("section")).offset();
+                            $('.ListingDetailModal .layout-container ').animate({
+                                scrollTop: $('.ListingDetailModal .layout-container ')[0].scrollTop + sectionPosition.top
+                            }, 250);
+                        })
+                    </script>
                 </div>
             </div>
         </div>
@@ -711,7 +745,7 @@ if (isset($_SESSION["user_id"])) {
         <script src="/theme/zillow/assets/js/newsletter.js"></script>
         <script src="/theme/zillow/assets/js/jquery.form.js"></script>
         <script src="/theme/zillow/assets/js/jquery.validate.min.js"></script>
-        <script src="/theme/zillow/assets/js/searched.js"></script>
+        <!-- <script src="/theme/zillow/assets/js/searched.js"></script>-->
         <script src="/theme/zillow/assets/js/forms-2.js"></script>
         <script src="/theme/zillow/assets/js/range.js"></script>
         <script src="/theme/zillow/assets/js/color-switcher.js"></script>
@@ -856,9 +890,12 @@ if (isset($_SESSION["user_id"])) {
 
             function showRequestModal(index) {
                 if (customer_id !== "") {
-                    name ='<?php if(isset($_SESSION["name"])) echo $_SESSION["name"]; else echo ""; ?>';
-                    phone ='<?php if(isset($_SESSION["phone"])) echo $_SESSION["phone"]; else echo ""; ?>';
-                    email ='<?php if(isset($_SESSION["email"])) echo $_SESSION["email"]; else echo ""; ?>';
+                    name = '<?php if (isset($_SESSION["name"])) echo $_SESSION["name"];
+                            else echo ""; ?>';
+                    phone = '<?php if (isset($_SESSION["phone"])) echo $_SESSION["phone"];
+                                else echo ""; ?>';
+                    email = '<?php if (isset($_SESSION["email"])) echo $_SESSION["email"];
+                                else echo ""; ?>';
                     jQuery.noConflict();
                     document.getElementById('inquiry_fname').value = name;
                     document.getElementById('inquiry_pnumber').value = phone;
@@ -867,7 +904,7 @@ if (isset($_SESSION["user_id"])) {
                 } else {
                     loginIn();
                 }
-                
+
             }
 
             function closeListingDetailModal(index) {
@@ -919,21 +956,21 @@ if (isset($_SESSION["user_id"])) {
                     if (data.price !== null && data.price !== '0' && data.price !== 0) {
                         document.getElementById("listingPriceTitle").innerHTML = `€‎ ` + data.price;
                     }
-                    if (data.number_of_bathrooms !== null && data.number_of_bathrooms>0) {
+                    if (data.number_of_bathrooms !== null && data.number_of_bathrooms > 0) {
                         document.getElementById("ListingBath").innerHTML = data.number_of_bathrooms;
                         document.getElementById("ListingBathTitle").innerHTML = data.number_of_bathrooms;
                     } else {
                         document.getElementById("ListingBathDiv").style.display = "none";
                         document.getElementById("ListingBathTitleDiv").style.display = "none";
                     }
-                    if (data.number_of_bedrooms !== null && data.number_of_bedrooms>0) {
+                    if (data.number_of_bedrooms !== null && data.number_of_bedrooms > 0) {
                         document.getElementById("ListingBedrooms").innerHTML = data.number_of_bedrooms;
                         document.getElementById("ListingBedroomsTitle").innerHTML = data.number_of_bedrooms;
                     } else {
                         document.getElementById("ListingBedroomsDiv").style.display = "none";
                         document.getElementById("ListingBedroomsTitleDiv").style.display = "none";
                     }
-                    if (data.area_size !== null && data.area_size>0) {
+                    if (data.area_size !== null && data.area_size > 0) {
                         document.getElementById("ListingArea").innerHTML = data.area_size + "sqm";
                         document.getElementById("ListingAreaTitle").innerHTML = data.area_size;
                     } else {
@@ -1032,6 +1069,12 @@ if (isset($_SESSION["user_id"])) {
                         valueArray.push(markers[0]);
                     }
                     map_init_listingDetail(valueArray);
+                    $(".modal-download-btn").click(function() {
+                        handle = window.open("/download/pdf/" + data.id, '_blank')
+                        handle.blur();
+                        window.focus();
+
+                    })
                 }
             }
 
@@ -1195,7 +1238,7 @@ if (isset($_SESSION["user_id"])) {
                         </div>`;
                         $('#headerlogindiv').html(success_message);
                         $('#myModal').click();
-                        
+
                     } else {
                         if (data.hasOwnProperty('errors')) {
                             if (data.errors.hasOwnProperty('password')) {
