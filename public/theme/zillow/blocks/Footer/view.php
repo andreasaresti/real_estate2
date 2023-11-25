@@ -3196,13 +3196,11 @@
 		/*!sc*/
 
 		#homeBlog1Content>li a font {
-			font-size: 13px !important;
 			margin: 0px !important;
+			text-align: left;
 		}
 
-		#homeBlog1Content>li {
-			margin: 0px 15px !important;
-		}
+
 
 		#homeBlog2Content>li a font {
 			font-size: 13px !important;
@@ -3220,30 +3218,24 @@
 	</style>
 	<div>
 		<footer class="pfs__sc-16g5ked-0 bFituu site-footer">
-			<div class="pfs__cacbnh-0 flQjlK">
-				<nav class="pfs__sc-1i1gn38-0 cifwbi">
 
-
-					<ul class="pfs__sc-1kahb5i-0 cqzKrS" id="homeBlog1Content" style="">
-
-					</ul>
-
-					<hr />
-					<ul class="pfs__sc-1kahb5i-0 cqzKrS" id="homeBlog2Content" style="">
-
-					</ul>
-
-
-				</nav>
-			</div>
 			<div class="pfs__wsq7ni-0 QHehi row ">
-				<div class="pfs__sc-1sj5qgb-0 CrqVZ col-md-8">
-					<p class="Text-c11n-8-62-4__sc-aiai24-0 dzsPTj" id="homeAgencyContent">
-						Zillow Group is committed to ensuring digital accessibility for
-						individuals with disabilities. We are continuously working to
-						improve the accessibility of our web experience for everyone,
-						and we welcome feedback and accommodation requests. If you wish
-						to report an issue or seek an accommodation, please
+				<div class="pfs__sc-1sj5qgb-0  col-md-4">
+					<h3 class="title">
+						<font style="vertical-align: inherit;">
+							<font style="vertical-align: inherit;">Our Offices</font>
+						</font>
+					</h3>
+					<p class="Text-c11n-8-62-4__sc-aiai24-0 dzsPTj" style="text-align: left;" id="homeAgencyContent">
+					</p>
+				</div>
+				<div class="pfs__sc-1sj5qgb-0  col-md-4">
+					<h3 class="title">
+						<font style="vertical-align: inherit;">
+							<font style="vertical-align: inherit;">Latest News</font>
+						</font>
+					</h3>
+					<p class="Text-c11n-8-62-4__sc-aiai24-0 dzsPTj" style="text-align: left;" id="homeBlog1Content">
 					</p>
 				</div>
 
@@ -3288,7 +3280,15 @@
 				</div>
 
 
+				<div class="pfs__cacbnh-0 flQjlK col-12">
+					<nav class="pfs__sc-1i1gn38-0 cifwbi">
+						<ul class="pfs__sc-1kahb5i-0 cqzKrS" id="homeBlog2Content" style="">
 
+						</ul>
+
+
+					</nav>
+				</div>
 				<ul class="pfs__sc-1a1yrk2-0 cWXOkA col-sm-12">
 					<li>
 						<a href="/" width="152" height="32" data-za-action="Zillow logo click" data-za-category="!inherit" aria-label="Zillow.com homepage" version="DEFAULT" class="Anchor-c11n-8-62-4__sc-hn4bge-0 pfs__j60ma-0 bxnNjh gmnfCD znav-topnav-logo"><img src="/theme/zillow/assets/images/logosabbianco.png" type="image/svg+xml" alt="Zillow logo" focusable="false" height="32" width="152" class="pfs__j60ma-1 hiOroW" /></a>
@@ -3324,6 +3324,7 @@
 					</li>
 				</ul>
 			</div>
+
 			<img src="/theme/zillow/assets/images/footer-art.png" type="image/svg+xml" alt="Footer art" focusable="false" height="160" width="1200" class="pfs__kizoah-0 emwYNs" />
 		</footer>
 	</div>
