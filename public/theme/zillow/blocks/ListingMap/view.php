@@ -8304,10 +8304,10 @@ if ($active_marker_search) {
     $(".explore__form-checkbox-list").removeClass("filter-block");
     //freeDraw.clear();
     viewCircleFlag = 0;
-    document.getElementById("redrawCircleListingMap").style.display = "none";
-    document.getElementById("showCircleListingMap").style.background = "rgb(255, 255, 255)";
-    document.getElementById("showCircleListingMap").style.color = "rgb(0, 0, 0)";
-    document.getElementById("showCircleListingMap").innerHTML = "Draw";
+    //document.getElementById("redrawCircleListingMap").style.display = "none";
+    //document.getElementById("showCircleListingMap").style.background = "rgb(255, 255, 255)";
+    //document.getElementById("showCircleListingMap").style.color = "rgb(0, 0, 0)";
+    //document.getElementById("showCircleListingMap").innerHTML = "Draw";
     hiddenAdvancedDivListingMap();
     loadActiveListingsListingMap([0, 0], 0, 9);
 
