@@ -7740,9 +7740,9 @@ if ($active_marker_search) {
   loadActiveListingsListingMap([0, 0], 0, 9);
 
   function loadPageListingMap(index, maker_position0, maker_position1, set, zoom) {
-      document.getElementById("page_index").value = index;
-      $('html,body').scrollTop(0);
-      loadActiveListingsListingGrid([maker_position0, maker_position1], set, zoom);
+    document.getElementById("page_index").value = index;
+    $('html,body').scrollTop(0);
+    loadActiveListingsListingGrid([maker_position0, maker_position1], set, zoom);
   }
 
 
@@ -8319,6 +8319,8 @@ if ($active_marker_search) {
 
   function clearDrawingsMap() {
     localStorage.removeItem("freedraw-polys")
+
+    searchReset()
     freeDraw.clear();
   }
 
