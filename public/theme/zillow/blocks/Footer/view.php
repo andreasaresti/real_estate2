@@ -32,10 +32,6 @@
 		outline: none;
 		box-shadow: none;
 		color: #2a2a33;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-		text-transform: none;
-		font-family: "Open Sans", "Adjusted Arial", Tahoma, Geneva, sans-serif;
 		font-weight: 400;
 		font-size: 16px;
 		line-height: 24px;
@@ -155,10 +151,6 @@
 		outline: none;
 		box-shadow: none;
 		color: #2a2a33;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-		text-transform: none;
-		font-family: "Open Sans", "Adjusted Arial", Tahoma, Geneva, sans-serif;
 		font-weight: 400;
 		font-size: 16px;
 		line-height: 24px;
@@ -380,10 +372,6 @@
 	.gPUkQT>.Input-c11n-8-86-1__sc-4ry0fw-0,
 	.gPUkQT>.StyledAdornment-c11n-8-86-1__sc-1kerx9v-0 {
 		color: #2a2a33;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-		text-transform: none;
-		font-family: "Open Sans", "Adjusted Arial", Tahoma, Geneva, sans-serif;
 		font-weight: 700;
 		font-size: 16px;
 		line-height: 24px;
@@ -407,10 +395,6 @@
 		.gPUkQT>.Input-c11n-8-86-1__sc-4ry0fw-0,
 		.gPUkQT>.StyledAdornment-c11n-8-86-1__sc-1kerx9v-0 {
 			color: #2a2a33;
-			-webkit-font-smoothing: antialiased;
-			-moz-osx-font-smoothing: grayscale;
-			text-transform: none;
-			font-family: "Open Sans", "Adjusted Arial", Tahoma, Geneva, sans-serif;
 			font-weight: 700;
 			font-size: 16px;
 			line-height: 24px;
@@ -717,10 +701,6 @@
 		width: auto;
 		position: relative;
 		color: #2a2a33;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-		text-transform: none;
-		font-family: "Open Sans", "Adjusted Arial", Tahoma, Geneva, sans-serif;
 		font-weight: 700;
 		font-size: 16px;
 		line-height: 24px;
@@ -838,10 +818,6 @@
 
 	.kLhKC {
 		color: #2a2a33;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-		text-transform: none;
-		font-family: "Open Sans", "Adjusted Arial", Tahoma, Geneva, sans-serif;
 		font-weight: 700;
 		font-size: 36px;
 		line-height: 40px;
@@ -864,10 +840,6 @@
 
 	.jWCuQq {
 		color: #2a2a33;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-		text-transform: none;
-		font-family: "Open Sans", "Adjusted Arial", Tahoma, Geneva, sans-serif;
 		font-weight: 700;
 		font-size: 16px;
 		line-height: 24px;
@@ -891,11 +863,6 @@
 
 	.hoHBNO {
 		color: #2a2a33;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-		text-transform: none;
-		font-family: "Ivar Headline", "Ivar Headline Subset", "Adjusted Times",
-			"Adjusted Times New Roman", "Times New Roman", serif;
 		font-weight: 700;
 		font-size: 60px;
 		line-height: 72px;
@@ -918,10 +885,6 @@
 
 	.hFeIiy {
 		color: #2a2a33;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-		text-transform: none;
-		font-family: "Open Sans", "Adjusted Arial", Tahoma, Geneva, sans-serif;
 		font-weight: 700;
 		font-size: 20px;
 		line-height: 24px;
@@ -950,10 +913,6 @@
 
 	.dlwERf {
 		color: #2a2a33;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-		text-transform: none;
-		font-family: "Open Sans", "Adjusted Arial", Tahoma, Geneva, sans-serif;
 		font-weight: 700;
 		font-size: 16px;
 		line-height: 24px;
@@ -1165,36 +1124,8 @@
 		content: "jDLtcc,";
 	}
 
-	@font-face {
-		font-family: "Open Sans";
-		font-style: normal;
-		font-weight: 400;
-		src: local("Open Sans Regular"), local("OpenSans-Regular"),
-			url(//fonts.gstatic.com/s/opensans/v17/mem8YaGs126MiZpBA-UFW50bf8pkAp6a.woff2) format("woff2");
-		unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB,
-			U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
-	}
 
-	@font-face {
-		font-family: "Open Sans";
-		font-style: normal;
-		font-weight: 400;
-		src: local("Open Sans Regular"), local("OpenSans-Regular"),
-			url(//fonts.gstatic.com/s/opensans/v17/mem8YaGs126MiZpBA-UFVZ0bf8pkAg.woff2) format("woff2");
-		unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
-			U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193,
-			U+2212, U+2215, U+FEFF, U+FFFD;
-	}
-
-	@font-face {
-		font-family: "Open Sans";
-		font-style: normal;
-		font-weight: 600;
-		src: local("Open Sans SemiBold"), local("OpenSans-SemiBold"),
-			url(//fonts.gstatic.com/s/opensans/v17/mem5YaGs126MiZpBA-UNirkOXOhpKKSTj5PW.woff2) format("woff2");
-		unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB,
-			U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
-	}
+	
 
 	@font-face {
 		font-family: "Open Sans";
@@ -1214,45 +1145,6 @@
 		list-style: none;
 	}
 
-	.zsg-h2.zsg-separator,
-	body,
-	dd,
-	dl,
-	dt,
-	fieldset,
-	h1,
-	h2,
-	h2.zsg-separator,
-	h3,
-	h4,
-	h5,
-	h6,
-	ol,
-	p,
-	ul {
-		margin: 0;
-	}
-
-	*,
-	:after,
-	:before {
-		box-sizing: border-box;
-	}
-
-	article,
-	aside,
-	details,
-	figcaption,
-	figure,
-	footer,
-	header,
-	hgroup,
-	main,
-	nav,
-	section,
-	summary {
-		display: block;
-	}
 
 	[hidden],
 	template {
@@ -1654,7 +1546,6 @@
 
 	[class*=" zsg-icon-"]:before,
 	[class^="zsg-icon-"]:before {
-		font-family: zmod-icon-set1 !important;
 		font-style: normal !important;
 		font-weight: 400 !important;
 		font-variant: normal !important;
@@ -2004,548 +1895,7 @@
 		color: #999 !important;
 	}
 </style>
-<!--
-<footer class="rh_footer rh_footer__before_fix rh_footer_layout_default">
-	<div class="rh_footer__wrap rh_footer__widgets_wrap rh_footer--alignTop">
-		<div class="rh_footer__widgets columns-4">
-			<div class="rh_widgets">
-				<section id="text-2" class="widget clearfix widget_text">
-					<h3 class="title">
-						<font style="vertical-align: inherit;">
-							<font style="vertical-align: inherit;">Our Offices</font>
-						</font>
-					</h3>
-					<div class="textwidget" id="">
 
-					</div>
-				</section>
-			</div>
-		</div>
-		<div class="rh_footer__widgets columns-4">
-			<div class="rh_widgets">
-				<section id="recent-posts-3" class="widget clearfix widget_recent_entries">
-					<h3 class="title">
-						<font style="vertical-align: inherit;">
-							<font style="vertical-align: inherit;">Latest news</font>
-						</font>
-					</h3>
-					<div class="textwidget custom-html-widget">
-						<div class="menu-footer-terms-container">
-							<ul class="menu" id="">
-
-							</ul>
-						</div>
-					</div>
-				</section>
-			</div>
-		</div>
-		<div class="rh_footer__widgets columns-4">
-			<div class="rh_widgets">
-				<section id="custom_html-2" class="widget_text widget clearfix widget_custom_html">
-					<h3 class="title">
-						<font style="vertical-align: inherit;">
-							<font style="vertical-align: inherit;">Private Data</font>
-						</font>
-					</h3>
-					<div class="textwidget custom-html-widget">
-						<div class="menu-footer-terms-container">
-							<ul class="menu" id="">
-
-							</ul>
-						</div>
-					</div>
-				</section>
-			</div>
-		</div>
-		<div class="rh_footer__widgets columns-4">
-
-		</div>
-	</div>
-</footer>
--->
-<div class="sc-10wuuzs-0 bWwhKS">
-	<div display="flex" class="sc-1ov1ywu-0 sc-10wuuzs-4 cqzEkR jmTIyO">
-		<div data-shownyfairhousingmsg="false" class="sc-1ov1ywu-0 sc-10wuuzs-6 cqzEkR fqeJyA">
-			<h3 data-shownyfairhousingmsg="true" class="Text-c11n-8-86-1__sc-aiai24-0 StyledHeading-c11n-8-86-1__sc-ktujwe-0 kLhKC sc-10wuuzs-5 cJThrL">
-				You have a right to fair housing.
-			</h3>
-			<a href="https://www.dos.ny.gov/licensing/docs/FairHousingNotice_new.pdf">Learn about New York Fair Housing protections</a>
-		</div>
-	</div>
-	<!-- <div id="region-footer-links" class="Flex-c11n-8-86-1__sc-n94bjd-0 sc-10wuuzs-1 kmllIg jAiHhK">
-		<ul class="sc-10wuuzs-2 lnpwlZ">
-			<li class="sc-10wuuzs-3 dDkGna">
-				<div class="sc-1pd1jzu-0 eSssbo">
-					<button aria-expanded="false" class="StyledTextButton-c11n-8-86-1__sc-n1gfmh-0 dlwERf sc-1p66692-0 bytAxr">
-						<span class="Text-c11n-8-86-1__sc-aiai24-0 jWCuQq">Real Estate</span>
-					</button>
-					<ul class="sc-vxl3rc-0 dSwiOK">
-						<li><a href="/browse/homes/">Browse all homes</a></li>
-						<li>
-							<a href="/albuquerque-nm/">Albuquerque real estate</a>
-						</li>
-						<li><a href="/atlanta-ga/">Atlanta real estate</a></li>
-						<li><a href="/austin-tx/">Austin real estate</a></li>
-						<li><a href="/baltimore-md/">Baltimore real estate</a></li>
-						<li><a href="/boston-ma/">Boston real estate</a></li>
-						<li><a href="/calgary-ab/">Calgary real estate</a></li>
-						<li><a href="/charlotte-nc/">Charlotte real estate</a></li>
-						<li><a href="/chicago-il/">Chicago real estate</a></li>
-						<li><a href="/cleveland-oh/">Cleveland real estate</a></li>
-						<li>
-							<a href="/colorado-springs-co/">Colorado Springs real estate</a>
-						</li>
-						<li><a href="/columbus-oh/">Columbus real estate</a></li>
-						<li><a href="/dallas-tx/">Dallas real estate</a></li>
-						<li><a href="/denver-co/">Denver real estate</a></li>
-						<li><a href="/detroit-mi/">Detroit real estate</a></li>
-						<li><a href="/edmonton-ab/">Edmonton real estate</a></li>
-						<li><a href="/el-paso-tx/">El Paso real estate</a></li>
-						<li><a href="/fort-worth-tx/">Fort Worth real estate</a></li>
-						<li><a href="/fresno-ca/">Fresno real estate</a></li>
-						<li><a href="/houston-tx/">Houston real estate</a></li>
-						<li>
-							<a href="/indianapolis-in/">Indianapolis real estate</a>
-						</li>
-						<li>
-							<a href="/jacksonville-fl/">Jacksonville real estate</a>
-						</li>
-						<li>
-							<a href="/kansas-city-mo/">Kansas City real estate</a>
-						</li>
-						<li><a href="/las-vegas-nv/">Las Vegas real estate</a></li>
-						<li><a href="/long-beach-ca/">Long Beach real estate</a></li>
-						<li>
-							<a href="/los-angeles-ca/">Los Angeles real estate</a>
-						</li>
-						<li><a href="/louisville-ky/">Louisville real estate</a></li>
-						<li><a href="/memphis-tn/">Memphis real estate</a></li>
-						<li><a href="/mesa-az/">Mesa real estate</a></li>
-						<li><a href="/miami-fl/">Miami real estate</a></li>
-						<li><a href="/milwaukee-wi/">Milwaukee real estate</a></li>
-						<li>
-							<a href="/minneapolis-mn/">Minneapolis real estate</a>
-						</li>
-						<li><a href="/nashville-tn/">Nashville real estate</a></li>
-						<li>
-							<a href="/new-orleans-la/">New Orleans real estate</a>
-						</li>
-						<li><a href="/new-york-ny/">New York real estate</a></li>
-						<li><a href="/oakland-ca/">Oakland real estate</a></li>
-						<li><a href="/oklahoma-city-ok/">Oklahoma real estate</a></li>
-						<li><a href="/omaha-ne/">Omaha real estate</a></li>
-						<li><a href="/ottawa-on/">Ottawa real estate</a></li>
-						<li>
-							<a href="/philadelphia-pa/">Philadelphia real estate</a>
-						</li>
-						<li><a href="/phoenix-az/">Phoenix real estate</a></li>
-						<li><a href="/portland-or/">Portland real estate</a></li>
-						<li><a href="/raleigh-nc/">Raleigh real estate</a></li>
-						<li><a href="/sacramento-ca/">Sacramento real estate</a></li>
-						<li>
-							<a href="/san-antonio-tx/">San Antonio real estate</a>
-						</li>
-						<li><a href="/san-diego-ca/">San Diego real estate</a></li>
-						<li>
-							<a href="/san-francisco-ca/">San Francisco real estate</a>
-						</li>
-						<li><a href="/san-jose-ca/">San Jose real estate</a></li>
-						<li><a href="/seattle-wa/">Seattle real estate</a></li>
-						<li><a href="/toronto-on/">Toronto real estate</a></li>
-						<li><a href="/tucson-az/">Tucson real estate</a></li>
-						<li><a href="/tulsa-ok/">Tulsa real estate</a></li>
-						<li><a href="/vancouver-bc/">Vancouver real estate</a></li>
-						<li>
-							<a href="/virginia-beach-va/">Virginia Beach real estate</a>
-						</li>
-						<li>
-							<a href="/washington-dc/">Washington DC real estate</a>
-						</li>
-						<li><a href="/wichita-ks/">Wichita real estate</a></li>
-					</ul>
-				</div>
-			</li>
-			<li class="sc-10wuuzs-3 dDkGna">
-				<div class="sc-1pd1jzu-0 eSssbo">
-					<button aria-expanded="false" class="StyledTextButton-c11n-8-86-1__sc-n1gfmh-0 dlwERf sc-1p66692-0 bytAxr">
-						<span class="Text-c11n-8-86-1__sc-aiai24-0 jWCuQq">Rentals</span>
-					</button>
-					<ul class="sc-vxl3rc-0 dSwiOK">
-						<li><a href="/browse/b/">Rental Buildings</a></li>
-						<li>
-							<a href="/atlanta-ga/apartments/">Atlanta apartments for rent</a>
-						</li>
-						<li>
-							<a href="/austin-tx/apartments/">Austin apartments for rent</a>
-						</li>
-						<li>
-							<a href="/baltimore-md/apartments/">Baltimore apartments for rent</a>
-						</li>
-						<li>
-							<a href="/boston-ma/apartments/">Boston apartments for rent</a>
-						</li>
-						<li>
-							<a href="/bronx-new-york-city-ny/apartments/">Bronx NYC apartments for rent</a>
-						</li>
-						<li>
-							<a href="/brooklyn-new-york-city-ny/apartments/">Brooklyn NYC apartments for rent</a>
-						</li>
-						<li>
-							<a href="/charlotte-nc/apartments/">Charlotte apartments for rent</a>
-						</li>
-						<li>
-							<a href="/chicago-il/apartments/">Chicago apartments for rent</a>
-						</li>
-						<li>
-							<a href="/dallas-tx/apartments/">Dallas apartments for rent</a>
-						</li>
-						<li>
-							<a href="/denver-co/apartments/">Denver apartments for rent</a>
-						</li>
-						<li>
-							<a href="/houston-tx/apartments/">Houston apartments for rent</a>
-						</li>
-						<li>
-							<a href="/jersey-city-nj/apartments/">Jersey City apartments for rent</a>
-						</li>
-						<li>
-							<a href="/long-beach-ca/apartments/">Long Beach apartments for rent</a>
-						</li>
-						<li>
-							<a href="/manhattan-new-york-city-ny/apartments/">Manhattan NYC apartments for rent</a>
-						</li>
-						<li>
-							<a href="/miami-fl/apartments/">Miami apartments for rent</a>
-						</li>
-						<li>
-							<a href="/minneapolis-mn/apartments/">Minneapolis apartments for rent</a>
-						</li>
-						<li>
-							<a href="/new-york-city-ny/apartments/">New York City apartments for rent</a>
-						</li>
-						<li>
-							<a href="/oakland-ca/apartments/">Oakland apartments for rent</a>
-						</li>
-						<li>
-							<a href="/oklahoma-city-ok/apartments/">Oklahoma City apartments for rent</a>
-						</li>
-						<li>
-							<a href="/philadelphia-pa/apartments/">Philadelphia apartments for rent</a>
-						</li>
-						<li>
-							<a href="/queens-new-york-city-ny/apartments/">Queens NYC apartments for rent</a>
-						</li>
-						<li>
-							<a href="/sacramento-ca/apartments/">Sacramento apartments for rent</a>
-						</li>
-						<li>
-							<a href="/san-francisco-ca/apartments/">San Francisco apartments for rent</a>
-						</li>
-						<li>
-							<a href="/seattle-wa/apartments/">Seattle apartments for rent</a>
-						</li>
-						<li>
-							<a href="/washington-dc/apartments/">Washington DC apartments for rent</a>
-						</li>
-						<li>
-							<a href="/atlanta-ga/rent-houses/">Atlanta houses for rent</a>
-						</li>
-						<li>
-							<a href="/austin-tx/rent-houses/">Austin houses for rent</a>
-						</li>
-						<li>
-							<a href="/boston-ma/rent-houses/">Boston houses for rent</a>
-						</li>
-						<li>
-							<a href="/charlotte-nc/rent-houses/">Charlotte houses for rent</a>
-						</li>
-						<li>
-							<a href="/columbus-oh/rent-houses/">Columbus houses for rent</a>
-						</li>
-						<li>
-							<a href="/fort-worth-tx/rent-houses/">Fort Worth houses for rent</a>
-						</li>
-						<li>
-							<a href="/fresno-ca/rent-houses/">Fresno houses for rent</a>
-						</li>
-						<li>
-							<a href="/houston-tx/rent-houses/">Houston houses for rent</a>
-						</li>
-						<li>
-							<a href="/indianapolis-in/rent-houses/">Indianapolis houses for rent</a>
-						</li>
-						<li>
-							<a href="/jacksonville-fl/rent-houses/">Jacksonville houses for rent</a>
-						</li>
-						<li>
-							<a href="/las-vegas-nv/rent-houses/">Las Vegas houses for rent</a>
-						</li>
-						<li>
-							<a href="/memphis-tn/rent-houses/">Memphis houses for rent</a>
-						</li>
-						<li>
-							<a href="/milwaukee-wi/rent-houses/">Milwaukee houses for rent</a>
-						</li>
-						<li>
-							<a href="/nashville-tn/rent-houses/">Nashville houses for rent</a>
-						</li>
-						<li>
-							<a href="/oakland-ca/rent-houses/">Oakland houses for rent</a>
-						</li>
-						<li>
-							<a href="/oklahoma-city-ok/rent-houses/">Oklahoma City houses for rent</a>
-						</li>
-						<li>
-							<a href="/philadelphia-pa/rent-houses/">Philadelphia houses for rent</a>
-						</li>
-						<li>
-							<a href="/phoenix-az/rent-houses/">Phoenix houses for rent</a>
-						</li>
-						<li>
-							<a href="/portland-or/rent-houses/">Portland houses for rent</a>
-						</li>
-						<li>
-							<a href="/san-antonio-tx/rent-houses/">San Antonio houses for rent</a>
-						</li>
-						<li>
-							<a href="/san-francisco-ca/rent-houses/">San Francisco houses for rent</a>
-						</li>
-						<li>
-							<a href="/san-jose-ca/rent-houses/">San Jose houses for rent</a>
-						</li>
-						<li>
-							<a href="/tampa-fl/rent-houses/">Tampa houses for rent</a>
-						</li>
-						<li>
-							<a href="/tucson-az/rent-houses/">Tucson houses for rent</a>
-						</li>
-						<li>
-							<a href="/washington-dc/rent-houses/">Washington DC houses for rent</a>
-						</li>
-					</ul>
-				</div>
-			</li>
-			<li class="sc-10wuuzs-3 dDkGna">
-				<div class="sc-1pd1jzu-0 eSssbo">
-					<button aria-expanded="false" class="StyledTextButton-c11n-8-86-1__sc-n1gfmh-0 dlwERf sc-1p66692-0 bytAxr">
-						<span class="Text-c11n-8-86-1__sc-aiai24-0 jWCuQq">Private Data</span>
-					</button>
-					<ul class="sc-vxl3rc-0 dSwiOK">
-						<li><a href="/mortgage-rates/">Current mortgage rates</a></li>
-						<li>
-							<a href="/mortgage-rates/ak/">Alaska mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/al/">Alabama mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/ar/">Arkansas mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/az/">Arizona mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/ca/">California mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/co/">Colorado mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/ct/">Connecticut mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/de/">Delaware mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/fl/">Florida mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/ga/">Georgia mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/hi/">Hawaii mortgage rates</a>
-						</li>
-						<li><a href="/mortgage-rates/ia/">Iowa mortgage rates</a></li>
-						<li>
-							<a href="/mortgage-rates/id/">Idaho mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/il/">Illinois mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/in/">Indiana mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/ks/">Kansas mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/ky/">Kentucky mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/la/">Louisiana mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/ma/">Massachusetts mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/md/">Maryland mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/me/">Maine mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/mi/">Michigan mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/mn/">Minnesota mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/mo/">Missouri mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/ms/">Mississippi mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/mt/">Montana mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/nc/">North Carolina mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/nd/">North Dakota mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/ne/">Nebraska mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/nh/">New Hampshire mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/nj/">New Jersey mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/nm/">New Mexico mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/nv/">Nevada mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/ny/">New York mortgage rates</a>
-						</li>
-						<li><a href="/mortgage-rates/oh/">Ohio mortgage rates</a></li>
-						<li>
-							<a href="/mortgage-rates/ok/">Oklahoma mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/or/">Oregon mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/pa/">Pennsylvania mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/ri/">Rhode Island mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/sc/">South Carolina mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/sd/">South Dakota mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/tn/">Tennessee mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/tx/">Texas mortgage rates</a>
-						</li>
-						<li><a href="/mortgage-rates/ut/">Utah mortgage rates</a></li>
-						<li>
-							<a href="/mortgage-rates/va/">Virginia mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/vt/">Vermont mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/wa/">Washington mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/wi/">Wisconsin mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/wv/">West Virginia mortgage rates</a>
-						</li>
-						<li>
-							<a href="/mortgage-rates/wy/">Wyoming mortgage rates</a>
-						</li>
-					</ul>
-				</div>
-			</li>
-			<li class="sc-10wuuzs-3 dDkGna">
-				<div class="sc-1pd1jzu-0 eSssbo">
-					<button aria-expanded="false" class="StyledTextButton-c11n-8-86-1__sc-n1gfmh-0 dlwERf sc-1p66692-0 bytAxr">
-						<span class="Text-c11n-8-86-1__sc-aiai24-0 jWCuQq">Browse Homes</span>
-					</button>
-					<ul class="sc-vxl3rc-0 dSwiOK">
-						<li><a href="/browse/homes/ca/">California</a></li>
-						<li><a href="/browse/homes/tx/">Texas</a></li>
-						<li><a href="/browse/homes/ny/">New York</a></li>
-						<li><a href="/browse/homes/fl/">Florida</a></li>
-						<li><a href="/browse/homes/il/">Illinois</a></li>
-						<li><a href="/browse/homes/pa/">Pennsylvania</a></li>
-						<li><a href="/browse/homes/oh/">Ohio</a></li>
-						<li><a href="/browse/homes/mi/">Michigan</a></li>
-						<li><a href="/browse/homes/ga/">Georgia</a></li>
-						<li><a href="/browse/homes/nc/">North Carolina</a></li>
-						<li><a href="/browse/homes/nj/">New Jersey</a></li>
-						<li><a href="/browse/homes/va/">Virginia</a></li>
-						<li><a href="/browse/homes/wa/">Washington</a></li>
-						<li><a href="/browse/homes/ma/">Massachusetts</a></li>
-						<li><a href="/browse/homes/in/">Indiana</a></li>
-						<li><a href="/browse/homes/az/">Arizona</a></li>
-						<li><a href="/browse/homes/tn/">Tennessee</a></li>
-						<li><a href="/browse/homes/mo/">Missouri</a></li>
-						<li><a href="/browse/homes/md/">Maryland</a></li>
-						<li><a href="/browse/homes/wi/">Wisconsin</a></li>
-						<li><a href="/browse/homes/mn/">Minnesota</a></li>
-						<li><a href="/browse/homes/co/">Colorado</a></li>
-						<li><a href="/browse/homes/al/">Alabama</a></li>
-						<li><a href="/browse/homes/sc/">South Carolina</a></li>
-						<li><a href="/browse/homes/la/">Louisiana</a></li>
-						<li><a href="/browse/homes/ky/">Kentucky</a></li>
-						<li><a href="/browse/homes/or/">Oregon</a></li>
-						<li><a href="/browse/homes/ok/">Oklahoma</a></li>
-						<li><a href="/browse/homes/ct/">Connecticut</a></li>
-						<li><a href="/browse/homes/ia/">Iowa</a></li>
-						<li><a href="/browse/homes/ms/">Mississippi</a></li>
-						<li><a href="/browse/homes/ar/">Arkansas</a></li>
-						<li><a href="/browse/homes/ks/">Kansas</a></li>
-						<li><a href="/browse/homes/ut/">Utah</a></li>
-						<li><a href="/browse/homes/nv/">Nevada</a></li>
-						<li><a href="/browse/homes/nm/">New Mexico</a></li>
-						<li><a href="/browse/homes/wv/">West Virginia</a></li>
-						<li><a href="/browse/homes/ne/">Nebraska</a></li>
-						<li><a href="/browse/homes/id/">Idaho</a></li>
-						<li><a href="/browse/homes/hi/">Hawaii</a></li>
-						<li><a href="/browse/homes/me/">Maine</a></li>
-						<li><a href="/browse/homes/nh/">New Hampshire</a></li>
-						<li><a href="/browse/homes/ri/">Rhode Island</a></li>
-						<li><a href="/browse/homes/mt/">Montana</a></li>
-						<li><a href="/browse/homes/de/">Delaware</a></li>
-						<li><a href="/browse/homes/sd/">South Dakota</a></li>
-						<li><a href="/browse/homes/ak/">Alaska</a></li>
-						<li><a href="/browse/homes/nd/">North Dakota</a></li>
-						<li><a href="/browse/homes/vt/">Vermont</a></li>
-						<li>
-							<a href="/browse/homes/dc/district-of-columbia-county/">Washington, DC</a>
-						</li>
-						<li><a href="/browse/homes/wy/">Wyoming</a></li>
-						<li><a href="/browse/homes/pr/">Puerto Rico</a></li>
-						<li><a href="/browse/homes/vi/">Virgin Islands</a></li>
-					</ul>
-				</div>
-			</li>
-		</ul>
-	</div> -->
-</div>
 
 <div data-testid="footer">
 	<style static-data-ssr-styled-pfs="true" static-data-ssr-styled-version="5.3.11">
@@ -2568,10 +1918,6 @@
 		/*!sc*/
 		.dzsPTj {
 			color: #54545a;
-			-webkit-font-smoothing: antialiased;
-			-moz-osx-font-smoothing: grayscale;
-			text-transform: none;
-			font-family: "Open Sans", "Adjusted Arial", Tahoma, Geneva, sans-serif;
 			font-weight: 400;
 			font-size: 10px;
 			line-height: 16px;
@@ -2647,10 +1993,6 @@
 		/*!sc*/
 		.jdGWmK {
 			color: #2a2a33;
-			-webkit-font-smoothing: antialiased;
-			-moz-osx-font-smoothing: grayscale;
-			text-transform: none;
-			font-family: "Open Sans", "Adjusted Arial", Tahoma, Geneva, sans-serif;
 			font-weight: 400;
 			font-size: 14px;
 			line-height: 24px;
@@ -2709,10 +2051,6 @@
 		/*!sc*/
 		.kyiqyb {
 			color: #2a2a33;
-			-webkit-font-smoothing: antialiased;
-			-moz-osx-font-smoothing: grayscale;
-			text-transform: none;
-			font-family: "Open Sans", "Adjusted Arial", Tahoma, Geneva, sans-serif;
 			font-weight: 400;
 			font-size: 14px;
 			line-height: 24px;
@@ -2900,7 +2238,6 @@
 			margin: auto;
 			display: block;
 			box-sizing: border-box;
-			font-family: "Open Sans", Gotham, gotham, Tahoma, Geneva, sans-serif;
 		}
 
 		/*!sc*/
@@ -3220,6 +2557,7 @@
 		<footer class="pfs__sc-16g5ked-0 bFituu site-footer">
 
 			<div class="pfs__wsq7ni-0 QHehi row ">
+			<div class="row" style="margin-bottom:20px; font-size:18px;margin-right:0px; margin-left:0px;">
 				<div class="pfs__sc-1sj5qgb-0  col-md-4">
 					<h3 class="title">
 						<font style="vertical-align: inherit;">
@@ -3262,9 +2600,7 @@
 								<label>
 									<input type="checkbox" id="agreeServiceFooter" required="" class="tnp-privacy" style="box-shadow:unset;">
 									<a target="_blank" href="https://sabbiancoproperties.com/privacy-policy-2/">
-										<font style="vertical-align: inherit;">
-											<font style="vertical-align: inherit;">I would like to be informed about the services and properties of Sabbianco Properties.</font>
-										</font>
+										I would like to be informed about the services and properties of Sabbianco Properties.
 									</a>
 								</label>
 							</div>
@@ -3278,7 +2614,7 @@
 						</div>
 					</section>
 				</div>
-
+	</div>
 
 				<div class="pfs__cacbnh-0 flQjlK col-12">
 					<nav class="pfs__sc-1i1gn38-0 cifwbi">
@@ -3355,16 +2691,14 @@
 			}
 			for (i = 0; i < counter; i++) {
 				temp += ` <div style="width: 75%;display: flex;justify-content: space-between;margin: 15px 10px 0px 0px">
-							<strong>
-								<font style="vertical-align: inherit;font-size: 20px;">` + list[i].name + `</font>
+							<strong style="font-size:14px">` + list[i].name + `
 							</strong>`;
 				if (list[i].map !== null && list[i].map !== "") {
 					temp += `<a onclick="window.open('` + list[i].map + `', '_blank', 'location=yes,height=760,width=1024,scrollbars=yes,status=yes');">
 								<i class="fa fa-external-link" aria-hidden="true"></i>
 							</a>`;
 				}
-				temp += `</div>
-						<font style="vertical-align: inherit;font-size: 20px;">` + list[i].address + `</font><br>`;
+				temp += `</div>` + list[i].address + `<br>`;
 			}
 			document.getElementById("homeAgencyContent").innerHTML = temp;
 		}
@@ -3392,11 +2726,11 @@
 				counter = list.length;
 			}
 			for (i = 0; i < counter; i++) {
-				temp += ` <li style="margin-left: -23px;margin-top: 10px;" id="menu-item-5114" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5114">
+				temp += ` <div style="padding-top:14px; font-size:14px">
 							<a href="/page/blogpost-detail/` + list[i].id + `">
-									<font style="vertical-align: inherit;font-size: 20px;">` + list[i].displayname + `</font>
+								` + list[i].displayname + `
 							</a>
-						</li>`;
+						</div>`;
 			}
 			document.getElementById("homeBlog1Content").innerHTML = temp;
 		}

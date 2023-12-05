@@ -7739,6 +7739,13 @@ if ($active_marker_search) {
 
   loadActiveListingsListingMap([0, 0], 0, 9);
 
+  function loadPageListingMap(index, maker_position0, maker_position1, set, zoom) {
+      document.getElementById("page_index").value = index;
+      $('html,body').scrollTop(0);
+      loadActiveListingsListingGrid([maker_position0, maker_position1], set, zoom);
+  }
+
+
   function loadActiveListingsListingGrid(maker_position, set, zoom, freedraw = false) {
     customer_id = '<?php echo $user_id; ?>';
     number_of_bathrooms = "";
