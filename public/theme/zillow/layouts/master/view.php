@@ -910,10 +910,12 @@ if (isset($_SESSION["user_id"])) {
             function closeListingDetailModal(index) {
                 jQuery.noConflict();
                 $('#ListingDetailModal').modal('toggle');
-                var newurl = '<?php echo env('APP_URL'); ?>/page/listings';
+
+                localStorage.getItem("search_url")
+                //  var newurl = '<?php echo env('APP_URL'); ?>/page/listings';
                 window.history.pushState({
-                    path: newurl
-                }, '', newurl);
+                    path: localStorage.getItem("search_url")
+                }, '', localStorage.getItem("search_url"));
             }
 
             var mapListingsDetail = null;
@@ -921,6 +923,7 @@ if (isset($_SESSION["user_id"])) {
             function showListigDetailModal(index) {
                 document.getElementById("ListingDetailButton").click();
                 loadListingsDetailModal(index);
+                localStorage.setItem("search_url", window.location.href)
                 var newurl = '<?php echo env('APP_URL'); ?>/page/listing-details?index=' + index;
                 window.history.pushState({
                     path: newurl

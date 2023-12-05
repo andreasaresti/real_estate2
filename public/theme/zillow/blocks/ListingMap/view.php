@@ -7334,10 +7334,9 @@ if (isset($_SESSION["user_id"])) {
 
 
 $searched = '';
-if (isset($_GET["s"])) {
+if (isset($_GET["s"]) && !isset($_GET['_r'])) {
   $searched = $_GET["s"];
 }
-
 // echo 'selDistricts: '.$selDistricts.'<br>';
 
 $active_district_response = Helper::get_active_district();
@@ -7360,15 +7359,15 @@ $active_property_types_response = Helper::get_active_property_types();
 $active_property_types_response = json_decode($active_property_types_response);
 
 $active_marker_search = Helper::get_hashed_searched($searched);
-
 if ($active_marker_search) {
 ?>
   <script>
+    console.log("test")
     localStorage.setItem("freedraw-polys", '<?= ($active_marker_search->info) ?>');
     marker_search = "<?= $searched ?>";
   </script>
 <?php
-} elseif ($searched != '') {
+} elseif ($searched != '' || isset($_GET['_r'])) {
 ?>
   <script>
     localStorage.clear("freedraw-polys");
@@ -7836,6 +7835,8 @@ if ($active_marker_search) {
         orderbyType = "desc";
         break;
     }
+    console.log("marker_search" + marker_search);
+
     var newurl = '<?php echo env('APP_URL'); ?>/page/listings?search_term=' + search_term;
     newurl += '&s=' + marker_search;
     newurl += '&district=' + tempDistrictArr;
