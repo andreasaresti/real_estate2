@@ -3,6 +3,7 @@ $view = 'listings';
 if (isset($_GET['view']) && $_GET['view'] == 'map') {
   $view = 'map';
 }
+$search_string = isset($_GET['search_term'])?$_GET['search_term']:'';
 ?>
 <style id="server-styles">
   .hillcG {
@@ -7386,7 +7387,7 @@ if ($active_marker_search) {
         <div class="StyledCombobox-c11n-8-84-3__sc-rvbaft-0 ffAram SearchBoxCombobox__StyledCombobox-sc-1qvxrzk-2 dudagf">
           <div aria-haspopup="listbox" class="StyledAdornedInput-c11n-8-84-3__sc-1kgphdl-0 dbgRAU DropdownPopper-c11n-8-84-3__sc-1vnow1h-0 bsFbQm" style="border: 1px solid;border-radius: 5px;margin-right: -2px;">
             <div class="StyledComboboxInput-c11n-8-84-3__sc-vb87st-0 eKUdID SearchBoxCombobox__StyledComboboxInput-sc-1qvxrzk-3 gpmrrj">
-              <input type="text" id="search_string" placeholder="City, Neighborhood, ZIP, Address" aria-autocomplete="list" autocomplete="off" role="combobox" aria-expanded="false" value="" class="StyledFormControl-c11n-8-84-3__sc-18qgis1-0 iUiTrf Input-c11n-8-84-3__sc-4ry0fw-0 jJHVHJ" />
+              <input type="text" value="<?php echo $search_string; ?>" id="search_string" placeholder="City, Neighborhood, ZIP, Address" aria-autocomplete="list" autocomplete="off" role="combobox" aria-expanded="false" value="" class="StyledFormControl-c11n-8-84-3__sc-18qgis1-0 iUiTrf Input-c11n-8-84-3__sc-4ry0fw-0 jJHVHJ" />
             </div>
             <label aria-hidden="true" for="__c11n_u2d1u4qg" id="search_string" class="StyledAdornment-c11n-8-84-3__sc-1kerx9v-0 AdornmentRight-c11n-8-84-3__sc-1kerx9v-2 iZyVOm cmFlZW SearchBoxCombobox__StyledSearchBoxAdornment-sc-1qvxrzk-0 bQttJG"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false" role="img" class="Icon-c11n-8-84-3__sc-13llmml-0 jhZWWg">
                 <title>Search</title>
@@ -8316,11 +8317,29 @@ if ($active_marker_search) {
     loadActiveListingsListingMap([0, 0], 0, 9);
 
   }
+  // Define a click event handler
+  $('.district').click(function() {
+      localStorage.removeItem("freedraw-polys");
+      freeDraw.clear();
+      searchNowListingMap();
+  });
+  $('.municipality').click(function() {
+      localStorage.removeItem("freedraw-polys");
+      freeDraw.clear();
+      searchNowListingMap();
+  });
+  $('.location').click(function() {
+      localStorage.removeItem("freedraw-polys");
+      freeDraw.clear();
+      searchNowListingMap();
+  });
+
 
   function clearDrawingsMap() {
-    localStorage.removeItem("freedraw-polys")
-
-    searchReset()
+    $('.district').prop('checked', false);
+    $('.municipality').prop('checked', false);
+    $('.location').prop('checked', false);
+    localStorage.removeItem("freedraw-polys");
     freeDraw.clear();
   }
 
@@ -8432,7 +8451,16 @@ if ($active_marker_search) {
   //   window.location.reload();
   // });
   function searchReset() {
-    window.location.href = '/page/listings';
+    $('#search_string').val('');
+    
+    $('.propertStatus').prop('checked', false);
+    $('.propertTypes').prop('checked', false);
+    $('.featurecheck').prop('checked', false);
+    
+    $('#selBedrooms').val('');
+    $('#selBathrooms').val('');
+    
+    clearDrawingsMap();
   }
 
   function replace_divs() {
