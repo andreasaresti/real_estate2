@@ -950,11 +950,11 @@ $menu_response = json_decode($menu_response);
     var property_status = $('input[name="property_status"]:checked').val();
     document.getElementById("search-box-input").value = name;
     if (type == "District") {
-      window.location.href = "/page/listings?search_term=&district=" + id + "&municipality=&location=&property_status=" + property_status + "&property_type=&bedrooms=&bathrooms=&area_size=0,1300&price_range=0,600000&features=&draw_map=";
+      window.location.href = "/page/listings?search_term=&_r=&district=" + id + "&municipality=&location=&property_status=" + property_status + "&property_type=&bedrooms=&bathrooms=&area_size=0,1300&price_range=0,600000&features=&draw_map=";
     } else if (type == "Municipality") {
-      window.location.href = "/page/listings?search_term=&district=&municipality=" + id + "&location=&property_status=" + property_status + "&property_type=&bedrooms=&bathrooms=&area_size=0,1300&price_range=0,600000&features=&draw_map=";
+      window.location.href = "/page/listings?search_term=&_r=&district=&municipality=" + id + "&location=&property_status=" + property_status + "&property_type=&bedrooms=&bathrooms=&area_size=0,1300&price_range=0,600000&features=&draw_map=";
     } else if (type == "Location") {
-      window.location.href = "/page/listings?search_term=&district=&municipality=&location=" + id + "&property_status=" + property_status + "&property_type=&bedrooms=&bathrooms=&area_size=0,1300&price_range=0,600000&features=&draw_map=";
+      window.location.href = "/page/listings?search_term=&_r=&district=&municipality=&location=" + id + "&property_status=" + property_status + "&property_type=&bedrooms=&bathrooms=&area_size=0,1300&price_range=0,600000&features=&draw_map=";
     }
 
   }
