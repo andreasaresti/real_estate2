@@ -406,7 +406,7 @@ if (isset($_SESSION["user_id"])) {
                                                                                         <ul class="hdp__sc-1dupnse-7 erqwFf">
                                                                                             <li class="hdp__sc-1dupnse-1 fsIsqR">
                                                                                                 <button aria-pressed="false" class="sc-bcXHqe cqBcXG hdp__sc-14xnfdo-0 gdKUCl" role="button">
-                                                                                                    <div class="hdp__sc-1dupnse-4 jJQTGX" id="ListingDetailFavorit">
+                                                                                                    <div class="hdp__sc-1dupnse-4 jJQTGX" id="ListingDetailFavorit" style="width:60px">
                                                                                                         <div aria-hidden="true" class="hdp__sc-1dupnse-2 hdp__sc-1dupnse-10 dWtTje eThNKw">
                                                                                                             <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false" role="img" class="Icon-c11n-8-84-3__sc-13llmml-0 jhZWWg">
                                                                                                                 <title>Heart</title>

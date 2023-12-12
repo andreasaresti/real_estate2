@@ -7949,7 +7949,9 @@ if ($active_marker_search) {
                             <div  aria-label="4334 Union St APT 1E, Flushing, NY 11355" class="StyledCard-c11n-8-86-1__sc-rmiu6p-0 dVWlBO StyledPropertyCardBody-c11n-8-86-1__sc-1p5uux3-0 ffvFdw" tabindex="0">
                                 <div class="StyledPropertyCardDataWrapper-c11n-8-86-1__sc-1omp4c3-0 daWIrq">
                                     <div class="StyledPropertyCardDataArea-c11n-8-86-1__sc-yipmu-0 zybOF">`;
-        if (list[i].price !== '0' || list[i].price !== 0 || list[i].price !== null) {
+        // console.log(list[i].price);
+        if (parseInt(list[i].price) > 0) {
+
           temp += `€ ` + list[i].price;
         }
         temp += `  <span style="font-size: 17px;margin-left: 20px;">` + list[i].location_name + `</span></div>

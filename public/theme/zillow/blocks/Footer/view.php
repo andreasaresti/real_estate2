@@ -2599,7 +2599,7 @@
 							<div class="tnp-field tnp-privacy-field">
 								<label>
 									<input type="checkbox" id="agreeServiceFooter" required="" class="tnp-privacy" style="box-shadow:unset;">
-									<a target="_blank" href="https://sabbiancoproperties.com/privacy-policy-2/">
+									<a target="_blank" href="/page/blogpost-detail/8">
 										I would like to be informed about the services and properties of Sabbianco Properties.
 									</a>
 								</label>

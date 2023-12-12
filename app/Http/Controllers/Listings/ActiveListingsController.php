@@ -276,7 +276,11 @@ class ActiveListingsController extends Controller
                 $listing_marker['title'] = $querymarkers[$key]->displayname;
                 $listing_marker['icon'] = "<i class='fa fa-home'></i>";
                 $listing_marker['desc'] = $querymarkers[$key]->location_name;
-                $listing_marker['price'] = "€" . number_format($row->price);
+                $price = $row->price;
+                if($row->price > 0){
+                    $price = "€" . number_format($row->price);
+                }
+                $listing_marker['price'] = $price;
                 $listing_marker['image'] = $querymarkers[$key]->image;
                 $listing_marker['link'] = 'page/listing-details?index=' . $row->id;
 
@@ -304,6 +308,7 @@ class ActiveListingsController extends Controller
                 $images_array[] = env('APP_IMG_URL') . '/storage/' . $m->id . '/' . $m->file_name;
             }
             $query[$key]->images = $images_array;
+            $query[$key]->price = $row->price;
             $query[$key]->price = number_format($row->price);
 
             $features = DB::table('feature_listing')->where('listing_id', $row->id)->pluck('feature_id');

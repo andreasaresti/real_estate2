@@ -7,6 +7,11 @@
 		$index = "";
 	}
 ?>
+<style>
+.inner-pages .blog-section .news-item-descr.big-news.details {
+    height: auto !important;
+}
+</style>
 <div class="inner-pages maxw1600 m0a dashboard-bd">
     <section class="blog blog-section bg-white">
         <div class="container">
