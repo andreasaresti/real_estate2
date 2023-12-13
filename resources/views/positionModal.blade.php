@@ -10,7 +10,14 @@
     $flag = "";
   }
 ?>
-    <style>
+  <link href="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.1.0/esri-leaflet-geocoder.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js" ></script>
+  <!-- <script src="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.js" crossorigin="anonymous"></script> -->
+  <script src="https://cdn.jsdelivr.net/leaflet/1.0.0-rc.1/leaflet-src.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/leaflet.esri/2.0.0/esri-leaflet.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/leaflet.esri.geocoder/2.1.0/esri-leaflet-geocoder.js" crossorigin="anonymous"></script>
+  <style>
     body {
       height: 100vh;
       padding: 0;
@@ -200,7 +207,7 @@
     xhr.setRequestHeader('Content-type', 'application/json');
     xhr.send(JSON.stringify(data));
     xhr.onload = function () {
-            
+        console.log(xhr.response);    
         if(xhr.response == "fail"){
             alert("Add Fail");
         }else{

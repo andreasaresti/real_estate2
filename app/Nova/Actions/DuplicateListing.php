@@ -58,8 +58,7 @@ class DuplicateListing extends Action
         $Listing->epc_potential_rating = $models->first()->epc_potential_rating;
         $Listing->taxes = $models->first()->taxes;
         $Listing->dues = $models->first()->dues;
-        $Listing->notes = $models->first()->notes;
-        $Listing->function = $models->first()->export_all_marketplaces;
+        $Listing->notes = $models->first()->notes;  
         $Listing->location_id = $models->first()->location_id;
         $Listing->property_type_id = $models->first()->property_type_id;
         $Listing->status_id = $models->first()->status_id;
