@@ -10,6 +10,11 @@ if (isset($_GET['index'])) {
     $index = 0;
 }
 ?>
+<style>
+.inner-pages .blog .homes-content .homes-list li {
+    width: 100%;
+}
+</style>
 <div class="inner-pages sin-1 homepage-4 hd-white">
     <section class="single-proper blog details">
         <div class="container">
@@ -121,6 +126,7 @@ if (isset($_GET['index'])) {
                                                         </div>
                                                     </div>
                                                 </div>
+                                                
                                                 <div class="data-view-container" style="overflow-y:auto">
                                                     <div class="ds-data-view-list">
                                                         <div class="hdp__sc-1jydst6-0 lckxKm">
@@ -189,6 +195,73 @@ if (isset($_GET['index'])) {
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="data-view-container" style="overflow-y:auto">
+                                                    <div class="ds-data-view-list">
+                                                        <div class="hdp__sc-1jydst6-0 lckxKm">
+                                                            <div class="single homes-content details mb-30">
+                                                                <!-- title -->
+                                                                <h3 class="mb-3">Rental Yield Calculator</h3>
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <label for="basic-url">Property purchase costs</label>
+                                                                        <div class="input-group mb-3">
+                                                                            <div class="input-group-prepend">
+                                                                                <span class="input-group-text" id="basic-addon3">€</span>
+                                                                            </div>
+                                                                            <input type="number" class="form-control" value="0" id="property-purchase-costs" aria-describedby="basic-addon3">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <label for="basic-url">Monthly Rent</label>
+                                                                        <div class="input-group mb-3">
+                                                                            <div class="input-group-prepend">
+                                                                                <span class="input-group-text" id="basic-addon3">€</span>
+                                                                            </div>
+                                                                            <input type="number" class="form-control" value="0" id="monthly-rent" aria-describedby="basic-addon3">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <label for="basic-url">Annual costs</label>
+                                                                        <div class="input-group mb-3">
+                                                                            <div class="input-group-prepend">
+                                                                                <span class="input-group-text" id="basic-addon3">€</span>
+                                                                            </div>
+                                                                            <input type="number" class="form-control" value="0" id="annual-costs" aria-describedby="basic-addon3">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <button onclick="calculaterenatalYield()" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 fKAHIc sc-16sdjcz-0 eObXzv contact-button-condensed ds-button ds-label-small" data-cft-name="contact-button-tour">
+                                                                            <div style="text-align: center;">Calculate
+                                                                                <!-- <p class="Text-c11n-8-84-3__sc-aiai24-0 StyledParagraph-c11n-8-84-3__sc-18ze78a-0 hTmUSk">as early as today at 11:00 am</p> -->
+                                                                            </div>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <label for="basic-url">Gross Rental Yield</label>
+                                                                        <div class="input-group mb-3">
+                                                                            
+                                                                            <input readonly  disabled style="background:lightgrey; border: size 0px;"  type="text" value="0" class="form-control" id="gross-rental-yield" aria-describedby="basic-addon3">
+                                                                            <div class="input-group-prepend">
+                                                                                <span class="input-group-text" id="basic-addon3">%</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <label for="basic-url">Net Rental Yield</label>
+                                                                        <div class="input-group mb-3">
+                                                                            
+                                                                            <input readonly  disabled style="background:lightgrey; border: size 0px;"  type="text" value="0" class="form-control" id="net-rental-yield" aria-describedby="basic-addon3">
+                                                                            <div class="input-group-prepend">
+                                                                                <span class="input-group-text" id="basic-addon3">%</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -220,6 +293,7 @@ if (isset($_GET['index'])) {
     loadListingDetailListingDetails();
     // loadSimilarListingsListingDetails();
     // });
+    
     function loadListingDetailListingDetails() {
         index = '<?php echo $index; ?>';
         const url = "/api/activelistings";

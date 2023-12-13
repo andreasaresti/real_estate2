@@ -406,7 +406,7 @@ if (isset($_SESSION["user_id"])) {
                                                                                         <ul class="hdp__sc-1dupnse-7 erqwFf">
                                                                                             <li class="hdp__sc-1dupnse-1 fsIsqR">
                                                                                                 <button aria-pressed="false" class="sc-bcXHqe cqBcXG hdp__sc-14xnfdo-0 gdKUCl" role="button">
-                                                                                                    <div class="hdp__sc-1dupnse-4 jJQTGX" id="ListingDetailFavorit" style="width:60px">
+                                                                                                    <div class="hdp__sc-1dupnse-4 jJQTGX" id="ListingDetailFavorit" style="width:90px">
                                                                                                         <div aria-hidden="true" class="hdp__sc-1dupnse-2 hdp__sc-1dupnse-10 dWtTje eThNKw">
                                                                                                             <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false" role="img" class="Icon-c11n-8-84-3__sc-13llmml-0 jhZWWg">
                                                                                                                 <title>Heart</title>
@@ -494,7 +494,7 @@ if (isset($_SESSION["user_id"])) {
                                                                         <ul class="contact-button-group">
                                                                             <li class="contact-button prominent">
                                                                                 <button onclick="showRequestModal()" style="background-color: #006AFF;border-color: #006AFF;color: #FFF;" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 fKAHIc sc-16sdjcz-0 eObXzv contact-button-condensed ds-button ds-label-small" data-cft-name="contact-button-tour">
-                                                                                    <div style="text-align: center;">Request more Details
+                                                                                    <div style="text-align: center;">Request more Details 123
                                                                                         <!-- <p class="Text-c11n-8-84-3__sc-aiai24-0 StyledParagraph-c11n-8-84-3__sc-18ze78a-0 hTmUSk">as early as today at 11:00 am</p> -->
                                                                                     </div>
                                                                                 </button>
@@ -573,9 +573,76 @@ if (isset($_SESSION["user_id"])) {
                                                                             <div class="divider-fade"></div>
                                                                             <div id="map-leaflet-listingsDetail" class="contact-map" style="height: 255px; "></div>
                                                                         </div>
+                                                                        <div class="data-view-container" style="overflow-y:auto">
+                                                                            <div class="ds-data-view-list">
+                                                                                <div class="hdp__sc-1jydst6-0 lckxKm">
+                                                                                    <div class="single homes-content details mb-30">
+                                                                                        <!-- title -->
+                                                                                        <h3 class="mb-3">Rental Yield Calculator</h3>
+                                                                                        <div class="row">
+                                                                                            <div class="col-12">
+                                                                                                <label for="basic-url">Property purchase costs</label>
+                                                                                                <div class="input-group mb-3">
+                                                                                                    <div class="input-group-prepend">
+                                                                                                        <span class="input-group-text" id="basic-addon3">€</span>
+                                                                                                    </div>
+                                                                                                    <input type="number" class="form-control" value="0" id="property-purchase-costs" aria-describedby="basic-addon3">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="col-12">
+                                                                                                <label for="basic-url">Monthly Rent</label>
+                                                                                                <div class="input-group mb-3">
+                                                                                                    <div class="input-group-prepend">
+                                                                                                        <span class="input-group-text" id="basic-addon3">€</span>
+                                                                                                    </div>
+                                                                                                    <input type="number" class="form-control" value="0" id="monthly-rent" aria-describedby="basic-addon3">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="col-12">
+                                                                                                <label for="basic-url">Annual costs</label>
+                                                                                                <div class="input-group mb-3">
+                                                                                                    <div class="input-group-prepend">
+                                                                                                        <span class="input-group-text" id="basic-addon3">€</span>
+                                                                                                    </div>
+                                                                                                    <input type="number" class="form-control" value="0" id="annual-costs" aria-describedby="basic-addon3">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="col-12">
+                                                                                                <button onclick="calculaterenatalYield()" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 fKAHIc sc-16sdjcz-0 eObXzv contact-button-condensed ds-button ds-label-small" data-cft-name="contact-button-tour">
+                                                                                                    <div style="text-align: center;">Calculate
+                                                                                                        <!-- <p class="Text-c11n-8-84-3__sc-aiai24-0 StyledParagraph-c11n-8-84-3__sc-18ze78a-0 hTmUSk">as early as today at 11:00 am</p> -->
+                                                                                                    </div>
+                                                                                                </button>
+                                                                                            </div>
+                                                                                            <div class="col-12">
+                                                                                                <label for="basic-url">Gross Rental Yield</label>
+                                                                                                <div class="input-group mb-3">
+                                                                                                    
+                                                                                                    <input readonly  disabled style="background:lightgrey; border: size 0px;"  type="text" value="0" class="form-control" id="gross-rental-yield" aria-describedby="basic-addon3">
+                                                                                                    <div class="input-group-prepend">
+                                                                                                        <span class="input-group-text" id="basic-addon3">%</span>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="col-12">
+                                                                                                <label for="basic-url">Net Rental Yield</label>
+                                                                                                <div class="input-group mb-3">
+                                                                                                    
+                                                                                                    <input readonly  disabled style="background:lightgrey; border: size 0px;"  type="text" value="0" class="form-control" id="net-rental-yield" aria-describedby="basic-addon3">
+                                                                                                    <div class="input-group-prepend">
+                                                                                                        <span class="input-group-text" id="basic-addon3">%</span>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            
                                                         </div>
                                                     </div>
                                                 </div>
@@ -757,6 +824,18 @@ if (isset($_SESSION["user_id"])) {
             });
         </script>
         <script>
+            function calculaterenatalYield(){
+                var property_purchase_costs = parseInt($("#property-purchase-costs").val());
+                var monthly_rent = parseInt($("#monthly-rent").val());
+                var annual_costs = parseInt($("#annual-costs").val());
+
+                var net_rental_yield = (monthly_rent * 12 - annual_costs) / (property_purchase_costs) * 100;
+                var gross_rental_yield = (monthly_rent * 12) / (property_purchase_costs) * 100;
+
+                $("#gross-rental-yield").val(gross_rental_yield.toFixed(2));
+                $("#net-rental-yield").val(net_rental_yield.toFixed(2));
+
+            }
             $('.job_clientSlide').owlCarousel({
                 items: 2,
                 loop: true,

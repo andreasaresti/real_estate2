@@ -18,16 +18,14 @@ class webListingsAddListingsController extends Controller
 {
     public function import_listings(Request $request)
     {
+        /*
         $listings_array = DB::table('import_listings')
                             ->limit(2)
                             ->get();
         foreach($listings_array as $listing){
             $name = [];
             $name['en'] = $listing->title;
-            echo json_encode($name, JSON_UNESCAPED_UNICODE);
-            print_r($listing);
         }
-        return true;
         $listings_array = DB::table('import_listings')
                             ->select("id","developer")
                             ->where('developer', 'REGEXP', '[0-9]+')
@@ -54,14 +52,14 @@ class webListingsAddListingsController extends Controller
                             ->update(['developer_phone' => $developer_phone]);
         }
 
-        // $affectedRows = DB::insert("INSERT IGNORE INTO customers(ext_code, type, name, email) 
-        // SELECT developer_phone, 'individual', developer, NULL FROM import_listings t1 WHERE developer_phone IS NOT NULL AND developer_phone <> '' GROUP BY developer_phone");
+        $affectedRows = DB::insert("INSERT IGNORE INTO customers(ext_code, type, name, email) 
+        SELECT developer_phone, 'individual', developer, NULL FROM import_listings t1 WHERE developer_phone IS NOT NULL AND developer_phone <> '' GROUP BY developer_phone");
 
 
-        // $affectedRows = DB::insert("INSERT IGNORE INTO customers(ext_code, type, name, email) 
-        // SELECT developer, 'individual', developer, NULL FROM import_listings t1 WHERE developer_phone IS NULL OR developer_phone = '' GROUP BY developer");
-
-        return true;
+        $affectedRows = DB::insert("INSERT IGNORE INTO customers(ext_code, type, name, email) 
+        SELECT developer, 'individual', developer, NULL FROM import_listings t1 WHERE developer_phone IS NULL OR developer_phone = '' GROUP BY developer");
+echo 'added customers<br>';
+//         return true;
         
         $affectedRows = DB::update("UPDATE import_listings SET municipality = district WHERE municipality = ''");
         $affectedRows = DB::update("UPDATE import_listings t1 SET t1.location = t1.municipality WHERE t1.location = ''");
@@ -75,7 +73,7 @@ class webListingsAddListingsController extends Controller
         $affectedRows = DB::update("UPDATE import_listings t1 SET t1.district = 'Nicosia District' WHERE t1.district IN ('Nicosia - Agioi Omologites','Nicosia - Kaimakli','Aglantzia')");
         $affectedRows = DB::update("UPDATE import_listings t1 SET t1.district = 'Paphos District' WHERE t1.district IN ('Paphos City Center','Tremithousa','Tsada' )");
         $affectedRows = DB::update("UPDATE import_listings t1 SET t1.district = 'Famagusta District' WHERE t1.district IN ('Protaras')");
-        
+        */
         $listings_array = DB::table('import_listings')
                             ->select('*')
                             ->where('imported', 0)
