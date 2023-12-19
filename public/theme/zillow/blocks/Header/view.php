@@ -743,6 +743,10 @@ $menu_response = json_decode($menu_response);
     content: "ecdnJo,";
   }
 
+  .select2-search__field {
+    padding-left: 5px !important;
+  }
+
   #navigation.style-2.cloned,
   #header.cloned.sticky {
     opacity: 1;
@@ -752,17 +756,15 @@ $menu_response = json_decode($menu_response);
     margin-top: 0px;
   }
 </style>
-<!-- <div id="sideBar">
-    <div id="showmapbutton" class="col-xl-12 xsRow" style="z-index:1000;background:green; color:white;display: flex;justify-content: space-around;align-items: center;padding: 0px;">
-        <a  class="btn btn-map" onclick="alert('hi');show_map();" style="margin-right:5px;">Show Map</a>
-    </div>
-    <div id="showlistingbutton" class="col-xl-12 xsRow" style="z-index:1000;background:green; color:white;display: flex;justify-content: space-around;align-items: center;padding: 0px;">
-        <a  class="btn btn-map" onclick="show_map();" style="margin-right:5px;">Show Listing</a>
-    </div>
-</div> -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-<div class="homepage-9 hp-6 homepage-1 mh" style="z-index: 9999;position: relative;">
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" />
+
+
+<div class="homepage-9 hp-6 homepage-1 mh" style="position: relative;">
   <div id="wrapper">
     <header id="header-container" class="header head-tr zillow-header">
       <div id="header" style="padding: 0px;height: 80px;">
@@ -880,30 +882,27 @@ $menu_response = json_decode($menu_response);
             <h1 class="bannerTitle">Discover your dream property</h1>
           </div>
           <div id="search-bar">
-            <div class="sc-1dzx782-0 KiRwB">
-              <div class="Flex-c11n-8-86-1__sc-n94bjd-0 sc-17uc5u3-0  jYxjRF ">
-                <div>
-                  <label><input type="radio" name="property_status" value="2" checked><span class="bannerTitle2">For Sale</span></label>
-                  <label><input type="radio" name="property_status" value="1"><span class="bannerTitle2">For Rent</span></label>
-                </div>
-                <div class="react-autosuggest__container">
-
-                  <div class="StyledAdornedInput-c11n-8-86-1__sc-1kgphdl-0 fvriFu SearchBox-c11n-8-86-1__sc-6uapbf-0 sc-1lfawsc-0 gPUkQT dvwpwM ">
-                    <input role="combobox" onkeypress="search_text();" aria-owns="react-autowhatever-1" aria-expanded="false" type="text" autocomplete="off" aria-autocomplete="list" aria-controls="react-autowhatever-1" class="StyledFormControl-c11n-8-86-1__sc-18qgis1-0 DA-dAx Input-c11n-8-86-1__sc-4ry0fw-0 frrUMP react-autosuggest__input" placeholder="Enter district, municipality or location" aria-label="Search: Suggestions appear below" id="search-box-input" value="">
-                    <span class="StyledAdornment-c11n-8-86-1__sc-1kerx9v-0 AdornmentRight-c11n-8-86-1__sc-1kerx9v-2 ddthKA ecdnJo " aria-hidden="false">
-                      <button id="search-icon" class="sc-1bvnalc-1 fspXPt " aria-label="Submit Search">
-                        <svg viewBox="0 0 32 32" theme="[object Object]" class="Icon-c11n-8-86-1__sc-13llmml-0 drKbVK sc-1bvnalc-0 kzKZEl" aria-hidden="true" focusable="false" role="img">
-                          <path stroke="none" d="M29.41,26.59,23.77,21A12,12,0,0,0,14,2c-.17,0-.33,0-.5,0s-.33,0-.5,0A11,11,0,0,0,2,13c0,.17,0,.33,0,.5s0,.33,0,.5a12,12,0,0,0,19,9.77l5.64,5.64a2,2,0,0,0,2.82-2.82ZM14,22a8,8,0,1,1,8-8A8,8,0,0,1,14,22Z"></path>
-                        </svg>
-                      </button>
-                    </span>
-                  </div>
-                  <div id="suggesstion-box" style="display: none;background: white;padding: 10px 20px;border-bottom-left-radius: 10px;border-bottom-right-radius: 10px;"></div>
-                </div>
-                <div style="margin-top:40px; text-align:right">
-                  <a href="/page/listings?view=map&_r" style="padding: 10px 20px 10px 20px;background: #398a39;border-radius: 5px;cursor: pointer;color:white !important; margin-bottom:10px;" id="showMapListingListingMap">Show Map</a>
+            <div class="row">
+              <!-- Dropdown Button -->
+              <div class="col-auto d-flex align-items-center">
+                <div class="dropdown">
+                  <select class="form-control" id="propertyStatusDropdown">
+                    <option value="2">For Sale</option>
+                    <option value="1">For Rent</option>
+                  </select>
                 </div>
               </div>
+              <!-- Select2 Control -->
+              <div class="col">
+                <select class="form-control select2" id="search-box-input" onkeypress="search_text();" multiple="multiple"></select>
+              </div>
+            </div>
+            <div style="margin-top:40px; text-align:right">
+              <button id="searchButton" class="btn btn-primary">Search</button>
+            </div>
+            <!-- Show Map Button -->
+            <div style="margin-top:40px; text-align:right">
+              <a href="/page/listings?view=map&_r" style="padding: 10px 20px 10px 20px;background: #398a39;border-radius: 5px;cursor: pointer;color:white !important; margin-bottom:10px;" id="showMapListingListingMap">Show Map</a>
             </div>
           </div>
         </div>
@@ -911,51 +910,97 @@ $menu_response = json_decode($menu_response);
     </div>
   </div>
 </div>
+</div>
+<!-- <select class="form-control select2" multiple="multiple" style="width: 100%;"></select> -->
 
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
-<script type="text/javascript">
-  function search_text() {
-    var searchstr = document.getElementById("search-box-input").value;
-    if (searchstr.length >= 3) {
-      const url = "/api/getLocationSearch";
-      const sendData = {
-        "data": document.getElementById("search-box-input").value,
-      };
-      let xhr = new XMLHttpRequest();
-      xhr.open('POST', url, true);
-      xhr.setRequestHeader('Content-type', 'application/json');
-      xhr.send(JSON.stringify(sendData));
-      xhr.onload = function() {
-        list = JSON.parse(xhr.response);
-        temp = `<ul id='search-list'>`;
-        for (i = 0; i < list.length; i++) {
-          temp += `<li onClick="selectLocation('` + list[i]['name'] + `',` + list[i]['id'] + `,'` + list[i]['type'] + `');" style="margin-bottom:5px;font-size: larger;cursor: pointer;">` + list[i]['name'] + ` (` + list[i]['type'] + `)</li>`;
-        }
-        temp += `</ul>`;
-        if (list.length > 0) {
-          document.getElementById("suggesstion-box").style.display = "block";
-          document.getElementById("suggesstion-box").innerHTML = temp;
-        } else {
-          document.getElementById("suggesstion-box").style.display = "none";
-          document.getElementById("suggesstion-box").innerHTML = "";
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.full.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+
+    $('.select2').select2({
+      maximumSelectionLength: 10,
+      tokenSeparators: [',', ' '],
+      placeholder: "Select or type keywords",
+      minimumInputLength: 1,
+      ajax: {
+        url: "/api/getLocationSearch",
+        type: 'POST',
+        dataType: 'json',
+        delay: 250,
+        data: function(params) {
+          var dataToSend = {
+            data: params.term
+          };
+          console.log(dataToSend);
+          return JSON.stringify(dataToSend);
+        },
+
+        processResults: function(data) {
+          return {
+            results: data.map(item => {
+              return {
+                id: item.id,
+                text: item.name + ' (' + item.type + ')',
+                type: item.type
+              };
+            })
+          };
+        },
+        cache: true,
+        contentType: "application/json",
+        error: function(jqXHR, textStatus, errorThrown) {
+          console.error('AJAX error: ' + textStatus + ', ' + errorThrown);
         }
       }
-    } else {
-      document.getElementById("suggesstion-box").style.display = "none";
-      document.getElementById("suggesstion-box").innerHTML = "";
-    }
-  }
+    });
 
-  function selectLocation(name, id, type) {
-    var property_status = $('input[name="property_status"]:checked').val();
-    document.getElementById("search-box-input").value = name;
-    if (type == "District") {
-      window.location.href = "/page/listings?search_term=&_r=&district=" + id + "&municipality=&location=&property_status=" + property_status + "&property_type=&bedrooms=&bathrooms=&area_size=0,1300&price_range=0,600000&features=&draw_map=";
-    } else if (type == "Municipality") {
-      window.location.href = "/page/listings?search_term=&_r=&district=&municipality=" + id + "&location=&property_status=" + property_status + "&property_type=&bedrooms=&bathrooms=&area_size=0,1300&price_range=0,600000&features=&draw_map=";
-    } else if (type == "Location") {
-      window.location.href = "/page/listings?search_term=&_r=&district=&municipality=&location=" + id + "&property_status=" + property_status + "&property_type=&bedrooms=&bathrooms=&area_size=0,1300&price_range=0,600000&features=&draw_map=";
-    }
+    $('#searchButton').click(function() {
+      var selectedData = $('#search-box-input').select2('data');
+      var propertyStatus = $('#propertyStatusDropdown').val();
 
-  }
+      var districtIds = [],
+        municipalityIds = [],
+        locationIds = [];
+
+      selectedData.forEach(function(item) {
+        switch (item.type) {
+          case "District":
+            districtIds.push(item.id);
+            break;
+          case "Municipality":
+            municipalityIds.push(item.id);
+            break;
+          case "Location":
+            locationIds.push(item.id);
+            break;
+        }
+      });
+
+      // Construct the URL
+      var url = "/page/listings?";
+      if (districtIds.length > 0) {
+        url += "district=" + districtIds.join(',') + "&";
+      }
+      if (municipalityIds.length > 0) {
+        url += "municipality=" + municipalityIds.join(',') + "&";
+      }
+      if (locationIds.length > 0) {
+        url += "location=" + locationIds.join(',') + "&";
+      }
+      if (propertyStatus !== "") {
+        url += "property_status=" + propertyStatus + "&";
+      }
+
+      // Remove the last '&' or '?' from the URL
+      url = url.slice(0, -1);
+
+      window.location.href = url;
+    });
+  });
+
 </script>

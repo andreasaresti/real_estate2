@@ -22,6 +22,7 @@ use App\Nova\ListingType;
 use App\Nova\Theme;
 use App\Nova\Banner;
 use App\Nova\Blog;
+use App\Nova\Catalogues;
 use App\Nova\Customer;
 use App\Nova\CustomerRole;
 use App\Nova\Feed;
@@ -100,6 +101,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 MenuSection::make('Marketing', [
                     MenuItem::resource(Marketplace::class),
                     MenuItem::resource(Feed::class),
+                    MenuItem::resource(Catalogues::class),
                     MenuItem::resource(IncludedListingFeed::class)
                 ])->icon('cog')->collapsable()->collapsedByDefault(),
    

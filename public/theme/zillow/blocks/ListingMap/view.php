@@ -3,7 +3,7 @@ $view = 'listings';
 if (isset($_GET['view']) && $_GET['view'] == 'map') {
   $view = 'map';
 }
-$search_string = isset($_GET['search_term'])?$_GET['search_term']:'';
+$search_string = isset($_GET['search_term']) ? $_GET['search_term'] : '';
 ?>
 <style id="server-styles">
   .hillcG {
@@ -7378,25 +7378,32 @@ if ($active_marker_search) {
 ?>
 
 
-<link rel="stylesheet" href="/theme/zillow/assets/css/jquery-ui.css<?php echo time(); ?>">
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" />
+
 <div class="inner-pages homepage-4 agents hp-6 full hd-white" style="height: 85vh;">
   <div data-zrr-key="static-search-page:search-app">
+    <div class="col-2">
+      <select class="form-control select2" id="search-box-input" onkeypress="search_text();" multiple="multiple"></select>
+    </div>
+    <div class="col-2">
+      <select class="selectpicker" multiple data-live-search="true">
+      <option selected>Open this select menu</option>
+        <?php
+        foreach ($active_listing_types_response->data as $listing_type) {
+          echo '<option value="'.$listing_type->id.'">' . $listing_type->displayname . '</option>';
+        }
+        ?>
+      </select>
+    </div>
     <section class="SearchPageHeaderContainer SearchPageHeaderContainer__StyledSearchPageHeaderContainer-srp__sc-h52t73-0 duceJr search-page-header wide has-floating-action-bar" aria-label="filters">
-      <div id="srp-search-box" style="margin-right: 13px;">
-        <div class="StyledCombobox-c11n-8-84-3__sc-rvbaft-0 ffAram SearchBoxCombobox__StyledCombobox-sc-1qvxrzk-2 dudagf">
-          <div aria-haspopup="listbox" class="StyledAdornedInput-c11n-8-84-3__sc-1kgphdl-0 dbgRAU DropdownPopper-c11n-8-84-3__sc-1vnow1h-0 bsFbQm" style="border: 1px solid;border-radius: 5px;margin-right: -2px;">
-            <div class="StyledComboboxInput-c11n-8-84-3__sc-vb87st-0 eKUdID SearchBoxCombobox__StyledComboboxInput-sc-1qvxrzk-3 gpmrrj">
-              <input type="text" value="<?php echo $search_string; ?>" id="search_string" placeholder="City, Neighborhood, ZIP, Address" aria-autocomplete="list" autocomplete="off" role="combobox" aria-expanded="false" value="" class="StyledFormControl-c11n-8-84-3__sc-18qgis1-0 iUiTrf Input-c11n-8-84-3__sc-4ry0fw-0 jJHVHJ" />
-            </div>
-            <label aria-hidden="true" for="__c11n_u2d1u4qg" id="search_string" class="StyledAdornment-c11n-8-84-3__sc-1kerx9v-0 AdornmentRight-c11n-8-84-3__sc-1kerx9v-2 iZyVOm cmFlZW SearchBoxCombobox__StyledSearchBoxAdornment-sc-1qvxrzk-0 bQttJG"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false" role="img" class="Icon-c11n-8-84-3__sc-13llmml-0 jhZWWg">
-                <title>Search</title>
-                <path stroke="none" d="M29.41,26.59,23.77,21A12,12,0,0,0,14,2c-.17,0-.33,0-.5,0s-.33,0-.5,0A11,11,0,0,0,2,13c0,.17,0,.33,0,.5s0,.33,0,.5a12,12,0,0,0,19,9.77l5.64,5.64a2,2,0,0,0,2.82-2.82ZM14,22a8,8,0,1,1,8-8A8,8,0,0,1,14,22Z"></path>
-              </svg></label>
-          </div>
-        </div>
-      </div>
-
       <!-- <span id="clonedesktop" > -->
       <div id="location_desktopdiv" class="rld-single-select  searchBarDiv" style="width: 132px">
         <!-- <input type="hidden" id="selLocation" name="selLocation" value=""> -->
@@ -7434,14 +7441,11 @@ if ($active_marker_search) {
                       </li>';
                 }
                 ?>
-
               </ul>
             </li>
           </ul>
         </nav>
       </div>
-
-
       <div class="rld-single-select searchBarDiv" id="property_status_desktopdiv" style="width: 175px;">
         <input type="hidden" id="selActivePropertStatus" name="selActivePropertStatus" value="">
         <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: black;">
@@ -7500,9 +7504,6 @@ if ($active_marker_search) {
         </div>
       </div>
       <div id="advancedSearch" style="position: absolute;margin-top: 60px;" class="rld-main-search explore__form-checkbox-list full-filter">
-
-
-
         <div class="row">
           <div class="col-lg-4 col-md-6 py-1 pr-30 pl-0 " id="location_mobilediv" style="width: 132px"></div>
           <div class="col-lg-4 col-md-6 py-1 pr-30 pl-0 " id="property_status_mobilediv" style="width: 175x"></div>
@@ -7657,7 +7658,94 @@ if ($active_marker_search) {
 </div>
 
 
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.full.min.js"></script>
+
 <script type="text/javascript">
+ 
+  $(document).ready(function() { 
+    $('.select2').select2({
+      maximumSelectionLength: 10,
+      tokenSeparators: [',', ' '],
+      placeholder: "Select or type keywords",
+      minimumInputLength: 1,
+      ajax: {
+        url: "/api/getLocationSearch",
+        type: 'POST',
+        dataType: 'json',
+        delay: 250,
+        data: function(params) {
+          var dataToSend = {
+            data: params.term
+          };
+          console.log(dataToSend);
+          return JSON.stringify(dataToSend);
+        },
+
+        processResults: function(data) {
+          return {
+            results: data.map(item => {
+              return {
+                id: item.id,
+                text: item.name + ' (' + item.type + ')',
+                type: item.type
+              };
+            })
+          };
+        },
+        cache: true,
+        contentType: "application/json",
+        error: function(jqXHR, textStatus, errorThrown) {
+          console.error('AJAX error: ' + textStatus + ', ' + errorThrown);
+        }
+      }
+    });
+    // $('#searchButton').click(function() {
+    //   var selectedData = $('#search-box-input').select2('data');
+    //   var propertyStatus = $('#propertyStatusDropdown').val();
+
+    //   var districtIds = [],
+    //     municipalityIds = [],
+    //     locationIds = [];
+
+    //   selectedData.forEach(function(item) {
+    //     switch (item.type) {
+    //       case "District":
+    //         districtIds.push(item.id);
+    //         break;
+    //       case "Municipality":
+    //         municipalityIds.push(item.id);
+    //         break;
+    //       case "Location":
+    //         locationIds.push(item.id);
+    //         break;
+    //     }
+    //   });
+
+    //   // Construct the URL
+    //   var url = "/page/listings?";
+    //   if (districtIds.length > 0) {
+    //     url += "district=" + districtIds.join(',') + "&";
+    //   }
+    //   if (municipalityIds.length > 0) {
+    //     url += "municipality=" + municipalityIds.join(',') + "&";
+    //   }
+    //   if (locationIds.length > 0) {
+    //     url += "location=" + locationIds.join(',') + "&";
+    //   }
+    //   if (propertyStatus !== "") {
+    //     url += "property_status=" + propertyStatus + "&";
+    //   }
+
+    //   // Remove the last '&' or '?' from the URL
+    //   url = url.slice(0, -1);
+
+    //   window.location.href = url;
+    // });
+
+  });
   // clearDrawingsMap();
   var view = '<?php echo $view; ?>';
 
@@ -7669,7 +7757,7 @@ if ($active_marker_search) {
   search_term = '<?php if (isset($_GET['search_term'])) echo $_GET['search_term'];
                   else echo ""; ?>';
   if (search_term > 0) {
-    document.getElementById("search_string").value = search_term;
+    document.getElementById("search-box-input").value = search_term;
   }
   number_of_bathrooms = '<?php if (isset($_GET['bathrooms'])) echo $_GET['bathrooms'];
                           else echo ""; ?>';
@@ -7737,6 +7825,7 @@ if ($active_marker_search) {
   // map_init_circle([], [0,0], 0, 9);
   // localStorage.clear();
   //  localStorage.removeItem("freedraw-polys");
+
 
   loadActiveListingsListingMap([0, 0], 0, 9);
 
@@ -7822,10 +7911,10 @@ if ($active_marker_search) {
     }
 
     search_term = "";
-    if (document.getElementById('search_string').value == "") {
+    if (document.getElementById('search-box-input').value == "") {
       search_term = "";
     } else {
-      search_term = document.getElementById('search_string').value;
+      search_term = document.getElementById('search-box-input').value;
     }
     orderbyName = "";
     orderbyType = "";
@@ -8321,19 +8410,19 @@ if ($active_marker_search) {
   }
   // Define a click event handler
   $('.district').click(function() {
-      localStorage.removeItem("freedraw-polys");
-      freeDraw.clear();
-      searchNowListingMap();
+    localStorage.removeItem("freedraw-polys");
+    freeDraw.clear();
+    searchNowListingMap();
   });
   $('.municipality').click(function() {
-      localStorage.removeItem("freedraw-polys");
-      freeDraw.clear();
-      searchNowListingMap();
+    localStorage.removeItem("freedraw-polys");
+    freeDraw.clear();
+    searchNowListingMap();
   });
   $('.location').click(function() {
-      localStorage.removeItem("freedraw-polys");
-      freeDraw.clear();
-      searchNowListingMap();
+    localStorage.removeItem("freedraw-polys");
+    freeDraw.clear();
+    searchNowListingMap();
   });
 
 
@@ -8453,15 +8542,15 @@ if ($active_marker_search) {
   //   window.location.reload();
   // });
   function searchReset() {
-    $('#search_string').val('');
-    
+    $('#search-box-input').val('');
+
     $('.propertStatus').prop('checked', false);
     $('.propertTypes').prop('checked', false);
     $('.featurecheck').prop('checked', false);
-    
+
     $('#selBedrooms').val('');
     $('#selBathrooms').val('');
-    
+
     clearDrawingsMap();
   }
 
