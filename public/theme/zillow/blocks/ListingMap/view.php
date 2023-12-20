@@ -7317,6 +7317,74 @@ $search_string = isset($_GET['search_term']) ? $_GET['search_term'] : '';
     fill-opacity: 0.3;
     stroke: #229643;
   }
+
+  .select2-results__option {
+    padding-right: 20px;
+    vertical-align: middle;
+  }
+
+  .select2-results__option:before {
+    content: "";
+    display: inline-block;
+    position: relative;
+    height: 20px;
+    width: 20px;
+    border: 2px solid #e9e9e9;
+    border-radius: 4px;
+    background-color: #fff;
+    margin-right: 20px;
+    vertical-align: middle;
+  }
+
+  .select2-results__option[aria-selected=true]:before {
+    font-family: fontAwesome;
+    content: "\f00c";
+    color: #fff;
+    background-color: #f77750;
+    border: 0;
+    display: inline-block;
+    padding-left: 3px;
+  }
+
+  #bedroomNo {
+    display: inline-block;
+    vertical-align: top;
+    overflow: hidden;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  .bedroom-option {
+    display: inline-block;
+    margin-right: 5px;
+    /* Additional styling for button appearance */
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+    cursor: pointer;
+  }
+
+  .bedroom-option.selected {
+    background-color: #337ab7;
+    color: white;
+  }
+
+  #bedsButton {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 1px solid black; /* Border around the button */
+    text-decoration: none; /* Remove underline from link */
+    color: black; /* Text color */
+    font-size: 16px; /* Font size */
+    background-color: white; /* Background color */
+    border-radius: 5px; /* Rounded corners */
+}
+
+#bedsButton .arrow {
+    display: inline-block;
+    margin-left: 5px;
+}
+
 </style>
 <link rel="stylesheet" href="/theme/zillow/assets/css/jquery-ui.css?<?php echo time(); ?>">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -7382,26 +7450,48 @@ if ($active_marker_search) {
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" />
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" />
+<!-- Bootstrap-Select CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
 <div class="inner-pages homepage-4 agents hp-6 full hd-white" style="height: 85vh;">
   <div data-zrr-key="static-search-page:search-app">
-    <div class="col-2">
-      <select class="form-control select2" id="search-box-input" onkeypress="search_text();" multiple="multiple"></select>
-    </div>
-    <div class="col-2">
-      <select class="selectpicker" multiple data-live-search="true">
-      <option selected>Open this select menu</option>
-        <?php
-        foreach ($active_listing_types_response->data as $listing_type) {
-          echo '<option value="'.$listing_type->id.'">' . $listing_type->displayname . '</option>';
-        }
-        ?>
-      </select>
+    <div class="row" style="margin-left:0.2%;">
+      <div class="col-2" style="padding-left: 5px; padding-right:5px;">
+        <select class="form-control select2" id="search-box-input" onkeypress="search_text();" multiple="multiple"></select>
+      </div>
+      <div class="col-1" style="padding-left: 5px; padding-right:5px;">
+        <select id="forSaleOrRent" multiple="multiple">
+          <?php
+          foreach ($active_property_types_response->data as $property_type) {
+            echo '<option value="' . $property_type->id . '" id="propertStatus' . $property_type->id . '" >' . $property_type->displayname . '</option>';
+          }
+          ?>
+        </select>
+      </div>
+      <div class="col-1" style="padding-left: 5px; padding-right:5px;">
+        <select class="" id="PropertyTypeSelect" multiple="multiple">
+          <?php
+          foreach ($active_listing_types_response->data as $listing_type) {
+            echo '<option value="' . $listing_type->id . '">' . $listing_type->displayname . '</option>';
+          }
+          ?>
+        </select>
+      </div>
+      <div class="col-1">
+        <!-- <div class="container mt-3">
+          <select class="selectpicker" multiple data-live-search="true">
+            <option>Option 1</option>
+            <option>Option 2</option>
+            <option>Option 3</option>
+            <option>Option 4</option>
+            <option>Option 5</option>
+          </select>
+        </div> -->
+      </div>
+      <div class="col-1">
+        <a data-toggle="popover" id="bedsButton" data-placement="bottom" data-html="true" title="Number of Bedrooms">Beds</a>
+      </div>
     </div>
     <section class="SearchPageHeaderContainer SearchPageHeaderContainer__StyledSearchPageHeaderContainer-srp__sc-h52t73-0 duceJr search-page-header wide has-floating-action-bar" aria-label="filters">
       <!-- <span id="clonedesktop" > -->
@@ -7660,16 +7750,39 @@ if ($active_marker_search) {
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.full.min.js"></script>
 
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.full.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 <script type="text/javascript">
- 
-  $(document).ready(function() { 
-    $('.select2').select2({
+  $(document).ready(function() {
+    $('[data-toggle="popover"]').popover();
+    $('#bedsButton').popover({
+        content: `
+                    <button value="0" class="">0</button>
+`,
+        trigger: 'click'
+    });
+
+    $('#PropertyTypeSelect').select2({
+      placeholder: "Property Type",
+      allowClear: true,
+    });
+
+
+    $('#forSaleOrRent').select2({
+      placeholder: "Property Status",
+      allowClear: true,
+      minimumResultsForSearch: Infinity
+    });
+
+
+    $('#search-box-input').select2({
       maximumSelectionLength: 10,
       tokenSeparators: [',', ' '],
-      placeholder: "Select or type keywords",
+      placeholder: "District, Municipality, Location",
       minimumInputLength: 1,
       ajax: {
         url: "/api/getLocationSearch",
@@ -8600,6 +8713,13 @@ if ($active_marker_search) {
         $("#property_type_desktopdiv").css("display", "none");
       }
     }
+  }
+
+  function iformat(icon, badge, ) {
+    var originalOption = icon.element;
+    var originalOptionBadge = $(originalOption).data('badge');
+
+    return $('<span><i class="fa ' + $(originalOption).data('icon') + '"></i> ' + icon.text + '<span class="badge">' + originalOptionBadge + '</span></span>');
   }
   $(window).resize(function() {
     replace_divs()
