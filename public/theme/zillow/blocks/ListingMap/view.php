@@ -7369,22 +7369,65 @@ $search_string = isset($_GET['search_term']) ? $_GET['search_term'] : '';
     color: white;
   }
 
-  #bedsButton {
+  .navButton {
     display: inline-block;
     padding: 10px 20px;
-    border: 1px solid black; /* Border around the button */
-    text-decoration: none; /* Remove underline from link */
-    color: black; /* Text color */
-    font-size: 16px; /* Font size */
-    background-color: white; /* Background color */
-    border-radius: 5px; /* Rounded corners */
-}
+    border: 1px solid black;
+    /* Border around the button */
+    text-decoration: none;
+    /* Remove underline from link */
+    color: black;
+    /* Text color */
+    font-size: 16px;
+    /* Font size */
+    background-color: white;
+    /* Background color */
+    border-radius: 5px;
+    /* Rounded corners */
+  }
 
-#bedsButton .arrow {
+  .btn {
+    background: transparent !important;
+  }
+
+  .bootstrap-select {
+    max-width: 200px;
+  }
+
+  .bootstrap-select .btn {
+    background: white;
+    margin-top: 0px;
+    margin-left: 5px !important;
+    margin-right: 5px;
+    border: 1px solid;
+    border-radius: 5px;
+    border-color: black;
+  }
+
+  .bootstrap-select .dropdown-menu {
+    margin: 15px 0 0;
+  }
+
+  select::-ms-expand {
+    /* for IE 11 */
+    display: none;
+  }
+
+  .navButton .arrow {
     display: inline-block;
     margin-left: 5px;
-}
+  }
 
+  .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+    /* width:220px; */
+    width: 100% !important;
+    /* height: 100%; */
+  }
+
+  .popover {
+    max-width: 100%;
+    /* Max Width of the popover (depending on the container!) */
+  }
 </style>
 <link rel="stylesheet" href="/theme/zillow/assets/css/jquery-ui.css?<?php echo time(); ?>">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -7424,6 +7467,7 @@ $active_features = $active_features_response->data;
 $active_listing_types_response = Helper::get_active_listing_types();
 $active_listing_types_response = json_decode($active_listing_types_response);
 
+
 $active_property_types_response = Helper::get_active_property_types();
 $active_property_types_response = json_decode($active_property_types_response);
 
@@ -7446,14 +7490,17 @@ if ($active_marker_search) {
 ?>
 
 
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" />
-<!-- Bootstrap-Select CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+  <!-- Bootstrap-Select CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" />
+</head>
+
+
+
 <div class="inner-pages homepage-4 agents hp-6 full hd-white" style="height: 85vh;">
   <div data-zrr-key="static-search-page:search-app">
     <div class="row" style="margin-left:0.2%;">
@@ -7461,7 +7508,7 @@ if ($active_marker_search) {
         <select class="form-control select2" id="search-box-input" onkeypress="search_text();" multiple="multiple"></select>
       </div>
       <div class="col-1" style="padding-left: 5px; padding-right:5px;">
-        <select id="forSaleOrRent" multiple="multiple">
+        <select class="selectpicker" multiple data-live-search="true" multiple data-selected-text-format="count" multiple title="Property Status">
           <?php
           foreach ($active_property_types_response->data as $property_type) {
             echo '<option value="' . $property_type->id . '" id="propertStatus' . $property_type->id . '" >' . $property_type->displayname . '</option>';
@@ -7469,8 +7516,8 @@ if ($active_marker_search) {
           ?>
         </select>
       </div>
-      <div class="col-1" style="padding-left: 5px; padding-right:5px;">
-        <select class="" id="PropertyTypeSelect" multiple="multiple">
+      <div class="col-1">
+        <select class="selectpicker" multiple data-live-search="true" multiple data-selected-text-format="count" multiple title="Property Type">
           <?php
           foreach ($active_listing_types_response->data as $listing_type) {
             echo '<option value="' . $listing_type->id . '">' . $listing_type->displayname . '</option>';
@@ -7478,20 +7525,50 @@ if ($active_marker_search) {
           ?>
         </select>
       </div>
+      
       <div class="col-1">
-        <!-- <div class="container mt-3">
-          <select class="selectpicker" multiple data-live-search="true">
-            <option>Option 1</option>
-            <option>Option 2</option>
-            <option>Option 3</option>
-            <option>Option 4</option>
-            <option>Option 5</option>
-          </select>
-        </div> -->
+        <button data-toggle="popover" class="navButton" id="bedsButton" data-placement="bottom" data-html="true" title="Number of Bedrooms">Beds</button>
+        <div id="popover-content-bedsButton" style="display:none;">
+          <div class="">
+            <fieldset class="filter_beds">
+              <legend>Bedrooms</legend>
+              <div aria-label="Beds Select" class="" role="group"><button aria-disabled="false" aria-pressed="true" value="0" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp">Any</button><button aria-disabled="false" aria-pressed="false" value="1" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp">1+</button><button aria-disabled="false" aria-pressed="false" value="2" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp">2+</button><button aria-disabled="false" aria-pressed="false" value="3" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp">3+</button><button aria-disabled="false" aria-pressed="false" value="4" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp">4+</button><button aria-disabled="false" aria-pressed="false" value="5" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp">5+</button></div>
+              <div class="">
+                <!-- <div class="">
+                  <input id="exposed-filters-exact-beds" class="" type="checkbox"><label for="exposed-filters-exact-beds" class="StyledLabel-c11n-8-84-3__sc-qq9hfi-0 bvZsmk short-label">Use exact
+                    match&nbsp;</label>
+                </div> -->
+              </div>
+            </fieldset>
+          </div>
+        </div>
       </div>
       <div class="col-1">
-        <a data-toggle="popover" id="bedsButton" data-placement="bottom" data-html="true" title="Number of Bedrooms">Beds</a>
+        <button href="#" data-toggle="popover" class="navButton" id="priceButton" data-placement="bottom" title="Price Range">Price</button>
+        <div id="popover-content-priceButton" style="display:none;">
+          <form id="priceForm" autocomplete="off">
+            <div>
+              <label for="minPrice">Min Price</label>
+              <select id="minPrice" name="minPrice">
+                <option value="">Any</option>
+                <option value="50000">$50,000</option>
+                <option value="100000">$100,000</option>
+              </select>
+
+              <label for="maxPrice">Max Price</label>
+              <select id="maxPrice" name="maxPrice">
+                <option value="">Any</option>
+                <option value="200000">$200,000</option>
+                <option value="300000">$300,000</option>
+              </select>
+            </div>
+            <div>
+              <button type="button" class="submitPrice">Apply</button>
+            </div>
+          </form>
+        </div>
       </div>
+      
     </div>
     <section class="SearchPageHeaderContainer SearchPageHeaderContainer__StyledSearchPageHeaderContainer-srp__sc-h52t73-0 duceJr search-page-header wide has-floating-action-bar" aria-label="filters">
       <!-- <span id="clonedesktop" > -->
@@ -7750,22 +7827,50 @@ if ($active_marker_search) {
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.full.min.js"></script>
+<!-- Bootstrap JS -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap-Select JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.full.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {
-    $('[data-toggle="popover"]').popover();
-    $('#bedsButton').popover({
-        content: `
-                    <button value="0" class="">0</button>
-`,
-        trigger: 'click'
+
+    $("[data-toggle=popover]").each(function(i, obj) {
+      $(this).popover({
+        html: true,
+        sanitize: false,
+        content: function() {
+          var id = $(this).attr('id');
+          return $('#popover-content-' + id).html();
+        }
+      });
     });
 
+    $('body').on('click', '.filter_beds button', function() {
+      var bedValue = $(this).text();
+
+      $('#bedsButton').text(bedValue);
+
+    });
+
+    $('body').on('change', '.popover #minPrice, .popover #maxPrice', function() {
+        // Fetch the selected values from the dropdowns within the active popover
+        var minPrice = $('.popover #minPrice').find(":selected").text();
+        var maxPrice = $('.popover #maxPrice').find(":selected").text();
+
+        console.log(minPrice);
+        console.log(maxPrice);
+
+        var priceText = 'Price: ';
+
+        priceText += minPrice !== 'Any' ? 'Min ' + minPrice : 'Min Any';
+        priceText += ' - ';
+        priceText += maxPrice !== 'Any' ? 'Max ' + maxPrice : 'Max Any';
+
+        $('#priceButton').text(priceText);
+    });
     $('#PropertyTypeSelect').select2({
       placeholder: "Property Type",
       allowClear: true,
@@ -7815,6 +7920,8 @@ if ($active_marker_search) {
         }
       }
     });
+
+
     // $('#searchButton').click(function() {
     //   var selectedData = $('#search-box-input').select2('data');
     //   var propertyStatus = $('#propertyStatusDropdown').val();
