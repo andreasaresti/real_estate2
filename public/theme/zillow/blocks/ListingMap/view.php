@@ -7369,22 +7369,16 @@ $search_string = isset($_GET['search_term']) ? $_GET['search_term'] : '';
     color: white;
   }
 
-  .navButton {
+  /* .navButton {
     display: inline-block;
     padding: 10px 20px;
     border: 1px solid black;
-    /* Border around the button */
     text-decoration: none;
-    /* Remove underline from link */
     color: black;
-    /* Text color */
-    font-size: 16px;
-    /* Font size */
+        font-size: 16px;
     background-color: white;
-    /* Background color */
     border-radius: 5px;
-    /* Rounded corners */
-  }
+  } */
 
   .btn {
     background: transparent !important;
@@ -7425,8 +7419,39 @@ $search_string = isset($_GET['search_term']) ? $_GET['search_term'] : '';
   }
 
   .popover {
-    max-width: 100%;
+    max-width: 25%;
     /* Max Width of the popover (depending on the container!) */
+  }
+
+  .morePop {
+    height: 500px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: center;
+    /* This aligns the checkbox and label vertically */
+  }
+
+  .feature-item .featurecheck {
+    margin-right: 10px;
+    /* Adjust as needed */
+  }
+
+  .moreRows {
+    padding-top: 15px;
+    padding-right: 25px;
+  }
+
+  .moreH3 {
+    padding-bottom: 5px;
+
+  }
+
+  .form-control {
+    height: 100% !important;
   }
 </style>
 <link rel="stylesheet" href="/theme/zillow/assets/css/jquery-ui.css?<?php echo time(); ?>">
@@ -7501,23 +7526,23 @@ if ($active_marker_search) {
 
 
 
-<div class="inner-pages homepage-4 agents hp-6 full hd-white" style="height: 85vh;">
+<div class="inner-pages homepage-4 agents hp-6 full hd-white">
   <div data-zrr-key="static-search-page:search-app">
     <div class="row" style="margin-left:0.2%;">
       <div class="col-2" style="padding-left: 5px; padding-right:5px;">
         <select class="form-control select2" id="search-box-input" onkeypress="search_text();" multiple="multiple"></select>
       </div>
       <div class="col-1" style="padding-left: 5px; padding-right:5px;">
-        <select class="selectpicker" multiple data-live-search="true" multiple data-selected-text-format="count" multiple title="Property Status">
+        <select class="selectpicker propertStatus" multiple data-live-search="true" data-size="5" multiple data-selected-text-format="count" multiple title="Property Status">
           <?php
           foreach ($active_property_types_response->data as $property_type) {
-            echo '<option value="' . $property_type->id . '" id="propertStatus' . $property_type->id . '" >' . $property_type->displayname . '</option>';
+            echo '<option value="' . $property_type->id . '" class="propertStatus" id="propertStatus' . $property_type->id . '" >' . $property_type->displayname . '</option>';
           }
           ?>
         </select>
       </div>
       <div class="col-1">
-        <select class="selectpicker" multiple data-live-search="true" multiple data-selected-text-format="count" multiple title="Property Type">
+        <select class="selectpicker propertType" multiple data-live-search="true" multiple data-selected-text-format="count" multiple title="Property Type">
           <?php
           foreach ($active_listing_types_response->data as $listing_type) {
             echo '<option value="' . $listing_type->id . '">' . $listing_type->displayname . '</option>';
@@ -7525,50 +7550,204 @@ if ($active_marker_search) {
           ?>
         </select>
       </div>
-      
-      <div class="col-1">
-        <button data-toggle="popover" class="navButton" id="bedsButton" data-placement="bottom" data-html="true" title="Number of Bedrooms">Beds</button>
-        <div id="popover-content-bedsButton" style="display:none;">
+
+      <div class="col-2">
+        <button data-toggle="popover" class="form-control" id="bedsAndBathButton" data-placement="bottom" data-html="true" title="Number of Bedrooms and Bathrooms">Beds & Bathrooms</button>
+        <div id="popover-content-bedsAndBathButton" style="display:none;">
           <div class="">
             <fieldset class="filter_beds">
               <legend>Bedrooms</legend>
-              <div aria-label="Beds Select" class="" role="group"><button aria-disabled="false" aria-pressed="true" value="0" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp">Any</button><button aria-disabled="false" aria-pressed="false" value="1" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp">1+</button><button aria-disabled="false" aria-pressed="false" value="2" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp">2+</button><button aria-disabled="false" aria-pressed="false" value="3" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp">3+</button><button aria-disabled="false" aria-pressed="false" value="4" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp">4+</button><button aria-disabled="false" aria-pressed="false" value="5" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp">5+</button></div>
+              <div aria-label="Beds Select" class="" role="group">
+                <button aria-disabled="false" aria-pressed="true" value="0" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp">Any</button>
+                <button aria-disabled="false" aria-pressed="false" value="1" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp">1+</button>
+                <button aria-disabled="false" aria-pressed="false" value="2" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp">2+</button>
+                <button aria-disabled="false" aria-pressed="false" value="3" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp">3+</button>
+                <button aria-disabled="false" aria-pressed="false" value="4" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp">4+</button>
+                <button aria-disabled="false" aria-pressed="false" value="5" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp">5+</button>
+              </div>
               <div class="">
-                <!-- <div class="">
-                  <input id="exposed-filters-exact-beds" class="" type="checkbox"><label for="exposed-filters-exact-beds" class="StyledLabel-c11n-8-84-3__sc-qq9hfi-0 bvZsmk short-label">Use exact
-                    match&nbsp;</label>
-                </div> -->
+                <div class="">
+                  <input id="exposed-filters-exact-beds-check" class="" type="checkbox">
+                  <label for="exposed-filters-exact-beds" class="">Use exact match&nbsp;</label>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="">
+            <fieldset class="filter_baths">
+              <legend>Bathrooms</legend>
+              <div name="baths-options" aria-label="Baths Select" class="" role="group">
+                <button aria-disabled="false" aria-pressed="true" value="0" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp">Any</button>
+                <button aria-disabled="false" aria-pressed="false" value="1" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp">1+</button>
+                <button aria-disabled="false" aria-pressed="false" value="1.5" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp">1.5+</button>
+                <button aria-disabled="false" aria-pressed="false" value="2" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp">2+</button>
+                <button aria-disabled="false" aria-pressed="false" value="3" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp">3+</button>
+                <button aria-disabled="false" aria-pressed="false" value="4" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp">4+</button>
               </div>
             </fieldset>
           </div>
         </div>
       </div>
-      <div class="col-1">
-        <button href="#" data-toggle="popover" class="navButton" id="priceButton" data-placement="bottom" title="Price Range">Price</button>
+      <div class="col-2">
+        <button href="#" data-toggle="popover" class="form-control" id="priceButton" data-placement="bottom" title="Price Range">Price</button>
         <div id="popover-content-priceButton" style="display:none;">
-          <form id="priceForm" autocomplete="off">
-            <div>
-              <label for="minPrice">Min Price</label>
-              <select id="minPrice" name="minPrice">
-                <option value="">Any</option>
-                <option value="50000">$50,000</option>
-                <option value="100000">$100,000</option>
-              </select>
-
-              <label for="maxPrice">Max Price</label>
-              <select id="maxPrice" name="maxPrice">
-                <option value="">Any</option>
-                <option value="200000">$200,000</option>
-                <option value="300000">$300,000</option>
-              </select>
+          <form id="priceForm" autocomplete="off" style="width:300px;">
+            <div class="row">
+              <div class="col-5">
+                <label for="minPrice">Min Price</label>
+              </div>
+              <div class="col-2">
+                <p></p>
+              </div>
+              <div class="col-5">
+                <label for="maxPrice">Max Price</label>
+              </div>
             </div>
-            <div>
-              <button type="button" class="submitPrice">Apply</button>
+            <div class="row">
+              <div class="col-5">
+                <select id="minPrice" name="minPrice">
+                  <option value="">Any</option>
+                  <option value="50000">$50,000</option>
+                  <option value="100000">$100,000</option>
+                </select>
+              </div>
+              <div class="col-2 text-center pl-0 pr-0">
+                <p>-</p>
+              </div>
+              <div class="col-5">
+                <select id="maxPrice" name="maxPrice">
+                  <option value="">Any</option>
+                  <option value="200000">$200,000</option>
+                  <option value="300000">$300,000</option>
+                </select>
+              </div>
             </div>
           </form>
         </div>
       </div>
-      
+      <div class="col-1">
+        <!-- <div class=" dropdown-filter" style="border: 1px solid;border-radius: 5px;border-color: black;width: 100px;height: 45px;margin-right: 25px;display: flex;justify-content: center;align-items: center;">
+          <a>More</a>
+        </div> -->
+        <button data-toggle="popover" class="form-control" id="moreButton" data-placement="bottom" data-html="true" title="More">More</button>
+        <div id="popover-content-moreButton" style="display:none;">
+          <div class="morePop">
+            <div class="row">
+              <div class="col-lg-4 col-md-6 py-1 pr-30 pl-0 " id="location_mobilediv" style="width: 132px"></div>
+              <div class="col-lg-4 col-md-6 py-1 pr-30 pl-0 " id="property_status_mobilediv" style="width: 175x"></div>
+              <div class="col-lg-4 col-md-6 py-1 pr-30 pl-0 " id="property_type_mobilediv" style="width: 132px"></div>
+            </div>
+            <div class="row">
+              <form id="squareFeetForm" class="col-12" style="padding-right: 25px;" autocomplete="off">
+                <div class="row">
+                  <div class="col-12">
+                    <h3 for="minSquareFeet" class="moreH3 ">Square Feet</h3>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-5">
+                    <select id="minSquareFeet" name="minSquareFeet">
+                      <option value="">0</option>
+                      <option value="500">500</option>
+                      <option value="750">750</option>
+                    </select>
+                  </div>
+                  <div class="col-xx text-center pl-0 pr-0">
+                    <p>-</p>
+                  </div>
+                  <div class="col-5">
+                    <select id="maxSquareFeet" name="maxSquareFeet">
+                      <option value="">0</option>
+                      <option value="500">500</option>
+                      <option value="750">750</option>
+                    </select>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="row">
+              <form id="lotSizeForm" class="col-12 moreRows" autocomplete="off">
+                <div class="row">
+                  <div class="col-12">
+                    <h3 for="minLotSize" class="moreH3">Lot Size</h3>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-5">
+                    <select id="minLotSize" name="minLotSize">
+                      <option value="">0</option>
+                      <option value="500">500</option>
+                      <option value="750">750</option>
+                    </select>
+                  </div>
+                  <div class="col-xx text-center pl-0 pr-0">
+                    <p>-</p>
+                  </div>
+                  <div class="col-5">
+                    <select id="maxLotSize" name="maxLotSize">
+                      <option value="">0</option>
+                      <option value="500">500</option>
+                      <option value="750">750</option>
+                    </select>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 moreRows" style="  padding-left: 0px !important;">
+              <h3 class="moreH3">Other Features!</h6>
+                <!-- Checkboxes -->
+                <div class="checkboxes margin-bottom-10">
+                  <?php
+                  $halfPoint = ceil(count($active_features) / 2);
+                  foreach ($active_features as $key => $feature) {
+                    if ($key % $halfPoint == 0) {
+                      if ($key != 0) {
+                        echo '</div>';
+                      }
+                      echo '<div class="row">';
+                    }
+
+                    echo '<div class="col-md-6 feature-item">';
+                    echo '<input id="fcheck-' . $feature->id . '" type="checkbox" class="featurecheck" value="' . $feature->id . '" name="features[]">';
+                    echo '<label for="fcheck-' . $feature->id . '">' . $feature->displayname . '</label>';
+                    echo '</div>';
+
+                    if ($key % $halfPoint == $halfPoint - 1) {
+                      echo '</div>';
+                    }
+                  }
+                  if (count($active_features) % $halfPoint != 0) {
+                    echo '</div>';
+                  }
+                  ?>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-1">
+          <div class="search-page-action-bar">
+            <div class="action-bar-left-content">
+              <button onclick="searchNowListingMap()" class="form-control save-search-button" tabindex="0" role="button" type="button" rel="nofollow" aria-label="Save search" aria-expanded="false" aria-haspopup="dialog">
+                Search Now
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-1">
+          <div class="action-bar-left-content">
+            <button onclick="searchReset()" class="form-control save-search-button" tabindex="0" role="button" type="button" rel="nofollow" aria-label="Save search" aria-expanded="false" aria-haspopup="dialog">
+              Reset Search
+            </button>
+          </div>
+          <div class="action-bar-right-content">
+
+            <a class="saved-homes-link saved-homes-visual-audit" tabindex="0" rel="nofollow" aria-label="Saved Homes" href="/myzillow/favorites"><strong></strong></a>
+            <!-- //2 Saved Homes -->
+          </div>
+        </div>
+      </div>
+
     </div>
     <section class="SearchPageHeaderContainer SearchPageHeaderContainer__StyledSearchPageHeaderContainer-srp__sc-h52t73-0 duceJr search-page-header wide has-floating-action-bar" aria-label="filters">
       <!-- <span id="clonedesktop" > -->
@@ -7613,149 +7792,12 @@ if ($active_marker_search) {
           </ul>
         </nav>
       </div>
-      <div class="rld-single-select searchBarDiv" id="property_status_desktopdiv" style="width: 175px;">
-        <input type="hidden" id="selActivePropertStatus" name="selActivePropertStatus" value="">
-        <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: black;">
-          <ul>
-            <li><a>Property Status</a>
-              <ul id="activePropertStatus">
-                <?php
-                foreach ($active_property_types_response->data as $property_type) {
-                  echo '<li><a style="display: flex;align-items: center;"><input type="checkbox" class="propertStatus" value="' . $property_type->id . '" id="propertStatus' . $property_type->id . '" >' . $property_type->displayname . '</a></li>';
-                }
-                ?>
-              </ul>
-            </li>
-          </ul>
-        </nav>
-      </div>
-      <div class="rld-single-select searchBarDiv" id="property_type_desktopdiv" style="width: 175px;">
-        <input type="hidden" id="selActivePropertType" name="selActivePropertType" value="">
-        <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: black;">
-          <ul>
-            <li><a>Property Type</a>
-              <ul id="activePropertType">
-                <?php
-                foreach ($active_listing_types_response->data as $listing_type) {
-                  echo '<li><a style="display: flex;align-items: center;"><input type="checkbox" class="propertTypes" name="property_types[]" value="' . $listing_type->id . '" id="propertTypes' . $listing_type->id . '">' . $listing_type->displayname . '</a></li>';
-                }
-                ?>
-              </ul>
-            </li>
-          </ul>
-        </nav>
-      </div>
-
+      
       <!-- </span> -->
       <!-- <div id="clonemobile">clone mobile</div> -->
 
-      <div class=" dropdown-filter" style="border: 1px solid;border-radius: 5px;border-color: black;width: 100px;height: 45px;margin-right: 25px;display: flex;justify-content: center;align-items: center;">
-        <a>More</a>
-      </div>
-      <div class="search-page-action-bar">
-        <div class="action-bar-left-content">
-          <button onclick="searchNowListingMap()" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 sbjHp StyledFilterButton-srp__sc-vk62hb-0 jLwrOl DropdownPopper-c11n-8-84-3__sc-1vnow1h-0 bsFbQm save-search-button" tabindex="0" role="button" type="button" rel="nofollow" aria-label="Save search" aria-expanded="false" aria-haspopup="dialog">
-            Search Now
-          </button>
 
-        </div>
-        <div class="action-bar-left-content" style="margin-left: 20px;">
-          <button onclick="searchReset()" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 sbjHp StyledFilterButton-srp__sc-vk62hb-0 jLwrOl DropdownPopper-c11n-8-84-3__sc-1vnow1h-0 bsFbQm save-search-button" tabindex="0" role="button" type="button" rel="nofollow" aria-label="Save search" aria-expanded="false" aria-haspopup="dialog">
-            Reset Search
-          </button>
-        </div>
-        <div class="action-bar-right-content">
 
-          <a class="saved-homes-link saved-homes-visual-audit" tabindex="0" rel="nofollow" aria-label="Saved Homes" href="/myzillow/favorites"><strong></strong></a>
-          <!-- //2 Saved Homes -->
-        </div>
-      </div>
-      <div id="advancedSearch" style="position: absolute;margin-top: 60px;" class="rld-main-search explore__form-checkbox-list full-filter">
-        <div class="row">
-          <div class="col-lg-4 col-md-6 py-1 pr-30 pl-0 " id="location_mobilediv" style="width: 132px"></div>
-          <div class="col-lg-4 col-md-6 py-1 pr-30 pl-0 " id="property_status_mobilediv" style="width: 175x"></div>
-          <div class="col-lg-4 col-md-6 py-1 pr-30 pl-0 " id="property_type_mobilediv" style="width: 132px"></div>
-          <div class="col-lg-4 col-md-6 py-1 pr-30 pl-0 ">
-            <!-- Form Bedrooms -->
-            <div class="form-group beds" style="display: flex;" id="searchFormBedrooms">
-              <i class="fa fa-bed" aria-hidden="true" style="align-self: center;width: 20px;"></i>
-              <select class="select single-select" id="selBedrooms">
-                <option value="0">Bedrooms</option>
-                <?php for ($i = 1; $i <= 10; $i++) {
-                ?>
-                  <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                <?php
-                }
-                ?>
-              </select>
-            </div>
-            <!--/ End Form Bedrooms -->
-          </div>
-          <div class="col-lg-4 col-md-6 py-1 pl-0 pr-0">
-            <!-- Form Bathrooms -->
-            <div class="form-group bath" style="display: flex;" id="searchFormBathrooms">
-              <i class="fa fa-bath" aria-hidden="true" style="align-self: center;width: 20px;"></i>
-              <select class="select single-select" id="selBathrooms">
-                <option value="0">Bathrooms</option>
-                <?php for ($i = 1; $i <= 10; $i++) {
-                ?>
-                  <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                <?php
-                }
-                ?>
-              </select>
-
-            </div>
-            <!--/ End Form Bathrooms -->
-          </div>
-          <div class="col-lg-5 col-md-12 col-sm-12 py-1 pr-30 mr-5 sld">
-            <!-- Price Fields -->
-            <div class="main-search-field-2">
-              <!-- Area Range -->
-              <div class="range-slider">
-                <label>Area Size</label>
-                <div id="area-range" data-min="0" data-max="1300" data-unit="sq meters"></div>
-                <div class="clearfix"></div>
-              </div>
-              <br>
-              <!-- Price Range -->
-              <div class="range-slider">
-                <label>Price Range</label>
-                <div id="price-range" data-min="0" data-max="600000" data-unit="€"></div>
-                <div class="clearfix"></div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30">
-            <!-- Checkboxes -->
-            <div class="checkboxes one-in-row margin-bottom-10 ch-1" id="activefeaturesLeft">
-              <?php
-              foreach ($active_features as $key => $feature) {
-                if ($key <= count($active_features) / 2) {
-                  echo '<input id="fcheck-' . $feature->id . '" type="checkbox" class="featurecheck" value="' . $feature->id . '" name="features[]"">
-                                                                        <label for="fcheck-' . $feature->id . '" >' . $feature->displayname . '</label>';
-                }
-              }
-              ?>
-            </div>
-            <!-- Checkboxes / End -->
-          </div>
-          <div class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30">
-            <!-- Checkboxes -->
-            <div class="checkboxes one-in-row margin-bottom-10 ch-2" id="activefeaturesRight">
-              <?php
-              foreach ($active_features as $key => $feature) {
-                if ($key > count($active_features) / 2) {
-                  echo '<input id="fcheck-' . $feature->id . '" type="checkbox" class="featurecheck" value = "' . $feature->id . '">
-                                                                        <label for="fcheck-' . $feature->id . '">' . $feature->displayname . '</label>';
-                }
-              }
-              ?>
-            </div>
-            <!-- Checkboxes / End -->
-          </div>
-        </div>
-      </div>
     </section>
   </div>
 
@@ -7836,7 +7878,10 @@ if ($active_marker_search) {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {
+    var selectedBedValue = 'Any';
+    var selectedBathroomValue = 'Any';
 
+    //Takes the id for a popover and loads it according to what is passed
     $("[data-toggle=popover]").each(function(i, obj) {
       $(this).popover({
         html: true,
@@ -7848,44 +7893,73 @@ if ($active_marker_search) {
       });
     });
 
+    //Listens for when a button inside the filter_beds class is pressed and updates as needed
     $('body').on('click', '.filter_beds button', function() {
-      var bedValue = $(this).text();
+      selectedBedValue = $(this).text();
+      updateSelectionText();
+    });
 
-      $('#bedsButton').text(bedValue);
+    //Listens for when a button inside the filter_baths class is pressed and updates as needed
+    $('body').on('click', '.filter_baths button', function() {
+      selectedBathroomValue = $(this).text();
+      updateSelectionText();
+    });
 
+    //Updates the text displayed at the top field of the bed and bath button
+    function updateSelectionText() {
+      var displayText = selectedBedValue + ' Beds - ' + selectedBathroomValue + ' Bathrooms';
+      $('#bedsAndBathButton').text(displayText);
+    }
+
+    $('body').on('change', '#exposed-filters-exact-beds-check', function() {
+      var useExactMatch = $(this).is(':checked');
+
+      $('.filter_beds button').each(function() {
+        var buttonText = $(this).text();
+
+        if (useExactMatch) {
+          buttonText = buttonText.replace('+', '');
+        } else {
+          var buttonValue = $(this).attr('value');
+          if (buttonValue !== '0' && !buttonText.includes('+')) {
+            buttonText += '+';
+          }
+        }
+
+        $(this).text(buttonText);
+      });
+      var bedsButtonText = $('#bedsAndBathButton').text();
+      if (useExactMatch) {
+        selectedBedValue = selectedBedValue.replace('+', '');
+      } else {
+        if (!selectedBedValue.includes('+') && selectedBedValue !== 'Any') {
+          selectedBedValue += '+';
+        }
+      }
+      updateSelectionText();
     });
 
     $('body').on('change', '.popover #minPrice, .popover #maxPrice', function() {
-        // Fetch the selected values from the dropdowns within the active popover
-        var minPrice = $('.popover #minPrice').find(":selected").text();
-        var maxPrice = $('.popover #maxPrice').find(":selected").text();
+      // Fetch the selected values from the dropdowns within the active popover
+      var minPrice = $('.popover #minPrice').find(":selected").text();
+      var maxPrice = $('.popover #maxPrice').find(":selected").text();
 
-        console.log(minPrice);
-        console.log(maxPrice);
+      console.log(minPrice);
+      console.log(maxPrice);
 
-        var priceText = 'Price: ';
+      var priceText = 'Price: ';
 
-        priceText += minPrice !== 'Any' ? 'Min ' + minPrice : 'Min Any';
-        priceText += ' - ';
-        priceText += maxPrice !== 'Any' ? 'Max ' + maxPrice : 'Max Any';
+      priceText += minPrice !== 'Any' ? 'Min ' + minPrice : 'Min Any';
+      priceText += ' - ';
+      priceText += maxPrice !== 'Any' ? 'Max ' + maxPrice : 'Max Any';
 
-        $('#priceButton').text(priceText);
-    });
-    $('#PropertyTypeSelect').select2({
-      placeholder: "Property Type",
-      allowClear: true,
-    });
-
-
-    $('#forSaleOrRent').select2({
-      placeholder: "Property Status",
-      allowClear: true,
-      minimumResultsForSearch: Infinity
+      $('#priceButton').text(priceText);
     });
 
 
     $('#search-box-input').select2({
       maximumSelectionLength: 10,
+      size: '10',
       tokenSeparators: [',', ' '],
       placeholder: "District, Municipality, Location",
       minimumInputLength: 1,
@@ -8059,13 +8133,15 @@ if ($active_marker_search) {
   function loadActiveListingsListingGrid(maker_position, set, zoom, freedraw = false) {
     customer_id = '<?php echo $user_id; ?>';
     number_of_bathrooms = "";
-    if (document.getElementById("selBathrooms").value > 0) {
-      number_of_bathrooms = document.getElementById("selBathrooms").value;
-    }
+    // if (document.getElementById("selBathrooms").value > 0) {
+    //   number_of_bathrooms = document.getElementById("selBathrooms").value;
+    // }
+    number_of_bathrooms = 0;
     number_of_bedrooms = "";
-    if (document.getElementById("selBedrooms").value > 0) {
-      number_of_bedrooms = document.getElementById("selBedrooms").value;
-    }
+    // if (document.getElementById("selBedrooms").value > 0) {
+    //   number_of_bedrooms = document.getElementById("selBedrooms").value;
+    // }
+    number_of_bedrooms = 0;
     var tempFeatures = [];
     var features = document.getElementsByClassName('featurecheck');
     for (var j = 0; j < features.length; j++) {
@@ -8095,20 +8171,32 @@ if ($active_marker_search) {
         tempLocationArr.push(locations[j].value);
       }
     }
+
+
     var tempPropertStatus = [];
-    var propertStatus = document.getElementsByClassName('propertStatus');
-    for (var j = 0; j < propertStatus.length; j++) {
-      if (propertStatus[j].checked) {
-        tempPropertStatus.push(propertStatus[j].value);
+    var propertyStatusSelect = document.querySelector('.selectpicker.propertStatus'); 
+    if (propertyStatusSelect) {
+      var options = propertyStatusSelect.options;
+      for (var j = 0; j < options.length; j++) {
+        if (options[j].selected) {
+          tempPropertStatus.push(options[j].value);
+        }
       }
     }
+
+
     var tempPropertTypes = [];
-    var propertTypes = document.getElementsByClassName('propertTypes');
-    for (var j = 0; j < propertTypes.length; j++) {
-      if (propertTypes[j].checked) {
-        tempPropertTypes.push(propertTypes[j].value);
+    var propertTypes = document.querySelector('.selectpicker.propertType');
+    if (propertyStatusSelect) {
+      var options = propertTypes.options;
+      for (var j = 0; j < options.length; j++) {
+        if (options[j].selected) {
+          tempPropertTypes.push(options[j].value);
+        }
       }
     }
+
+
 
     var price1 = 0;
     var size1 = 0;
@@ -8624,7 +8712,7 @@ if ($active_marker_search) {
     //document.getElementById("showCircleListingMap").style.background = "rgb(255, 255, 255)";
     //document.getElementById("showCircleListingMap").style.color = "rgb(0, 0, 0)";
     //document.getElementById("showCircleListingMap").innerHTML = "Draw";
-    hiddenAdvancedDivListingMap();
+    //hiddenAdvancedDivListingMap();
     loadActiveListingsListingMap([0, 0], 0, 9);
 
   }
@@ -8755,9 +8843,9 @@ if ($active_marker_search) {
     }
   }
 
-  function hiddenAdvancedDivListingMap() {
-    document.getElementById('advancedSearch').className = "explore__form-checkbox-list full-filter";
-  }
+  // function hiddenAdvancedDivListingMap() {
+  //   document.getElementById('advancedSearch').className = "explore__form-checkbox-list full-filter";
+  // }
   // $(window).resize(function() {
   //   window.location.reload();
   // });
