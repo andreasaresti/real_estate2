@@ -920,9 +920,7 @@ $menu_response = json_decode($menu_response);
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.full.min.js"></script>
 
 <script>
-  $(document).ready(function() {
-
-    $('.select2').select2({
+   $('.select2').select2({
       maximumSelectionLength: 10,
       tokenSeparators: [',', ' '],
       placeholder: "Select or type keywords",
@@ -958,6 +956,9 @@ $menu_response = json_decode($menu_response);
         }
       }
     });
+  $(document).ready(function() {
+
+   
 
     $('#searchButton').click(function() {
       var selectedData = $('#search-box-input').select2('data');

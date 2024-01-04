@@ -42,7 +42,6 @@
         "spatie/laravel-translatable": "^6.3",
         "spatie/nova-tags-field": "^4.0",
         "titasgailius/search-relations": "^2.0",
-        "twbs/bootstrap": "^5.3",
         "ziffmedia/nova-select-plus": "^2.0"
     },
     "require-dev": {

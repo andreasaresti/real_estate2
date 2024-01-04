@@ -75,7 +75,40 @@ class Helper
         return SearchHash::where('hash', $id)->first();
     }
 
-    public static function get_active_district()
+    
+
+    public static function get_selected_locations($post_data = [])
+    {
+        $selected_locations_array = [];
+
+        $districts = isset($_GET['district'])?explode(',',$_GET['district']):array();
+        $municipalities = isset($_GET['municipality'])?explode(',',$_GET['municipality']):array();
+        $locations = isset($_GET['location'])?explode(',',$_GET['location']):array();
+
+        if(count($districts) > 0){
+            $districts_result = District::whereIn('id', $districts)->get();
+            foreach($districts_result as $district){
+                $selected_locations_array[] = ['id' => $district->id, 'name' => $district->name, 'type' => 'District'];
+            }
+        }
+
+        if(count($municipalities) > 0){
+            $municipalities_result = Municipality::whereIn('id', $municipalities)->get();
+            foreach($municipalities_result as $municipalities){
+                $selected_locations_array[] = ['id' => $municipalities->id, 'name' => $municipalities->name, 'type' => 'Municipalities'];
+            }
+        }
+
+        if(count($locations) > 0){
+            $locations_result = Location::whereIn('id', $locations)->get();
+            foreach($locations_result as $locations){
+                $selected_locations_array[] = ['id' => $locations->id, 'name' => $locations->name, 'type' => 'Locations'];
+            }
+        }
+
+        return json_encode($selected_locations_array);
+    }
+    public static function get_active_district($post_data = [])
     {
         $query = District::whereIn('districts.id', function ($subquery) {
             $subquery->select('district_id')
