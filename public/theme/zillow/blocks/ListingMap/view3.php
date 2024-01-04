@@ -7317,34 +7317,6 @@ $search_string = isset($_GET['search_term']) ? $_GET['search_term'] : '';
     fill-opacity: 0.3;
     stroke: #229643;
   }
-
-  .select2-results__option {
-    padding-right: 20px;
-    vertical-align: middle;
-  }
-
-  .select2-results__option:before {
-    content: "";
-    display: inline-block;
-    position: relative;
-    height: 20px;
-    width: 20px;
-    border: 2px solid #e9e9e9;
-    border-radius: 4px;
-    background-color: #fff;
-    margin-right: 20px;
-    vertical-align: middle;
-  }
-
-  .select2-results__option[aria-selected=true]:before {
-    font-family: fontAwesome;
-    content: "\f00c";
-    color: #fff;
-    background-color: #f77750;
-    border: 0;
-    display: inline-block;
-    padding-left: 3px;
-  }
 </style>
 <link rel="stylesheet" href="/theme/zillow/assets/css/jquery-ui.css?<?php echo time(); ?>">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -7405,31 +7377,26 @@ if ($active_marker_search) {
 }
 ?>
 
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" />
+</head>
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+<body>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" />
-<div class="inner-pages homepage-4 agents hp-6 full hd-white" style="height: 85vh;">
-  <div data-zrr-key="static-search-page:search-app">
-    <div class="row no-gutters" style="margin-left:0.2%;">
-      <div class="col-2" style="padding-left: 5px; padding-right:5px;">
+
+  <div class="inner-pages homepage-4 agents hp-6 full hd-white" style="height: 85vh;">
+    <div data-zrr-key="static-search-page:search-app">
+      <div class="col-2">
         <select class="form-control select2" id="search-box-input" onkeypress="search_text();" multiple="multiple"></select>
       </div>
-      <div class="col-1" style="padding-left: 5px; padding-right:5px;">
-          <select  id="forSaleOrRent" multiple="multiple">
-          <?php
-                foreach ($active_property_types_response->data as $property_type) {
-                  echo '<option value="' . $property_type->id . '" id="propertStatus' . $property_type->id . '" >' . $property_type->displayname . '</option>';
-                }
-                ?>
-          </select>
-      </div>
-      <div class="col-1" style="padding-left: 5px; padding-right:5px;">
-        <select class="" id="PropertyTypeSelect" multiple="multiple">
+      <div class="col-2">
+        <select class="selectpicker" multiple data-live-search="true">
+          <option selected>Open this select menu</option>
           <?php
           foreach ($active_listing_types_response->data as $listing_type) {
             echo '<option value="' . $listing_type->id . '">' . $listing_type->displayname . '</option>';
@@ -7437,291 +7404,282 @@ if ($active_marker_search) {
           ?>
         </select>
       </div>
-      
-    </div>
-    <section class="SearchPageHeaderContainer SearchPageHeaderContainer__StyledSearchPageHeaderContainer-srp__sc-h52t73-0 duceJr search-page-header wide has-floating-action-bar" aria-label="filters">
-      <!-- <span id="clonedesktop" > -->
-      <div id="location_desktopdiv" class="rld-single-select  searchBarDiv" style="width: 132px">
-        <!-- <input type="hidden" id="selLocation" name="selLocation" value=""> -->
-        <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: black;">
-          <ul>
-            <li><a id="location_title">Location</a>
-              <ul id="activelocation">
-                <?php
-                foreach ($active_district_response->data as $district) {
-                  echo '<li class="parent locationLi">
+      <section class="SearchPageHeaderContainer SearchPageHeaderContainer__StyledSearchPageHeaderContainer-srp__sc-h52t73-0 duceJr search-page-header wide has-floating-action-bar" aria-label="filters">
+        <!-- <span id="clonedesktop" > -->
+        <div id="location_desktopdiv" class="rld-single-select  searchBarDiv" style="width: 132px">
+          <!-- <input type="hidden" id="selLocation" name="selLocation" value=""> -->
+          <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: black;">
+            <ul>
+              <li><a id="location_title">Location</a>
+                <ul id="activelocation">
+                  <?php
+                  foreach ($active_district_response->data as $district) {
+                    echo '<li class="parent locationLi">
                         <a style="display: flex;align-items: center;"><input type="checkbox" id="districts' . $district->id . '" class="district" name="district[]" value="' . $district->id . '" onchange="changeLocationsListingMap(\'districts\',\'' . $district->id . '\',\'' . $district->displayname . '\')">' . $district->displayname . ' </a>
                         <div class="wrapper" style="top: 0px; left: 208px;">
                             <ul style="transform:none;position:initial; visibility: visible;opacity: 100; overflow-x: hidden; overflow-y: auto; max-height: 500px;" id="subDistricts' . $district->id . '">';
-                  foreach ($active_municipality_response->data as $municipality) {
-                    if ($district->id == $municipality->district_id) {
-                      echo '<li class="parent locationLi">
+                    foreach ($active_municipality_response->data as $municipality) {
+                      if ($district->id == $municipality->district_id) {
+                        echo '<li class="parent locationLi">
                             <a style="display: flex;align-items: center;"><input type="checkbox" id="municipalities' . $municipality->id . '" class="municipality" name="municipality[]" value="' . $municipality->id . '" onchange="changeLocationsListingMap(\'municipalities\',\'' . $municipality->id . '\',\'' . $municipality->displayname . '\')">' . $municipality->displayname . '</a>
                             <div class="wrapper">
                                 <ul style="visibility: visible;opacity: 100;" id="subMunicipalities' . $municipality->id . '">';
-                      foreach ($active_location_response->data as $location) {
-                        if ($location->municipality_id == $municipality->id) {
-                          echo '<li>
+                        foreach ($active_location_response->data as $location) {
+                          if ($location->municipality_id == $municipality->id) {
+                            echo '<li>
                                 <a style="display: flex;align-items: center;">
                                 <input type="checkbox" id="locations' . $location->id . '" class="location" name="location[]" value="' . $location->id . '" onchange="changeLocationsListingMap(\'locations', '' . $location->id . '', '' . $location->displayname . '\')">' . $location->displayname . '</a>
                             </li>';
+                          }
                         }
-                      }
-                      echo '</ul>
+                        echo '</ul>
                               </div>
                           </li>';
+                      }
                     }
-                  }
-                  echo '</ul>
+                    echo '</ul>
                           </div>
                       </li>';
-                }
-                ?>
-              </ul>
-            </li>
-          </ul>
-        </nav>
-      </div>
-      <div class="rld-single-select searchBarDiv" id="property_status_desktopdiv" style="width: 175px;">
-        <input type="hidden" id="selActivePropertStatus" name="selActivePropertStatus" value="">
-        <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: black;">
-          <ul>
-            <li><a>Property Status</a>
-              <ul id="activePropertStatus">
-                <?php
-                foreach ($active_property_types_response->data as $property_type) {
-                  echo '<li><a style="display: flex;align-items: center;"><input type="checkbox" class="propertStatus" value="' . $property_type->id . '" id="propertStatus' . $property_type->id . '" >' . $property_type->displayname . '</a></li>';
-                }
-                ?>
-              </ul>
-            </li>
-          </ul>
-        </nav>
-      </div>
-      <div class="rld-single-select searchBarDiv" id="property_type_desktopdiv" style="width: 175px;">
-        <input type="hidden" id="selActivePropertType" name="selActivePropertType" value="">
-        <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: black;">
-          <ul>
-            <li><a>Property Type</a>
-              <ul id="activePropertType">
-                <?php
-                foreach ($active_listing_types_response->data as $listing_type) {
-                  echo '<li><a style="display: flex;align-items: center;"><input type="checkbox" class="propertTypes" name="property_types[]" value="' . $listing_type->id . '" id="propertTypes' . $listing_type->id . '">' . $listing_type->displayname . '</a></li>';
-                }
-                ?>
-              </ul>
-            </li>
-          </ul>
-        </nav>
-      </div>
-
-      <!-- </span> -->
-      <!-- <div id="clonemobile">clone mobile</div> -->
-
-      <div class=" dropdown-filter" style="border: 1px solid;border-radius: 5px;border-color: black;width: 100px;height: 45px;margin-right: 25px;display: flex;justify-content: center;align-items: center;">
-        <a>More</a>
-      </div>
-      <div class="search-page-action-bar">
-        <div class="action-bar-left-content">
-          <button onclick="searchNowListingMap()" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 sbjHp StyledFilterButton-srp__sc-vk62hb-0 jLwrOl DropdownPopper-c11n-8-84-3__sc-1vnow1h-0 bsFbQm save-search-button" tabindex="0" role="button" type="button" rel="nofollow" aria-label="Save search" aria-expanded="false" aria-haspopup="dialog">
-            Search Now
-          </button>
-
-        </div>
-        <div class="action-bar-left-content" style="margin-left: 20px;">
-          <button onclick="searchReset()" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 sbjHp StyledFilterButton-srp__sc-vk62hb-0 jLwrOl DropdownPopper-c11n-8-84-3__sc-1vnow1h-0 bsFbQm save-search-button" tabindex="0" role="button" type="button" rel="nofollow" aria-label="Save search" aria-expanded="false" aria-haspopup="dialog">
-            Reset Search
-          </button>
-        </div>
-        <div class="action-bar-right-content">
-
-          <a class="saved-homes-link saved-homes-visual-audit" tabindex="0" rel="nofollow" aria-label="Saved Homes" href="/myzillow/favorites"><strong></strong></a>
-          <!-- //2 Saved Homes -->
-        </div>
-      </div>
-      <div id="advancedSearch" style="position: absolute;margin-top: 60px;" class="rld-main-search explore__form-checkbox-list full-filter">
-        <div class="row">
-          <div class="col-lg-4 col-md-6 py-1 pr-30 pl-0 " id="location_mobilediv" style="width: 132px"></div>
-          <div class="col-lg-4 col-md-6 py-1 pr-30 pl-0 " id="property_status_mobilediv" style="width: 175x"></div>
-          <div class="col-lg-4 col-md-6 py-1 pr-30 pl-0 " id="property_type_mobilediv" style="width: 132px"></div>
-          <div class="col-lg-4 col-md-6 py-1 pr-30 pl-0 ">
-            <!-- Form Bedrooms -->
-            <div class="form-group beds" style="display: flex;" id="searchFormBedrooms">
-              <i class="fa fa-bed" aria-hidden="true" style="align-self: center;width: 20px;"></i>
-              <select class="select single-select" id="selBedrooms">
-                <option value="0">Bedrooms</option>
-                <?php for ($i = 1; $i <= 10; $i++) {
-                ?>
-                  <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                <?php
-                }
-                ?>
-              </select>
-            </div>
-            <!--/ End Form Bedrooms -->
-          </div>
-          <div class="col-lg-4 col-md-6 py-1 pl-0 pr-0">
-            <!-- Form Bathrooms -->
-            <div class="form-group bath" style="display: flex;" id="searchFormBathrooms">
-              <i class="fa fa-bath" aria-hidden="true" style="align-self: center;width: 20px;"></i>
-              <select class="select single-select" id="selBathrooms">
-                <option value="0">Bathrooms</option>
-                <?php for ($i = 1; $i <= 10; $i++) {
-                ?>
-                  <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                <?php
-                }
-                ?>
-              </select>
-
-            </div>
-            <!--/ End Form Bathrooms -->
-          </div>
-          <div class="col-lg-5 col-md-12 col-sm-12 py-1 pr-30 mr-5 sld">
-            <!-- Price Fields -->
-            <div class="main-search-field-2">
-              <!-- Area Range -->
-              <div class="range-slider">
-                <label>Area Size</label>
-                <div id="area-range" data-min="0" data-max="1300" data-unit="sq meters"></div>
-                <div class="clearfix"></div>
-              </div>
-              <br>
-              <!-- Price Range -->
-              <div class="range-slider">
-                <label>Price Range</label>
-                <div id="price-range" data-min="0" data-max="600000" data-unit="€"></div>
-                <div class="clearfix"></div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30">
-            <!-- Checkboxes -->
-            <div class="checkboxes one-in-row margin-bottom-10 ch-1" id="activefeaturesLeft">
-              <?php
-              foreach ($active_features as $key => $feature) {
-                if ($key <= count($active_features) / 2) {
-                  echo '<input id="fcheck-' . $feature->id . '" type="checkbox" class="featurecheck" value="' . $feature->id . '" name="features[]"">
-                                                                        <label for="fcheck-' . $feature->id . '" >' . $feature->displayname . '</label>';
-                }
-              }
-              ?>
-            </div>
-            <!-- Checkboxes / End -->
-          </div>
-          <div class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30">
-            <!-- Checkboxes -->
-            <div class="checkboxes one-in-row margin-bottom-10 ch-2" id="activefeaturesRight">
-              <?php
-              foreach ($active_features as $key => $feature) {
-                if ($key > count($active_features) / 2) {
-                  echo '<input id="fcheck-' . $feature->id . '" type="checkbox" class="featurecheck" value = "' . $feature->id . '">
-                                                                        <label for="fcheck-' . $feature->id . '">' . $feature->displayname . '</label>';
-                }
-              }
-              ?>
-            </div>
-            <!-- Checkboxes / End -->
-          </div>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <section class="properties-right featured portfolio blog google-map-right mp-1" style="padding: 0px!important;">
-    <div class="container-fluid">
-      <div class="row" style="width: 100%;background-color: white;">
-        <aside id="MapListingMap" class="col-lg-6 col-md-6 google-maps-left mt-0 MobileHiddenMap" style="height: 100%;display: block;">
-          <div class="alert-box success" id="map_success" style="position: absolute;z-index: 9;width: 100%;margin-top: 80px;">Click on the map to select center and radius</div>
-          <div class="row" style="padding: 25px 0px 0px 0px;position: absolute;z-index: 9;width: 50%;left: 50%;">
-            <div class="col-xl-12 xsRow" style="display: flex;justify-content: flex-end;margin-right: 10px;">
-              <a style="display: none;justify-content: center;align-items: center;margin-right:20px;" class="btn btn-map" id="redrawCircleListingMap" onclick="redrawCircleListingMap();">Re-draw</a>
-              <!-- <a style="margin-top: 0px; display: flex;justify-content: center;align-items: center;" class="btn btn-map" id="showCircleListingMap" onclick="showCircleListingMap();">Draw</a> -->
-              <button style="display: flex;justify-content: center;align-items: center;margin: 0px 5px 0px 5px;" type="button" class="btn btn-map" data-toggle="button" aria-pressed="false" id="freeDrawingMap" onclick="freeDrawingMap();">
-                Free-Draw
-              </button>
-              <a style="margin-top: 0px; display: flex;justify-content: center;align-items: center;" class="btn btn-map" id="clearDrawingsMap" onclick="clearDrawingsMap();">Clear</a>
-            </div>
-          </div>
-          <div id="map-leaflet"></div>
-        </aside>
-        <div id="ListingListingMapDiv" class="col-lg-6 col-md-12 google-maps-right ListingListingMapDiv">
-          <section>
-            <div class="pro-wrapper">
-              <div class="detail-wrapper-body">
-                <div class="listing-title-bar">
-                  <div class="text-heading text-left">
-                    <p class="font-weight-bold mb-0 mt-3" id="page_count"></p>
-                  </div>
-                </div>
-              </div>
-              <div class="cod-pad single detail-wrapper mr-2 mt-0 d-flex justify-content-md-end align-items-center">
-                <div class="input-group border rounded input-group-lg w-auto mr-4">
-                  <select class="form-control border-0 bg-transparent shadow-none p-0 selectpicker sortby" id="paginSize" onchange="loadActiveListingsListingMap([0,0],0,9)" name="paginSize">
-                    <option selected value="20">20</option>
-                    <option value="40">40</option>
-                    <option value="60">60</option>
-                    <option value="80">80</option>
-                  </select>
-                </div>
-                <div class="input-group border rounded input-group-lg w-auto mr-4">
-                  <label class="input-group-text bg-transparent border-0 text-uppercase letter-spacing-093 pr-1 pl-3" for="inputGroupSelect01"><i class="fas fa-align-left fs-16 pr-2"></i>Sortby:</label>
-                  <select class="form-control border-0 bg-transparent shadow-none p-0 selectpicker sortby" onchange="loadActiveListingsListingMap([0,0],0,9)" data-style="bg-transparent border-0 font-weight-600 btn-lg pl-0 pr-3" id="sortby" name="sortby">
-                    <option value="1">Latest</option>
-                    <option value="2">Price(low to high)</option>
-                    <option value="3">Price(high to low)</option>
-                  </select>
-                </div>
-
-              </div>
-            </div>
-          </section>
-          <div class="ListMobile row" id="ListingListContent">
-
-          </div>
-          <nav aria-label="..." style="padding: 20px;display: flex;justify-content: center;">
-            <ul class="pagination mt-0" id="pagin_content">
+                  }
+                  ?>
+                </ul>
+              </li>
             </ul>
           </nav>
         </div>
-        <div class="ViewListMap">
-          <a onclick="replaceview();" style="padding: 10px 20px 10px 20px;background: #398a39;border-radius: 5px;cursor: pointer;color:white;" id="showMapListingListingMap">Show Map</a>
+        <div class="rld-single-select searchBarDiv" id="property_status_desktopdiv" style="width: 175px;">
+          <input type="hidden" id="selActivePropertStatus" name="selActivePropertStatus" value="">
+          <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: black;">
+            <ul>
+              <li><a>Property Status</a>
+                <ul id="activePropertStatus">
+                  <?php
+                  foreach ($active_property_types_response->data as $property_type) {
+                    echo '<li><a style="display: flex;align-items: center;"><input type="checkbox" class="propertStatus" value="' . $property_type->id . '" id="propertStatus' . $property_type->id . '" >' . $property_type->displayname . '</a></li>';
+                  }
+                  ?>
+                </ul>
+              </li>
+            </ul>
+          </nav>
         </div>
-      </div>
-      <input type="hidden" id="page_index" value="1">
+        <div class="rld-single-select searchBarDiv" id="property_type_desktopdiv" style="width: 175px;">
+          <input type="hidden" id="selActivePropertType" name="selActivePropertType" value="">
+          <nav id="navigation" class="style-1" style="background: white; margin-top:0px;margin-left: 5px!important;margin-right: 5px;border: 1px solid;border-radius: 5px;border-color: black;">
+            <ul>
+              <li><a>Property Type</a>
+                <ul id="activePropertType">
+                  <?php
+                  foreach ($active_listing_types_response->data as $listing_type) {
+                    echo '<li><a style="display: flex;align-items: center;"><input type="checkbox" class="propertTypes" name="property_types[]" value="' . $listing_type->id . '" id="propertTypes' . $listing_type->id . '">' . $listing_type->displayname . '</a></li>';
+                  }
+                  ?>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+        <!-- </span> -->
+        <!-- <div id="clonemobile">clone mobile</div> -->
+
+        <div class=" dropdown-filter" style="border: 1px solid;border-radius: 5px;border-color: black;width: 100px;height: 45px;margin-right: 25px;display: flex;justify-content: center;align-items: center;">
+          <a>More</a>
+        </div>
+        <div class="search-page-action-bar">
+          <div class="action-bar-left-content">
+            <button onclick="searchNowListingMap()" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 sbjHp StyledFilterButton-srp__sc-vk62hb-0 jLwrOl DropdownPopper-c11n-8-84-3__sc-1vnow1h-0 bsFbQm save-search-button" tabindex="0" role="button" type="button" rel="nofollow" aria-label="Save search" aria-expanded="false" aria-haspopup="dialog">
+              Search Now
+            </button>
+
+          </div>
+          <div class="action-bar-left-content" style="margin-left: 20px;">
+            <button onclick="searchReset()" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 sbjHp StyledFilterButton-srp__sc-vk62hb-0 jLwrOl DropdownPopper-c11n-8-84-3__sc-1vnow1h-0 bsFbQm save-search-button" tabindex="0" role="button" type="button" rel="nofollow" aria-label="Save search" aria-expanded="false" aria-haspopup="dialog">
+              Reset Search
+            </button>
+          </div>
+          <div class="action-bar-right-content">
+
+            <a class="saved-homes-link saved-homes-visual-audit" tabindex="0" rel="nofollow" aria-label="Saved Homes" href="/myzillow/favorites"><strong></strong></a>
+            <!-- //2 Saved Homes -->
+          </div>
+        </div>
+        <div id="advancedSearch" style="position: absolute;margin-top: 60px;" class="rld-main-search explore__form-checkbox-list full-filter">
+          <div class="row">
+            <div class="col-lg-4 col-md-6 py-1 pr-30 pl-0 " id="location_mobilediv" style="width: 132px"></div>
+            <div class="col-lg-4 col-md-6 py-1 pr-30 pl-0 " id="property_status_mobilediv" style="width: 175x"></div>
+            <div class="col-lg-4 col-md-6 py-1 pr-30 pl-0 " id="property_type_mobilediv" style="width: 132px"></div>
+            <div class="col-lg-4 col-md-6 py-1 pr-30 pl-0 ">
+              <!-- Form Bedrooms -->
+              <div class="form-group beds" style="display: flex;" id="searchFormBedrooms">
+                <i class="fa fa-bed" aria-hidden="true" style="align-self: center;width: 20px;"></i>
+                <select class="select single-select" id="selBedrooms">
+                  <option value="0">Bedrooms</option>
+                  <?php for ($i = 1; $i <= 10; $i++) {
+                  ?>
+                    <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                  <?php
+                  }
+                  ?>
+                </select>
+              </div>
+              <!--/ End Form Bedrooms -->
+            </div>
+            <div class="col-lg-4 col-md-6 py-1 pl-0 pr-0">
+              <!-- Form Bathrooms -->
+              <div class="form-group bath" style="display: flex;" id="searchFormBathrooms">
+                <i class="fa fa-bath" aria-hidden="true" style="align-self: center;width: 20px;"></i>
+                <select class="select single-select" id="selBathrooms">
+                  <option value="0">Bathrooms</option>
+                  <?php for ($i = 1; $i <= 10; $i++) {
+                  ?>
+                    <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                  <?php
+                  }
+                  ?>
+                </select>
+
+              </div>
+              <!--/ End Form Bathrooms -->
+            </div>
+            <div class="col-lg-5 col-md-12 col-sm-12 py-1 pr-30 mr-5 sld">
+              <!-- Price Fields -->
+              <div class="main-search-field-2">
+                <!-- Area Range -->
+                <div class="range-slider">
+                  <label>Area Size</label>
+                  <div id="area-range" data-min="0" data-max="1300" data-unit="sq meters"></div>
+                  <div class="clearfix"></div>
+                </div>
+                <br>
+                <!-- Price Range -->
+                <div class="range-slider">
+                  <label>Price Range</label>
+                  <div id="price-range" data-min="0" data-max="600000" data-unit="€"></div>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30">
+              <!-- Checkboxes -->
+              <div class="checkboxes one-in-row margin-bottom-10 ch-1" id="activefeaturesLeft">
+                <?php
+                foreach ($active_features as $key => $feature) {
+                  if ($key <= count($active_features) / 2) {
+                    echo '<input id="fcheck-' . $feature->id . '" type="checkbox" class="featurecheck" value="' . $feature->id . '" name="features[]"">
+                                                                        <label for="fcheck-' . $feature->id . '" >' . $feature->displayname . '</label>';
+                  }
+                }
+                ?>
+              </div>
+              <!-- Checkboxes / End -->
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 py-1 pr-30">
+              <!-- Checkboxes -->
+              <div class="checkboxes one-in-row margin-bottom-10 ch-2" id="activefeaturesRight">
+                <?php
+                foreach ($active_features as $key => $feature) {
+                  if ($key > count($active_features) / 2) {
+                    echo '<input id="fcheck-' . $feature->id . '" type="checkbox" class="featurecheck" value = "' . $feature->id . '">
+                                                                        <label for="fcheck-' . $feature->id . '">' . $feature->displayname . '</label>';
+                  }
+                }
+                ?>
+              </div>
+              <!-- Checkboxes / End -->
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
-  </section>
-</div>
 
+    <section class="properties-right featured portfolio blog google-map-right mp-1" style="padding: 0px!important;">
+      <div class="container-fluid">
+        <div class="row" style="width: 100%;background-color: white;">
+          <aside id="MapListingMap" class="col-lg-6 col-md-6 google-maps-left mt-0 MobileHiddenMap" style="height: 100%;display: block;">
+            <div class="alert-box success" id="map_success" style="position: absolute;z-index: 9;width: 100%;margin-top: 80px;">Click on the map to select center and radius</div>
+            <div class="row" style="padding: 25px 0px 0px 0px;position: absolute;z-index: 9;width: 50%;left: 50%;">
+              <div class="col-xl-12 xsRow" style="display: flex;justify-content: flex-end;margin-right: 10px;">
+                <a style="display: none;justify-content: center;align-items: center;margin-right:20px;" class="btn btn-map" id="redrawCircleListingMap" onclick="redrawCircleListingMap();">Re-draw</a>
+                <!-- <a style="margin-top: 0px; display: flex;justify-content: center;align-items: center;" class="btn btn-map" id="showCircleListingMap" onclick="showCircleListingMap();">Draw</a> -->
+                <button style="display: flex;justify-content: center;align-items: center;margin: 0px 5px 0px 5px;" type="button" class="btn btn-map" data-toggle="button" aria-pressed="false" id="freeDrawingMap" onclick="freeDrawingMap();">
+                  Free-Draw
+                </button>
+                <a style="margin-top: 0px; display: flex;justify-content: center;align-items: center;" class="btn btn-map" id="clearDrawingsMap" onclick="clearDrawingsMap();">Clear</a>
+              </div>
+            </div>
+            <div id="map-leaflet"></div>
+          </aside>
+          <div id="ListingListingMapDiv" class="col-lg-6 col-md-12 google-maps-right ListingListingMapDiv">
+            <section>
+              <div class="pro-wrapper">
+                <div class="detail-wrapper-body">
+                  <div class="listing-title-bar">
+                    <div class="text-heading text-left">
+                      <p class="font-weight-bold mb-0 mt-3" id="page_count"></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="cod-pad single detail-wrapper mr-2 mt-0 d-flex justify-content-md-end align-items-center">
+                  <div class="input-group border rounded input-group-lg w-auto mr-4">
+                    <select class="form-control border-0 bg-transparent shadow-none p-0 selectpicker sortby" id="paginSize" onchange="loadActiveListingsListingMap([0,0],0,9)" name="paginSize">
+                      <option selected value="20">20</option>
+                      <option value="40">40</option>
+                      <option value="60">60</option>
+                      <option value="80">80</option>
+                    </select>
+                  </div>
+                  <div class="input-group border rounded input-group-lg w-auto mr-4">
+                    <label class="input-group-text bg-transparent border-0 text-uppercase letter-spacing-093 pr-1 pl-3" for="inputGroupSelect01"><i class="fas fa-align-left fs-16 pr-2"></i>Sortby:</label>
+                    <select class="form-control border-0 bg-transparent shadow-none p-0 selectpicker sortby" onchange="loadActiveListingsListingMap([0,0],0,9)" data-style="bg-transparent border-0 font-weight-600 btn-lg pl-0 pr-3" id="sortby" name="sortby">
+                      <option value="1">Latest</option>
+                      <option value="2">Price(low to high)</option>
+                      <option value="3">Price(high to low)</option>
+                    </select>
+                  </div>
 
+                </div>
+              </div>
+            </section>
+            <div class="ListMobile row" id="ListingListContent">
+
+            </div>
+            <nav aria-label="..." style="padding: 20px;display: flex;justify-content: center;">
+              <ul class="pagination mt-0" id="pagin_content">
+              </ul>
+            </nav>
+          </div>
+          <div class="ViewListMap">
+            <a onclick="replaceview();" style="padding: 10px 20px 10px 20px;background: #398a39;border-radius: 5px;cursor: pointer;color:white;" id="showMapListingListingMap">Show Map</a>
+          </div>
+        </div>
+        <input type="hidden" id="page_index" value="1">
+      </div>
+    </section>
+  </div>
+</body>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.full.min.js"></script>
+
+
+<!-- Popper.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap-select JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+
 <script type="text/javascript">
   $(document).ready(function() {
-    $('#PropertyTypeSelect').select2({
-             placeholder: "Property Type",
-             allowClear: true,
-           });
- 
-    
-    $('#forSaleOrRent').select2({
-      placeholder: "Property Status",
-      allowClear: true,
-      minimumResultsForSearch: Infinity
-    }).on('select2:opening select2:closing', function(event) {
-    var $searchfield = $(this).parent().find('.select2-search__field');
-    $searchfield.prop('disabled', true);
-  });
-
-
-    $('#search-box-input').select2({
+    $('.selectpicker').selectpicker();
+    $('.select2').select2({
       maximumSelectionLength: 10,
       tokenSeparators: [',', ' '],
-      placeholder: "District, Municipality, Location",
+      placeholder: "Select or type keywords",
       minimumInputLength: 1,
       ajax: {
         url: "/api/getLocationSearch",
@@ -8652,13 +8610,6 @@ if ($active_marker_search) {
         $("#property_type_desktopdiv").css("display", "none");
       }
     }
-  }
-
-  function iformat(icon, badge, ) {
-    var originalOption = icon.element;
-    var originalOptionBadge = $(originalOption).data('badge');
-
-    return $('<span><i class="fa ' + $(originalOption).data('icon') + '"></i> ' + icon.text + '<span class="badge">' + originalOptionBadge + '</span></span>');
   }
   $(window).resize(function() {
     replace_divs()

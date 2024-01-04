@@ -16,6 +16,7 @@ if (isset($_SESSION["user_id"])) {
     <meta name="description" content="html 5 template">
     <meta name="author" content="">
     <title><?= $page->get('name') ?></title>
+    <title>Yes</title>
     <!-- FAVICON -->
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="/theme/zillow/assets/css/jquery-ui.css?<?php echo time(); ?>">
@@ -29,7 +30,7 @@ if (isset($_SESSION["user_id"])) {
 
 
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css"> -->
 
     <!-- LEAFLET MAP -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css">
@@ -59,10 +60,11 @@ if (isset($_SESSION["user_id"])) {
     <link rel="stylesheet" id="color" href="/theme/zillow/assets/css/colors/pink.css?<?php echo time(); ?>">
     <link rel="stylesheet" href="/theme/zillow/assets/css/listingdetail.css">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
-    <script src="/theme/zillow/assets/js/jquery-3.5.1.min.js"></script>
-    <script src="/theme/zillow/assets/js/bootstrap.min.js"></script>
+    <!-- <script src="/theme/zillow/assets/js/jquery-3.5.1.min.js"></script> -->
+    <!-- <script src="/theme/zillow/assets/js/bootstrap.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.3.5/signature_pad.min.js" integrity="sha512-kw/nRM/BMR2XGArXnOoxKOO5VBHLdITAW00aG8qK4zBzcLVZ4nzg7/oYCaoiwc8U9zrnsO9UHqpyljJ8+iqYiQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- //map -->
@@ -255,7 +257,7 @@ if (isset($_SESSION["user_id"])) {
         }
 
         /* Caption text */
-        .text {
+        /* .text {
             color: #f2f2f2;
             background-color: rgba(10, 10, 20, 0.1);
             backdrop-filter: blur(6px);
@@ -267,7 +269,7 @@ if (isset($_SESSION["user_id"])) {
             left: 50%;
             transform: translate(-50%);
             text-align: center;
-        }
+        } */
 
         /* Number text (1/3 etc) */
         .number {
