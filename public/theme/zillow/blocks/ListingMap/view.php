@@ -5,49 +5,59 @@ if (isset($_GET['view']) && $_GET['view'] == 'map') {
 }
 $search_string = "";
 
-$price_range_array = isset($_GET['price_range'])?explode(',',$_GET['price_range']):array();
+$price_range_array = isset($_GET['price_range']) ? explode(',', $_GET['price_range']) : array();
 
 $minprice = '';
 $maxprice = '';
- if(isset($price_range_values[0]) && is_numeric($price_range_values[0])){
+if (isset($price_range_values[0]) && is_numeric($price_range_values[0])) {
   $minprice = $price_range_values[0];
- }
- if(isset($price_range_values[1]) && is_numeric($price_range_values[1])){
+}
+if (isset($price_range_values[1]) && is_numeric($price_range_values[1])) {
   $maxprice = $price_range_values[1];
- }
+}
 
 $minsquarefeet = '';
 $maxsquarefeet = '';
-$minslotsize = '';
+$minlotsize = '';
 $maxlotsize = '';
 
-$area_size_array = isset($_GET['area_size'])?explode(',',$_GET['area_size']):array();
- if(isset($area_size_array[0]) && is_numeric($area_size_array[0])){
+$area_size_array = isset($_GET['area_size']) ? explode(',', $_GET['area_size']) : array();
+if (isset($area_size_array[0]) && is_numeric($area_size_array[0])) {
   $minsquarefeet = $area_size_array[0];
- }
- if(isset($area_size_array[1]) && is_numeric($area_size_array[1])){
+}
+if (isset($area_size_array[1]) && is_numeric($area_size_array[1])) {
   $maxsquarefeet = $area_size_array[1];
- }
+}
 
- 
-$lot_size_array = isset($_GET['area_size'])?explode(',',$_GET['area_size']):array();
- if(isset($lot_size_array[0]) && is_numeric($lot_size_array[0])){
-  $minslotsize = $lot_size_array[0];
- }
- if(isset($lot_size_array[1]) && is_numeric($lot_size_array[1])){
-  $maxslotsize = $lot_size_array[1];
- }
 
- echo $minslotsize.'<br>';
- echo $maxslotsize.'<br>';
+$lot_size_array = isset($_GET['area_size']) ? explode(',', $_GET['area_size']) : array();
+if (isset($lot_size_array[0]) && is_numeric($lot_size_array[0])) {
+  $minlotsize = $lot_size_array[0];
+}
+if (isset($lot_size_array[1]) && is_numeric($lot_size_array[1])) {
+  $maxlotsize = $lot_size_array[1];
+}
 
- $features_array = isset($_GET['features'])?explode(',', $_GET['features']):array();
+echo $minlotsize . '<br>';
+echo $maxlotsize . '<br>';
 
- echo '<pre>';
+$features_array = isset($_GET['features']) ? explode(',', $_GET['features']) : array();
+$number_of_bedrooms = isset($_GET['bedrooms']) ? $_GET['bedrooms'] : '';
+$number_of_bathrooms = isset($_GET['bathrooms']) ? $_GET['bathrooms'] : '';
+
+$exactNumBaths = isset($_GET['exactmatchbath']) ? $_GET['exactmatchbath'] : '';
+
+$exactNumBeds= isset($_GET['exactmatchbed']) ? $_GET['exactmatchbed'] : '';
+
+echo 'number_of_bedrooms: ' . $number_of_bedrooms . '<br>';
+echo 'number_of_bathrooms: ' . $number_of_bathrooms . '<br>';
+echo $maxlotsize . '<br>';
+
+echo '<pre>';
 //  print_r($_GET);
- print_r($features_array);
- echo '</pre>';
- 
+print_r($features_array);
+echo '</pre>';
+
 //  list($minsquarefeet, $maxsquarefeet) = explode(',', $_GET['area_size']);
 
 //  if(!is_numeric($minsquarefeet)){
@@ -57,9 +67,9 @@ $lot_size_array = isset($_GET['area_size'])?explode(',',$_GET['area_size']):arra
 //   $maxsquarefeet = '';
 //  }
 
- echo 'minprice: '.$minprice.'<br>';
- echo 'maxprice: '.$maxprice.'<br>';
- ?>
+echo 'minprice: ' . $minprice . '<br>';
+echo 'maxprice: ' . $maxprice . '<br>';
+?>
 
 <style id="server-styles">
   .hillcG {
@@ -7525,11 +7535,11 @@ $lot_size_array = isset($_GET['area_size'])?explode(',',$_GET['area_size']):arra
   .flex-container {
     display: flex;
     align-items: center;
-}
+  }
 
-.flex-container input[type="checkbox"] {
+  .flex-container input[type="checkbox"] {
     margin-right: 5px;
-}
+  }
 </style>
 <link rel="stylesheet" href="/theme/zillow/assets/css/jquery-ui.css?<?php echo time(); ?>">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -7648,33 +7658,75 @@ if ($active_marker_search) {
             <fieldset class="filter_beds">
               <legend>Bedrooms</legend>
               <div aria-label="Beds Select" class="" role="group">
-                <button aria-disabled="false" aria-pressed="true" value="0" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp bedValue">Any</button>
-                <button aria-disabled="false" aria-pressed="false" value="1" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp bedValue">1+</button>
-                <button aria-disabled="false" aria-pressed="false" value="2" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp bedValue"> 2+</button>
-                <button aria-disabled="false" aria-pressed="false" value="3" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp bedValue">3+</button>
-                <button aria-disabled="false" aria-pressed="false" value="4" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp bedValue"> 4+</button>
-                <button aria-disabled="false" aria-pressed="false" value="5" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp bedValue">5+</button>
+                <?php
+                $aria_pressed = 'false';
+                if ($number_of_bathrooms == '') {
+                  $aria_pressed = 'true';
+                }
+                echo '<button aria-disabled="false" aria-pressed="' . $aria_pressed . '" value="" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp bedValue">Any</button>';
+                $bedrooms_array = [1, 2, 3, 4, 5];
+                foreach ($bedrooms_array as $bedroom) {
+                  $aria_pressed = 'false';
+                  if ($number_of_bedrooms == $bedroom) {
+                    $aria_pressed = 'true';
+                  }
+                  $suffix = '+';
+                  if ($exactNumBeds == 1) {
+                    $suffix = '';
+                  }
+                  echo '<button aria-disabled="false" aria-pressed="' . $aria_pressed . '" value="' . $bedroom . '" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp bedValue">' . $bedroom . $suffix. '</button>';
+                }
+                ?>
               </div>
               <div style="display: flex; align-items: center;">
-                <input id="exposed-filters-exact-beds-check" class="" type="checkbox" style="margin-right: 5px;">
+              <?php
+                $checked = "";
+                if ($exactNumBeds == 1) {
+                  $checked = "checked";
+                }
+                echo '<input id="exposed-filters-exact-beds-check" class="" type="checkbox" ' . $checked . ' style="margin-right: 5px;">';
+                ?>
                 <label for="exposed-filters-exact-beds-check" class="" style="margin: 0;">Use exact match&nbsp;</label>
               </div>
 
             </fieldset>
           </div>
+
+          <!-- echo 'number_of_bedrooms: '.$number_of_bedrooms.'<br>';
+ echo 'number_of_bathrooms: '.$number_of_bathrooms.'<br>'; -->
+
           <div class="">
             <fieldset class="filter_baths">
               <legend>Bathrooms</legend>
               <div name="baths-options" aria-label="Baths Select" class="" role="group">
-                <button aria-disabled="false" aria-pressed="true" value="0" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp bathroomValue">Any</button>
-                <button aria-disabled="false" aria-pressed="false" value="1" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp bathroomValue">1+</button>
-                <button aria-disabled="false" aria-pressed="false" value="1.5" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp bathroomValue">1.5+</button>
-                <button aria-disabled="false" aria-pressed="false" value="2" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp bathroomValue">2+</button>
-                <button aria-disabled="false" aria-pressed="false" value="3" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp bathroomValue">3+</button>
-                <button aria-disabled="false" aria-pressed="false" value="4" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp bathroomValue">4+</button>
+                <?php
+                $aria_pressed = 'false';
+                if ($number_of_bathrooms == '') {
+                  $aria_pressed = 'true';
+                }
+                echo '<button aria-disabled="false" aria-pressed="' . $aria_pressed . '" value="" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp bathroomValue">Any</button>';
+                $bathrooms_array = [1, 2, 3, 4];
+                foreach ($bathrooms_array as $bathroom) {
+                  $aria_pressed = 'false';
+                  if ($number_of_bathrooms == $bathroom) {
+                    $aria_pressed = 'true';
+                  }
+                  $suffix = '+';
+                  if ($exactNumBaths == 1) {
+                    $suffix = '';
+                  }
+                  echo '<button aria-disabled="false" aria-pressed="' . $aria_pressed . '" value="' . $bathroom . '" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp bathroomValue">' . $bathroom .$suffix. '</button>';
+                }
+                ?>
               </div>
               <div style="display: flex; align-items: center;">
-                <input id="exposed-filters-exact-baths-check" class="" type="checkbox" style="margin-right: 5px;">
+                <?php
+                $checked = "";
+                if ($exactNumBaths == 1) {
+                  $checked = "checked";
+                }
+                echo '<input id="exposed-filters-exact-baths-check" class="" type="checkbox" ' . $checked . ' style="margin-right: 5px;">';
+                ?>
                 <label for="exposed-filters-exact-baths-check" class="" style="margin: 0;">Use exact match&nbsp;</label>
               </div>
             </fieldset>
@@ -7701,14 +7753,14 @@ if ($active_marker_search) {
                 <select id="minPrice" name="minPrice" onchange="searchNowListingMap()">
                   <option value="">Any</option>
                   <?php
-                   $min_range = [200,400,600,800,1000,3000,5000,10000,20000,50000,100000,150000];
-                   foreach($min_range as $minimum_value ){
+                  $min_range = [200, 400, 600, 800, 1000, 3000, 5000, 10000, 20000, 50000, 100000, 150000];
+                  foreach ($min_range as $minimum_value) {
                     $is_selected = '';
-                    if($minprice == $minimum_value){
+                    if ($minprice == $minimum_value) {
                       $is_selected = 'selected';
                     }
-                    echo '<option value="'.$minimum_value.'" '.$is_selected.'>€'.number_format($minimum_value).'</option>';
-                   }
+                    echo '<option value="' . $minimum_value . '" ' . $is_selected . '>€' . number_format($minimum_value) . '</option>';
+                  }
                   ?>
                 </select>
               </div>
@@ -7719,14 +7771,14 @@ if ($active_marker_search) {
                 <select id="maxPrice" name="maxPrice" onchange="searchNowListingMap()">
                   <option value="">Any</option>
                   <?php
-                   $max_range = [200,400,600,800,1000,3000,5000,10000,20000,50000,100000,150000, 250000, 500000,100000,15000000,2000000,3000000,5000000,8000000,10000000,15000000,20000000];
-                   foreach($max_range as $maximum_value ){
+                  $max_range = [200, 400, 600, 800, 1000, 3000, 5000, 10000, 20000, 50000, 100000, 150000, 250000, 500000, 100000, 15000000, 2000000, 3000000, 5000000, 8000000, 10000000, 15000000, 20000000];
+                  foreach ($max_range as $maximum_value) {
                     $is_selected = '';
-                    if($maxprice == $maximum_value){
+                    if ($maxprice == $maximum_value) {
                       $is_selected = 'selected';
                     }
-                    echo '<option value="'.$maximum_value.'" '.$is_selected.'>€'.number_format($maximum_value).'</option>';
-                   }
+                    echo '<option value="' . $maximum_value . '" ' . $is_selected . '>€' . number_format($maximum_value) . '</option>';
+                  }
                   ?>
                 </select>
               </div>
@@ -7758,16 +7810,16 @@ if ($active_marker_search) {
                     <select id="minSquareFeet" name="minSquareFeet" onchange="searchNowListingMap()">
                       <option value="">Any</option>
                       <?php
-                      
-                   $max_range = [500,750,1000,1250,1750,2000,2250,2500,2750,3000,3500,4000,5000,6000,7000];
-                   foreach($max_range as $maximum_value ){
-                    $is_selected = '';
-                    if($minsquarefeet == $maximum_value){
-                      $is_selected = 'selected';
-                    }
-                    echo '<option value="'.$maximum_value.'" '.$is_selected.'>'.number_format($maximum_value).'</option>';
-                   }
-                  ?>
+
+                      $max_range = [500, 750, 1000, 1250, 1750, 2000, 2250, 2500, 2750, 3000, 3500, 4000, 5000, 6000, 7000];
+                      foreach ($max_range as $maximum_value) {
+                        $is_selected = '';
+                        if ($minsquarefeet == $maximum_value) {
+                          $is_selected = 'selected';
+                        }
+                        echo '<option value="' . $maximum_value . '" ' . $is_selected . '>' . number_format($maximum_value) . '</option>';
+                      }
+                      ?>
 
                     </select>
                   </div>
@@ -7778,15 +7830,15 @@ if ($active_marker_search) {
                     <select id="maxSquareFeet" name="maxSquareFeet" onchange="searchNowListingMap()">
                       <option value="">Any</option>
                       <?php
-                   $max_range = [500,750,1000,1250,1750,2000,2250,2500,2750,3000,3500,4000,5000,6000,7000];
-                   foreach($max_range as $maximum_value ){
-                    $is_selected = '';
-                    if($maxsquarefeet == $maximum_value){
-                      $is_selected = 'selected';
-                    }
-                    echo '<option value="'.$maximum_value.'" '.$is_selected.'>'.number_format($maximum_value).'</option>';
-                   }
-                  ?>
+                      $max_range = [500, 750, 1000, 1250, 1750, 2000, 2250, 2500, 2750, 3000, 3500, 4000, 5000, 6000, 7000];
+                      foreach ($max_range as $maximum_value) {
+                        $is_selected = '';
+                        if ($maxsquarefeet == $maximum_value) {
+                          $is_selected = 'selected';
+                        }
+                        echo '<option value="' . $maximum_value . '" ' . $is_selected . '>' . number_format($maximum_value) . '</option>';
+                      }
+                      ?>
 
                     </select>
                   </div>
@@ -7805,15 +7857,15 @@ if ($active_marker_search) {
                     <select id="minLotSize" name="minLotSize" onchange="searchNowListingMap()">
                       <option value="">Any</option>
                       <?php
-                   $max_range = [500,750,1000,1250,1750,2000,2250,2500,2750,3000,3500,4000,5000,6000,7000];
-                   foreach($max_range as $maximum_value ){
-                    $is_selected = '';
-                    if($minslotsize == $maximum_value){
-                      $is_selected = 'selected';
-                    }
-                    echo '<option value="'.$maximum_value.'" '.$is_selected.'>'.number_format($maximum_value).'</option>';
-                   }
-                  ?>
+                      $max_range = [500, 750, 1000, 1250, 1750, 2000, 2250, 2500, 2750, 3000, 3500, 4000, 5000, 6000, 7000];
+                      foreach ($max_range as $maximum_value) {
+                        $is_selected = '';
+                        if ($minlotsize == $maximum_value) {
+                          $is_selected = 'selected';
+                        }
+                        echo '<option value="' . $maximum_value . '" ' . $is_selected . '>' . number_format($maximum_value) . '</option>';
+                      }
+                      ?>
                     </select>
                   </div>
                   <div class="col-xx text-center pl-0 pr-0">
@@ -7823,15 +7875,15 @@ if ($active_marker_search) {
                     <select id="maxLotSize" name="maxLotSize" onchange="searchNowListingMap()">
                       <option value="">Any</option>
                       <?php
-                   $max_range = [500,750,1000,1250,1750,2000,2250,2500,2750,3000,3500,4000,5000,6000,7000];
-                   foreach($max_range as $maximum_value ){
-                    $is_selected = '';
-                    if($maxlotsize == $maximum_value){
-                      $is_selected = 'selected';
-                    }
-                    echo '<option value="'.$maximum_value.'" '.$is_selected.'>'.number_format($maximum_value).'</option>';
-                   }
-                  ?>
+                      $max_range = [500, 750, 1000, 1250, 1750, 2000, 2250, 2500, 2750, 3000, 3500, 4000, 5000, 6000, 7000];
+                      foreach ($max_range as $maximum_value) {
+                        $is_selected = '';
+                        if ($maxlotsize == $maximum_value) {
+                          $is_selected = 'selected';
+                        }
+                        echo '<option value="' . $maximum_value . '" ' . $is_selected . '>' . number_format($maximum_value) . '</option>';
+                      }
+                      ?>
                     </select>
                   </div>
                 </div>
@@ -7854,11 +7906,10 @@ if ($active_marker_search) {
 
                     echo '<div class="col-md-6 feature-item">';
                     $is_checked = '';
-                    if(in_array($feature->id, $features_array)){
+                    if (in_array($feature->id, $features_array)) {
                       $is_checked = 'checked';
-
                     }
-                    echo '<input id="fcheck-' . $feature->id . '" type="checkbox" '.$is_checked.' class="featurecheck" onclick="searchNowListingMap()"  value="' . $feature->id . '" name="features[]">';
+                    echo '<input id="fcheck-' . $feature->id . '" type="checkbox" ' . $is_checked . ' class="featurecheck" onclick="searchNowListingMap()"  value="' . $feature->id . '" name="features[]">';
                     echo '<label for="fcheck-' . $feature->id . '">' . $feature->displayname . '</label>';
                     echo '</div>';
 
@@ -7978,42 +8029,42 @@ if ($active_marker_search) {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 <script type="text/javascript">
   $('#search-box-input').select2({
-      maximumSelectionLength: 10,
-      size: '10',
-      tokenSeparators: [',', ' '],
-      placeholder: "District, Municipality, Location",
-      minimumInputLength: 1,
-      ajax: {
-        url: "/api/getLocationSearch",
-        type: 'POST',
-        dataType: 'json',
-        delay: 250,
-        data: function(params) {
-          var dataToSend = {
-            data: params.term
-          };
-          console.log(dataToSend);
-          return JSON.stringify(dataToSend);
-        },
+    maximumSelectionLength: 10,
+    size: '10',
+    tokenSeparators: [',', ' '],
+    placeholder: "District, Municipality, Location",
+    minimumInputLength: 1,
+    ajax: {
+      url: "/api/getLocationSearch",
+      type: 'POST',
+      dataType: 'json',
+      delay: 250,
+      data: function(params) {
+        var dataToSend = {
+          data: params.term
+        };
+        console.log(dataToSend);
+        return JSON.stringify(dataToSend);
+      },
 
-        processResults: function(data) {
-          return {
-            results: data.map(item => {
-              return {
-                id: item.id,
-                text: item.name + ' (' + item.type + ')',
-                type: item.type
-              };
-            })
-          };
-        },
-        cache: true,
-        contentType: "application/json",
-        error: function(jqXHR, textStatus, errorThrown) {
-          console.error('AJAX error: ' + textStatus + ', ' + errorThrown);
-        }
+      processResults: function(data) {
+        return {
+          results: data.map(item => {
+            return {
+              id: item.id,
+              text: item.name + ' (' + item.type + ')',
+              type: item.type
+            };
+          })
+        };
+      },
+      cache: true,
+      contentType: "application/json",
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.error('AJAX error: ' + textStatus + ', ' + errorThrown);
       }
-    });
+    }
+  });
   $(document).ready(function() {
     var selectedBedValue = 'Any';
     var selectedBathroomValue = 'Any';
@@ -8058,8 +8109,9 @@ if ($active_marker_search) {
     //Listens for when a button inside the filter_beds class is pressed and updates as needed
     $('body').on('click', '.filter_beds button', function() {
       $('.filter_beds button').removeClass('SelectedBed');
+      $('.filter_beds button').attr('aria-pressed', 'false');
       $(this).addClass('SelectedBed');
-      selectedBedValue = $(this).val();
+      $(this).attr('aria-pressed', 'true');
       updateSelectionText();
       searchNowListingMap();
     });
@@ -8067,8 +8119,9 @@ if ($active_marker_search) {
     //Listens for when a button inside the filter_baths class is pressed and updates as needed
     $('body').on('click', '.filter_baths button', function() {
       $('.filter_baths button').removeClass('SelectedBath');
+      $('.filter_baths button').attr('aria-pressed', 'false');
       $(this).addClass('SelectedBath');
-      selectedBathroomValue = $(this).val();
+      $(this).attr('aria-pressed', 'true');
       updateSelectionText();
       searchNowListingMap();
     });
@@ -8079,61 +8132,7 @@ if ($active_marker_search) {
       $('#bedsAndBathButton').text(displayText);
     }
 
-    $('body').on('change', '#exposed-filters-exact-beds-check', function() {
-      var useExactMatch = $(this).is(':checked');
-
-      $('.filter_beds button').each(function() {
-        var buttonText = $(this).text();
-
-        if (useExactMatch) {
-          buttonText = buttonText.replace('+', '');
-        } else {
-          var buttonValue = $(this).attr('value');
-          if (buttonValue !== '0' && !buttonText.includes('+')) {
-            buttonText += '+';
-          }
-        }
-
-        $(this).text(buttonText);
-      });
-      var bedsButtonText = $('#bedsAndBathButton').text();
-      if (useExactMatch) {
-        selectedBedValue = selectedBedValue.replace('+', '');
-      } else {
-        if (!selectedBedValue.includes('+') && selectedBedValue !== 'Any') {
-          selectedBedValue += '+';
-        }
-      }
-      updateSelectionText();
-    });
-
-    $('body').on('change', '#exposed-filters-exact-baths-check', function() {
-      var useExactMatch = $(this).is(':checked');
-
-      $('.filter_baths button').each(function() {
-        var buttonText = $(this).text();
-
-        if (useExactMatch) {
-          buttonText = buttonText.replace('+', '');
-        } else {
-          var buttonValue = $(this).attr('value');
-          if (buttonValue !== '0' && !buttonText.includes('+')) {
-            buttonText += '+';
-          }
-        }
-
-        $(this).text(buttonText);
-      });
-      var bedsButtonText = $('#bedsAndBathButton').text();
-      if (useExactMatch) {
-        selectedBedValue = selectedBedValue.replace('+', '');
-      } else {
-        if (!selectedBedValue.includes('+') && selectedBedValue !== 'Any') {
-          selectedBedValue += '+';
-        }
-      }
-      updateSelectionText();
-    });
+    
 
     $('body').on('change', '.popover #minPrice, .popover #maxPrice', function() {
       // Fetch the selected values from the dropdowns within the active popover
@@ -8151,7 +8150,7 @@ if ($active_marker_search) {
     });
 
 
-    
+
 
 
 
@@ -8197,6 +8196,76 @@ if ($active_marker_search) {
 
     //   window.location.href = url;
     // });
+
+    $('body').on('change', '#exposed-filters-exact-beds-check', function() {
+      var useExactMatch = $(this).is(':checked');
+      console.log(useExactMatch);
+      if (useExactMatch) {
+        exactMatchBed = 1
+        searchNowListingMap();
+      } else {
+        exactMatchBed = 0;
+        searchNowListingMap();
+      }
+      $('.filter_beds button').each(function() {
+        var buttonText = $(this).text();
+        if (useExactMatch) {
+          buttonText = buttonText.replace('+', '');
+        } else {
+          var buttonValue = $(this).attr('value');
+          if (buttonValue !== '0' && !buttonText.includes('+') &&  $(this).attr('value') != '') {
+            buttonText += '+';
+          }
+        }
+        $(this).text(buttonText);
+      });
+
+      var bedsButtonText = $('#bedsAndBathButton').text();
+      if (useExactMatch) {
+
+        selectedBedValue = selectedBedValue.replace('+', '');
+      } else {
+        if (!selectedBedValue.includes('+') && selectedBedValue !== 'Any') {
+          selectedBedValue += '+';
+        }
+      }
+      updateSelectionText();
+    });
+
+    $('body').on('change', '#exposed-filters-exact-baths-check', function() {
+      var useExactMatch = $(this).is(':checked');
+      if (useExactMatch) {
+        exactMatchBath = 1
+        searchNowListingMap();
+      } else {
+        exactMatchBath = 0;
+        searchNowListingMap();
+      }
+
+      $('.filter_baths button').each(function() {
+        var buttonText = $(this).text();
+
+        if (useExactMatch) {
+          buttonText = buttonText.replace('+', '');
+        } else {
+          var buttonValue = $(this).attr('value');
+          if (buttonValue !== '0' && !buttonText.includes('+') &&  $(this).attr('value') != '') {
+            buttonText += '+';
+          }
+        }
+
+        $(this).text(buttonText);
+      });
+      var bedsButtonText = $('#bedsAndBathButton').text();
+      if (useExactMatch) {
+        selectedBedValue = selectedBedValue.replace('+', '');
+      } else {
+        if (!selectedBedValue.includes('+') && selectedBedValue !== 'Any') {
+          selectedBedValue += '+';
+        }
+      }
+      updateSelectionText();
+    });
 
   });
   // clearDrawingsMap();
@@ -8250,37 +8319,16 @@ if ($active_marker_search) {
     }
   }
 
+  var exactMatchBed = '<?php if (isset($_GET['exactmatchbed'])) echo $_GET['exactmatchbed'];
+                        else echo ""; ?>';
 
-  var listing_price_range = <?php echo json_encode(isset($_GET['price_range']) ? explode(',', $_GET['price_range']) : []); ?>;
-  if (listing_price_range.length >= 2) {
-    var price1 = listing_price_range[0];
-    var price2 = listing_price_range[1];
+  var exactMatchBath = '<?php if (isset($_GET['exactmatchbed'])) echo $_GET['exactmatchbed'];
+                        else echo ""; ?>';
 
-    // Select the minimum price option
-    var minPriceSelect = document.querySelector(' #minPrice')
-    for (var option of minPriceSelect.options) {
-      if (option.value == price1) {
-        option.selected = true;
-        break;
-      }
-    }
 
-    // Select the maximum price option
-    var maxPriceSelect = document.querySelector(' #maxPrice')
-    for (var option of maxPriceSelect.options) {
-      if (option.value == price2) {
-        option.selected = true;
-        break;
-      }
-    }
-  }
-  // for (var j = 0; j < listing_status.length; j++) {
-  //   var optionValue = listing_status[j];
-  //   var optionElement = document.querySelector('.propertStatus option[value="' + optionValue + '"]');
-  //   if (optionElement) {
-  //     optionElement.selected = true;
-  //   }
-  // }
+
+  var price1 = $('#minPrice').val();
+  var price2 = $('#maxPrice').val();
 
   var tempDistrictArr = <?php echo json_encode(isset($_GET['district']) ? explode(',', $_GET['district']) : []); ?>;
   var tempMunicipalitiesArr = <?php echo json_encode(isset($_GET['municipality']) ? explode(',', $_GET['municipality']) : []); ?>;
@@ -8313,7 +8361,10 @@ if ($active_marker_search) {
 
 
   function loadActiveListingsListingGrid(maker_position, set, zoom, freedraw = false) {
+
+    alert('we are here');
     customer_id = '<?php echo $user_id; ?>';
+
 
     if (document.querySelector(".filter_baths .SelectedBath")) {
       var selectedBathValue = document.querySelector(".filter_baths .SelectedBath").value;
@@ -8329,6 +8380,28 @@ if ($active_marker_search) {
         number_of_bedrooms = selectedBedValue;
       }
     }
+
+    alert('number_of_bathrooms: ' + number_of_bathrooms);
+    //alert('exact match number_of_bathrooms: ' + number_of_bathrooms_exact_match);
+    alert('number_of_bedrooms: ' + number_of_bedrooms);
+    //alert('exact match number_of_bedrooms: ' + number_of_bedrooms_exact_match);
+    // alert('property_type: ' + property_type);
+    // alert('property_status: ' + property_status);
+    // alert('min_price: ' + min_price);
+    // alert('max_price: ' + max_price);
+    // alert('min_square_feet: ' + min_square_feet);
+    // alert('max_square_feet: ' + max_square_feet);
+    // alert('min_lot_size: ' + min_lot_size);
+    // alert('max_lot_size: ' + max_lot_size);
+    // alert('features: ' + features);
+    // alert('districts: ' + districts);
+    // alert('municipalities: ' + municipalities);
+    // alert('locations: ' + locations);
+
+
+
+    alert(number_of_bathrooms);
+
 
     var tempFeatures = [];
     var features = document.getElementsByClassName('featurecheck');
@@ -8387,31 +8460,6 @@ if ($active_marker_search) {
 
 
 
-    var propertyMinPrice = document.querySelector('.popover #minPrice');
-    if (propertyMinPrice) {
-      var selectedOption = propertyMinPrice.options[propertyMinPrice.selectedIndex];
-      if (selectedOption) {
-        price1 = selectedOption.value;
-      }
-    }
-
-    var propertyMaxPrice = document.querySelector('.popover #maxPrice');
-    if (propertyMaxPrice) {
-      var selectedOption = propertyMaxPrice.options[propertyMaxPrice.selectedIndex];
-      if (selectedOption) {
-        price2 = selectedOption.value;
-      }
-    }
-
-
-
-
-
-    var size1 = 0;
-
-    var size2 = 1300;
-
-
 
     orderbyName = "";
     orderbyType = "";
@@ -8440,9 +8488,11 @@ if ($active_marker_search) {
     newurl += '&property_type=' + tempPropertTypes;
     newurl += '&bedrooms=' + number_of_bedrooms;
     newurl += '&bathrooms=' + number_of_bathrooms;
-    newurl += '&area_size=' + size1 + ',' + size2;
-    newurl += '&price_range=' + price1 + ',' + price2;
+    newurl += '&area_size=' + $('#minSquareFeet').val() + ',' + $('#maxSquareFeet').val();
+    newurl += '&price_range=' + $('#minPrice').val() + ',' + $('#maxPrice').val();
     newurl += '&features=' + tempFeatures;
+    newurl += '&exactmatchbed=' + exactMatchBed;
+    newurl += '&exactmatchbath=' + exactMatchBath;
     newurl += '&draw_map=' + '';
     newurl += '&view=' + view;
     window.history.pushState({
@@ -8455,10 +8505,10 @@ if ($active_marker_search) {
       "number_of_bedrooms": number_of_bedrooms,
       "listing_types": tempPropertTypes,
       "features": tempFeatures,
-      "min_area_size": parseInt(size1),
-      "max_area_size": parseInt(size2),
-      "min_price": parseInt(price1),
-      "max_price": parseInt(price2),
+      "min_area_size": $('#minSquareFeet').val(),
+      "max_area_size": $('#maxSquareFeet').val(),
+      "min_price": $('#minPrice').val(),
+      "max_price": $('#maxPrice').val(),
       "property_type_array": tempPropertStatus,
       "districts": tempDistrictArr,
       "municipalities": tempMunicipalitiesArr,
