@@ -5,9 +5,7 @@ if (isset($_GET['view']) && $_GET['view'] == 'map') {
 }
 $search_string = "";
 
-$price_range_array = isset($_GET['price_range'])?$_GET['price_range']:'';
-$price_range_values = explode(',',$price_range_array);
-print_r($price_range_array);
+$price_range_array = isset($_GET['price_range'])?explode(',',$_GET['price_range']):array();
 
 $minprice = '';
 $maxprice = '';
@@ -17,6 +15,38 @@ $maxprice = '';
  if(isset($price_range_values[1]) && is_numeric($price_range_values[1])){
   $maxprice = $price_range_values[1];
  }
+
+$minsquarefeet = '';
+$maxsquarefeet = '';
+$minslotsize = '';
+$maxlotsize = '';
+
+$area_size_array = isset($_GET['area_size'])?explode(',',$_GET['area_size']):array();
+ if(isset($area_size_array[0]) && is_numeric($area_size_array[0])){
+  $minsquarefeet = $area_size_array[0];
+ }
+ if(isset($area_size_array[1]) && is_numeric($area_size_array[1])){
+  $maxsquarefeet = $area_size_array[1];
+ }
+
+ 
+$lot_size_array = isset($_GET['area_size'])?explode(',',$_GET['area_size']):array();
+ if(isset($lot_size_array[0]) && is_numeric($lot_size_array[0])){
+  $minslotsize = $lot_size_array[0];
+ }
+ if(isset($lot_size_array[1]) && is_numeric($lot_size_array[1])){
+  $maxslotsize = $lot_size_array[1];
+ }
+
+ echo $minslotsize.'<br>';
+ echo $maxslotsize.'<br>';
+
+ $features_array = isset($_GET['features'])?explode(',', $_GET['features']):array();
+
+ echo '<pre>';
+//  print_r($_GET);
+ print_r($features_array);
+ echo '</pre>';
  
 //  list($minsquarefeet, $maxsquarefeet) = explode(',', $_GET['area_size']);
 
@@ -7727,22 +7757,17 @@ if ($active_marker_search) {
                   <div class="col-5">
                     <select id="minSquareFeet" name="minSquareFeet" onchange="searchNowListingMap()">
                       <option value="">Any</option>
-                      <option value="500">500</option>
-                      <option value="750">750</option>
-                      <option value="1000">1,000</option>
-                      <option value="1250">1,250</option>
-                      <option value="1500">1,500</option>
-                      <option value="1750">1,750</option>
-                      <option value="2000">2,000</option>
-                      <option value="2250">2,250</option>
-                      <option value="2500">2,500</option>
-                      <option value="2750">2,750</option>
-                      <option value="3000">3,000</option>
-                      <option value="3500">3,500</option>
-                      <option value="4000">4,000</option>
-                      <option value="5000">5,000</option>
-                      <option value="6000">6,000</option>
-                      <option value="7000">7,000</option>
+                      <?php
+                      
+                   $max_range = [500,750,1000,1250,1750,2000,2250,2500,2750,3000,3500,4000,5000,6000,7000];
+                   foreach($max_range as $maximum_value ){
+                    $is_selected = '';
+                    if($minsquarefeet == $maximum_value){
+                      $is_selected = 'selected';
+                    }
+                    echo '<option value="'.$maximum_value.'" '.$is_selected.'>'.number_format($maximum_value).'</option>';
+                   }
+                  ?>
 
                     </select>
                   </div>
@@ -7752,22 +7777,16 @@ if ($active_marker_search) {
                   <div class="col-5">
                     <select id="maxSquareFeet" name="maxSquareFeet" onchange="searchNowListingMap()">
                       <option value="">Any</option>
-                      <option value="500">500</option>
-                      <option value="750">750</option>
-                      <option value="1000">1,000</option>
-                      <option value="1250">1,250</option>
-                      <option value="1500">1,500</option>
-                      <option value="1750">1,750</option>
-                      <option value="2000">2,000</option>
-                      <option value="2250">2,250</option>
-                      <option value="2500">2,500</option>
-                      <option value="2750">2,750</option>
-                      <option value="3000">3,000</option>
-                      <option value="3500">3,500</option>
-                      <option value="4000">4,000</option>
-                      <option value="5000">5,000</option>
-                      <option value="6000">6,000</option>
-                      <option value="7000">7,000</option>
+                      <?php
+                   $max_range = [500,750,1000,1250,1750,2000,2250,2500,2750,3000,3500,4000,5000,6000,7000];
+                   foreach($max_range as $maximum_value ){
+                    $is_selected = '';
+                    if($maxsquarefeet == $maximum_value){
+                      $is_selected = 'selected';
+                    }
+                    echo '<option value="'.$maximum_value.'" '.$is_selected.'>'.number_format($maximum_value).'</option>';
+                   }
+                  ?>
 
                     </select>
                   </div>
@@ -7785,8 +7804,16 @@ if ($active_marker_search) {
                   <div class="col-5">
                     <select id="minLotSize" name="minLotSize" onchange="searchNowListingMap()">
                       <option value="">Any</option>
-                      <option value="500">500</option>
-                      <option value="750">750</option>
+                      <?php
+                   $max_range = [500,750,1000,1250,1750,2000,2250,2500,2750,3000,3500,4000,5000,6000,7000];
+                   foreach($max_range as $maximum_value ){
+                    $is_selected = '';
+                    if($minslotsize == $maximum_value){
+                      $is_selected = 'selected';
+                    }
+                    echo '<option value="'.$maximum_value.'" '.$is_selected.'>'.number_format($maximum_value).'</option>';
+                   }
+                  ?>
                     </select>
                   </div>
                   <div class="col-xx text-center pl-0 pr-0">
@@ -7795,8 +7822,16 @@ if ($active_marker_search) {
                   <div class="col-5">
                     <select id="maxLotSize" name="maxLotSize" onchange="searchNowListingMap()">
                       <option value="">Any</option>
-                      <option value="500">500</option>
-                      <option value="750">750</option>
+                      <?php
+                   $max_range = [500,750,1000,1250,1750,2000,2250,2500,2750,3000,3500,4000,5000,6000,7000];
+                   foreach($max_range as $maximum_value ){
+                    $is_selected = '';
+                    if($maxlotsize == $maximum_value){
+                      $is_selected = 'selected';
+                    }
+                    echo '<option value="'.$maximum_value.'" '.$is_selected.'>'.number_format($maximum_value).'</option>';
+                   }
+                  ?>
                     </select>
                   </div>
                 </div>
@@ -7818,7 +7853,12 @@ if ($active_marker_search) {
                     }
 
                     echo '<div class="col-md-6 feature-item">';
-                    echo '<input id="fcheck-' . $feature->id . '" type="checkbox" class="featurecheck" onclick="searchNowListingMap()"  value="' . $feature->id . '" name="features[]">';
+                    $is_checked = '';
+                    if(in_array($feature->id, $features_array)){
+                      $is_checked = 'checked';
+
+                    }
+                    echo '<input id="fcheck-' . $feature->id . '" type="checkbox" '.$is_checked.' class="featurecheck" onclick="searchNowListingMap()"  value="' . $feature->id . '" name="features[]">';
                     echo '<label for="fcheck-' . $feature->id . '">' . $feature->displayname . '</label>';
                     echo '</div>';
 

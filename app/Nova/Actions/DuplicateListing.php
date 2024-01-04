@@ -64,7 +64,7 @@ class DuplicateListing extends Action
         $Listing->status_id = $models->first()->status_id;
         $Listing->delivery_time_id = $models->first()->delivery_time_id;
         $Listing->internal_status_id = $models->first()->internal_status_id;
-        $Listing->owner_id = $models->first()->owner_id;
+        $Listing->owner_id = $models->first()->owner_id;Other Features!
         $Listing->save();
         return Action::message("Duplicate successfully");
     }
