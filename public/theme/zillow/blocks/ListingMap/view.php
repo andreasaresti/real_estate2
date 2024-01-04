@@ -38,8 +38,6 @@ if (isset($lot_size_array[1]) && is_numeric($lot_size_array[1])) {
   $maxlotsize = $lot_size_array[1];
 }
 
-echo $minlotsize . '<br>';
-echo $maxlotsize . '<br>';
 
 $features_array = isset($_GET['features']) ? explode(',', $_GET['features']) : array();
 $number_of_bedrooms = isset($_GET['bedrooms']) ? $_GET['bedrooms'] : '';
@@ -47,16 +45,7 @@ $number_of_bathrooms = isset($_GET['bathrooms']) ? $_GET['bathrooms'] : '';
 
 $exactNumBaths = isset($_GET['exactmatchbath']) ? $_GET['exactmatchbath'] : '';
 
-$exactNumBeds= isset($_GET['exactmatchbed']) ? $_GET['exactmatchbed'] : '';
-
-echo 'number_of_bedrooms: ' . $number_of_bedrooms . '<br>';
-echo 'number_of_bathrooms: ' . $number_of_bathrooms . '<br>';
-echo $maxlotsize . '<br>';
-
-echo '<pre>';
-//  print_r($_GET);
-print_r($features_array);
-echo '</pre>';
+$exactNumBeds = isset($_GET['exactmatchbed']) ? $_GET['exactmatchbed'] : '';
 
 //  list($minsquarefeet, $maxsquarefeet) = explode(',', $_GET['area_size']);
 
@@ -66,9 +55,6 @@ echo '</pre>';
 //  if(!is_numeric($maxsquarefeet)){
 //   $maxsquarefeet = '';
 //  }
-
-echo 'minprice: ' . $minprice . '<br>';
-echo 'maxprice: ' . $maxprice . '<br>';
 ?>
 
 <style id="server-styles">
@@ -7674,12 +7660,12 @@ if ($active_marker_search) {
                   if ($exactNumBeds == 1) {
                     $suffix = '';
                   }
-                  echo '<button aria-disabled="false" aria-pressed="' . $aria_pressed . '" value="' . $bedroom . '" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp bedValue">' . $bedroom . $suffix. '</button>';
+                  echo '<button aria-disabled="false" aria-pressed="' . $aria_pressed . '" value="' . $bedroom . '" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp bedValue">' . $bedroom . $suffix . '</button>';
                 }
                 ?>
               </div>
               <div style="display: flex; align-items: center;">
-              <?php
+                <?php
                 $checked = "";
                 if ($exactNumBeds == 1) {
                   $checked = "checked";
@@ -7715,7 +7701,7 @@ if ($active_marker_search) {
                   if ($exactNumBaths == 1) {
                     $suffix = '';
                   }
-                  echo '<button aria-disabled="false" aria-pressed="' . $aria_pressed . '" value="' . $bathroom . '" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp bathroomValue">' . $bathroom .$suffix. '</button>';
+                  echo '<button aria-disabled="false" aria-pressed="' . $aria_pressed . '" value="' . $bathroom . '" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 cRyIQp bathroomValue">' . $bathroom . $suffix . '</button>';
                 }
                 ?>
               </div>
@@ -7992,8 +7978,14 @@ if ($active_marker_search) {
                   <label class="input-group-text bg-transparent border-0 text-uppercase letter-spacing-093 pr-1 pl-3" for="inputGroupSelect01"><i class="fas fa-align-left fs-16 pr-2"></i>Sortby:</label>
                   <select class="form-control border-0 bg-transparent shadow-none p-0 selectpicker sortby" onchange="searchNowListingMap()" data-style="bg-transparent border-0 font-weight-600 btn-lg pl-0 pr-3" id="sortby" name="sortby">
                     <option value="1">Latest</option>
-                    <option value="2">Price(low to high)</option>
-                    <option value="3">Price(high to low)</option>
+                    <option value="2">Price(high to low)</option>
+                    <option value="3">Price(low to high)</option>
+                    <option value="4">Newest</option>
+                    <option value="5">Bedrooms</option>
+                    <option value="6">Bathrooms</option>
+                    <option value="7">Square Feet</option>
+                    <option value="8">Lot Size</option>
+                    <option value="9">Default</option>
                   </select>
                 </div>
 
@@ -8132,7 +8124,7 @@ if ($active_marker_search) {
       $('#bedsAndBathButton').text(displayText);
     }
 
-    
+
 
     $('body').on('change', '.popover #minPrice, .popover #maxPrice', function() {
       // Fetch the selected values from the dropdowns within the active popover
@@ -8213,7 +8205,7 @@ if ($active_marker_search) {
           buttonText = buttonText.replace('+', '');
         } else {
           var buttonValue = $(this).attr('value');
-          if (buttonValue !== '0' && !buttonText.includes('+') &&  $(this).attr('value') != '') {
+          if (buttonValue !== '0' && !buttonText.includes('+') && $(this).attr('value') != '') {
             buttonText += '+';
           }
         }
@@ -8249,7 +8241,7 @@ if ($active_marker_search) {
           buttonText = buttonText.replace('+', '');
         } else {
           var buttonValue = $(this).attr('value');
-          if (buttonValue !== '0' && !buttonText.includes('+') &&  $(this).attr('value') != '') {
+          if (buttonValue !== '0' && !buttonText.includes('+') && $(this).attr('value') != '') {
             buttonText += '+';
           }
         }
@@ -8319,37 +8311,11 @@ if ($active_marker_search) {
     }
   }
 
-  var exactMatchBed = '<?php if (isset($_GET['exactmatchbed'])) echo $_GET['exactmatchbed'];
-                        else echo ""; ?>';
-
-  var exactMatchBath = '<?php if (isset($_GET['exactmatchbed'])) echo $_GET['exactmatchbed'];
-                        else echo ""; ?>';
 
 
 
   var price1 = $('#minPrice').val();
   var price2 = $('#maxPrice').val();
-
-  var tempDistrictArr = <?php echo json_encode(isset($_GET['district']) ? explode(',', $_GET['district']) : []); ?>;
-  var tempMunicipalitiesArr = <?php echo json_encode(isset($_GET['municipality']) ? explode(',', $_GET['municipality']) : []); ?>;
-  var tempLocationArr = <?php echo json_encode(isset($_GET['location']) ? explode(',', $_GET['location']) : []); ?>;
-
-
-  // map_init_circle([], [0,0], 0, 9);
-  // localStorage.clear();
-  //  localStorage.removeItem("freedraw-polys");
-
-  // initial_load();
-
-
-
-  // function initial_load(){
-  //   var district = '';
-  //   var municipality = '';
-  //   var location = '';
-
-  // }
-
 
   loadActiveListingsListingMap([0, 0], 0, 9);
 
@@ -8362,7 +8328,6 @@ if ($active_marker_search) {
 
   function loadActiveListingsListingGrid(maker_position, set, zoom, freedraw = false) {
 
-    alert('we are here');
     customer_id = '<?php echo $user_id; ?>';
 
 
@@ -8381,9 +8346,9 @@ if ($active_marker_search) {
       }
     }
 
-    alert('number_of_bathrooms: ' + number_of_bathrooms);
+    //alert('number_of_bathrooms: ' + number_of_bathrooms);
     //alert('exact match number_of_bathrooms: ' + number_of_bathrooms_exact_match);
-    alert('number_of_bedrooms: ' + number_of_bedrooms);
+    //alert('number_of_bedrooms: ' + number_of_bedrooms);
     //alert('exact match number_of_bedrooms: ' + number_of_bedrooms_exact_match);
     // alert('property_type: ' + property_type);
     // alert('property_status: ' + property_status);
@@ -8400,7 +8365,9 @@ if ($active_marker_search) {
 
 
 
-    alert(number_of_bathrooms);
+    //alert(number_of_bathrooms);
+
+    // alert('here');
 
 
     var tempFeatures = [];
@@ -8410,6 +8377,11 @@ if ($active_marker_search) {
         tempFeatures.push(features[j].value);
       }
     }
+
+
+    tempDistrictArr = [];
+    tempMunicipalitiesArr = [];
+    tempLocationArr = [];
 
 
     if ($('#search-box-input').data('select2')) {
@@ -8422,6 +8394,7 @@ if ($active_marker_search) {
           switch (selectedItem.type) {
             case 'District':
               tempDistrictArr.push(selectedItem.id);
+              console.log(tempDistrictArr);
               break;
             case 'Municipality':
               tempMunicipalitiesArr.push(selectedItem.id);
@@ -8479,26 +8452,30 @@ if ($active_marker_search) {
     }
     console.log("marker_search" + marker_search);
 
-    var newurl = '<?php echo env('APP_URL'); ?>/page/listings?'
-    newurl += 's=' + marker_search;
-    newurl += '&district=' + tempDistrictArr;
-    newurl += '&municipality=' + tempMunicipalitiesArr;
-    newurl += '&location=' + tempLocationArr;
-    newurl += '&property_status=' + tempPropertStatus;
-    newurl += '&property_type=' + tempPropertTypes;
-    newurl += '&bedrooms=' + number_of_bedrooms;
-    newurl += '&bathrooms=' + number_of_bathrooms;
-    newurl += '&area_size=' + $('#minSquareFeet').val() + ',' + $('#maxSquareFeet').val();
-    newurl += '&price_range=' + $('#minPrice').val() + ',' + $('#maxPrice').val();
-    newurl += '&features=' + tempFeatures;
-    newurl += '&exactmatchbed=' + exactMatchBed;
-    newurl += '&exactmatchbath=' + exactMatchBath;
-    newurl += '&draw_map=' + '';
-    newurl += '&view=' + view;
-    window.history.pushState({
-      path: newurl
-    }, '', newurl);
+    // var newurl = '<?php echo env('APP_URL'); ?>/page/listings?'
+    // newurl += 's=' + marker_search;
+    // newurl += '&district=' + tempDistrictArr;
+    // newurl += '&municipality=' + tempMunicipalitiesArr;
+    // newurl += '&location=' + tempLocationArr;
+    // newurl += '&property_status=' + tempPropertStatus;
+    // newurl += '&property_type=' + tempPropertTypes;
+    // newurl += '&bedrooms=' + number_of_bedrooms;
+    // newurl += '&bathrooms=' + number_of_bathrooms;
+    // newurl += '&area_size=' + $('#minSquareFeet').val() + ',' + $('#maxSquareFeet').val();
+    // newurl += '&price_range=' + $('#minPrice').val() + ',' + $('#maxPrice').val();
+    // newurl += '&features=' + tempFeatures;
+    // newurl += '&exactmatchbed=' + exactMatchBed;
+    // newurl += '&exactmatchbath=' + exactMatchBath;
+    // newurl += '&draw_map=' + '';
+    // newurl += '&view=' + view;
+    // window.history.pushState({
+    //   path: newurl
+    // }, '', newurl);
     var markers = localStorage.getItem("freedraw-polys");
+
+    // // alert('here in');
+    exactMatchBed = 0;
+    exactMatchBath = 0;
 
     const sendData = {
       "number_of_bathrooms": number_of_bathrooms,
@@ -8513,12 +8490,13 @@ if ($active_marker_search) {
       "districts": tempDistrictArr,
       "municipalities": tempMunicipalitiesArr,
       "locations": tempLocationArr,
-      "search_term": search_term,
       "customer_id": customer_id,
       "page": document.getElementById("page_index").value,
       "per_page": document.getElementById("paginSize").value,
       "orderbyName": orderbyName,
       "orderbyType": orderbyType,
+      "exactMatchBed": exactMatchBed,
+      "exactMatchBath": exactMatchBath,
       "radius": maker_position,
       "set": set,
       "retrieve_markers": 1

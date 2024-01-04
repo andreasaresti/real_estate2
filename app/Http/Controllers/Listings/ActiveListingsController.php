@@ -156,11 +156,21 @@ class ActiveListingsController extends Controller
 
 
         if ($request->has('number_of_bedrooms') && $request->number_of_bedrooms != '') {
-            $query = $query->where('number_of_bedrooms', '>=', $request->number_of_bedrooms);
+            if ($request->has('exactmatchbed') && $request->exactmatchbed == 1) {
+                $query = $query->where('number_of_bedrooms', '=', $request->number_of_bedrooms);
+            }
+            else{
+                $query = $query->where('number_of_bedrooms', '>=', $request->number_of_bedrooms);
+            }
         }
 
         if ($request->has('number_of_bathrooms') && $request->number_of_bathrooms != '') {
-            $query = $query->where('number_of_bathrooms', '>=', $request->number_of_bathrooms);
+            if ($request->has('$exactNumBaths') && $request->exactNumBaths == 1) {
+                $query = $query->where('number_of_bathrooms', '=', $request->number_of_bathrooms);
+            }
+            else{
+                $query = $query->where('number_of_bathrooms', '>=', $request->number_of_bathrooms);
+            }
         }
         if ($request->has('min_area_size') && $request->min_area_size != '') {
             $query = $query->where('area_size', '>=', $request->min_area_size);
@@ -186,25 +196,26 @@ class ActiveListingsController extends Controller
 
         if ($request->has('radius') && $request->radius[0] != '' && $request->radius[1] != '' && $request->set != 0) {
             $query = $query->whereRaw('(sqrt(pow( ? - latitude, 2) + pow( ? - longitude, 2))) < 0.0090437 * ?', [$request->radius[0], $request->radius[1], $request->set]);
-        } else {
-            if ($request->has('locations') && count($request->locations) > 0) {
-                $query = $query->whereIn('location_id', $request->locations);
-            }
-            if ($request->has('municipalities') && count($request->municipalities) > 0) {
+        } 
+        else {
+            if (($request->has('locations') && count($request->locations) > 0) || ($request->has('municipalities') && count($request->municipalities) > 0) || ($request->has('districts') && count($request->districts) > 0)) {
+
                 $query = $query->whereIn('listings.id', function ($subquery) use ($request) {
-                    $subquery->select('listings.id')
-                        ->from('listings')
-                        ->join('locations', 'listings.location_id', '=', 'locations.id')
-                        ->whereIn('locations.municipality_id', $request->municipalities);
-                });
-            }
-            if ($request->has('districts') && count($request->districts) > 0) {
-                $query = $query->whereIn('listings.id', function ($subquery) use ($request) {
-                    $subquery->select('listings.id')
-                        ->from('listings')
-                        ->join('locations', 'listings.location_id', '=', 'locations.id')
-                        ->join('municipalities', 'locations.municipality_id', '=', 'municipalities.id')
-                        ->whereIn('municipalities.district_id', $request->districts);
+                    
+                        $subquery->select('listings.id')
+                            ->from('listings')
+                            ->join('locations', 'listings.location_id', '=', 'locations.id')
+                            ->join('municipalities', 'locations.municipality_id', '=', 'municipalities.id');
+                            if ($request->has('locations') && count($request->locations) > 0) {
+                                $subquery->orwhereIn('locations.id', $request->locations);
+                            }
+                            if ($request->has('districts') && count($request->districts) > 0) {
+                                $subquery->orwhereIn('municipalities.district_id', $request->districts);
+                            }
+                            if ($request->has('municipalities') && count($request->municipalities) > 0) {
+                                $subquery->orwhereIn('locations.municipality_id', $request->municipalities);
+                            }
+                            $subquery->get();
                 });
             }
         }
