@@ -156,7 +156,7 @@ class ActiveListingsController extends Controller
 
 
         if ($request->has('number_of_bedrooms') && $request->number_of_bedrooms != '') {
-            if ($request->has('exactmatchbed') && $request->exactmatchbed == 1) {
+            if ($request->has('exactMatchBed') && $request->exactMatchBed == 1) {
                 $query = $query->where('number_of_bedrooms', '=', $request->number_of_bedrooms);
             }
             else{
@@ -165,7 +165,7 @@ class ActiveListingsController extends Controller
         }
 
         if ($request->has('number_of_bathrooms') && $request->number_of_bathrooms != '') {
-            if ($request->has('$exactNumBaths') && $request->exactNumBaths == 1) {
+            if ($request->has('exactMatchBath') && $request->exactMatchBath == 1) {
                 $query = $query->where('number_of_bathrooms', '=', $request->number_of_bathrooms);
             }
             else{

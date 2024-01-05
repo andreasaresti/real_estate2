@@ -496,7 +496,7 @@ if (isset($_SESSION["user_id"])) {
                                                                         <ul class="contact-button-group">
                                                                             <li class="contact-button prominent">
                                                                                 <button onclick="showRequestModal()" style="background-color: #006AFF;border-color: #006AFF;color: #FFF;" class="StyledButton-c11n-8-84-3__sc-wpcbcc-0 fKAHIc sc-16sdjcz-0 eObXzv contact-button-condensed ds-button ds-label-small" data-cft-name="contact-button-tour">
-                                                                                    <div style="text-align: center;">Request more Details 123
+                                                                                    <div style="text-align: center;">Request more Details
                                                                                         <!-- <p class="Text-c11n-8-84-3__sc-aiai24-0 StyledParagraph-c11n-8-84-3__sc-18ze78a-0 hTmUSk">as early as today at 11:00 am</p> -->
                                                                                     </div>
                                                                                 </button>
