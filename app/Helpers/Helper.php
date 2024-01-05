@@ -95,14 +95,14 @@ class Helper
         if(count($municipalities) > 0){
             $municipalities_result = Municipality::whereIn('id', $municipalities)->get();
             foreach($municipalities_result as $municipalities){
-                $selected_locations_array[] = ['id' => $municipalities->id, 'name' => $municipalities->name, 'type' => 'Municipalities'];
+                $selected_locations_array[] = ['id' => $municipalities->id, 'name' => $municipalities->name, 'type' => 'Municipality'];
             }
         }
 
         if(count($locations) > 0){
             $locations_result = Location::whereIn('id', $locations)->get();
             foreach($locations_result as $locations){
-                $selected_locations_array[] = ['id' => $locations->id, 'name' => $locations->name, 'type' => 'Locations'];
+                $selected_locations_array[] = ['id' => $locations->id, 'name' => $locations->name, 'type' => 'Location'];
             }
         }
 
